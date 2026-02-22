@@ -1,3 +1,23 @@
-packaging==26.0
-setuptools==82.0.0
-wheel==0.46.3
+# Core
+cytools==1.4.5
+numpy>=2.0
+scipy>=1.12
+tqdm
+
+# CYTools dependencies (pulled automatically, pinned for reproducibility)
+pplpy>=0.8.9
+python-flint>=0.7
+gmpy2>=2.1
+cysignals
+cvxopt
+ortools>=9.8
+osqp
+qpsolvers
+joblib
+requests
+
+# Build tools
+packaging
+setuptools
+wheel
+Cython
