@@ -27,3 +27,20 @@ env/
 dist/
 build/
 *.egg-info/
+
+# Large binary cache files
+*.pkl
+
+# Logs and PID files
+*.log
+*.pid
+
+# Intermediate / scratch outputs
+run_scan.sh
+tangency_cache_test.pkl
+tangency_results_test.csv
+tangency_scan_t1.csv
+tangency_scan_t2.csv
+tangency_scan_t3.csv
+tangency_smoke_test.csv
+tangency_scan_v2.log

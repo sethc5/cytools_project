@@ -1,7 +1,8 @@
 FROM mcr.microsoft.com/devcontainers/python:1-3.12-bookworm
 
-# System dependencies for CYTools (FLINT, PPL, CGAL, GMP, MPFR)
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# System dependencies for CYTools (FLINT, PPL, CGAL, GMP, MPFR, Cython build)
+RUN rm -f /etc/apt/sources.list.d/yarn.list \
+    && apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     cmake \
     pkg-config \

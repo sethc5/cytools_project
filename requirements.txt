@@ -18,6 +18,8 @@ requests
 pypalp==0.2.0
 regfans==0.0.7
 triangulumancer==0.2.0
+platformdirs
+numba
 
 # Build tools
 packaging
