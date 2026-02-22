@@ -1,17 +1,16 @@
-# χ = −6 Calabi-Yau Landscape Scanner
+# 3-Generation Calabi-Yau Search
 
-An open computational search through the [Kreuzer-Skarke database](http://hep.itp.tuwien.ac.at/~kreuzer/CY/) for Calabi-Yau 3-folds with properties compatible with 3-generation particle physics models.
+**Systematic scan of the [Kreuzer-Skarke database](http://hep.itp.tuwien.ac.at/~kreuzer/CY/) for Calabi-Yau 3-folds compatible with 3-generation particle physics.**
 
-**Status**: Active scan. Pipeline operational. Contributors welcome.
+The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-## What This Project Does
+> **Status**: 1,025 polytopes scanned · 157 deep-screened · Pipeline operational · [Contributors welcome](CONTRIBUTING.md)
 
-1. **Scans** the KS database for χ = −6 CY 3-folds (the geometry that gives |χ|/2 = 3 generations)
-2. **Screens** candidates through a 3-tier pipeline: fast topology checks → fibration + bundle probes → full deep analysis
-3. **Catalogues** what works, what doesn't, and why — so nobody repeats the work
-4. **Documents** every bug, formula, and CYTools API gotcha encountered (see [MATH_SPEC.md](MATH_SPEC.md))
+### What's Here
 
-This is primarily a **pipeline and catalogue** project. We're building the sieve and recording what passes through it. If someone finds the Standard Model needle, great — but the reusable tooling and the "ruled out" list are the main deliverables.
+- **A screening pipeline** — scans polytopes for the right topology, then filters through 3 tiers of increasingly expensive geometric checks (divisor structure → fibrations → full cohomology)
+- **A catalogue of results** — what passed, what didn't, and why ([CATALOGUE.md](CATALOGUE.md)) — so nobody has to repeat the work
+- **Documented pitfalls** — 9 CYTools API bugs discovered and worked around ([MATH_SPEC.md](MATH_SPEC.md))
 
 ## The Landscape
 
@@ -126,23 +125,29 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contributions:
 ## File Structure
 
 ```
+# Pipeline scripts
 scan_chi6_h0.py      — Landscape scanner (Stages 1+3)
 tier1_screen.py      — Fast screener: dP divisors, Swiss cheese, symmetry
 tier15_screen.py     — Intermediate: fibrations + 300-bundle probe
 tier2_screen.py      — Deep: exact bundle count, h³, D³, fibrations
-pipeline_h13_P1.py   — Full Stages 1–4 benchmark pipeline
+pipeline_h13_P1.py   — Full Stages 1–4 benchmark on best candidate
 run_t2_batch.sh      — Parallel batch runner (4 pipes)
 
+# Documentation
 FRAMEWORK.md         — 7-stage theoretical pipeline map
-MATH_SPEC.md         — Formulas, conventions, CYTools API contracts, bugs
-CATALOGUE.md         — What's been checked and what's ruled out
+MATH_SPEC.md         — Formulas, CYTools API contracts, 9 documented bugs
+CATALOGUE.md         — What's been checked, what's ruled out
 FINDINGS.md          — Detailed write-ups of key results
 PROCESS_LOG.md       — Chronological investigation diary
-BACKLOG.md           — Task tracking
 
+# Output
 results/             — CSV + log outputs from all runs
-archive/             — Old scripts (kept for audit trail)
-refs/                — Bibliography
+
+# Archive (audit trail — not needed for running the pipeline)
+archive/dragon_slayer/  — h⁰ proof scripts for Polytope 40
+archive/exploration/    — Early scanning & analysis scripts
+archive/data/           — KS spec files, notebooks, images
+archive/docs/           — Superseded documentation
 ```
 
 ## References
