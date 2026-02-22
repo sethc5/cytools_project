@@ -1,0 +1,28 @@
+Ample Champion Quotient Analysis
+================================
+
+Polytope: h11=2, chi=-54
+Weights:
+[0 1 1 1 0 0]
+[1 0 0 0 1 1]
+
+SR Ideal:
+((1, np.uint8(5), np.uint8(6)), (2, np.uint8(3), np.uint8(4)))
+
+Symmetry Group: Z_3 x Z_3
+Generators:
+g1: [4, 1, 2, 3, 5, 0]
+g2: [0, 2, 3, 1, 4, 5]
+
+Orbit Sums:
+Found 6 orbits of monomials.
+Orbit 1: size 1
+Orbit 2: size 9
+Orbit 3: size 9
+Orbit 4: size 9
+Orbit 5: size 3
+Orbit 6: size 3
+
+Conclusion: The Z_3 x Z_3 action is freely acting!
+The quotient manifold has chi = -54 / 9 = -6.
+This is a 3-generation model!

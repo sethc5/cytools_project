@@ -1,0 +1,14 @@
+Fibration Analysis of Polytope 40 (20/20)
+=========================================
+
+h11: 20, h21: 20, chi: 0
+
+Found 3 K3 fibration structures!
+Base P^1 direction in M: [ 0  1  0 -1]
+Base P^1 direction in M: [ 1  0  0 -1]
+Base P^1 direction in M: [ 1 -1  0  0]
+
+Found 3 candidate elliptic fibration structures!
+Base directions in M: [ 0  1  0 -1] and [ 1  0  0 -1] (Polygon points: 9)
+Base directions in M: [ 0  1  0 -1] and [ 1 -1  0  0] (Polygon points: 9)
+Base directions in M: [ 1  0  0 -1] and [ 1 -1  0  0] (Polygon points: 9)
