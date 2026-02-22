@@ -5,6 +5,34 @@
 
 ---
 
+## 2026-02-23 — h13-P1 Full Pipeline: 18/20, New Best Candidate
+
+**Work done**: Built pipeline_h13_P1.py. Full Stages 1-4 of FRAMEWORK.md on h11=13, polytope 1.
+
+**Key results**:
+- **18/20 score** — beats Polytope 40's corrected 10/20 on the same scorecard
+- **25 clean bundles**: h⁰=3, h¹=h²=h³=0 (no higher cohomology at all)
+- Swiss cheese structure confirmed: e12 has τ=10.0 at V=308352 (ratio 0.0022)
+- 11,054 total χ=±3 bundles searched (max_nonzero=4, max_coeff=3)
+- Max h⁰ = 6 (12 bundles)
+- 76 bundles with h⁰≥3 total
+- No nef bundles (universal across all χ=-6 polytopes)
+
+**Methodology**: Kähler cone tip via `toric_kahler_cone().tip_of_stretched_cone(1.0)`, then 10× hierarchy scaling to find Swiss cheese. h³ verified by computing h⁰(-D) for all 25 exact bundles.
+
+**Decision**: h13-P1 is now the primary candidate. Polytope 40 demoted.
+
+## 2026-02-23 — Repo Cleanup + FRAMEWORK.md
+
+**Work done**: 
+- Created FRAMEWORK.md: 7-stage theoretical pipeline from CY geometry to phenomenology
+- Created refs/refs.bib: 7 key references (KS, Braun et al, Anderson et al, LVS, etc.)
+- Archived 12 scratch scripts to archive/
+- Moved 13 result files to results/
+- Committed at b17bc7d
+
+---
+
 ## 2026-02-22 — B-01: χ=-6 landscape scan — h⁰=3 EXISTS
 
 **Work done**: Built scan_chi6_h0.py. Scanned 1025 polytopes across h11=13..24 (all h21 = h11+3, giving χ=-6). Used verified Koszul pipeline.

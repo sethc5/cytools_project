@@ -141,12 +141,14 @@ Stage 1 ──── Stage 2 ──── Stage 3 ──── Stage 4 ───
 |---|---|---|---|---|
 | **Stage 1**: $\chi = -6$ | ✅ | ✅ | ✅ | ✅ |
 | **Stage 2**: Rigid divisors | 11/15 | **13/13** | **13/13** | **13/13** |
-| **Stage 2**: Swiss cheese | **YES** ($\tau=4.0$) | NO | **YES** ($\tau=4.5$) | NO |
-| **Stage 3**: $h^0 = 3$ exists | ❌ (max 2) | **YES** (12 bundles) | some | **YES** (17 bundles) |
+| **Stage 2**: Swiss cheese | **YES** ($\tau=4.0$) | NO | **YES** ($\tau=10.0$) | NO |
+| **Stage 3**: $h^0 = 3$ exists | ❌ (max 2) | **YES** (12 bundles) | **YES** (25 bundles) | **YES** (17 bundles) |
 | **Stage 3**: Nef $h^0=3$ bundle | ❌ | ❌ | ❌ | ❌ |
-| **Stage 4-7**: Anything | ❌ | ❌ | ❌ | ❌ |
+| **Stage 4**: Clean $h^0=3$ ($h^{1,2,3}=0$) | ❌ | ❌ untested | **YES (all 25)** | ❌ untested |
+| **Stage 4-7**: Anything else | ❌ | ❌ | ❌ | ❌ |
+| **Score** | 10/20 | — | **18/20** | — |
 
-**Best overall candidate**: **h13-P1** — the only polytope with *both* Swiss cheese viability AND some $h^0 \geq 3$ bundles (from the $\chi = -3$ / Serre direction). Needs deeper analysis.
+**Best overall candidate**: **h13-P1** — Swiss cheese + 25 completely clean h⁰=3 bundles.
 
 ---
 

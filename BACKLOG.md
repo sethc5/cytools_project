@@ -6,11 +6,8 @@
 
 ## NOW — Active Sprint
 
-### B-10: Deep characterization of h11=13 "New Champions"
-- **Why**: B-01 scan found 3 polytopes at h11=13 (the smallest χ=-6 CYs) with h⁰ up to 6. Poly 0 has 12 exact h⁰=χ=3 bundles. These are the new best 3-generation candidates.
-- **What**: Run the full pipeline on all 3: divisor classification (del Pezzo, K3), Swiss cheese check, nef cone analysis, fibration structure, automorphisms. Compare to Polytope 40.
-- **Acceptance**: Full scorecard for each. Identify THE best overall χ=-6 CY.
-- **Estimate**: Medium (pipeline is written, just needs running).
+### B-10: Deep characterization of h11=13 "New Champions" ✅ DONE
+- Moved to DONE table (D-14). Full pipeline on h13-P1: 18/20 score, 25 clean h⁰=3 bundles.
 
 ### B-02: Rebuild pipeline_40_152.py honestly
 - **Why**: Current pipeline hardcodes `proven_h0_3 = True` (Bug #1). Score is 19/20, not 20/20. The file is misleading as-is.
@@ -76,6 +73,7 @@
 
 | ID | Item | Completed | Commit |
 |----|------|-----------|--------|
+| D-14 | B-10: h13-P1 full pipeline (18/20, 25 clean bundles) | 2026-02-23 | (this session) |
 | D-13 | B-12: Write FRAMEWORK.md (theoretical pipeline) | 2026-02-23 | (this session) |
 | D-12 | B-05: Repo hygiene (archive, results/, refs/) | 2026-02-23 | (this session) |
 | D-11 | B-01: Scan χ=-6 polytopes for h⁰=3 | 2026-02-22 | (this session) |

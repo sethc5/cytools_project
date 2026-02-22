@@ -1,0 +1,645 @@
+/home/seth/dev/.venv/lib/python3.13/site-packages/cytools/config.py:154: UserWarning: 
+**************************************************************
+Warning: You have enabled experimental features of CYTools.
+Some of these features may be broken or not fully tested,
+and they may undergo significant changes in future versions.
+**************************************************************
+
+  warnings.warn(
+========================================================================
+  PIPELINE: h11=13, POLYTOPE 1 (χ=-6)
+  Full analysis — Stages 1-4 of FRAMEWORK.md
+========================================================================
+
+Total h11=13, h21=16 polytopes: 3
+
+────────────────────────────────────────────────────────────
+  STAGE 1: CY GEOMETRY
+────────────────────────────────────────────────────────────
+  h11         = 13
+  h21         = 16
+  χ           = -6
+  n_toric     = 18
+  n_rays      = 17
+  Polytope pts shape: (18, 4)
+
+────────────────────────────────────────────────────────────
+  STAGE 2: DIVISOR ANALYSIS
+────────────────────────────────────────────────────────────
+  Divisor basis indices: [1, 2, 3, 5, 6, 7, 10, 11, 12, 13, 15, 16, 17]
+  c2 (in basis): [16.  2. 18. 18. 12.  6. -4. -2. -2.  2. -4. -4. -4.]
+  # intersection entries: 101
+  Mori cone generators: 73
+  SR ideal generators: 87
+
+  Divisor classification:
+    e0 (toric idx 1): D³=  -2, c₂·D=   16, rigid (D³=-2)
+    e1 (toric idx 2): D³=   5, c₂·D=    2, dP_4 candidate
+    e2 (toric idx 3): D³=  -3, c₂·D=   18, rigid (D³=-3)
+    e3 (toric idx 5): D³=  -3, c₂·D=   18, rigid (D³=-3)
+    e4 (toric idx 6): D³=   0, c₂·D=   12, K3-like (D³=0)
+    e5 (toric idx 7): D³=   3, c₂·D=    6, dP_6 candidate
+    e6 (toric idx 10): D³=   8, c₂·D=   -4, rigid
+    e7 (toric idx 11): D³=   7, c₂·D=   -2, rigid
+    e8 (toric idx 12): D³=   7, c₂·D=   -2, rigid
+    e9 (toric idx 13): D³=   5, c₂·D=    2, dP_4 candidate
+    e10 (toric idx 15): D³=   8, c₂·D=   -4, rigid
+    e11 (toric idx 16): D³=   8, c₂·D=   -4, rigid
+    e12 (toric idx 17): D³=   8, c₂·D=   -4, rigid
+
+  Swiss cheese analysis:
+    Using Kähler cone tip + hierarchy scaling...
+    Kähler cone tip: [ 9.  11.  22.5  7.5 10.   5.  12.5 16.   9.5  7.  14.5  6.   2. ]
+    V(tip) = 310.19
+    e12: τ=10.0, V=308352, τ/V^(2/3)=0.00219 ← SWISS CHEESE
+
+────────────────────────────────────────────────────────────
+  STAGE 3: LINE BUNDLE COHOMOLOGY
+────────────────────────────────────────────────────────────
+  Searching for χ=±3 bundles (max_coeff=3, max_nonzero=4)...
+  Found 11054 total: 5527 with χ=+3, 5527 with χ=-3
+
+  Nefness check (pairing with Mori cone):
+    Mori generator dimension: 18
+    Nef bundles: 0/11054
+    Minimum Mori pairing across all bundles: -19
+
+  Computing h⁰ via Koszul method...
+  Computed: 11054/11054 (overflow: 0)
+  Max h⁰: 6
+  Bundles with h⁰ ≥ 3: 76
+  Bundles with h⁰ = χ = 3: 32
+
+  Top bundles by h⁰:
+  D (basis coords)                                      χ   h⁰  type
+  ──────────────────────────────────────────────────────────────────────
+  -2·e0 + -2·e2 + -3·e3 + -3·e10                       -3    6  h⁰(-D)=h³(D) [93m★★★[0m
+  2·e0 + 2·e2 + 3·e3 + 3·e10                            3    6  h⁰(D) [93m★★★[0m
+  -3·e0 + -3·e2 + -2·e5 + -3·e7                        -3    6  h⁰(-D)=h³(D) [93m★★★[0m
+  3·e0 + 3·e2 + 2·e5 + 3·e7                             3    6  h⁰(D) [93m★★★[0m
+  -3·e0 + -3·e2 + -2·e6 + -2·e10                       -3    6  h⁰(-D)=h³(D) [93m★★★[0m
+  3·e0 + 3·e2 + 2·e6 + 2·e10                            3    6  h⁰(D) [93m★★★[0m
+  -3·e0 + -3·e2 + -2·e7 + -2·e11                       -3    6  h⁰(-D)=h³(D) [93m★★★[0m
+  3·e0 + 3·e2 + 2·e7 + 2·e11                            3    6  h⁰(D) [93m★★★[0m
+  -3·e0 + -3·e2 + -3·e9 + -1·e10                       -3    6  h⁰(-D)=h³(D) [93m★★★[0m
+  3·e0 + 3·e2 + 3·e9 + 1·e10                            3    6  h⁰(D) [93m★★★[0m
+  -3·e0 + -3·e2 + -2·e10 + -2·e12                      -3    6  h⁰(-D)=h³(D) [93m★★★[0m
+  3·e0 + 3·e2 + 2·e10 + 2·e12                           3    6  h⁰(D) [93m★★★[0m
+  -3·e2 + -1·e7 + -2·e10                               -3    5  h⁰(-D)=h³(D) [93m★★★[0m
+  3·e2 + 1·e7 + 2·e10                                   3    5  h⁰(D) [93m★★★[0m
+  -2·e0 + -3·e2 + -3·e5 + -1·e7                        -3    5  h⁰(-D)=h³(D) [93m★★★[0m
+  2·e0 + 3·e2 + 3·e5 + 1·e7                             3    5  h⁰(D) [93m★★★[0m
+  -1·e1 + -3·e2 + -2·e7 + -1·e10                       -3    5  h⁰(-D)=h³(D) [93m★★★[0m
+  1·e1 + 3·e2 + 2·e7 + 1·e10                            3    5  h⁰(D) [93m★★★[0m
+  -3·e2 + -2·e7 + -1·e10 + -1·e12                      -3    5  h⁰(-D)=h³(D) [93m★★★[0m
+  3·e2 + 2·e7 + 1·e10 + 1·e12                           3    5  h⁰(D) [93m★★★[0m
+
+────────────────────────────────────────────────────────────
+  STAGE 4: NET CHIRALITY ANALYSIS
+────────────────────────────────────────────────────────────
+  Analyzing 76 bundles with h⁰ ≥ 3:
+
+  For a line bundle L with χ(L) = h⁰ - h¹ + h² - h³:
+    • h³(L) = h⁰(-L) by Serre duality
+    • h⁰ and h³ are computed
+    • h¹ - h² ≡ h⁰ - h³ - χ (determined!)
+    • Individual h¹, h² need additional computation
+
+  D = -3·e2 + -1·e7 + -2·e10
+    χ = -3, h⁰(-D)=h³(D) = 5
+    h³(D) = h⁰(-D) = 5
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 5 - (-3) = -2
+    → net chirality h¹-h² = -2.0
+
+  D = 3·e2 + 1·e7 + 2·e10
+    χ = 3, h⁰(D) = 5
+    h⁰(D) = 5
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 5 - 0 - 3 = 2
+
+  D = -3·e0 + -3·e1 + -3·e2 + -2·e5
+    χ = -3, h⁰(-D)=h³(D) = 4
+    h³(D) = h⁰(-D) = 4
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 4 - (-3) = -1
+    → net chirality h¹-h² = -1.0
+
+  D = -3·e0 + -2·e1 + -2·e2 + -3·e5
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 8.881784197001252e-16
+
+  D = 3·e0 + 2·e1 + 2·e2 + 3·e5
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = -0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = 3·e0 + 3·e1 + 3·e2 + 2·e5
+    χ = 3, h⁰(D) = 4
+    h⁰(D) = 4
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 4 - 0 - 3 = 1
+
+  D = -1·e0 + -2·e1 + -3·e2 + -1·e7
+    χ = -3, h⁰(-D)=h³(D) = 4
+    h³(D) = h⁰(-D) = 4
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 4 - (-3) = -1
+    → net chirality h¹-h² = -1.0
+
+  D = 1·e0 + 2·e1 + 3·e2 + 1·e7
+    χ = 3, h⁰(D) = 4
+    h⁰(D) = 4
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 4 - 0 - 3 = 1
+
+  D = -3·e0 + -2·e1 + -2·e2 + -1·e11
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = -3·e0 + -1·e1 + -2·e2 + -2·e11
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 3·e0 + 1·e1 + 2·e2 + 2·e11
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = 3·e0 + 2·e1 + 2·e2 + 1·e11
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -2·e0 + -2·e2 + -1·e3 + -2·e8
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = -0
+    → net chirality h¹-h² = -4.440892098500626e-16
+
+  D = 2·e0 + 2·e2 + 1·e3 + 2·e8
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -2·e0 + -2·e2 + -3·e3 + -3·e10
+    χ = -3, h⁰(-D)=h³(D) = 6
+    h³(D) = h⁰(-D) = 6
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 6 - (-3) = -3
+    → net chirality h¹-h² = -3.000000000000001
+
+  D = -1·e0 + -1·e2 + -1·e3 + -1·e10
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 1·e0 + 1·e2 + 1·e3 + 1·e10
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = 2·e0 + 2·e2 + 3·e3 + 3·e10
+    χ = 3, h⁰(D) = 6
+    h⁰(D) = 6
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 6 - 0 - 3 = 3
+
+  D = -2·e0 + -3·e2 + -3·e3 + -3·e12
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = -0
+    → net chirality h¹-h² = -8.881784197001252e-16
+
+  D = 2·e0 + 3·e2 + 3·e3 + 3·e12
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -2·e0 + -2·e2 + -2·e4 + -2·e6
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 2·e0 + 2·e2 + 2·e4 + 2·e6
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -1·e0 + -2·e2 + -2·e4 + -2·e7
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 1·e0 + 2·e2 + 2·e4 + 2·e7
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -2·e0 + -2·e2 + -3·e4 + -2·e10
+    χ = -3, h⁰(-D)=h³(D) = 4
+    h³(D) = h⁰(-D) = 4
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 4 - (-3) = -1
+    → net chirality h¹-h² = -1.0
+
+  D = 2·e0 + 2·e2 + 3·e4 + 2·e10
+    χ = 3, h⁰(D) = 4
+    h⁰(D) = 4
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 4 - 0 - 3 = 1
+
+  D = -3·e0 + -3·e2 + -2·e5 + -3·e7
+    χ = -3, h⁰(-D)=h³(D) = 6
+    h³(D) = h⁰(-D) = 6
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 6 - (-3) = -3
+    → net chirality h¹-h² = -3.0
+
+  D = -2·e0 + -3·e2 + -3·e5 + -1·e7
+    χ = -3, h⁰(-D)=h³(D) = 5
+    h³(D) = h⁰(-D) = 5
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 5 - (-3) = -2
+    → net chirality h¹-h² = -2.0
+
+  D = 2·e0 + 3·e2 + 3·e5 + 1·e7
+    χ = 3, h⁰(D) = 5
+    h⁰(D) = 5
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 5 - 0 - 3 = 2
+
+  D = 3·e0 + 3·e2 + 2·e5 + 3·e7
+    χ = 3, h⁰(D) = 6
+    h⁰(D) = 6
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 6 - 0 - 3 = 3
+
+  D = -2·e0 + -3·e2 + -1·e5 + -3·e9
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = -0
+    → net chirality h¹-h² = -8.881784197001252e-16
+
+  D = -2·e0 + -2·e2 + -2·e5 + -2·e9
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 2·e0 + 2·e2 + 2·e5 + 2·e9
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = 2·e0 + 3·e2 + 1·e5 + 3·e9
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -3·e0 + -3·e2 + -2·e6 + -2·e10
+    χ = -3, h⁰(-D)=h³(D) = 6
+    h³(D) = h⁰(-D) = 6
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 6 - (-3) = -3
+    → net chirality h¹-h² = -3.0
+
+  D = 3·e0 + 3·e2 + 2·e6 + 2·e10
+    χ = 3, h⁰(D) = 6
+    h⁰(D) = 6
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 6 - 0 - 3 = 3
+
+  D = -3·e0 + -2·e2 + -1·e6 + -2·e11
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 3·e0 + 2·e2 + 1·e6 + 2·e11
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -3·e0 + -3·e2 + -2·e7 + -2·e11
+    χ = -3, h⁰(-D)=h³(D) = 6
+    h³(D) = h⁰(-D) = 6
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 6 - (-3) = -3
+    → net chirality h¹-h² = -3.0
+
+  D = 3·e0 + 3·e2 + 2·e7 + 2·e11
+    χ = 3, h⁰(D) = 6
+    h⁰(D) = 6
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 6 - 0 - 3 = 3
+
+  D = -3·e0 + -3·e2 + -3·e9 + -1·e10
+    χ = -3, h⁰(-D)=h³(D) = 6
+    h³(D) = h⁰(-D) = 6
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 6 - (-3) = -3
+    → net chirality h¹-h² = -3.000000000000001
+
+  D = 3·e0 + 3·e2 + 3·e9 + 1·e10
+    χ = 3, h⁰(D) = 6
+    h⁰(D) = 6
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 6 - 0 - 3 = 3
+
+  D = -2·e0 + -3·e2 + -3·e9 + -1·e11
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = -2·e0 + -2·e2 + -2·e9 + -1·e11
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 4.440892098500626e-16
+
+  D = 2·e0 + 2·e2 + 2·e9 + 1·e11
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = -0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = 2·e0 + 3·e2 + 3·e9 + 1·e11
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -2·e0 + -3·e2 + -2·e9 + -2·e12
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = -0
+    → net chirality h¹-h² = -4.440892098500626e-16
+
+  D = 2·e0 + 3·e2 + 2·e9 + 2·e12
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -3·e0 + -3·e2 + -2·e10 + -2·e12
+    χ = -3, h⁰(-D)=h³(D) = 6
+    h³(D) = h⁰(-D) = 6
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 6 - (-3) = -3
+    → net chirality h¹-h² = -3.0
+
+  D = 3·e0 + 3·e2 + 2·e10 + 2·e12
+    χ = 3, h⁰(D) = 6
+    h⁰(D) = 6
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 6 - 0 - 3 = 3
+
+  D = -3·e0 + -2·e2 + -2·e11 + -1·e12
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 3·e0 + 2·e2 + 2·e11 + 1·e12
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -1·e1 + -3·e2 + -2·e7 + -1·e10
+    χ = -3, h⁰(-D)=h³(D) = 5
+    h³(D) = h⁰(-D) = 5
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 5 - (-3) = -2
+    → net chirality h¹-h² = -2.0
+
+  D = 1·e1 + 3·e2 + 2·e7 + 1·e10
+    χ = 3, h⁰(D) = 5
+    h⁰(D) = 5
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 5 - 0 - 3 = 2
+
+  D = -2·e1 + -3·e2 + -1·e7 + -1·e11
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 2·e1 + 3·e2 + 1·e7 + 1·e11
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -3·e2 + -2·e3 + -3·e4 + -3·e10
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 3·e2 + 2·e3 + 3·e4 + 3·e10
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -3·e2 + -2·e3 + -1·e5 + -3·e7
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 3·e2 + 2·e3 + 1·e5 + 3·e7
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -2·e2 + -2·e3 + -1·e6 + -2·e10
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 2·e2 + 2·e3 + 1·e6 + 2·e10
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -3·e2 + -1·e3 + -2·e7 + -2·e8
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = -0
+    → net chirality h¹-h² = -4.440892098500626e-16
+
+  D = 3·e2 + 1·e3 + 2·e7 + 2·e8
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -2·e2 + -2·e3 + -1·e8 + -2·e10
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 4.440892098500626e-16
+
+  D = 2·e2 + 2·e3 + 1·e8 + 2·e10
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = -0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -3·e2 + -2·e4 + -3·e7 + -2·e9
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = -0
+    → net chirality h¹-h² = -4.440892098500626e-16
+
+  D = 3·e2 + 2·e4 + 3·e7 + 2·e9
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -2·e2 + -2·e4 + -2·e7 + -1·e10
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 2·e2 + 2·e4 + 2·e7 + 1·e10
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -3·e2 + -2·e6 + -1·e7 + -2·e9
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 3·e2 + 2·e6 + 1·e7 + 2·e9
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -3·e2 + -2·e7 + -2·e8 + -1·e9
+    χ = -3, h⁰(-D)=h³(D) = 3
+    h³(D) = h⁰(-D) = 3
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 3 - (-3) = 0
+    → net chirality h¹-h² = 0.0
+
+  D = 3·e2 + 2·e7 + 2·e8 + 1·e9
+    χ = 3, h⁰(D) = 3
+    h⁰(D) = 3
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 3 - 0 - 3 = 0
+    → If h³=0: h¹=h²  (vector-like pairs only) ← CLEAN!
+
+  D = -3·e2 + -2·e7 + -1·e10 + -1·e12
+    χ = -3, h⁰(-D)=h³(D) = 5
+    h³(D) = h⁰(-D) = 5
+    h⁰(D) likely 0 (D not effective for χ<0 typically)
+    If h⁰(D)=0: h¹-h² = 0 - 5 - (-3) = -2
+    → net chirality h¹-h² = -2.0
+
+  D = 3·e2 + 2·e7 + 1·e10 + 1·e12
+    χ = 3, h⁰(D) = 5
+    h⁰(D) = 5
+    h³(D) = h⁰(-D)  [not yet computed]
+    If h³=0: h¹-h² = 5 - 0 - 3 = 2
+
+
+════════════════════════════════════════════════════════════════════════
+  SCORECARD: h11=13, Polytope 1
+════════════════════════════════════════════════════════════════════════
+  [[92mPASS[0m] χ = -6: -6 (target: -6) → 2/2
+  [[92mPASS[0m] h⁰ ≥ 3 exists: True (target: True) → 3/3
+  [[92mPASS[0m] h⁰ = χ = 3 exact: True (target: True) → 3/3
+  [[92mPASS[0m] Swiss cheese: True (target: True) → 3/3
+  [[91mFAIL[0m] Nef h⁰=3 bundle: False (target: True) → 0/2
+  [[92mPASS[0m] χ=3 bundle count: 11054 (target: see below) → 2/2
+  [[92mPASS[0m] Max h⁰: 6 (target: see below) → 2/2
+  [[92mPASS[0m] h11 small (≤15): 13 (target: see below) → 1/1
+  [[92mPASS[0m] Rigid divisors exist: True (target: True) → 1/1
+  [[92mPASS[0m] Fibration structure: True (target: True) → 1/1
+
+  TOTAL: 18/20
+════════════════════════════════════════════════════════════════════════
+
+Done.
