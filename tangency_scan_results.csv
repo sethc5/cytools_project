@@ -1,0 +1,1001 @@
+poly_idx,h11,h21,n_vertices,gl_order,min_chi_ray,n_tangent_points,has_integer_ample_chi3,has_continuous_tangency,t_star,nearest_miss_gap,error
+0,13,16,11,1,21.0,0,False,True,0.38483594,,
+1,13,16,13,1,17.0,0,False,True,0.39568957,,
+2,13,16,13,1,11.0,0,False,True,0.44594483,,
+3,14,17,8,1,10.0,0,False,True,0.42822236,,
+4,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+5,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+6,,,11,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+7,,,11,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+8,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+9,14,17,11,1,8.0,0,False,True,0.46622052,2,
+10,14,17,12,1,5.0,2,False,True,0.69572552,1,
+11,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+12,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+13,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+14,14,17,11,1,2.0,14,True,True,1.5,0,
+15,,,11,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+16,14,17,11,1,17.0,0,False,True,0.35173111,,
+17,14,17,11,1,5.0,16,False,True,0.67359306,1,
+18,14,17,11,1,2.0,6,False,True,1.5,1,
+19,14,17,11,1,2.0,1,False,True,1.5,1,
+20,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+21,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+22,,,12,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+23,14,17,12,2,2.0,10,False,True,1.5,1,
+24,14,17,14,1,3.0,1,True,False,,0,
+25,,,8,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+26,,,8,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+27,15,18,8,1,18.0,0,False,True,0.3854585,,
+28,15,18,8,2,2.0,2,False,True,1.5,1,
+29,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+30,15,18,11,1,12.0,0,False,True,0.41138913,,
+31,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+32,,,9,,,0,False,False,,,unhandled: index 11 is out of bounds for axis 0 with size 11
+33,15,18,9,2,5.0,13,False,True,0.65004828,1,
+34,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+35,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+36,15,18,10,2,2.0,40,True,True,1.5,0,
+37,15,18,10,4,5.0,14,False,True,0.65004828,1,
+38,15,18,11,1,7.0,1,False,True,0.52831893,1,
+39,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+40,,,10,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+41,15,18,11,1,2.0,5,False,True,1.5,1,
+42,15,18,11,2,3.0,9,True,False,,0,
+43,15,18,11,4,3.0,19,True,False,,0,
+44,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+45,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+46,15,18,11,1,7.0,2,False,True,0.5188507,1,
+47,,,11,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+48,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+49,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+50,15,18,11,1,23.0,0,False,True,0.35957682,,
+51,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+52,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+53,15,18,11,1,23.0,0,False,True,0.34733634,,
+54,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+55,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+56,15,18,11,2,2.0,17,True,True,1.5,0,
+57,15,18,11,1,3.0,13,True,False,,0,
+58,15,18,11,1,3.0,12,True,False,,0,
+59,15,18,11,1,6.0,2,False,True,0.56409973,1,
+60,15,18,11,2,3.0,25,True,False,,0,
+61,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+62,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+63,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+64,15,18,11,1,2.0,0,False,True,1.5,2,
+65,15,18,11,2,2.0,5,True,True,1.5,0,
+66,15,18,11,1,2.0,4,False,True,1.5,1,
+67,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+68,15,18,12,1,3.0,14,True,False,,0,
+69,15,18,12,1,10.0,1,False,True,0.45661127,1,
+70,15,18,12,2,3.0,10,True,False,,0,
+71,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+72,15,18,12,1,21.0,0,False,True,0.36295564,,
+73,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+74,15,18,12,1,3.0,5,True,False,,0,
+75,15,18,12,1,16.0,0,False,True,0.35584102,,
+76,15,18,12,1,3.0,9,True,False,,0,
+77,15,18,12,1,3.0,11,True,False,,0,
+78,15,18,12,1,3.0,8,True,False,,0,
+79,15,18,12,1,2.0,32,False,True,1.5,1,
+80,15,18,12,1,2.0,28,True,True,1.5,0,
+81,15,18,12,2,2.0,37,False,True,1.5,1,
+82,15,18,12,1,2.0,18,True,True,1.5,0,
+83,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+84,15,18,12,1,3.0,8,True,False,,0,
+85,15,18,13,1,20.0,0,False,True,0.34504399,,
+86,15,18,12,1,23.0,0,False,True,0.34733634,,
+87,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+88,15,18,12,1,4.0,4,False,True,0.79826485,1,
+89,15,18,12,1,2.0,7,False,True,1.5,1,
+90,15,18,12,1,4.0,1,False,True,0.7757432,1,
+91,15,18,12,1,2.0,5,False,True,1.5,1,
+92,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+93,15,18,12,1,3.0,9,True,False,,0,
+94,15,18,13,1,4.0,1,False,True,0.7757432,1,
+95,15,18,12,1,6.0,4,False,True,0.60650099,1,
+96,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+97,15,18,12,1,2.0,17,False,True,1.5,1,
+98,15,18,12,1,3.0,12,True,False,,0,
+99,15,18,12,1,3.0,3,True,False,,0,
+100,15,18,12,1,3.0,7,True,False,,0,
+101,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+102,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+103,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+104,15,18,12,1,2.0,15,True,True,1.5,0,
+105,15,18,12,1,3.0,5,True,False,,0,
+106,15,18,12,1,2.0,40,True,True,1.5,0,
+107,15,18,13,1,22.0,0,False,True,0.32633284,,
+108,15,18,12,2,2.0,31,True,True,1.5,0,
+109,15,18,12,1,2.0,19,False,True,1.5,1,
+110,15,18,12,1,2.0,21,False,True,1.5,1,
+111,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+112,15,18,12,1,18.0,0,False,True,0.36638754,,
+113,15,18,12,1,2.0,30,False,True,1.5,1,
+114,15,18,12,1,14.0,0,False,True,0.38101385,,
+115,15,18,13,1,3.0,3,True,False,,0,
+116,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+117,15,18,12,2,3.0,36,True,False,,0,
+118,15,18,12,1,2.0,12,True,True,1.5,0,
+119,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+120,15,18,12,1,2.0,15,False,True,1.5,1,
+121,15,18,12,1,2.0,28,True,True,1.5,0,
+122,15,18,13,1,4.0,1,False,True,0.7757432,1,
+123,15,18,12,1,3.0,6,True,False,,0,
+124,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+125,15,18,12,2,6.0,6,False,True,0.61676739,1,
+126,15,18,13,1,4.0,1,False,True,0.7757432,1,
+127,15,18,12,1,4.0,1,False,True,0.7757432,1,
+128,15,18,12,1,3.0,2,True,False,,0,
+129,,,13,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+130,15,18,12,1,4.0,2,False,True,0.7757432,1,
+131,15,18,12,1,2.0,28,True,True,1.5,0,
+132,15,18,13,1,22.0,0,False,True,0.33434221,,
+133,15,18,12,2,2.0,28,True,True,1.5,0,
+134,15,18,12,1,22.0,0,False,True,0.33434221,,
+135,15,18,12,1,3.0,17,True,False,,0,
+136,15,18,12,1,9.0,2,False,True,0.46880433,1,
+137,15,18,12,1,2.0,6,False,True,1.5,1,
+138,,,13,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+139,15,18,12,2,2.0,18,True,True,1.5,0,
+140,15,18,12,1,2.0,27,False,True,1.5,1,
+141,15,18,12,1,13.0,0,False,True,0.41600632,2,
+142,15,18,12,1,3.0,14,True,False,,0,
+143,15,18,12,1,7.0,4,False,True,0.5188507,1,
+144,15,18,12,2,2.0,23,True,True,1.5,0,
+145,15,18,12,1,3.0,8,True,False,,0,
+146,15,18,12,1,2.0,12,False,True,1.5,1,
+147,15,18,12,1,2.0,27,True,True,1.5,0,
+148,15,18,12,1,2.0,10,False,True,1.5,1,
+149,15,18,12,1,3.0,9,True,False,,0,
+150,15,18,12,1,3.0,3,True,False,,0,
+151,15,18,12,1,2.0,2,False,True,1.5,1,
+152,15,18,12,1,2.0,3,True,True,1.5,0,
+153,15,18,13,1,24.0,0,False,True,0.30608708,,
+154,15,18,12,1,24.0,0,False,True,0.31714509,,
+155,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+156,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+157,15,18,13,4,2.0,37,False,True,1.5,1,
+158,15,18,13,1,3.0,8,True,False,,0,
+159,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+160,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+161,15,18,13,1,2.0,19,False,True,1.5,1,
+162,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+163,15,18,13,1,4.0,11,False,True,0.79826485,1,
+164,15,18,13,1,3.0,20,True,False,,0,
+165,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+166,15,18,13,1,3.0,6,True,False,,0,
+167,15,18,13,1,3.0,15,True,False,,0,
+168,15,18,13,2,3.0,15,True,False,,0,
+169,15,18,13,1,3.0,4,True,False,,0,
+170,15,18,13,1,3.0,10,True,False,,0,
+171,15,18,13,1,2.0,12,False,True,1.5,1,
+172,15,18,13,1,18.0,0,False,True,0.33886032,,
+173,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+174,15,18,13,1,7.0,3,False,True,0.52831893,1,
+175,15,18,13,1,4.0,5,False,True,0.79826485,1,
+176,15,18,13,1,22.0,0,False,True,0.33839859,,
+177,15,18,13,1,2.0,9,False,True,1.5,1,
+178,15,18,13,1,8.0,1,False,True,0.4914888,1,
+179,15,18,13,1,6.0,2,False,True,0.58550764,1,
+180,15,18,13,1,2.0,16,True,True,1.5,0,
+181,15,18,13,1,4.0,2,False,True,0.7757432,1,
+182,15,18,13,1,6.0,7,False,True,0.59607164,1,
+183,15,18,13,1,2.0,6,False,True,1.5,1,
+184,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+185,15,18,13,1,21.0,0,False,True,0.34584165,,
+186,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+187,15,18,13,1,3.0,13,True,False,,0,
+188,15,18,13,1,3.0,14,True,False,,0,
+189,15,18,13,2,4.0,14,False,True,0.7757432,1,
+190,15,18,13,1,2.0,7,False,True,1.5,1,
+191,15,18,13,2,2.0,16,False,True,1.5,1,
+192,15,18,13,2,2.0,37,True,True,1.5,0,
+193,15,18,13,1,2.0,16,False,True,1.5,1,
+194,15,18,13,1,4.0,19,False,True,0.7757432,1,
+195,15,18,13,1,2.0,18,True,True,1.5,0,
+196,15,18,13,1,2.0,12,False,True,1.5,1,
+197,15,18,13,1,2.0,26,False,True,1.5,1,
+198,15,18,13,2,2.0,9,False,True,1.5,1,
+199,15,18,13,2,6.0,23,False,True,0.58550764,1,
+200,15,18,13,1,2.0,19,False,True,1.5,1,
+201,15,18,13,2,2.0,21,True,True,1.5,0,
+202,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+203,15,18,13,1,2.0,14,False,True,1.5,1,
+204,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+205,15,18,13,1,7.0,2,False,True,0.52831893,1,
+206,15,18,13,1,3.0,8,True,False,,0,
+207,15,18,13,1,3.0,13,True,False,,0,
+208,15,18,13,1,9.0,3,False,True,0.5,1,
+209,15,18,13,1,2.0,12,False,True,1.5,1,
+210,15,18,13,1,4.0,10,False,True,0.7757432,1,
+211,15,18,13,1,2.0,10,False,True,1.5,1,
+212,15,18,13,1,2.0,2,False,True,1.5,1,
+213,15,18,13,2,8.0,5,False,True,0.5,1,
+214,15,18,13,1,2.0,25,False,True,1.5,1,
+215,15,18,13,1,2.0,7,False,True,1.5,1,
+216,15,18,13,1,4.0,10,False,True,0.7757432,1,
+217,15,18,13,1,2.0,5,False,True,1.5,1,
+218,15,18,13,2,6.0,5,False,True,0.61676739,1,
+219,15,18,14,2,2.0,3,False,True,1.5,1,
+220,15,18,13,1,4.0,15,False,True,0.7757432,1,
+221,15,18,13,1,3.0,14,True,False,,0,
+222,15,18,13,1,15.0,0,False,True,0.37566467,,
+223,15,18,13,1,22.0,0,False,True,0.33839859,,
+224,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+225,15,18,13,1,2.0,1,False,True,1.5,1,
+226,15,18,13,1,3.0,15,True,False,,0,
+227,15,18,13,1,3.0,27,True,False,,0,
+228,15,18,13,1,3.0,7,True,False,,0,
+229,15,18,13,1,4.0,1,False,True,0.7757432,1,
+230,15,18,13,1,2.0,15,False,True,1.5,1,
+231,15,18,13,1,3.0,14,True,False,,0,
+232,15,18,13,1,2.0,14,True,True,1.5,0,
+233,15,18,13,1,5.0,5,False,True,0.65004828,1,
+234,15,18,13,1,2.0,6,False,True,1.5,1,
+235,15,18,13,1,4.0,10,False,True,0.75,1,
+236,15,18,13,4,2.0,13,True,True,1.5,0,
+237,15,18,13,2,2.0,19,True,True,1.5,0,
+238,15,18,13,2,2.0,39,True,True,1.5,0,
+239,15,18,13,1,23.0,0,False,True,0.33531247,,
+240,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+241,15,18,13,1,2.0,8,False,True,1.5,1,
+242,15,18,13,1,2.0,13,True,True,1.5,0,
+243,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+244,15,18,13,1,4.0,7,False,True,0.7757432,1,
+245,15,18,13,1,3.0,2,True,False,,0,
+246,15,18,13,1,3.0,11,True,False,,0,
+247,15,18,13,1,2.0,11,False,True,1.5,1,
+248,15,18,13,1,2.0,5,False,True,1.5,1,
+249,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+250,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+251,15,18,13,1,12.0,0,False,True,0.41138913,,
+252,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+253,15,18,13,1,2.0,10,True,True,1.5,0,
+254,15,18,13,1,3.0,17,True,False,,0,
+255,15,18,14,1,13.0,0,False,True,0.39833455,,
+256,15,18,13,1,4.0,1,False,True,0.7757432,1,
+257,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+258,15,18,13,1,2.0,9,False,True,1.5,1,
+259,15,18,13,1,2.0,11,False,True,1.5,1,
+260,15,18,13,1,7.0,6,False,True,0.52831893,1,
+261,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+262,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+263,15,18,13,1,3.0,14,True,False,,0,
+264,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+265,15,18,13,2,2.0,14,False,True,1.5,1,
+266,15,18,14,1,6.0,1,False,True,0.60650099,1,
+267,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+268,15,18,13,1,2.0,14,True,True,1.5,0,
+269,15,18,13,1,5.0,13,False,True,0.65004828,1,
+270,15,18,13,1,2.0,6,False,True,1.5,1,
+271,15,18,13,1,3.0,12,True,False,,0,
+272,15,18,13,2,2.0,24,False,True,1.5,1,
+273,15,18,13,1,22.0,0,False,True,0.35492292,,
+274,15,18,13,1,4.0,2,False,True,0.7757432,1,
+275,15,18,13,1,3.0,6,True,False,,0,
+276,15,18,15,1,11.0,0,False,True,0.44594483,,
+277,15,18,13,1,3.0,11,True,False,,0,
+278,15,18,13,1,3.0,14,True,False,,0,
+279,15,18,13,1,3.0,13,True,False,,0,
+280,15,18,13,1,3.0,15,True,False,,0,
+281,15,18,13,1,8.0,2,False,True,0.50852879,1,
+282,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+283,15,18,13,1,3.0,14,True,False,,0,
+284,15,18,13,1,2.0,9,False,True,1.5,1,
+285,15,18,15,1,2.0,16,True,True,1.5,0,
+286,15,18,13,1,3.0,10,True,False,,0,
+287,15,18,13,1,12.0,0,False,True,0.40523179,3,
+288,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+289,15,18,14,1,14.0,0,False,True,0.37558842,,
+290,15,18,14,1,2.0,22,True,True,1.5,0,
+291,15,18,13,1,2.0,5,False,True,1.5,1,
+292,15,18,13,1,2.0,3,False,True,1.5,1,
+293,15,18,13,1,7.0,3,False,True,0.53778596,1,
+294,15,18,13,2,2.0,36,True,True,1.5,0,
+295,15,18,13,1,2.0,16,False,True,1.5,1,
+296,15,18,13,1,2.0,13,False,True,1.5,1,
+297,15,18,13,1,2.0,12,False,True,1.5,1,
+298,15,18,13,2,2.0,28,True,True,1.5,0,
+299,15,18,13,2,2.0,3,False,True,1.5,1,
+300,15,18,13,1,2.0,19,False,True,1.5,1,
+301,15,18,13,2,5.0,9,False,True,0.65004828,1,
+302,15,18,13,2,2.0,38,True,True,1.5,0,
+303,15,18,13,1,2.0,10,True,True,1.5,0,
+304,15,18,14,2,19.0,0,False,True,0.34863569,3,
+305,15,18,13,1,2.0,10,False,True,1.5,1,
+306,15,18,13,1,2.0,34,False,True,1.5,1,
+307,15,18,13,1,3.0,2,True,False,,0,
+308,15,18,13,1,2.0,23,True,True,1.5,0,
+309,15,18,13,1,2.0,14,True,True,1.5,0,
+310,15,18,13,2,3.0,6,True,False,,0,
+311,15,18,13,2,7.0,1,False,True,0.53778596,1,
+312,15,18,13,1,3.0,4,True,False,,0,
+313,15,18,13,2,2.0,17,True,True,1.5,0,
+314,15,18,14,1,2.0,10,False,True,1.5,1,
+315,15,18,14,1,9.0,1,False,True,0.49218453,1,
+316,15,18,14,2,2.0,21,False,True,1.5,1,
+317,15,18,14,1,14.0,0,False,True,0.37558842,,
+318,15,18,14,1,16.0,0,False,True,0.36074207,,
+319,15,18,14,1,5.0,7,False,True,0.67359306,1,
+320,15,18,14,1,11.0,0,False,True,0.42592508,,
+321,15,18,14,1,2.0,12,False,True,1.5,1,
+322,15,18,14,1,2.0,18,True,True,1.5,0,
+323,15,18,14,1,2.0,28,True,True,1.5,0,
+324,15,18,14,1,3.0,8,True,False,,0,
+325,15,18,15,2,12.0,0,False,True,0.40523179,,
+326,15,18,14,1,2.0,23,True,True,1.5,0,
+327,15,18,14,1,2.0,14,False,True,1.5,1,
+328,15,18,14,1,8.0,1,False,True,0.48301141,1,
+329,15,18,14,1,5.0,2,False,True,0.65004828,1,
+330,15,18,14,1,5.0,3,False,True,0.65004828,1,
+331,15,18,14,1,2.0,12,True,True,1.5,0,
+332,15,18,14,1,2.0,5,False,True,1.5,1,
+333,15,18,14,1,2.0,7,True,True,1.5,0,
+334,15,18,14,1,3.0,17,True,False,,0,
+335,15,18,14,1,5.0,5,False,True,0.66198139,1,
+336,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+337,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+338,15,18,14,1,5.0,7,False,True,0.66198139,1,
+339,15,18,15,1,4.0,3,False,True,0.79826485,1,
+340,15,18,15,1,5.0,5,False,True,0.67359306,1,
+341,15,18,15,1,8.0,3,False,True,0.48301141,1,
+342,15,18,14,1,4.0,10,False,True,0.79826485,1,
+343,15,18,15,2,4.0,3,False,True,0.79826485,1,
+344,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+345,15,18,14,1,3.0,9,True,False,,0,
+346,15,18,14,1,2.0,9,False,True,1.5,1,
+347,15,18,14,1,4.0,2,False,True,0.78740146,1,
+348,15,18,14,1,10.0,0,False,True,0.44943939,,
+349,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+350,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+351,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+352,15,18,15,1,2.0,15,True,True,1.5,0,
+353,15,18,14,1,10.0,1,False,True,0.43523578,1,
+354,15,18,14,1,3.0,9,True,False,,0,
+355,15,18,15,1,2.0,13,True,True,1.5,0,
+356,15,18,14,1,6.0,2,False,True,0.58550764,1,
+357,15,18,14,1,3.0,16,True,False,,0,
+358,15,18,14,1,2.0,17,True,True,1.5,0,
+359,15,18,14,1,6.0,10,False,True,0.56409973,1,
+360,15,18,14,1,2.0,36,True,True,1.5,0,
+361,15,18,14,1,6.0,8,False,True,0.56409973,1,
+362,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+363,15,18,14,1,2.0,11,False,True,1.5,1,
+364,15,18,14,2,3.0,17,True,False,,0,
+365,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+366,15,18,14,1,2.0,16,False,True,1.5,1,
+367,15,18,14,1,2.0,9,False,True,1.5,1,
+368,15,18,14,1,2.0,19,False,True,1.5,1,
+369,15,18,14,1,2.0,8,False,True,1.5,1,
+370,15,18,14,1,6.0,7,False,True,0.56409973,1,
+371,15,18,14,1,2.0,5,False,True,1.5,1,
+372,15,18,14,1,7.0,4,False,True,0.53778596,1,
+373,15,18,14,1,7.0,2,False,True,0.54722926,1,
+374,15,18,14,1,19.0,0,False,True,0.3227492,,
+375,15,18,14,1,5.0,1,False,True,0.67359306,1,
+376,15,18,14,1,2.0,8,False,True,1.5,1,
+377,15,18,14,1,3.0,5,True,False,,0,
+378,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+379,15,18,14,2,2.0,16,True,True,1.5,0,
+380,15,18,14,2,2.0,11,False,True,1.5,1,
+381,15,18,14,1,3.0,16,True,False,,0,
+382,15,18,14,1,12.0,0,False,True,0.4301484,,
+383,15,18,14,1,2.0,8,False,True,1.5,1,
+384,15,18,14,1,2.0,11,False,True,1.5,1,
+385,15,18,14,1,2.0,7,False,True,1.5,1,
+386,15,18,14,1,2.0,12,True,True,1.5,0,
+387,15,18,14,1,2.0,21,True,True,1.5,0,
+388,15,18,14,1,2.0,6,False,True,1.5,1,
+389,15,18,14,1,3.0,10,True,False,,0,
+390,15,18,14,1,3.0,13,True,False,,0,
+391,15,18,14,1,3.0,20,True,False,,0,
+392,15,18,14,1,2.0,18,True,True,1.5,0,
+393,15,18,14,1,5.0,10,False,True,0.65004828,1,
+394,15,18,14,1,5.0,8,False,True,0.65004828,1,
+395,15,18,14,1,6.0,16,False,True,0.59607164,1,
+396,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+397,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+398,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+399,15,18,14,1,9.0,0,False,True,0.46880433,2,
+400,15,18,15,2,23.0,0,False,True,0.30468881,,
+401,15,18,14,1,3.0,15,True,False,,0,
+402,15,18,14,1,3.0,20,True,False,,0,
+403,15,18,14,1,3.0,17,True,False,,0,
+404,15,18,15,1,2.0,11,False,True,1.5,1,
+405,15,18,15,1,3.0,10,True,False,,0,
+406,15,18,14,1,2.0,14,False,True,1.5,1,
+407,15,18,14,1,3.0,10,True,False,,0,
+408,15,18,14,1,3.0,8,True,False,,0,
+409,15,18,14,1,2.0,12,True,True,1.5,0,
+410,15,18,14,1,2.0,12,True,True,1.5,0,
+411,15,18,14,1,3.0,20,True,False,,0,
+412,15,18,14,1,9.0,0,False,True,0.46880433,,
+413,15,18,14,2,2.0,5,False,True,1.5,1,
+414,15,18,14,1,2.0,15,False,True,1.5,1,
+415,15,18,14,1,3.0,18,True,False,,0,
+416,15,18,14,1,2.0,25,True,True,1.5,0,
+417,15,18,14,1,3.0,22,True,False,,0,
+418,15,18,14,1,12.0,0,False,True,0.40523179,,
+419,15,18,14,1,3.0,11,True,False,,0,
+420,15,18,14,1,2.0,17,False,True,1.5,1,
+421,15,18,14,1,2.0,22,False,True,1.5,1,
+422,15,18,14,1,9.0,1,False,True,0.46880433,1,
+423,15,18,14,1,5.0,3,False,True,0.67359306,1,
+424,15,18,14,1,23.0,0,False,True,0.3433016,,
+425,15,18,14,1,2.0,12,False,True,1.5,1,
+426,15,18,15,2,3.0,11,True,False,,0,
+427,15,18,14,1,22.0,0,False,True,0.35492292,,
+428,15,18,14,1,7.0,5,False,True,0.53778596,1,
+429,15,18,15,1,4.0,7,False,True,0.75,1,
+430,15,18,14,1,13.0,0,False,True,0.39833455,,
+431,15,18,14,1,4.0,6,False,True,0.7757432,1,
+432,15,18,14,1,9.0,1,False,True,0.47657402,1,
+433,15,18,14,1,4.0,2,False,True,0.7757432,1,
+434,15,18,14,1,9.0,0,False,True,0.46880433,2,
+435,15,18,14,1,18.0,0,False,True,0.33886032,,
+436,15,18,14,1,4.0,1,False,True,0.7757432,1,
+437,15,18,14,1,3.0,4,True,False,,0,
+438,15,18,14,1,8.0,1,False,True,0.5170587,1,
+439,15,18,15,1,2.0,14,False,True,1.5,1,
+440,15,18,14,1,3.0,10,True,False,,0,
+441,15,18,15,1,2.0,9,False,True,1.5,1,
+442,15,18,14,1,7.0,2,False,True,0.52831893,1,
+443,15,18,15,1,4.0,2,False,True,0.75,1,
+444,15,18,14,1,7.0,0,False,True,0.54722926,2,
+445,15,18,14,1,3.0,7,True,False,,0,
+446,15,18,14,1,3.0,7,True,False,,0,
+447,15,18,14,1,2.0,12,True,True,1.5,0,
+448,15,18,14,1,3.0,16,True,False,,0,
+449,15,18,14,1,3.0,21,True,False,,0,
+450,15,18,14,1,3.0,16,True,False,,0,
+451,15,18,14,1,4.0,3,False,True,0.75,1,
+452,15,18,14,1,3.0,11,True,False,,0,
+453,15,18,14,1,3.0,7,True,False,,0,
+454,15,18,14,1,3.0,8,True,False,,0,
+455,15,18,14,1,3.0,12,True,False,,0,
+456,15,18,14,1,3.0,11,True,False,,0,
+457,15,18,14,1,13.0,0,False,True,0.39833455,,
+458,15,18,14,1,8.0,0,False,True,0.5,2,
+459,15,18,15,1,10.0,0,False,True,0.43523578,,
+460,15,18,15,4,8.0,7,False,True,0.4914888,1,
+461,15,18,15,1,2.0,15,False,True,1.5,1,
+462,15,18,15,1,3.0,18,True,False,,0,
+463,15,18,15,1,6.0,4,False,True,0.56409973,1,
+464,15,18,15,1,2.0,5,False,True,1.5,1,
+465,15,18,15,1,2.0,20,True,True,1.5,0,
+466,15,18,15,1,2.0,3,False,True,1.5,1,
+467,15,18,15,1,2.0,12,False,True,1.5,1,
+468,15,18,15,1,5.0,4,False,True,0.65004828,1,
+469,15,18,15,1,5.0,4,False,True,0.65004828,1,
+470,15,18,16,1,5.0,4,False,True,0.67359306,1,
+471,15,18,15,1,5.0,8,False,True,0.66198139,1,
+472,15,18,15,1,2.0,20,False,True,1.5,1,
+473,15,18,15,1,3.0,16,True,False,,0,
+474,15,18,15,1,3.0,4,True,False,,0,
+475,15,18,15,2,2.0,20,True,True,1.5,0,
+476,15,18,15,1,2.0,16,True,True,1.5,0,
+477,15,18,15,1,2.0,15,True,True,1.5,0,
+478,15,18,15,1,2.0,5,False,True,1.5,1,
+479,15,18,15,1,4.0,14,False,True,0.78740146,1,
+480,15,18,15,1,2.0,11,True,True,1.5,0,
+481,15,18,15,1,2.0,10,False,True,1.5,1,
+482,15,18,15,1,5.0,4,False,True,0.65004828,1,
+483,15,18,15,1,6.0,3,False,True,0.58550764,1,
+484,15,18,15,1,2.0,7,False,True,1.5,1,
+485,15,18,16,1,12.0,1,False,True,0.40523179,1,
+486,15,18,15,1,22.0,0,False,True,0.34660513,,
+487,15,18,15,1,3.0,11,True,False,,0,
+488,15,18,15,1,2.0,11,False,True,1.5,1,
+489,15,18,15,1,3.0,6,True,False,,0,
+490,15,18,15,1,2.0,9,False,True,1.5,1,
+491,15,18,15,1,8.0,1,False,True,0.50852879,1,
+492,15,18,15,2,3.0,21,True,False,,0,
+493,15,18,15,1,14.0,0,False,True,0.37558842,,
+494,15,18,15,1,4.0,6,False,True,0.7757432,1,
+495,15,18,15,1,3.0,10,True,False,,0,
+496,15,18,15,1,7.0,1,False,True,0.53778596,1,
+497,,,15,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+498,15,18,16,1,3.0,13,True,False,,0,
+499,,,15,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+500,15,18,15,1,3.0,13,True,False,,0,
+501,15,18,15,1,2.0,19,False,True,1.5,1,
+502,15,18,15,1,2.0,12,False,True,1.5,1,
+503,15,18,15,1,2.0,17,False,True,1.5,1,
+504,15,18,15,1,2.0,10,False,True,1.5,1,
+505,15,18,15,1,3.0,15,True,False,,0,
+506,15,18,15,2,6.0,13,False,True,0.56409973,1,
+507,15,18,15,1,3.0,7,True,False,,0,
+508,15,18,15,1,2.0,19,True,True,1.5,0,
+509,15,18,15,1,4.0,7,False,True,0.7757432,1,
+510,15,18,15,1,6.0,10,False,True,0.56409973,1,
+511,15,18,15,1,2.0,15,True,True,1.5,0,
+512,15,18,15,1,3.0,16,True,False,,0,
+513,15,18,15,1,7.0,7,False,True,0.53778596,1,
+514,15,18,15,1,3.0,13,True,False,,0,
+515,15,18,15,1,2.0,9,False,True,1.5,1,
+516,15,18,15,1,19.0,0,False,True,0.3269459,,
+517,15,18,15,1,2.0,14,True,True,1.5,0,
+518,15,18,15,1,11.0,0,False,True,0.4128293,,
+519,15,18,15,1,4.0,2,False,True,0.7757432,1,
+520,15,18,15,1,2.0,20,True,True,1.5,0,
+521,15,18,15,1,3.0,8,True,False,,0,
+522,15,18,15,1,3.0,12,True,False,,0,
+523,15,18,15,1,3.0,17,True,False,,0,
+524,15,18,15,1,3.0,15,True,False,,0,
+525,15,18,15,1,8.0,2,False,True,0.50852879,1,
+526,15,18,15,1,3.0,15,True,False,,0,
+527,15,18,15,1,14.0,0,False,True,0.38101385,,
+528,15,18,15,1,7.0,4,False,True,0.53778596,1,
+529,15,18,15,1,2.0,12,True,True,1.5,0,
+530,15,18,15,1,3.0,17,True,False,,0,
+531,15,18,15,1,3.0,17,True,False,,0,
+532,,,15,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+533,15,18,15,2,2.0,25,True,True,1.5,0,
+534,15,18,15,1,9.0,1,False,True,0.47657402,1,
+535,15,18,15,1,4.0,26,False,True,0.7757432,1,
+536,15,18,15,1,3.0,17,True,False,,0,
+537,15,18,15,1,3.0,10,True,False,,0,
+538,,,15,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+539,15,18,15,1,8.0,4,False,True,0.5,1,
+540,15,18,15,1,10.0,1,False,True,0.43523578,1,
+541,15,18,15,1,9.0,1,False,True,0.46880433,1,
+542,15,18,15,1,3.0,8,True,False,,0,
+543,15,18,15,1,2.0,16,False,True,1.5,1,
+544,15,18,15,1,6.0,14,False,True,0.59607164,1,
+545,15,18,15,1,4.0,24,False,True,0.7757432,1,
+546,15,18,15,1,3.0,7,True,False,,0,
+547,15,18,15,1,21.0,0,False,True,0.34584165,,
+548,15,18,15,2,2.0,30,True,True,1.5,0,
+549,15,18,15,1,3.0,9,True,False,,0,
+550,15,18,15,1,7.0,1,False,True,0.54722926,1,
+551,15,18,16,1,5.0,3,False,True,0.65004828,1,
+552,15,18,16,1,6.0,3,False,True,0.59607164,1,
+553,15,18,16,1,9.0,0,False,True,0.47657402,,
+554,15,18,16,1,7.0,0,False,True,0.53778596,2,
+555,15,18,16,1,3.0,12,True,False,,0,
+556,15,18,16,1,10.0,1,False,True,0.43523578,1,
+557,15,18,16,1,16.0,0,False,True,0.35584102,,
+558,15,18,16,1,3.0,28,True,False,,0,
+559,15,18,16,1,3.0,12,True,False,,0,
+560,15,18,16,1,2.0,19,True,True,1.5,0,
+561,15,18,16,1,3.0,17,True,False,,0,
+562,15,18,16,1,4.0,10,False,True,0.7757432,1,
+563,15,18,16,1,2.0,5,False,True,1.5,1,
+564,15,18,16,1,2.0,10,True,True,1.5,0,
+565,15,18,16,1,12.0,0,False,True,0.39913243,,
+566,15,18,16,1,3.0,7,True,False,,0,
+567,15,18,16,1,13.0,0,False,True,0.38679967,,
+568,15,18,16,1,22.0,0,False,True,0.34660513,,
+569,15,18,16,1,3.0,4,True,False,,0,
+570,15,18,16,1,3.0,7,True,False,,0,
+571,15,18,16,1,6.0,11,False,True,0.58550764,1,
+572,15,18,16,1,2.0,6,False,True,1.5,1,
+573,15,18,17,1,2.0,30,True,True,1.5,0,
+574,15,18,17,4,2.0,26,False,True,1.5,1,
+575,15,18,17,1,3.0,8,True,False,,0,
+576,15,18,17,1,3.0,14,True,False,,0,
+577,15,18,17,1,5.0,9,False,True,0.65004828,1,
+578,,,8,,,0,False,False,,,unhandled: index 8 is out of bounds for axis 0 with size 8
+579,,,8,,,0,False,False,,,unhandled: index 8 is out of bounds for axis 0 with size 8
+580,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+581,,,9,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+582,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+583,16,19,12,2,3.0,2,True,False,,0,
+584,16,19,10,1,24.0,0,False,True,0.33236592,,
+585,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+586,,,10,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+587,,,10,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+588,16,19,10,4,3.0,20,True,False,,0,
+589,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+590,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+591,,,10,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+592,,,10,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+593,16,19,10,2,8.0,6,False,True,0.48301141,1,
+594,16,19,11,4,8.0,0,False,True,0.50852879,,
+595,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+596,16,19,10,1,3.0,26,True,False,,0,
+597,,,10,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+598,16,19,10,2,22.0,0,False,True,0.37608703,,
+599,16,19,10,1,22.0,0,False,True,0.33839859,,
+600,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+601,,,10,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+602,,,10,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+603,16,19,10,1,5.0,0,False,True,0.65004828,2,
+604,16,19,10,1,3.0,6,True,False,,0,
+605,16,19,10,2,2.0,23,True,True,1.5,0,
+606,,,10,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+607,16,19,11,2,18.0,0,False,True,0.31725315,,
+608,16,19,11,1,4.0,10,False,True,0.7757432,1,
+609,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+610,16,19,12,2,2.0,11,True,True,1.5,0,
+611,16,19,12,2,2.0,21,True,True,1.5,0,
+612,16,19,10,1,4.0,17,False,True,0.7757432,1,
+613,16,19,11,1,21.0,0,False,True,0.32923747,,
+614,,,10,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+615,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+616,16,19,10,1,24.0,0,False,True,0.34408334,,
+617,16,19,10,1,13.0,0,False,True,0.38679967,,
+618,,,10,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+619,16,19,10,1,2.0,9,True,True,1.5,0,
+620,16,19,10,1,2.0,11,True,True,1.5,0,
+621,,,10,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+622,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+623,16,19,10,1,9.0,2,False,True,0.46107489,1,
+624,16,19,10,1,2.0,22,False,True,1.5,1,
+625,16,19,10,1,2.0,4,False,True,1.5,1,
+626,16,19,10,1,16.0,0,False,True,0.3509934,,
+627,16,19,10,1,2.0,15,True,True,1.5,0,
+628,,,10,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+629,,,10,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+630,,,10,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+631,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+632,16,19,10,1,2.0,2,False,True,1.5,1,
+633,,,10,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+634,16,19,10,1,2.0,2,False,True,1.5,1,
+635,16,19,10,1,2.0,5,True,True,1.5,0,
+636,16,19,10,1,2.0,6,True,True,1.5,0,
+637,,,10,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+638,16,19,11,4,2.0,156,True,True,1.5,0,
+639,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+640,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+641,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+642,16,19,13,1,2.0,7,False,True,1.5,1,
+643,16,19,11,1,2.0,2,False,True,1.5,1,
+644,16,19,11,1,2.0,17,True,True,1.5,0,
+645,16,19,13,1,21.0,0,False,True,0.32518152,,
+646,16,19,11,1,24.0,0,False,True,0.34408334,,
+647,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+648,16,19,11,1,11.0,0,False,True,0.41934721,,
+649,16,19,11,1,2.0,30,True,True,1.5,0,
+650,16,19,11,1,13.0,0,False,True,0.40418108,,
+651,,,11,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+652,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+653,16,19,11,2,3.0,15,True,False,,0,
+654,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+655,16,19,11,1,3.0,8,True,False,,0,
+656,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+657,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+658,16,19,11,2,2.0,1,False,True,1.5,1,
+659,16,19,12,1,2.0,2,False,True,1.5,1,
+660,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+661,16,19,11,1,19.0,0,False,True,0.3269459,,
+662,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+663,16,19,14,1,13.0,0,False,True,0.40418108,,
+664,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+665,16,19,11,2,2.0,3,False,True,1.5,1,
+666,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+667,16,19,12,1,2.0,0,False,True,1.5,2,
+668,16,19,11,1,2.0,19,True,True,1.5,0,
+669,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+670,16,19,11,1,2.0,7,True,True,1.5,0,
+671,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+672,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+673,16,19,11,1,3.0,2,True,False,,0,
+674,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+675,16,19,11,2,2.0,96,True,True,1.5,0,
+676,16,19,11,4,2.0,110,True,True,1.5,0,
+677,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+678,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+679,16,19,12,1,2.0,5,True,True,1.5,0,
+680,16,19,11,2,2.0,2,False,True,1.5,1,
+681,16,19,12,1,12.0,0,False,True,0.41138913,,
+682,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+683,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+684,16,19,11,1,2.0,4,True,True,1.5,0,
+685,16,19,12,1,3.0,0,True,False,,0,
+686,16,19,12,2,2.0,3,True,True,1.5,0,
+687,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+688,16,19,11,2,2.0,12,False,True,1.5,1,
+689,16,19,11,1,23.0,0,False,True,0.3083837,,
+690,16,19,11,1,5.0,1,False,True,0.66198139,1,
+691,16,19,11,1,2.0,5,False,True,1.5,1,
+692,16,19,11,1,4.0,3,False,True,0.7757432,1,
+693,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+694,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+695,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+696,16,19,12,1,4.0,0,False,True,0.79826485,2,
+697,16,19,11,1,2.0,1,True,True,1.5,0,
+698,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+699,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+700,16,19,11,4,2.0,63,True,True,1.5,0,
+701,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+702,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+703,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+704,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+705,,,11,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+706,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+707,16,19,11,1,2.0,19,True,True,1.5,0,
+708,16,19,11,1,3.0,19,True,False,,0,
+709,16,19,11,1,2.0,29,False,True,1.5,1,
+710,16,19,13,1,15.0,0,False,True,0.39154334,,
+711,16,19,11,1,5.0,1,False,True,0.65004828,1,
+712,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+713,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+714,16,19,11,1,3.0,44,True,False,,0,
+715,16,19,11,1,3.0,27,True,False,,0,
+716,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+717,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+718,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+719,16,19,12,1,2.0,6,False,True,1.5,1,
+720,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+721,16,19,12,1,2.0,27,True,True,1.5,0,
+722,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+723,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+724,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+725,16,19,11,1,2.0,37,True,True,1.5,0,
+726,16,19,11,1,2.0,2,False,True,1.5,1,
+727,16,19,11,1,23.0,0,False,True,0.33929299,,
+728,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+729,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+730,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+731,16,19,13,1,19.0,0,False,True,0.33548623,,
+732,16,19,12,1,20.0,0,False,True,0.32398755,,
+733,16,19,11,1,2.0,1,False,True,1.5,1,
+734,16,19,11,1,2.0,2,False,True,1.5,1,
+735,16,19,11,1,3.0,7,True,False,,0,
+736,16,19,11,2,5.0,0,False,True,0.65004828,2,
+737,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+738,16,19,12,1,3.0,4,True,False,,0,
+739,16,19,11,1,3.0,33,True,False,,0,
+740,,,11,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+741,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+742,16,19,11,1,5.0,2,False,True,0.65004828,1,
+743,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+744,16,19,11,1,2.0,15,True,True,1.5,0,
+745,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+746,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+747,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+748,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+749,16,19,11,2,2.0,24,True,True,1.5,0,
+750,16,19,11,1,2.0,22,True,True,1.5,0,
+751,16,19,11,1,2.0,2,False,True,1.5,1,
+752,16,19,11,1,2.0,64,True,True,1.5,0,
+753,16,19,11,1,2.0,20,True,True,1.5,0,
+754,16,19,11,1,10.0,1,False,True,0.47828993,1,
+755,16,19,11,1,17.0,0,False,True,0.35645885,,
+756,16,19,11,1,2.0,14,True,True,1.5,0,
+757,16,19,11,1,2.0,17,False,True,1.5,1,
+758,16,19,11,1,2.0,12,False,True,1.5,1,
+759,16,19,11,1,2.0,8,False,True,1.5,1,
+760,16,19,11,2,8.0,2,False,True,0.48301141,1,
+761,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+762,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+763,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+764,16,19,11,2,2.0,32,True,True,1.5,0,
+765,16,19,11,2,2.0,70,True,True,1.5,0,
+766,16,19,11,1,23.0,0,False,True,0.34733634,,
+767,16,19,11,1,3.0,20,True,False,,0,
+768,,,11,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+769,16,19,12,1,5.0,4,False,True,0.65004828,1,
+770,16,19,11,1,16.0,0,False,True,0.34620187,,
+771,16,19,11,1,3.0,4,True,False,,0,
+772,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+773,,,11,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+774,16,19,12,1,2.0,5,True,True,1.5,0,
+775,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+776,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+777,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+778,16,19,15,1,23.0,0,False,True,0.33531247,,
+779,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+780,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+781,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+782,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+783,16,19,12,1,2.0,4,False,True,1.5,1,
+784,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+785,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+786,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+787,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+788,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+789,16,19,13,1,2.0,7,False,True,1.5,1,
+790,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+791,16,19,12,1,3.0,7,True,False,,0,
+792,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+793,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+794,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+795,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+796,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+797,16,19,12,1,3.0,35,True,False,,0,
+798,16,19,13,1,2.0,25,True,True,1.5,0,
+799,16,19,12,1,2.0,5,False,True,1.5,1,
+800,,,12,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+801,16,19,13,1,2.0,2,False,True,1.5,1,
+802,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+803,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+804,,,14,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+805,16,19,12,1,2.0,13,False,True,1.5,1,
+806,16,19,14,1,2.0,6,False,True,1.5,1,
+807,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+808,16,19,12,1,3.0,11,True,False,,0,
+809,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+810,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+811,16,19,12,1,4.0,10,False,True,0.7757432,1,
+812,16,19,14,1,2.0,29,True,True,1.5,0,
+813,16,19,12,1,2.0,7,False,True,1.5,1,
+814,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+815,16,19,13,1,23.0,0,False,True,0.33531247,,
+816,16,19,13,1,2.0,3,False,True,1.5,1,
+817,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+818,16,19,12,1,2.0,14,False,True,1.5,1,
+819,16,19,12,2,2.0,3,False,True,1.5,1,
+820,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+821,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+822,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+823,16,19,13,1,2.0,10,False,True,1.5,1,
+824,,,12,,,0,False,False,,,unhandled: index 12 is out of bounds for axis 0 with size 12
+825,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+826,,,14,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+827,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+828,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+829,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+830,16,19,12,1,3.0,8,True,False,,0,
+831,16,19,12,1,2.0,12,False,True,1.5,1,
+832,16,19,13,1,11.0,1,False,True,0.40637813,1,
+833,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+834,16,19,12,1,6.0,12,False,True,0.56409973,1,
+835,16,19,12,1,3.0,12,True,False,,0,
+836,16,19,13,1,7.0,6,False,True,0.53778596,1,
+837,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+838,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+839,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+840,16,19,12,1,5.0,9,False,True,0.65004828,1,
+841,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+842,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+843,16,19,13,1,11.0,0,False,True,0.44594483,,
+844,16,19,12,1,22.0,0,False,True,0.3424869,,
+845,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+846,16,19,12,1,4.0,3,False,True,0.75,1,
+847,16,19,13,2,2.0,1,False,True,1.5,1,
+848,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+849,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+850,16,19,12,1,3.0,5,True,False,,0,
+851,16,19,13,2,4.0,4,False,True,0.79826485,1,
+852,16,19,12,2,3.0,11,True,False,,0,
+853,16,19,12,1,3.0,21,True,False,,0,
+854,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+855,16,19,12,1,3.0,25,True,False,,0,
+856,16,19,12,1,22.0,0,False,True,0.35075119,,
+857,16,19,12,1,5.0,4,False,True,0.65004828,1,
+858,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+859,16,19,12,1,3.0,7,True,False,,0,
+860,16,19,12,1,3.0,16,True,False,,0,
+861,16,19,13,1,5.0,2,False,True,0.68484981,1,
+862,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+863,16,19,12,1,4.0,2,False,True,0.7757432,1,
+864,16,19,12,1,3.0,3,True,False,,0,
+865,16,19,12,1,2.0,13,False,True,1.5,1,
+866,16,19,12,1,6.0,2,False,True,0.63671217,1,
+867,16,19,12,1,6.0,4,False,True,0.56409973,1,
+868,16,19,12,1,2.0,6,False,True,1.5,1,
+869,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+870,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+871,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+872,16,19,12,1,4.0,0,False,True,0.78740146,,
+873,16,19,12,2,2.0,24,False,True,1.5,1,
+874,16,19,12,1,9.0,1,False,True,0.5,1,
+875,16,19,12,1,4.0,7,False,True,0.7757432,1,
+876,16,19,12,1,2.0,18,False,True,1.5,1,
+877,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+878,16,19,12,1,4.0,3,False,True,0.7757432,1,
+879,,,13,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+880,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+881,16,19,12,1,2.0,6,False,True,1.5,1,
+882,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+883,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+884,16,19,12,1,9.0,1,False,True,0.45339765,1,
+885,16,19,12,2,2.0,25,True,True,1.5,0,
+886,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+887,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+888,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+889,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+890,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+891,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+892,16,19,14,1,2.0,3,False,True,1.5,1,
+893,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+894,16,19,12,1,3.0,20,True,False,,0,
+895,16,19,12,2,2.0,31,True,True,1.5,0,
+896,16,19,12,1,2.0,9,True,True,1.5,0,
+897,16,19,13,1,19.0,0,False,True,0.3269459,,
+898,16,19,12,1,3.0,17,True,False,,0,
+899,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+900,16,19,12,1,2.0,3,False,True,1.5,1,
+901,16,19,12,2,2.0,29,True,True,1.5,0,
+902,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+903,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+904,16,19,12,2,2.0,5,False,True,1.5,1,
+905,16,19,12,1,3.0,8,True,False,,0,
+906,16,19,12,1,3.0,12,True,False,,0,
+907,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+908,16,19,12,1,2.0,7,False,True,1.5,1,
+909,16,19,12,2,3.0,27,True,False,,0,
+910,16,19,12,1,2.0,21,True,True,1.5,0,
+911,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+912,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+913,16,19,13,1,2.0,15,True,True,1.5,0,
+914,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+915,16,19,13,1,2.0,7,False,True,1.5,1,
+916,16,19,13,1,2.0,2,False,True,1.5,1,
+917,16,19,12,1,2.0,17,True,True,1.5,0,
+918,16,19,12,2,2.0,20,True,True,1.5,0,
+919,16,19,12,1,5.0,19,False,True,0.65004828,1,
+920,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+921,16,19,12,1,2.0,44,True,True,1.5,0,
+922,16,19,12,1,3.0,36,True,False,,0,
+923,16,19,12,1,3.0,10,True,False,,0,
+924,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+925,16,19,14,1,2.0,0,False,True,1.5,2,
+926,16,19,14,1,2.0,3,False,True,1.5,1,
+927,16,19,12,1,2.0,24,True,True,1.5,0,
+928,16,19,12,1,2.0,27,True,True,1.5,0,
+929,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+930,16,19,12,1,2.0,10,True,True,1.5,0,
+931,16,19,13,1,16.0,0,False,True,0.36074207,,
+932,,,13,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+933,16,19,12,1,3.0,15,True,False,,0,
+934,16,19,12,1,2.0,28,True,True,1.5,0,
+935,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+936,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+937,16,19,14,1,15.0,0,False,True,0.38091392,,
+938,16,19,12,1,2.0,19,True,True,1.5,0,
+939,16,19,12,1,3.0,28,True,False,,0,
+940,16,19,12,1,2.0,36,True,True,1.5,0,
+941,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+942,16,19,13,1,3.0,16,True,False,,0,
+943,16,19,12,1,2.0,26,True,True,1.5,0,
+944,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+945,16,19,12,1,2.0,3,False,True,1.5,1,
+946,16,19,12,1,2.0,3,False,True,1.5,1,
+947,16,19,12,2,3.0,46,True,False,,0,
+948,16,19,13,1,2.0,7,False,True,1.5,1,
+949,16,19,12,1,2.0,13,True,True,1.5,0,
+950,16,19,14,1,20.0,0,False,True,0.33228396,,
+951,,,13,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+952,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+953,16,19,12,1,3.0,22,True,False,,0,
+954,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+955,16,19,12,1,3.0,22,True,False,,0,
+956,16,19,12,1,2.0,5,True,True,1.5,0,
+957,16,19,12,1,2.0,12,True,True,1.5,0,
+958,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+959,16,19,12,1,2.0,17,True,True,1.5,0,
+960,16,19,12,1,2.0,16,False,True,1.5,1,
+961,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+962,16,19,12,1,13.0,0,False,True,0.36448952,,
+963,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+964,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+965,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+966,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+967,16,19,13,1,4.0,14,False,True,0.75,1,
+968,16,19,12,1,2.0,25,True,True,1.5,0,
+969,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+970,16,19,12,1,3.0,34,True,False,,0,
+971,16,19,12,1,5.0,12,False,True,0.67359306,1,
+972,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+973,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+974,16,19,12,2,2.0,5,True,True,1.5,0,
+975,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+976,16,19,12,1,2.0,5,False,True,1.5,1,
+977,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+978,16,19,12,1,2.0,18,True,True,1.5,0,
+979,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+980,16,19,13,1,3.0,10,True,False,,0,
+981,16,19,12,1,11.0,0,False,True,0.43255574,,
+982,16,19,12,1,2.0,2,False,True,1.5,1,
+983,16,19,12,1,2.0,4,False,True,1.5,1,
+984,16,19,12,1,5.0,7,False,True,0.65004828,1,
+985,16,19,12,1,2.0,18,True,True,1.5,0,
+986,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+987,16,19,13,1,2.0,28,True,True,1.5,0,
+988,16,19,12,1,3.0,3,True,False,,0,
+989,16,19,12,1,2.0,10,True,True,1.5,0,
+990,,,12,,,0,False,False,,,unhandled: index 14 is out of bounds for axis 0 with size 14
+991,16,19,12,1,2.0,19,False,True,1.5,1,
+992,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+993,16,19,13,2,2.0,26,True,True,1.5,0,
+994,,,12,,,0,False,False,,,unhandled: index 13 is out of bounds for axis 0 with size 13
+995,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+996,,,12,,,0,False,False,,,unhandled: index 15 is out of bounds for axis 0 with size 15
+997,16,19,12,2,2.0,38,True,True,1.5,0,
+998,16,19,12,1,3.0,7,True,False,,0,
+999,16,19,12,1,2.0,19,True,True,1.5,0,
