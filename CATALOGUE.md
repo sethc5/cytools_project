@@ -3,7 +3,7 @@
 > **Purpose**: Record what's been checked, what passed, and what's ruled out.
 > If a polytope or approach appears here, you don't need to redo the work.
 >
-> **Last updated**: 2026-02-24. Scan v2 complete (1,025 polytopes). T2 partial (20/157).
+> **Last updated**: 2026-02-24. Scan v2 complete (1,025 polytopes). T2 complete (157/157).
 
 ---
 
@@ -50,9 +50,9 @@
   │   │   ├─ 157 pass Tier 1.5 ────────────── 15% of total  
   │   │   │   (fibrations + 300-bundle probe, ≥3 clean h⁰=3)
   │   │   │   │
-  │   │   │   ├─ 20 completed Tier 2 ─────── (deep analysis)
-  │   │   │   │
-  │   │   │   └─ 137 awaiting Tier 2
+  │   │   │   └─ 157 completed Tier 2 ────── ✅ ALL DONE
+  │   │   │       23 scored T2=45 (max)
+  │   │   │       66 scored T2≥41
   │   │   │
   │   │   └─ 180 filtered at T1.5
   │   │       (too few clean bundles or probe truncated badly)
@@ -65,37 +65,55 @@
 
 ---
 
-## 3. Top 20 Candidates (Tier 2)
+## 3. Top 20 Candidates (Tier 2 — all 157 complete)
 
-All non-favorable except h15/poly33. T2 score out of 55.
+Ranked by clean h⁰=3 bundle count. All non-favorable. T2 score out of 55.
 
-| Rank | Polytope | h¹¹_eff | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell |
-|------|----------|---------|-----|------------|-------|--------|-----|-----|
-| 1 | h17/poly63 | 13 | 45 | 198 | 922 | 40 | 5 | 6 |
-| 2 | h18/poly34 | 13 | 45 | 189 | 730 | 16 | 4 | 4 |
-| 3 | h17/poly90 | 13 | 45 | 148 | 542 | 16 | 3 | 3 |
-| 4 | h16/poly63 | 13 | 45 | 72 | 584 | 37 | 4 | 4 |
-| 5 | h18/poly6 | 13 | 45 | 56 | 514 | 24 | — | — |
-| 6 | h15/poly94 | 13 | 45 | 36 | 126 | 10 | — | — |
-| 7 | h19/poly67 | — | 45 | 27 | 100 | 10 | — | — |
-| 8 | h16/poly86 | — | 45 | 24 | 126 | 10 | — | — |
-| 9 | h16/poly24 | — | 44 | 27 | 144 | 10 | — | — |
-| 10 | h19/poly68 | — | 44 | 22 | 90 | 10 | — | — |
-| 11 | h17/poly57 | — | 42 | 18 | 70 | 10 | — | — |
-| 12 | h16/poly11 | — | 41 | 255 | 840 | 13 | — | — |
-| 13 | h14/poly5 | — | 41 | 74 | 670 | 27 | — | — |
-| 14 | h18/poly8 | — | 41 | 36 | 122 | 16 | — | — |
-| 15 | h16/poly91 | — | 39 | 22 | 102 | 11 | — | — |
-| 16 | h17/poly41 | — | 38 | 9 | 66 | 12 | — | — |
-| 17 | h15/poly33 [F] | — | 37 | 16 | 60 | 10 | — | — |
-| 18 | h17/poly81 | — | 35 | 16 | 90 | 10 | — | — |
-| 19 | h19/poly35 | — | 34 | 9 | 36 | 10 | — | — |
-| 20 | h18/poly74 | — | 29 | 4 | 38 | 20 | — | — |
+| Rank | Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell |
+|------|----------|----|------------|-------|--------|-----|-----|
+| 1 | **h14/poly2** | 41 | **268** | 828 | 13 | 3 | 1 |
+| 2 | h17/poly96 | 39 | 227 | 930 | **65** | 2 | 1 |
+| 3 | h17/poly63 | 45 | 198 | 922 | 40 | 5 | 6 |
+| 4 | h18/poly34 | 45 | 189 | 730 | 16 | 4 | 4 |
+| 5 | h17/poly9 | 35 | 181 | 876 | 15 | 1 | 0 |
+| 6 | h17/poly8 | 45 | 159 | 558 | 13 | 3 | 3 |
+| 7 | h17/poly90 | 45 | 148 | 542 | 16 | 3 | 3 |
+| 8 | h15/poly23 | 45 | 119 | 524 | 20 | 4 | 6 |
+| 9 | h17/poly21 | 45 | 118 | 532 | 13 | 4 | 6 |
+| 10 | h19/poly7 | 41 | 114 | 374 | 6 | 3 | 1 |
+| 11 | h16/poly22 | 45 | 111 | 440 | 10 | 4 | 6 |
+| 12 | h16/poly51 | 41 | 109 | 486 | 12 | 3 | 1 |
+| 13 | h15/poly36 | 41 | 107 | 310 | 11 | 3 | 1 |
+| 14 | h15/poly61 | 45 | 103 | 338 | 4 | 3 | 3 |
+| 15 | h17/poly58 | 45 | 102 | 520 | 6 | 3 | 3 |
+| 16 | h16/poly43 | 41 | 98 | 544 | 13 | 3 | 1 |
+| 17 | h17/poly32 | 45 | 95 | 438 | 13 | 3 | 3 |
+| 18 | h15/poly25 | 45 | 95 | 418 | 13 | 3 | 3 |
+| 19 | h16/poly52 | 41 | 94 | 388 | 4 | 3 | 1 |
+| 20 | h13/poly0 | 35 | 86 | 380 | 10 | 1 | 0 |
+
+Full merged CSV: [results/tier2_full_results.csv](results/tier2_full_results.csv)
+
+### T2 Score Distribution (all 157)
+
+| T2 Score | Count |
+|----------|-------|
+| 45 (max) | 23 |
+| 44 | 17 |
+| 43 | 6 |
+| 42 | 4 |
+| 41 | 16 |
+| 40 | 11 |
+| 39 | 10 |
+| 38 | 14 |
+| ≤37 | 56 |
 
 **Observations**:
-- Every top candidate is non-favorable (h¹¹_eff < h¹¹). These were invisible before Bug B-11 fix.
-- h16/poly11 has the most clean bundles (255) despite a lower T2 score — it may be underscored.
-- h14/poly5 is notable: low h¹¹ but high h⁰ count. Worth a full pipeline run.
+- **h14/poly2 is the new clean-bundle leader** (268 clean) at the lowest h¹¹ (14) in the batch. Low h¹¹ = simpler moduli stabilization. Strong full-pipeline candidate.
+- **h17/poly96 has max h⁰ = 65** — the highest of any polytope scanned. 227 clean bundles despite only T2=39.
+- Every top candidate is non-favorable. These were invisible before Bug B-11 fix.
+- 23 polytopes hit the T2 score cap of 45 — the scoring saturates. Clean bundle count is the better discriminator.
+- h16/poly74 has **10 elliptic fibrations** (most of any candidate) — exceptional for F-theory.
 
 ---
 
@@ -166,15 +184,15 @@ These bugs wasted significant time. If you're using CYTools 1.4.5, be aware:
 
 Ordered by expected impact:
 
-1. **Complete Tier 2 on remaining 137 candidates** — The batch is running on Codespace. Will reveal how many polytopes rival h17/poly63.
+1. **Full pipeline on h14/poly2** — New clean-bundle leader (268) at h¹¹=14. Lowest h¹¹ with this many bundles. Needs Stages 1–4 deep analysis + scorecard.
 
-2. **Full pipeline on h17/poly63** — Top T2 scorer (198 clean bundles, max h⁰=40). Needs the same detailed treatment h13/poly1 got.
+2. **Full pipeline on h17/poly63** — Top T2 scorer (198 clean, max h⁰=40, 5 K3 + 6 elliptic). Best fibration structure.
 
-3. **Expand scan at h¹¹ = 15–17** — Remove `limit=100` cap. These h¹¹ values have thousands of polytopes we haven't touched.
+3. **Expand scan at h¹¹ = 15–17** — Remove `limit=100` cap. We scanned 100/553 at h15, 100/5180 at h16, 100/38735 at h17.
 
 4. **Stage 5: Higher-rank bundles** — Line bundles only give U(1) gauge group. Standard Model needs SU(3)×SU(2)×U(1). This requires rank 4 or 5 vector bundles (monads, extensions). Nobody has attempted this yet on our candidates.
 
-5. **F-theory classification** — All candidates have elliptic fibrations. Discriminant locus analysis would identify gauge groups directly from geometry.
+5. **F-theory on h16/poly74** — 10 elliptic fibrations (most of any candidate). Prime target for discriminant locus classification.
 
 ---
 

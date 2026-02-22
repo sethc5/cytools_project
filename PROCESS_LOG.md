@@ -5,6 +5,38 @@
 
 ---
 
+## 2026-02-24 — T2 batch complete: 157/157, new leaders discovered
+
+**Work done**: All 4 Codespace T2 pipes finished (33–41 min each). Pulled results locally, merged into `results/tier2_full_results.csv`. Updated CATALOGUE.md, README.md, FINDINGS.md.
+
+**Key discoveries from the full 157-polytope T2 batch**:
+
+| Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell | Note |
+|----------|-----|------------|-------|--------|-----|-----|------|
+| **h14/poly2** | 41 | **268** | 828 | 13 | 3 | 1 | New clean-bundle leader. Lowest h¹¹ in top 20. |
+| **h17/poly96** | 39 | 227 | 930 | **65** | 2 | 1 | Highest max h⁰ ever recorded. |
+| h17/poly63 | 45 | 198 | 922 | 40 | 5 | 6 | Still best T2 score + fibrations. |
+| h16/poly74 | 45 | 24 | 80 | 4 | 5 | **10** | Most elliptic fibrations → F-theory target. |
+| h17/poly45 | 45 | 61 | 404 | 16 | **6** | **8** | Most K3 fibrations. |
+
+**Score distribution**: 23 at T2=45 (max), 66 at T2≥41, 157 total. The T2 scoring saturates — clean bundle count is the better discriminator.
+
+**Decision**: h14/poly2 and h17/poly63 are the two priority candidates for full pipeline runs. h14/poly2 has more clean bundles at lower h¹¹; h17/poly63 has the best fibration structure.
+
+**Commits**: tier2_full_results.csv, updated CATALOGUE/README/FINDINGS/BACKLOG
+
+---
+
+## 2026-02-24 — Repo restructured for open-source
+
+**Work done**: Rewrote README.md, created CATALOGUE.md and CONTRIBUTING.md, updated FINDINGS.md and BACKLOG.md. Archived old README and FINDINGS. Pushed to GitHub.
+
+**Strategic direction**: Open-source pipeline + catalogue. Build the sieve, record what passes, make it contributor-friendly. "Nothing big unless we find the big one."
+
+**Commits**: 8dc9d63
+
+---
+
 ## 2026-02-22 — Tier 1.5 sweep complete: 157 T2-worthy candidates
 
 **Work done**: Ran `tier15_screen.py` on all 317 remaining Tier 1 candidates (excluding 20 already T2-screened). Phase A (fibrations) + Phase B (300-bundle capped probe). Total runtime: 26.8 min locally.

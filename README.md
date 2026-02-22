@@ -35,22 +35,23 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 
 ```
 1,025 polytopes scanned (h11=13..24, limit=100/h11)
-  └─ 583 have h⁰ ≥ 3 line bundles (57%)
+  └─ 634 have h⁰ ≥ 3 line bundles (62%)
       └─ 337 pass Tier 1 (dP divisors + Swiss cheese + symmetry)
           └─ 157 pass Tier 1.5 (fibrations + 300-bundle probe, ≥3 clean)
-              └─ ~177 Tier 2 complete (full bundle search + h³ verification)
-                  └─ Top candidates listed below
+              └─ 157 Tier 2 complete ✅ (full bundle search + h³ verification)
+                  └─ 23 scored T2=45 (max), 66 scored T2≥41
 ```
 
-### Top Candidates (by T2 score, 55 max)
+### Top Candidates (by clean h⁰=3 bundle count)
 
-| Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 fib | Ell fib | h11_eff |
-|----------|-----|------------|-------|--------|--------|---------|---------|
-| h17/poly63 [NF] | 45 | 198 | 922 | 40 | 5 | 6 | 13 |
-| h18/poly34 [NF] | 45 | 189 | 730 | 16 | 4 | 4 | 13 |
-| h17/poly90 [NF] | 45 | 148 | 542 | 16 | 3 | 3 | 13 |
-| h16/poly63 [NF] | 45 | 72 | 584 | 37 | 4 | 4 | 13 |
-| h13/poly1 (bench) | 45 | 25 | 76 | 6 | 3 | 3 | 13 |
+| Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 fib | Ell fib |
+|----------|-----|------------|-------|--------|--------|--------|
+| **h14/poly2** [NF] | 41 | **268** | 828 | 13 | 3 | 1 |
+| h17/poly96 [NF] | 39 | 227 | 930 | **65** | 2 | 1 |
+| h17/poly63 [NF] | 45 | 198 | 922 | 40 | 5 | 6 |
+| h18/poly34 [NF] | 45 | 189 | 730 | 16 | 4 | 4 |
+| h17/poly8 [NF] | 45 | 159 | 558 | 13 | 3 | 3 |
+| h13/poly1 (bench) | 45 | 25 | 76 | 6 | 3 | 3 |
 
 Full results in [results/](results/). All top candidates are **non-favorable** polytopes — these were invisible until we fixed [Bug B-11](PROCESS_LOG.md).
 

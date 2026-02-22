@@ -13,10 +13,10 @@
 ### B-17: Repo restructuring for open-source ✅ DONE
 - Rewrote README.md for public contributors. Created CATALOGUE.md (ruled-out list), CONTRIBUTING.md, updated FINDINGS.md + BACKLOG.md. Archived old docs in archive/.
 
-### B-16: Full T2 on 157 T1.5 survivors (batch) 🔶 IN PROGRESS
-- **Status**: 20/157 complete (running on Codespace, 4 parallel pipes).
-- **What**: Run `./run_t2_batch.sh` on Codespace. Merge results.
-- **Acceptance**: Complete T2 scores for all 157 candidates. Merged master CSV.
+### B-16: Full T2 on 157 T1.5 survivors (batch) ✅ DONE
+- All 4 pipes finished on Codespace (33–41 min each). 157/157 complete.
+- Merged CSV: `results/tier2_full_results.csv`
+- New leaders: h14/poly2 (268 clean), h17/poly96 (max h⁰=65).
 
 ---
 

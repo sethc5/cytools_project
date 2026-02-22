@@ -68,6 +68,46 @@ Needs full pipeline run (Stages 1–4 deep analysis + scorecard).
 
 ---
 
+## 2b. h14/poly2 — New Clean-Bundle Leader (268 clean, T2=41)
+
+**Date**: 2026-02-24. Discovered in Codespace T2 batch.
+
+Most clean h⁰ = 3 bundles of any polytope scanned, at the lowest h¹¹ (14) in the top 20. Low h¹¹ implies simpler moduli stabilization — this may be the strongest candidate for a practical SM embedding.
+
+### Key Data
+- h¹¹ = 14, h²¹ = 17, χ = −6, non-favorable (h¹¹_eff = 13)
+- **268 clean h⁰ = 3 line bundles** (most of any candidate)
+- 828 with h⁰ ≥ 3, max h⁰ = 13
+- 14,608 total χ = ±3 bundles
+- 3 K3 fibrations, 1 elliptic fibration
+- D³ range: [−71, 109], 176 distinct values
+
+### Why It Matters
+Combines the most clean bundles with the second-lowest h¹¹ in the landscape. Fewer Kähler moduli = more tractable vacuum stabilization. The large clean bundle count gives the widest possible target space for Stage 5 higher-rank bundle construction.
+
+### Status
+Needs full pipeline run. Top priority alongside h17/poly63.
+
+---
+
+## 2c. h17/poly96 — Extreme max h⁰ = 65 (T2=39)
+
+**Date**: 2026-02-24. Discovered in Codespace T2 batch.
+
+The highest max h⁰ ever recorded on a χ = −6 polytope.
+
+### Key Data
+- h¹¹ = 17, h²¹ = 20, χ = −6, non-favorable (h¹¹_eff = 13)
+- 227 clean h⁰ = 3 bundles
+- 930 with h⁰ ≥ 3, **max h⁰ = 65**
+- 10,208 total χ = ±3 bundles
+- 2 K3 fibrations, 1 elliptic fibration
+
+### Why It Matters
+max h⁰ = 65 means very large global sections exist — this could enable exotic bundle constructions not possible on lower-h⁰ polytopes. The lower T2 score (39) is due to fewer fibrations, but the raw cohomological richness is unmatched.
+
+---
+
 ## 3. Polytope 40 (h15/poly40) — Proven Dead End for Line Bundles
 
 **Date**: 2026-02-22. **Scripts**: dragon_slayer series (40.py through 40i.py).
