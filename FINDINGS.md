@@ -82,7 +82,22 @@ Beyond the basic hardening suite, we performed three further analyses that probe
 | Kähler ray minimum χ | +4 (no ray reaches χ = 3) |
 | 0.05 × interior tip | χ = 3 exactly, but outside cone (18/81 Mori violations) |
 
-**Implication:** Kodaira/KV vanishing CANNOT resolve cohomology on this manifold. Exact 3-generation verification requires **cohomCalg** or equivalent (cluster hardware). This is a well-known limitation for CYs with large Picard number — the result is negative but informative.
+**The quantization obstruction.** Further analysis reveals that the negative result is sharper than "no overlap": the χ(L) = 3 iso-surface is **tangent to the Kähler cone boundary** in ℝ¹⁷. Specifically, along the Kähler ray [1,1,0,1,1,1,1,0,0,0,1,0,2,0,1,0,0], the χ = 3 level set touches the nef cone at the continuous parameter t* = 0.7757..., where 58 of 81 Mori generators are simultaneously saturated (D·C = 0). At this tangent point, χ = 3.0 exactly and the divisor class is nef — but its coordinates are irrational.
+
+The nearest integer lattice points split cleanly:
+- **χ = 4, min(D·C) = 0** — nef (in the cone) but χ too high by exactly 1
+- **χ = 3, min(D·C) = −1** — correct χ but outside the cone by exactly 1
+
+This is a **quantization obstruction**: the cubic Diophantine equation χ(n₁,...,n₁₇) = 3 has solutions in the real Kähler cone but none in the integer lattice. The χ = 3 surface and the Kähler cone are co-tangent in the continuous moduli space, and the integrality of c₁(L) ∈ H²(X, ℤ) prevents simultaneous satisfaction. Six distinct integer lattice points achieve χ = 3 with min(D·C) = −1 exactly — all within one Mori unit of being nef 3-generation bundles.
+
+**Open questions this raises:**
+1. Among the 104 KS polytopes with χ(X) = −6, for how many does the χ(L) = 3 surface intersect the *integer* Kähler cone?
+2. Is this tangency a minimum-distance phenomenon — does our polytope have the closest near-miss among all χ = −6 CY3s?
+3. Can the obstruction be lifted by passing to a different triangulation (different Kähler cone) of the same polytope?
+
+These are computable on a cluster (~30 seconds per polytope, ~1 hour total for all 104).
+
+**Implication:** Kodaira/KV vanishing CANNOT resolve cohomology on this manifold for the default triangulation. Exact 3-generation verification requires **cohomCalg** or equivalent (cluster hardware), or systematic exploration of alternate triangulations.
 
 ### 5B. Elliptic Fibration Structure
 
