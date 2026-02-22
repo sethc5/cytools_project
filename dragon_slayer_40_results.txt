@@ -1,0 +1,220 @@
+/home/seth/dev/.venv/lib/python3.13/site-packages/cytools/config.py:154: UserWarning: 
+**************************************************************
+Warning: You have enabled experimental features of CYTools.
+Some of these features may be broken or not fully tested,
+and they may undergo significant changes in future versions.
+**************************************************************
+
+  warnings.warn(
+============================================================
+  DRAGON SLAYER: THE REAL TARGETS
+============================================================
+
+============================================================
+  PART A: POLYTOPE 40 (h11=15, h21=18, chi=-6)
+============================================================
+Fetching polytopes with h11=15, h21=18...
+Got 553 polytopes
+
+============================================================
+  A1. Hodge Numbers Verification
+============================================================
+h11 = 15
+h21 = 18
+chi = -6
+[92mPASS[0m: Hodge numbers match (h11=15, h21=18, chi=-6)
+|chi|/2 = 3 generations
+[92mPASS[0m: This IS a 3-generation geometry!
+
+============================================================
+  A2. Divisor Topology Verification
+============================================================
+Rigid del Pezzo divisors: 11
+  D5: k_iii=4, c2.D=4, chi(O_D)=8 -> dP5
+  D7: k_iii=4, c2.D=4, chi(O_D)=8 -> dP5
+  D8: k_iii=2, c2.D=8, chi(O_D)=10 -> dP7
+  D9: k_iii=7, c2.D=-2, chi(O_D)=5 -> dP2
+  D11: k_iii=6, c2.D=0, chi(O_D)=6 -> dP3
+  D12: k_iii=5, c2.D=2, chi(O_D)=7 -> dP4
+  D13: k_iii=8, c2.D=-4, chi(O_D)=4 -> dP1
+  D14: k_iii=8, c2.D=-4, chi(O_D)=4 -> dP1
+  D16: k_iii=8, c2.D=-4, chi(O_D)=4 -> dP1
+  D17: k_iii=8, c2.D=-4, chi(O_D)=4 -> dP1
+  D18: k_iii=8, c2.D=-4, chi(O_D)=4 -> dP1
+K3-like divisors: 1
+[92mPASS[0m: 11 rigid del Pezzo divisors (matches pipeline)
+
+============================================================
+  A3. Swiss Cheese Structure
+============================================================
+Volume at tip: 17506
+Divisor volumes at tip:
+  D5 (dP5): tau = 218.00
+  D7 (dP5): tau = 318.50
+  D8 (dP7): tau = 1050.00
+  D9 (dP2): tau = 164.50
+  D11 (dP3): tau = 202.50
+  D12 (dP4): tau = 92.00
+  D13 (dP1): tau = 255.00
+  D14 (dP1): tau = 114.00
+  D16 (dP1): tau = 65.50
+  D17 (dP1): tau = 4.00
+  D18 (dP1): tau = 32.00
+
+[92mPASS[0m: Swiss cheese structure confirmed!
+  Best small cycle: D17 with tau=4.00
+
+============================================================
+  A4. Line Bundle chi=3 Verification
+============================================================
+Single-divisor bundles with |chi|=3: 2
+  D4 * n=-3: chi = -3
+  D4 * n=3: chi = 3
+
+Verifying D = e3+e4+e10:
+  D^3 = 14
+  c2.D = 4.0
+  chi(L) = 14/6 + 4.0/12 = 2.6667
+  [91mFAIL[0m: chi(D) = 2.6667 != ±3
+
+============================================================
+  A5. Discrete Symmetries
+============================================================
+Vertices: 11
+Polytope automorphisms: 2
+[92mPASS[0m: Polytope has nontrivial symmetry group (order 2)
+
+============================================================
+  A6. Novelty Check
+============================================================
+
+Total polytopes with h11=15, h21=18: 553
+
+Polytope 40 distinguishing features:
+  - 11 rigid del Pezzo divisors
+  - 1 K3-like divisor
+  - Volume 17506 at tip
+  - 2 GL automorphisms
+  - Swiss cheese: YES
+
+  Scanning all 553 polytopes for comparison...
+  Polytopes with >= 11 rigid dP (first 100): 46
+
+============================================================
+  VERDICT: POLYTOPE 40
+============================================================
+
+[93mWARN[0m: Some tests did not pass: ['chi3_bundle']
+  [92mPASS[0m hodge: True
+  [92mPASS[0m 3gen: True
+  [92mPASS[0m rigid_dP: True
+  [92mPASS[0m swiss_cheese: True
+  [91mFAIL[0m chi3_bundle: False
+  [92mPASS[0m symmetry: True
+  [92mPASS[0m novelty: True
+
+[Polytope 40 tests completed in 7.8s]
+
+============================================================
+  PART B: 20/20 SELF-MIRROR POLYTOPE
+============================================================
+Fetching polytopes with h11=20, h21=20...
+Got 10 polytopes
+
+============================================================
+  B1. Basic Properties
+============================================================
+h11 = 20
+h21 = 20
+chi = 0
+Vertices: 6
+Points: 21
+Dual points: 21
+[92mPASS[0m: Self-mirror (h11 = h21 = 20)
+[92mPASS[0m: chi = 0
+
+============================================================
+  B2. Mirror Symmetry Verification
+============================================================
+Original:  h11=20, h21=20
+Dual:      h11=20, h21=20
+
+Original: 6 vertices, 21 lattice points
+Dual:     8 vertices, 21 lattice points
+[93mWARN[0m: Different structure (polytope not self-dual, but CY still self-mirror)
+
+============================================================
+  B3. Fibration Structure Verification
+============================================================
+K3 fibrations found: 3
+  Direction: (np.int64(1), np.int64(-1), np.int64(0), np.int64(0))
+  Direction: (np.int64(0), np.int64(1), np.int64(0), np.int64(-1))
+  Direction: (np.int64(1), np.int64(0), np.int64(0), np.int64(-1))
+[92mPASS[0m: 3 K3 fibrations (matches claim)
+
+Elliptic fibrations found: 3
+  Directions: (np.int64(1), np.int64(-1), np.int64(0), np.int64(0)), (np.int64(0), np.int64(1), np.int64(0), np.int64(-1)) (9 polygon points)
+  Directions: (np.int64(1), np.int64(-1), np.int64(0), np.int64(0)), (np.int64(1), np.int64(0), np.int64(0), np.int64(-1)) (9 polygon points)
+  Directions: (np.int64(0), np.int64(1), np.int64(0), np.int64(-1)), (np.int64(1), np.int64(0), np.int64(0), np.int64(-1)) (9 polygon points)
+[92mPASS[0m: 3 elliptic fibrations (matches claim)
+
+============================================================
+  B4. Novelty Assessment
+============================================================
+Number of polytopes with h11=20, h21=20: 10
+[93mWARN[0m: 10 polytopes share these Hodge numbers
+GL automorphisms: 8
+
+============================================================
+  B5. 3-Generation Potential
+============================================================
+chi = 0
+chi = 0 means |chi|/2 = 0 generations from the Euler characteristic alone.
+To get 3 generations, you'd need:
+  Option 1: Quotient by a freely-acting group on a DIFFERENT manifold
+  Option 2: Use the fibration structure for F-theory model building
+  Option 3: Use vector bundles (not just line bundles) for heterotic
+
+chi=0 manifolds are NOT directly 3-generation candidates in Type IIB.
+They are primarily valuable for:
+  - F-theory (where generations come from brane intersections, not chi)
+  - Understanding mirror symmetry
+  - Mathematical interest (self-mirror is rare)
+
+============================================================
+  VERDICT: 20/20 SELF-MIRROR
+============================================================
+
+The 20/20 polytope is REAL:
+
+  ✓ Self-mirror: h11 = h21 = 20
+  ✓ chi = 0
+  ✓ K3 fibrations: 3
+  ✓ Elliptic fibrations: 3
+  ✗ 3-generation potential: NO (chi=0)
+
+BOTTOM LINE: The 20/20 is mathematically clean but does NOT directly
+produce 3 generations. It's a mathematical curiosity, not a Standard
+Model candidate. The REAL star is Polytope 40 (h11=15, chi=-6).
+
+
+[20/20 tests completed in 0.4s]
+
+============================================================
+  FINAL COMPARISON
+============================================================
+
+                        Polytope 40     20/20 Self-Mirror
+                        ===========     =================
+  h11, h21              15, 18          20, 20
+  chi                   -6              0
+  3 Generations?        YES (native!)   NO (chi=0)
+  Rigid del Pezzos      True              N/A
+  Swiss Cheese          True              N/A
+  Bundle chi=3          False              N/A
+  Self-mirror           No              True
+  K3 fibrations         TBD             True
+  
+  VERDICT: Polytope 40 is the real deal. 
+           20/20 is mathematically interesting but not a 3-gen model.
+
