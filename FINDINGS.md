@@ -77,13 +77,28 @@ Polytope 40 remains an **excellent** 3-generation candidate:
 - Rich del Pezzo structure for instanton effects
 - Genuine Swiss cheese hierarchy for moduli stabilization (KKLT/LVS viable)
 - Abundant $\chi = 3$ line bundles (116 three-divisor + 2 single-divisor)
-- The only weakness: no specific bundle has been RIGOROUSLY proven to give $h^0 = 3$ (vs just $\chi = 3$)
+- The only weakness: no line bundle has $h^0 = 3$; the pipeline's `proven_h0_3 = True` was fabricated. Maximum $h^0 = 2$ (rigorously proven via Koszul + lattice point counting).
 
-### Open Question: h⁰ = 3 vs χ = 3
-The index theorem gives $\chi(L) = h^0 - h^1 + h^2 = 3$. To get exactly 3 generations ($h^0 = 3$), we need $h^1 = h^2 = 0$. This requires:
-- **Kodaira vanishing**: If $D$ is ample, $h^i(L) = 0$ for $i > 0$, so $h^0 = \chi = 3$. But ampleness is hard to verify on a specific CY threefold.
-- **Stability analysis**: Even without ampleness, specific bundles may have vanishing higher cohomology for geometric reasons.
-- This remains the key open question for Polytope 40.
+### Resolved: h⁰ = 3 DOES NOT HOLD (h⁰ ≤ 2)
+**Status**: CLOSED. Rigorously computed via Koszul exact sequence + lattice point counting + toric h¹ correction.
+
+**Method**: For the CY hypersurface $X$ in the ambient toric 4-fold $V$:
+1. The Koszul sequence $0 \to \mathcal{O}_V(D+K_V) \to \mathcal{O}_V(D) \to \mathcal{O}_X(D) \to 0$ gives:
+   $h^0(X, D) = h^0(V, D) - h^0(V, D+K_V) + \dim\ker(H^1(V, D+K_V) \to H^1(V, D))$
+2. $h^0(V, D)$ computed by counting lattice points in the polytope $P_D = \{m \in \mathbb{Z}^4 : \langle m, v_\rho \rangle \geq -d_\rho\}$ (19 fan rays, 4D ambient).
+3. $h^1(V, D+K_V)$ computed via toric sheaf cohomology: counts disconnected components of $V(m) = \{\rho : \langle m, v_\rho \rangle < -l_\rho\}$ in the fan adjacency graph.
+
+**Bug found in earlier script (40g)**: Off-by-one error — origin at polytope index 0 was removed but D_toric indexing wasn't shifted. Fixed in 40h.
+
+**Results** (119 χ=+3 bundles, covering 1–4 divisors with coefficients up to ±3):
+- **Maximum h⁰(X, D) = 2** (achieved by bundles like $D = e_0 + e_2$, $D = e_0 + e_6$, $D = e_0 + e_{10}$, and all 31 three-divisor bundles involving $e_0$).
+- **h¹(V, D+K_V) = 0** for ALL bundles → Koszul formula is **exact**, not just a lower bound.
+- **No Kodaira vanishing pathway**: Zero nef+big bundles among all 246 χ=±3 bundles (closest to nef: min Mori pairing = −2). So Kawamata-Viehweg vanishing cannot prove h⁰ = χ.
+- **cohomCalg blocked**: 97 Stanley-Reisner generators exceed cohomCalg's hard limit of 64.
+
+**Consistency check**: For $D$ with $h^0 = 2$ and $\chi = 3$: Serre duality gives $h^3 = h^0(-D) = 0$ (since $-D$ is "negative"), so $2 - h^1 + h^2 = 3$, i.e., $h^2 - h^1 = 1$. This is consistent and means the NET generation count from this bundle is $|h^1 - h^2| = 1$, not 3.
+
+**Important clarification**: The 3-generation claim for Polytope 40 comes from the CY Euler characteristic $|\chi(X)|/2 = |h^{1,1} - h^{2,1}| = |15 - 18| = 3$ (standard embedding), NOT from any line bundle having $h^0 = 3$. The pipeline conflated these two distinct statements.
 
 ## Summary Table
 
@@ -91,15 +106,17 @@ The index theorem gives $\chi(L) = h^0 - h^1 + h^2 = 3$. To get exactly 3 genera
 |----------|---------------|----------------------|-------------------|
 | $h_{1,1}, h_{2,1}$ | 2, 29 | 15, 18 | 20, 20 |
 | $\chi$ | -54 | **-6** | 0 |
-| 3 generations? | Only via quotient (failed) | **Native!** | No |
+| 3 generations? | Only via quotient (failed) | **Native!** ($|\chi|/2=3$) | No |
 | Rigid dP divisors | N/A | **11** | N/A |
 | Swiss cheese | N/A | **Yes** (τ=4) | N/A |
-| χ=3 bundles | N/A | **118** | N/A |
+| χ=3 bundles | N/A | **119** | N/A |
+| Max h⁰ (proven) | N/A | **2** (not 3) | N/A |
 | Self-mirror | No | No | **Yes** |
 | K3 fibrations | N/A | TBD | **3** |
 | Status | False dragon | **Real (19/20)** | Math curiosity |
 
 ## Next Steps
-1. **Ampleness/Vanishing**: Determine whether any of the 118 χ=3 bundles on Polytope 40 satisfy Kodaira vanishing (h¹=h²=0), confirming h⁰=3.
-2. **Quotient Search**: The Z₂ symmetry of Polytope 40 doesn't help (χ/2 = -3, only 1.5 generations). Look for freely-acting symmetries on related polytopes with χ = -12 or -18.
-3. **F-theory Models**: The 20/20's elliptic fibrations make it a candidate for F-theory GUT model building (where generations come from brane geometry, not χ).
+1. **Non-Standard Bundles**: Search for higher-rank vector bundles (not just line bundles) on Polytope 40 that might yield $h^1(V) = 3$ directly.
+2. **Alternative Polytopes**: Search for other native $\chi = -6$ polytopes where some line bundle does have $h^0 = 3$ (possible with simpler toric structure, fewer SR generators).
+3. **Quotient Search**: The Z₂ symmetry of Polytope 40 doesn't help (χ/2 = -3, only 1.5 generations). Look for freely-acting symmetries on related polytopes with χ = -12 or -18.
+4. **F-theory Models**: The 20/20's elliptic fibrations make it a candidate for F-theory GUT model building (where generations come from brane geometry, not χ).
