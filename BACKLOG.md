@@ -6,12 +6,11 @@
 
 ## NOW — Active Sprint
 
-### B-01: Scan χ=-6 polytopes for h⁰=3 line bundles
-- **Why**: Polytope 40 maxes at h⁰=2. Other χ=-6 polytopes may succeed.
-- **What**: Loop over `fetch_polytopes` with various (h11, h21) giving χ=-6. For each, run the verified Koszul pipeline (from 40h) to find bundles with h⁰≥3.
-- **Acceptance**: Table of polytopes with their max h⁰. Any h⁰=3 hit is a headline result.
-- **Estimate**: Medium (few hours compute, script is already proven).
-- **Depends on**: Nothing — pipeline is verified.
+### B-10: Deep characterization of h11=13 "New Champions"
+- **Why**: B-01 scan found 3 polytopes at h11=13 (the smallest χ=-6 CYs) with h⁰ up to 6. Poly 0 has 12 exact h⁰=χ=3 bundles. These are the new best 3-generation candidates.
+- **What**: Run the full pipeline on all 3: divisor classification (del Pezzo, K3), Swiss cheese check, nef cone analysis, fibration structure, automorphisms. Compare to Polytope 40.
+- **Acceptance**: Full scorecard for each. Identify THE best overall χ=-6 CY.
+- **Estimate**: Medium (pipeline is written, just needs running).
 
 ### B-02: Rebuild pipeline_40_152.py honestly
 - **Why**: Current pipeline hardcodes `proven_h0_3 = True` (Bug #1). Score is 19/20, not 20/20. The file is misleading as-is.
@@ -22,6 +21,12 @@
 ---
 
 ## NEXT — Ready to Start
+
+### B-11: Fix c2 mismatch issue at higher h11
+- **Why**: 705/1025 polytopes skipped in B-01 scan due to `second_chern_class(in_basis=True)` returning wrong-sized array. This is either a CYTools bug or a divisor basis subtlety.
+- **What**: Investigate the discrepancy. Check if CYTools uses a different basis internally. Implement workaround.
+- **Acceptance**: Scan can process >90% of polytopes.
+- **Estimate**: Small-Medium.
 
 ### B-03: Higher-rank vector bundles on Polytope 40
 - **Why**: Line bundles cap at h⁰=2. A rank-2 or rank-3 bundle might yield h¹(V)=3 via index theorem. This is the standard BSM construction.
@@ -74,6 +79,7 @@
 
 | ID | Item | Completed | Commit |
 |----|------|-----------|--------|
+| D-11 | B-01: Scan χ=-6 polytopes for h⁰=3 | 2026-02-22 | (this session) |
 | D-01 | Prove/disprove h⁰=3 on Polytope 40 | 2026-02-22 | 5e3d727 |
 | D-02 | Create MATH_SPEC.md gold standard | 2026-02-22 | 72931ed |
 | D-03 | Verify h⁰=2 (char translation + quintic) | 2026-02-22 | 1a3c382 |
