@@ -43,15 +43,22 @@ def compute_divisor_topology(cy):
 
 def run_tier1(cy, poly_idx):
     """Tier 1: Divisor topology & geometric viability (7 checks)"""
+    import time, sys
     h11, h21 = cy.h11(), cy.h21()
     chi_X = 2*(h11 - h21)
+    print(f"  [T1] Computing divisor topology...", flush=True); t0=time.time()
     rigid_dP, K3, other, intnums, c2, div_basis = compute_divisor_topology(cy)
+    print(f"  [T1] Divisor topology done ({time.time()-t0:.1f}s)", flush=True)
 
+    print(f"  [T1] Computing Kähler cone...", flush=True); t0=time.time()
     kc = cy.toric_kahler_cone()
     kc_ineqs = np.array(kc.hyperplanes(), dtype=float)
     n_mori = kc_ineqs.shape[0]
+    print(f"  [T1] Kähler cone done ({n_mori} Mori gens, {time.time()-t0:.1f}s)", flush=True)
+    print(f"  [T1] Computing tip & volume...", flush=True); t0=time.time()
     tip = kc.tip_of_stretched_cone(1)
     vol = cy.compute_cy_volume(tip)
+    print(f"  [T1] Tip & volume done (vol={vol:.0f}, {time.time()-t0:.1f}s)", flush=True)
 
     results = {}
 
@@ -201,14 +208,18 @@ def run_tier2(cy, t1_results, poly_idx):
 
 def run_tier3(cy, t1_results, t2_results, poly_idx):
     """Tier 3: Moduli stabilization & phenomenology (7 checks)"""
+    import time
+    print(f"  [T3] Starting...", flush=True)
     h11, h21 = cy.h11(), cy.h21()
     chi_X = 2*(h11 - h21)
     rigid_dP = t1_results['rigid_dP_list']
 
+    print(f"  [T3] Kähler cone + volumes...", flush=True); t0=time.time()
     kc = cy.toric_kahler_cone()
     tip = kc.tip_of_stretched_cone(1)
     div_vols = cy.compute_divisor_volumes(tip)
     kc_ineqs = np.array(kc.hyperplanes(), dtype=float)
+    print(f"  [T3] Done ({time.time()-t0:.1f}s)", flush=True)
 
     results = {}
 
@@ -221,8 +232,10 @@ def run_tier3(cy, t1_results, t2_results, poly_idx):
 
     opt_viable = []
     if not small_rigid_tip:
-        print(f"  [{poly_idx}] No small rigid at tip. Optimizing {len(rigid_dP)} candidates...")
-        for r in rigid_dP[:15]:
+        n_opt = min(len(rigid_dP), 8)  # cap to prevent long stalls
+        print(f"  [{poly_idx}] No small rigid at tip. Optimizing {n_opt}/{len(rigid_dP)} candidates...", flush=True)
+        for r_count, r in enumerate(rigid_dP[:8]):
+            print(f"    Optimizing candidate {r_count+1}/{n_opt}...", end='', flush=True)
             target_a = r['basis_idx']
             def obj(t_vec, _ta=target_a):
                 margins = kc_ineqs @ t_vec
@@ -241,20 +254,21 @@ def run_tier3(cy, t1_results, t2_results, poly_idx):
                     return 1e10
 
             best_tau, best_t = 1e10, None
-            for ss in [0.02, 0.05, 0.1, 0.2, 0.5]:
+            for ss in [0.05, 0.1, 0.2, 0.5]:
                 t0 = tip.copy()
                 t0[target_a] = tip[target_a] * ss
-                for _ in range(30):
+                for _ in range(20):
                     if np.all(kc_ineqs @ t0 >= 0):
                         break
                     t0 = 0.5*t0 + 0.5*tip
                 try:
                     res = scipy_minimize(obj, t0, method='Nelder-Mead',
-                                       options={'maxiter': 3000, 'xatol': 1e-7})
+                                       options={'maxiter': 500, 'xatol': 1e-5})
                     if res.fun < best_tau and res.fun < 1e5:
                         best_tau, best_t = res.fun, res.x
                 except:
                     continue
+            print(f" tau={best_tau:.2f}", flush=True)
 
             if best_t is not None:
                 vol_opt = cy.compute_cy_volume(best_t)
@@ -329,9 +343,9 @@ def run_tier3(cy, t1_results, t2_results, poly_idx):
 # Main
 ###############################################################################
 
-print("Fetching polytopes...")
+print("Fetching polytopes...", flush=True)
 polys = list(fetch_polytopes(h11=15, h21=18, lattice='N', limit=1000))
-print(f"Got {len(polys)} polytopes")
+print(f"Got {len(polys)} polytopes", flush=True)
 
 all_results = {}
 for pidx in [40, 152]:
@@ -339,13 +353,17 @@ for pidx in [40, 152]:
     print(f"POLYTOPE {pidx}")
     print(f"{'='*70}")
 
+    import sys, time
     p = polys[pidx]
+    print(f"  Triangulating...", flush=True); t0=time.time()
     tri = p.triangulate()
     cy = tri.get_cy()
+    print(f"  Done ({time.time()-t0:.1f}s)", flush=True)
     print(f"h11={cy.h11()}, h21={cy.h21()}, chi={2*(cy.h11()-cy.h21())}")
     print(f"GL automorphisms: {len(p.automorphisms())}")
+    sys.stdout.flush()
 
-    print(f"\n--- TIER 1: Divisor Topology ---")
+    print(f"\n--- TIER 1: Divisor Topology ---", flush=True)
     t1 = run_tier1(cy, pidx)
     print(f"  Rigid dP: {t1['n_rigid_dP']}")
     print(f"  K3-like: {t1['n_K3']}")
@@ -362,7 +380,7 @@ for pidx in [40, 152]:
     for c in checks1:
         print(f"    {'✓' if t1[c] else '✗'} {c}: {t1[c]}")
 
-    print(f"\n--- TIER 2: Line Bundle Spectrum ---")
+    print(f"\n--- TIER 2: Line Bundle Spectrum ---", flush=True)
     t2 = run_tier2(cy, t1, pidx)
     print(f"  Single-div |chi|=3: {t2['n_single_chi3']}")
     for s in t2['single_chi3_list']:
@@ -376,7 +394,7 @@ for pidx in [40, 152]:
     for c in checks2:
         print(f"    {'✓' if t2[c] else '✗'} {c}: {t2[c]}")
 
-    print(f"\n--- TIER 3: Moduli & Phenomenology ---")
+    print(f"\n--- TIER 3: Moduli & Phenomenology ---", flush=True)
     t3 = run_tier3(cy, t1, t2, pidx)
     print(f"  Swiss cheese: {t3['swiss_cheese']}")
     if 'best_swiss' in t3:

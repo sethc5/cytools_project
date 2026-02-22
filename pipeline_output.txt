@@ -6,3 +6,200 @@ and they may undergo significant changes in future versions.
 **************************************************************
 
   warnings.warn(
+Fetching polytopes...
+Got 553 polytopes
+
+======================================================================
+POLYTOPE 40
+======================================================================
+  Triangulating...
+  Done (0.0s)
+h11=15, h21=18, chi=-6
+GL automorphisms: 2
+
+--- TIER 1: Divisor Topology ---
+  [T1] Computing divisor topology...
+  [T1] Divisor topology done (0.0s)
+  [T1] Computing Kähler cone...
+  [T1] Kähler cone done (68 Mori gens, 0.0s)
+  [T1] Computing tip & volume...
+  [T1] Tip & volume done (vol=17506, 0.0s)
+  Rigid dP: 11
+  K3-like: 1
+    D5: k_iii=4, c2·D=4, chi=8 → dP5
+    D7: k_iii=4, c2·D=4, chi=8 → dP5
+    D8: k_iii=2, c2·D=8, chi=10 → dP7
+    D9: k_iii=7, c2·D=-2, chi=5 → dP2
+    D11: k_iii=6, c2·D=0, chi=6 → dP3
+    D12: k_iii=5, c2·D=2, chi=7 → dP4
+    D13: k_iii=8, c2·D=-4, chi=4 → dP1
+    D14: k_iii=8, c2·D=-4, chi=4 → dP1
+    D16: k_iii=8, c2·D=-4, chi=4 → dP1
+    D17: k_iii=8, c2·D=-4, chi=4 → dP1
+    D18: k_iii=8, c2·D=-4, chi=4 → dP1
+  Mori generators: 68
+  Kähler rays: 68
+  Volume (tip): 17506
+  max k_iii: 8
+  Quotient orders: [2, 3, 6]
+  TIER 1 SCORE: 7/7
+    ✓ rigid_dP: True
+    ✓ chi_correct: True
+    ✓ geometric_phase: True
+    ✓ flux_feasible: True
+    ✓ alpha_GUT_ok: True
+    ✓ quotient_viable: True
+    ✓ multi_framework: True
+
+--- TIER 2: Line Bundle Spectrum ---
+  Single-div |chi|=3: 2
+    D4 n=-3: chi=-3
+    D4 n=3: chi=3
+  Two-div |chi|=3: 156
+  Symmetry orbits: 12
+  Proven bundle: D = e3+e4+e10 (D³=1, nef, 10/10 robust)
+  TIER 2 SCORE: 6/6
+    ✓ single_div_chi3: True
+    ✓ two_div_chi3: True
+    ✓ sym_chi3: True
+    ✓ hrr_integer: True
+    ✓ yukawa_texture: True
+    ✓ proven_h0_3: True
+
+--- TIER 3: Moduli & Phenomenology ---
+  [T3] Starting...
+  [T3] Kähler cone + volumes...
+  [T3] Done (0.0s)
+  Swiss cheese: True
+    Best: D17: tau=4.00 (at tip)
+  Instanton-viable dP: 11
+  Flux landscape: log10(N) ~ 25
+  Proton lifetime: 10^37 yr
+  W0 feasible: True
+  RG unification: True (alpha_inv_GUT=32, alpha_inv_MZ=[66.7, 37.3, 16.2])
+  Gravitino hierarchy: True (Vol=17506)
+  TIER 3 SCORE: 7/7
+    ✓ swiss_cheese: True
+    ✓ instanton_viable: True
+    ✓ flux_landscape: True
+    ✓ proton_ok: True
+    ✓ W0_feasible: True
+    ✓ rg_unification: True
+    ✓ gravitino_hierarchy: True
+
+  ★ TOTAL SCORE: 20/20 (T1:7/7, T2:6/6, T3:7/7)
+
+======================================================================
+POLYTOPE 152
+======================================================================
+  Triangulating...
+  Done (0.0s)
+h11=15, h21=18, chi=-6
+GL automorphisms: 1
+
+--- TIER 1: Divisor Topology ---
+  [T1] Computing divisor topology...
+  [T1] Divisor topology done (0.0s)
+  [T1] Computing Kähler cone...
+  [T1] Kähler cone done (86 Mori gens, 0.0s)
+  [T1] Computing tip & volume...
+  [T1] Tip & volume done (vol=5374, 0.0s)
+  Rigid dP: 13
+  K3-like: 0
+    D2: k_iii=2, c2·D=8, chi=10 → dP7
+    D4: k_iii=4, c2·D=4, chi=8 → dP5
+    D5: k_iii=5, c2·D=2, chi=7 → dP4
+    D7: k_iii=2, c2·D=8, chi=10 → dP7
+    D9: k_iii=2, c2·D=8, chi=10 → dP7
+    D10: k_iii=1, c2·D=10, chi=11 → dP8
+    D12: k_iii=3, c2·D=6, chi=9 → dP6
+    D14: k_iii=5, c2·D=2, chi=7 → dP4
+    D15: k_iii=7, c2·D=-2, chi=5 → dP2
+    D16: k_iii=5, c2·D=2, chi=7 → dP4
+    D17: k_iii=7, c2·D=-2, chi=5 → dP2
+    D18: k_iii=8, c2·D=-4, chi=4 → dP1
+    D19: k_iii=6, c2·D=0, chi=6 → dP3
+  Mori generators: 86
+  Kähler rays: 86
+  Volume (tip): 5374
+  max k_iii: 8
+  Quotient orders: [2, 3, 6]
+  TIER 1 SCORE: 7/7
+    ✓ rigid_dP: True
+    ✓ chi_correct: True
+    ✓ geometric_phase: True
+    ✓ flux_feasible: True
+    ✓ alpha_GUT_ok: True
+    ✓ quotient_viable: True
+    ✓ multi_framework: True
+
+--- TIER 2: Line Bundle Spectrum ---
+  Single-div |chi|=3: 4
+    D6 n=-3: chi=-3
+    D6 n=3: chi=3
+    D10 n=-2: chi=-3
+    D10 n=2: chi=3
+  Two-div |chi|=3: 250
+  Symmetry orbits: 11
+  Proven bundle: D = e0 (D³=1, nef, 10/10 robust)
+  TIER 2 SCORE: 6/6
+    ✓ single_div_chi3: True
+    ✓ two_div_chi3: True
+    ✓ sym_chi3: True
+    ✓ hrr_integer: True
+    ✓ yukawa_texture: True
+    ✓ proven_h0_3: True
+
+--- TIER 3: Moduli & Phenomenology ---
+  [T3] Starting...
+  [T3] Kähler cone + volumes...
+  [T3] Done (0.0s)
+  [152] No small rigid at tip. Optimizing 8/13 candidates...
+    Optimizing candidate 1/8... tau=10000000000.00
+    Optimizing candidate 2/8... tau=10000000000.00
+    Optimizing candidate 3/8... tau=10000000000.00
+    Optimizing candidate 4/8... tau=10000000000.00
+    Optimizing candidate 5/8... tau=10000000000.00
+    Optimizing candidate 6/8... tau=10000000000.00
+    Optimizing candidate 7/8... tau=10000000000.00
+    Optimizing candidate 8/8... tau=10000000000.00
+  Swiss cheese: False
+  Instanton-viable dP: 13
+  Flux landscape: log10(N) ~ 25
+  Proton lifetime: 10^37 yr
+  W0 feasible: True
+  RG unification: True (alpha_inv_GUT=32, alpha_inv_MZ=[66.7, 37.3, 16.2])
+  Gravitino hierarchy: True (Vol=5374)
+  TIER 3 SCORE: 6/7
+    ✗ swiss_cheese: False
+    ✓ instanton_viable: True
+    ✓ flux_landscape: True
+    ✓ proton_ok: True
+    ✓ W0_feasible: True
+    ✓ rg_unification: True
+    ✓ gravitino_hierarchy: True
+
+  ★ TOTAL SCORE: 19/20 (T1:7/7, T2:6/6, T3:6/7)
+
+
+======================================================================
+COMPARISON TABLE: Polytope 40 vs 152 vs GL=12 (reference)
+======================================================================
+Check                               GL=12    Poly 40   Poly 152
+---------------------------------------------------------------
+Rigid dP count                         14         11         13
+K3-like count                           2          1          0
+Volume (tip)                        17506      17505       5373
+Single |χ|=3                            2          2          4
+Two-div |χ|=3                         166        156        250
+Swiss cheese                   D17: τ=4.00 D17: tau=4.00 (at tip)         NO
+RG unification                       PASS       PASS       PASS
+Proven h⁰=3                    No (NEAR classification) D = e3+e4+e10 (D³=1, nef, 10/10 robust) D = e0 (D³=1, nef, 10/10 robust)
+
+TIER 1                                  7/7          7/7          7/7
+TIER 2                                  5/6          6/6          6/6
+TIER 3                                  7/7          7/7          6/7
+TOTAL                                  19/20         20/20         19/20
+
+
+Done!
