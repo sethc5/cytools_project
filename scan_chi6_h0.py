@@ -176,30 +176,39 @@ def scan_polytope(p, poly_idx, h11_val, h21_val):
     if not np.all(pts[0] == 0):
         return {'status': 'origin_fail'}
 
-    # Safety: check c2 matches h11
-    if len(c2) != h11:
-        return {'status': 'c2_mismatch', 'n_toric': n_toric, 'h11': h11,
-                'c2_len': len(c2)}
+    # For non-favorable polytopes, len(div_basis) < h11.
+    # The toric basis is internally consistent (c2, intnums, div_basis all
+    # use the same reduced basis of size n_toric - 5). We work in this
+    # basis and note non-favorable cases in the output.
+    h11_eff = len(div_basis)  # effective working dimension
+    is_favorable = (h11_eff == h11)
 
-    # Find χ=3 bundles
-    # Adapt search range based on h11
-    if h11 <= 15:
+    # Safety: c2 must match the toric basis dimension
+    if len(c2) != h11_eff:
+        return {'status': 'c2_mismatch', 'n_toric': n_toric, 'h11': h11,
+                'h11_eff': h11_eff, 'c2_len': len(c2)}
+
+    # Find χ=3 bundles (using effective toric basis dimension)
+    # Adapt search range based on h11_eff (toric basis size)
+    if h11_eff <= 15:
         max_coeff = 3
         max_nonzero = 3
-    elif h11 <= 20:
+    elif h11_eff <= 20:
         max_coeff = 2
         max_nonzero = 3
     else:
         max_coeff = 2
         max_nonzero = 2
 
-    bundles = find_chi3_bundles(intnums, c2, h11, max_coeff, max_nonzero)
+    bundles = find_chi3_bundles(intnums, c2, h11_eff, max_coeff, max_nonzero)
 
     if not bundles:
         return {
             'status': 'no_chi3',
             'n_toric': n_toric,
             'h11': h11,
+            'h11_eff': h11_eff,
+            'favorable': is_favorable,
         }
 
     # Compute h⁰ for each χ=3 bundle
@@ -213,11 +222,11 @@ def scan_polytope(p, poly_idx, h11_val, h21_val):
 
         # Only compute for χ=+3 (not -3) since h⁰ is interesting for positive χ
         if chi > 0:
-            h0 = compute_h0_koszul(pts, ray_indices, D_toric, div_basis, h11)
+            h0 = compute_h0_koszul(pts, ray_indices, D_toric, div_basis, h11_eff)
         else:
             # For χ=-3: by Serre, h³=h⁰(-D). Check h⁰(-D)
             D_neg = basis_to_toric(-D_basis, div_basis, n_toric)
-            h0 = compute_h0_koszul(pts, ray_indices, D_neg, div_basis, h11)
+            h0 = compute_h0_koszul(pts, ray_indices, D_neg, div_basis, h11_eff)
 
         n_computed += 1
 
@@ -235,6 +244,8 @@ def scan_polytope(p, poly_idx, h11_val, h21_val):
         'status': 'ok',
         'n_toric': n_toric,
         'h11': h11,
+        'h11_eff': h11_eff,
+        'favorable': is_favorable,
         'n_chi3': len(bundles),
         'n_computed': n_computed,
         'max_h0': max_h0,
@@ -281,6 +292,7 @@ def main():
             if status == 'ok':
                 max_h0 = result['max_h0']
                 n_chi3 = result['n_chi3']
+                fav_tag = '' if result.get('favorable', True) else ' [NF]'
                 tag = ""
                 if max_h0 >= 3:
                     tag = " ★★★ HIT ★★★"
@@ -288,12 +300,15 @@ def main():
                 elif max_h0 >= 2:
                     tag = " (h⁰=2)"
                 print(f"  poly {idx:3d}: n_toric={result['n_toric']:2d}, "
-                      f"{n_chi3:4d} χ=3 bundles, max h⁰={max_h0}{tag}")
+                      f"h11_eff={result.get('h11_eff', '?'):2}, "
+                      f"{n_chi3:4d} χ=3 bundles, max h⁰={max_h0}{tag}{fav_tag}")
             elif status == 'no_chi3':
+                fav_tag = '' if result.get('favorable', True) else ' [NF]'
                 print(f"  poly {idx:3d}: n_toric={result['n_toric']:2d}, "
-                      f"NO χ=3 bundles found")
+                      f"NO χ=3 bundles found{fav_tag}")
             elif status == 'c2_mismatch':
-                print(f"  poly {idx:3d}: SKIP (c2 size {result.get('c2_len')} ≠ h11={result.get('h11')})")
+                print(f"  poly {idx:3d}: SKIP (c2 size {result.get('c2_len')} ≠ "
+                      f"h11_eff={result.get('h11_eff')}, h11={result.get('h11')})")
             else:
                 print(f"  poly {idx:3d}: {status}")
 
@@ -303,8 +318,11 @@ def main():
     print("=" * 72)
 
     ok_results = [r for r in results if r['status'] == 'ok']
+    nf_results = [r for r in ok_results if not r.get('favorable', True)]
+    c2_skip = [r for r in results if r['status'] == 'c2_mismatch']
     print(f"\nPolytopes scanned: {len(results)}")
-    print(f"Successfully analyzed: {len(ok_results)}")
+    print(f"Successfully analyzed: {len(ok_results)} ({len(nf_results)} non-favorable)")
+    print(f"Skipped (c2 mismatch): {len(c2_skip)}")
     print(f"Polytopes with χ=3 bundles: {sum(1 for r in ok_results if r['n_chi3'] > 0)}")
     print(f"Polytopes with max h⁰ ≥ 3: {len(hits)}")
 

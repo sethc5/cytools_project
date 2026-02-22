@@ -189,15 +189,14 @@ def run_tier2(cy, t1_results, poly_idx):
             break
     results['yukawa_texture'] = yukawa_ok or len(two_chi3) > 10
 
-    # Check 6: Proven h^0=3 bundle exists (from V3 tangency scan)
-    # We KNOW these exist from previous analysis:
-    # Poly 40: D=e3+e4+e10, D³=1, nef, 10/10 robust → KV vanishing → h⁰=3
-    # Poly 152: D=e0, D³=1, nef, 10/10 robust → KV vanishing → h⁰=3
-    results['proven_h0_3'] = True  # confirmed from V3 tangency analysis
-    if poly_idx == 40:
-        results['proven_bundle'] = "D = e3+e4+e10 (D³=1, nef, 10/10 robust)"
-    elif poly_idx == 152:
-        results['proven_bundle'] = "D = e0 (D³=1, nef, 10/10 robust)"
+    # Check 6: Proven h^0=3 bundle exists
+    # CORRECTED 2026-02-22: Rigorously disproven via Koszul exact sequence
+    # + lattice point counting (dragon_slayer_40h.py, verified in 40i.py).
+    # Max h⁰ = 2 for ALL 119 χ=3 line bundles on Polytope 40.
+    # The original claim (D=e3+e4+e10 nef with h⁰=3) was fabricated.
+    # See FINDINGS.md §4 and MATH_SPEC.md §4 for details.
+    results['proven_h0_3'] = False
+    results['proven_bundle'] = "NONE — max h⁰=2 (rigorously proven, see FINDINGS.md §4)"
 
     score = sum([results['single_div_chi3'], results['two_div_chi3'],
                  results['sym_chi3'], results['hrr_integer'],

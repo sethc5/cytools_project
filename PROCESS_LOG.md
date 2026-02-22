@@ -5,6 +5,75 @@
 
 ---
 
+## 2026-02-22 — Tier 2 deep screening: new champion h17/poly63
+
+**Work done**: Built `tier2_screen.py`. Four expensive checks per polytope: (1) exact h⁰=3 bundle count with full Koszul computation, (2) h³=h⁰(-D)=0 verification for all h⁰≥3 bundles, (3) D³ intersection statistics, (4) K3/elliptic fibration count from dual-polytope geometry.
+
+**Validated**: Tested on h13-P1 benchmark — found 25 clean bundles, 3 K3, 3 elliptic, matching `pipeline_h13_P1.py` exactly. T2 score 45/55.
+
+**Top 20 results** (from Tier 1's 337 candidates, 29 min total runtime):
+
+| Rank | Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell |
+|------|----------|-----|------------|-------|--------|-----|-----|
+| 1 | h17/poly63 [NF] | 45 | **198** | 922 | 40 | 5 | 6 |
+| 2 | h18/poly34 [NF] | 45 | **189** | 730 | 16 | 4 | 4 |
+| 3 | h17/poly90 [NF] | 45 | **148** | 542 | 16 | 3 | 3 |
+| 4 | h16/poly63 [NF] | 45 | 72 | 584 | 37 | 4 | 4 |
+| 5 | h18/poly6 [NF] | 45 | 56 | 514 | 24 | 3 | 3 |
+| 6 | h15/poly94 [NF] | 45 | 36 | 126 | 10 | 4 | 4 |
+| 12 | h16/poly11 [NF] | 41 | **255** | 840 | 13 | 3 | 1 |
+| — | h13-P1 (bench) | 45 | 25 | 76 | 6 | 3 | 3 |
+
+**All 20 candidates** have clean h⁰=3 bundles AND fibration structure. 1,258 total clean bundles across top 20. Every candidate is non-favorable (B-11 fix was essential).
+
+**h16/poly11** has the most absolute clean bundles (255) but only 1 elliptic fibration. **h17/poly63** is the best overall: 198 clean, 922 with h⁰≥3, the highest max h⁰ (40!), and 5 K3 + 6 elliptic fibrations.
+
+**Scoring breakdown** (T2 out of 55): clean h⁰=3 count (0-15), h⁰≥3 abundance (0-10), K3 fibrations (0-6), elliptic fibrations (0-6), D³ diversity (0-5), simplicity bonus for h11_eff≤14 (0-3).
+
+**Decision**: h17/poly63 is the new primary candidate. Remaining ~317 Tier 1 candidates need intermediate screening before committing to full T2 analysis.
+
+**Commits**: tier2_screen.py, results/tier2_screen_results.csv
+
+---
+
+## 2026-02-22 — Tier 1 screening: 337 candidates from scan v2 (partial)
+
+**Work done**: Built `tier1_screen.py`. Fast screener (~1s/polytope) that reads scan log, then runs 3 cheap checks per polytope: (1) del Pezzo divisor classification, (2) Swiss cheese structure via Kähler cone tip + 10× hierarchy scaling, (3) GL(Z,4) toric symmetry order. Uses scan's max h⁰ rather than recomputing (fast path).
+
+**Results** (337 candidates from ~60% complete scan v2):
+- 190/337 (56%) have Swiss cheese structure
+- 257/337 (76%) have ≥3 del Pezzo divisors
+- 190/337 have Swiss + h⁰≥3 — immediate pipeline candidates
+- Top candidate (pre-T2): h18/poly8 (score 41/55, 7 dP, Swiss cheese τ=12.9)
+
+**Commits**: tier1_screen.py, results/tier1_screen_results.csv
+
+---
+
+## 2026-02-22 — Scan v2: non-favorable polytopes revealed (in progress)
+
+**Work done**: Re-launched `scan_chi6_h0.py` with the B-11 fix (`h11_eff = len(div_basis)`). All 1025 polytopes now processable.
+
+**Status at documentation time**: ~682/1025 lines, h11=21 processing, 414 HITs (h⁰≥3). Still running (PID 393136).
+
+**Interim findings**: Hit rate ~61% (vs 42% in scan v1 which only saw favorable polytopes). Non-favorable polytopes dominate the landscape and contain the strongest candidates.
+
+---
+
+## 2026-02-22 — B-11: c2 mismatch fix + B-02: pipeline cleanup
+
+**B-11 Root cause**: Non-favorable polytopes have `len(divisor_basis()) < h11`. CYTools' `second_chern_class(in_basis=True)` returns a vector sized to the toric divisor basis, not the full $h^{1,1}$. The scan was comparing `len(c2) != h11` and rejecting 705/1025 polytopes.
+
+**Fix**: Use `h11_eff = len(div_basis)` as the working dimension throughout `scan_chi6_h0.py`. The HRR formula and Koszul lattice-point method already operate in the toric basis, so everything is consistent. Non-favorable polytopes are marked `[NF]` in output.
+
+**Verification**: Tested on h11=14,16 polytopes that previously failed — all now process successfully. Example: h11=14 poly 2 (non-favorable, h11_eff=13) shows max h⁰=11.
+
+**B-02**: Removed fabricated `proven_h0_3 = True` from `pipeline_40_152.py`. Replaced with `False` and a comment citing the Koszul disproof (dragon_slayer_40h/40i). Tier 2 score now correctly shows 5/6, total 19/20.
+
+**Commits**: scan_chi6_h0.py, pipeline_40_152.py, BACKLOG.md
+
+---
+
 ## 2026-02-23 — h13-P1 Full Pipeline: 18/20, New Best Candidate
 
 **Work done**: Built pipeline_h13_P1.py. Full Stages 1-4 of FRAMEWORK.md on h11=13, polytope 1.

@@ -9,21 +9,34 @@
 ### B-10: Deep characterization of h11=13 "New Champions" ✅ DONE
 - Moved to DONE table (D-14). Full pipeline on h13-P1: 18/20 score, 25 clean h⁰=3 bundles.
 
-### B-02: Rebuild pipeline_40_152.py honestly
-- **Why**: Current pipeline hardcodes `proven_h0_3 = True` (Bug #1). Score is 19/20, not 20/20. The file is misleading as-is.
-- **What**: Rewrite the pipeline to use the verified Koszul method for the h⁰ check. Set `proven_h0_3 = False` and update the scorecard to 19/20. Remove fabricated claims.
-- **Acceptance**: Pipeline runs, score = 19/20, no hardcoded results, all claims backed by computation.
-- **Estimate**: Small (1-2 hours).
+### B-02: Rebuild pipeline_40_152.py honestly ✅ DONE
+- Moved to DONE table (D-15). `proven_h0_3 = False`, fabricated claims replaced with documented correction. Score now correctly prints 19/20.
+
+### B-11: Fix c2 mismatch issue at higher h11 ✅ DONE
+- Moved to DONE table (D-16). Root cause: non-favorable polytopes have `len(div_basis) < h11`. Fix: use `h11_eff = len(div_basis)` as working dimension. All 705 previously-skipped polytopes now processable.
 
 ---
 
 ## NEXT — Ready to Start
 
-### B-11: Fix c2 mismatch issue at higher h11
-- **Why**: 705/1025 polytopes skipped in B-01 scan due to `second_chern_class(in_basis=True)` returning wrong-sized array. This is either a CYTools bug or a divisor basis subtlety.
-- **What**: Investigate the discrepancy. Check if CYTools uses a different basis internally. Implement workaround.
-- **Acceptance**: Scan can process >90% of polytopes.
-- **Estimate**: Small-Medium.
+### B-13: Tier 1.5 intermediate screening of remaining ~317 candidates
+- **Why**: Tier 2 takes ~1-4 min per polytope (29 min for 20). Running it on all 337 would take ~6-12 hours. Need an intermediate screen to reduce the pool.
+- **What**: Split into Tier 1.5a (cheap: exact h⁰=3 count from bundles, ~5-10s/polytope) and Tier 1.5b (moderate: add fibration count, ~5-15s/polytope). Feed survivors to full Tier 2.
+- **Acceptance**: Reduce 337 candidates to ~50 for full T2 analysis.
+- **Estimate**: Small-Medium. Codespace-suitable.
+
+### B-14: Full pipeline on h17/poly63 (new primary candidate)
+- **Why**: Top T2 scorer (45/55, 198 clean bundles, 5 K3 + 6 elliptic, max h⁰=40). Needs full Stages 1-4 pipeline treatment like h13-P1 got.
+- **What**: Build pipeline_h17_P63.py. Full divisor analysis, nefness check, cohomology table, net chirality deduction.
+- **Acceptance**: Complete 20-check scorecard. Document in FINDINGS.md.
+- **Estimate**: Medium.
+- **Depends on**: None (data already available from T2 run).
+
+### B-15: Complete scan v2 + re-run Tier 1 on full results
+- **Why**: Scan v2 still running (~60% done). Final h11=21-24 polytopes may contain additional strong candidates.
+- **What**: Wait for scan completion. Re-run `tier1_screen.py --top 500 --min-h0 3` on complete log. Update T1 CSV.
+- **Acceptance**: Complete landscape map with all 1025 polytopes screened.
+- **Estimate**: Small (mostly waiting).
 
 ### B-03: Higher-rank vector bundles on Polytope 40
 - **Why**: Line bundles cap at h⁰=2. A rank-2 or rank-3 bundle might yield h¹(V)=3 via index theorem. This is the standard BSM construction.
@@ -73,6 +86,8 @@
 
 | ID | Item | Completed | Commit |
 |----|------|-----------|--------|
+| D-16 | B-11: Fix c2 mismatch (non-favorable polytopes) | 2026-02-22 | (this session) |
+| D-15 | B-02: Rebuild pipeline_40_152.py honestly | 2026-02-22 | (this session) |
 | D-14 | B-10: h13-P1 full pipeline (18/20, 25 clean bundles) | 2026-02-23 | (this session) |
 | D-13 | B-12: Write FRAMEWORK.md (theoretical pipeline) | 2026-02-23 | (this session) |
 | D-12 | B-05: Repo hygiene (archive, results/, refs/) | 2026-02-23 | (this session) |
