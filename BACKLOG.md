@@ -1,6 +1,6 @@
 # BACKLOG — CYTools Project
 
-> Ordered by priority. Top = do next. Updated: 2026-02-22.
+> Ordered by priority. Top = do next. Updated: 2026-02-23.
 
 ---
 
@@ -41,11 +41,8 @@
 - **Acceptance**: Documented fibration structure with identified gauge groups.
 - **Estimate**: Medium.
 
-### B-05: Repo hygiene — archive scratch scripts
-- **Why**: 12 untracked scratch files (check_*.py, ample_champion_hodge.py) clutter the repo. 36 total scripts with no organization.
-- **What**: Move one-off exploration scripts to an `archive/` or `scratch/` directory. Add .gitignore for temporary outputs. Keep only canonical scripts tracked.
-- **Acceptance**: Root directory contains only production scripts + docs. Scratch work archived or ignored.
-- **Estimate**: Small (30 min).
+### B-05: Repo hygiene — archive scratch scripts ✅ DONE
+- Moved to DONE table (D-12). 12 scratch scripts → `archive/`, results → `results/`, refs skeleton → `refs/`.
 
 ---
 
@@ -79,6 +76,8 @@
 
 | ID | Item | Completed | Commit |
 |----|------|-----------|--------|
+| D-13 | B-12: Write FRAMEWORK.md (theoretical pipeline) | 2026-02-23 | (this session) |
+| D-12 | B-05: Repo hygiene (archive, results/, refs/) | 2026-02-23 | (this session) |
 | D-11 | B-01: Scan χ=-6 polytopes for h⁰=3 | 2026-02-22 | (this session) |
 | D-01 | Prove/disprove h⁰=3 on Polytope 40 | 2026-02-22 | 5e3d727 |
 | D-02 | Create MATH_SPEC.md gold standard | 2026-02-22 | 72931ed |
