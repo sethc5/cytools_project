@@ -1,0 +1,14 @@
+DRAGON SLAYER RESULTS
+========================================
+
+identity: NOT_P2xP2
+g1_lattice_auto: True
+g2_lattice_auto: True
+commute: True
+order3: True
+orbits_closed: True
+orbits_partition: True
+transverse: True
+freely_acting: False
+
+Freely acting: False
