@@ -1,102 +1,157 @@
-# S₃-Symmetric Calabi-Yau 3-Fold: A String Vacuum Candidate
+# χ = −6 Calabi-Yau Landscape Scanner
 
-An AI-assisted computational search through the [Kreuzer-Skarke database](http://hep.itp.tuwien.ac.at/~kreuzer/CY/) that identifies a specific Calabi-Yau 3-fold with geometric properties consistent with the Standard Model of particle physics.
+An open computational search through the [Kreuzer-Skarke database](http://hep.itp.tuwien.ac.at/~kreuzer/CY/) for Calabi-Yau 3-folds with properties compatible with 3-generation particle physics models.
 
-## The Finding
+**Status**: Active scan. Pipeline operational. Contributors welcome.
 
-From 30,108 polytopes in the KS database, we isolated a CY3 with Hodge numbers **(h₁₁=17, h₂₁=20, χ=−6)** that exhibits:
+## What This Project Does
 
-| Property | Value | Why It Matters |
-|----------|-------|----------------|
-| **S₃ toric symmetry** | D₁₂ group, order 12 | Quotient yields h₁₁=5, h₂₁=7 — a simpler effective geometry |
-| **3 generations** | 178 line bundles with χ=±3 | Matches the 3 generations of quarks/leptons in nature |
-| **α⁻¹_GUT = 24** | From intersection number ratio κ₀₀₀/κ₁₁₁ | Within 4% of the measured gauge coupling unification value |
-| **14 rigid del Pezzo divisors** | dP₀, dP₁, dP₅, dP₇ types | Required for non-perturbative moduli stabilization (KKLT) |
-| **Swiss cheese structure** | D₂₁ shrinks to τ→0 at Vol>17,000 | Enables Large Volume Scenario for dimension stabilization |
-| **Proton lifetime** | ~10³⁵ years | Marginally above current Super-K bound, testable by Hyper-K |
-| **4-parameter Yukawa texture** | From S₃ irrep decomposition (1+2) | Naturally explains why the top quark is much heavier than others |
+1. **Scans** the KS database for χ = −6 CY 3-folds (the geometry that gives |χ|/2 = 3 generations)
+2. **Screens** candidates through a 3-tier pipeline: fast topology checks → fibration + bundle probes → full deep analysis
+3. **Catalogues** what works, what doesn't, and why — so nobody repeats the work
+4. **Documents** every bug, formula, and CYTools API gotcha encountered (see [MATH_SPEC.md](MATH_SPEC.md))
 
-### 3-Tier Verification: 19/20 checks passed
+This is primarily a **pipeline and catalogue** project. We're building the sieve and recording what passes through it. If someone finds the Standard Model needle, great — but the reusable tooling and the "ruled out" list are the main deliverables.
 
-- **Tier 1 — Divisor Topology & Gauge Group:** 7/7 ✓
-- **Tier 2 — Line Bundle Cohomology & Yukawa Texture:** 5/6 ✓
-- **Tier 3 — Moduli Stabilization & Proton Decay:** 7/7 ✓
+## The Landscape
 
-## What This Is (and Isn't)
+There are **104 distinct Hodge number pairs** with χ = −6 in the KS database, spanning h¹¹ = 13 to 128. The number of polytopes per Hodge pair grows explosively:
 
-**What it is:** An exact geometric characterization of a CY3 manifold, with rigorous topological computations (intersection numbers, Chern classes, Kähler cone structure) and phenomenological plausibility checks against Standard Model constraints.
+| h¹¹ | Polytopes | Scanned | Coverage |
+|-----|----------|---------|----------|
+| 13 | 3 | 3 | 100% |
+| 14 | 22 | 22 | 100% |
+| 15 | 553 | 100 | 18% |
+| 16 | 5,180 | 100 | 1.9% |
+| 17 | 38,735 | 100 | 0.26% |
+| 18–24 | ~millions | 100 ea. | ~0% |
+| 25–128 | huge | 0 | 0% |
 
-**What it isn't:** A complete string compactification. A physicist would still need to construct the explicit vector bundle, solve the F-term equations, and verify stability — work that goes beyond what automated tools can currently do.
+**We have scanned ~1,025 polytopes out of potentially millions.** But h¹¹ = 13–17 is the physically most interesting range (fewer moduli, simpler stabilization), and that's where our best candidates cluster.
 
-The rigorous results (Tiers 1–2) are exact algebraic geometry. The phenomenological estimates (parts of Tier 3) are order-of-magnitude. See the notebook for an honest breakdown of what is proven vs. estimated.
+## Current Results
 
-## The Manifold
-
-The polytope is defined by 14 vertices in ℤ⁴:
+### Screening Funnel
 
 ```
-[[ 1,  0,  0,  0], [ 0,  1,  0,  0], [ 0,  0,  1,  0], [ 0,  0,  0,  1],
- [-1, -1,  0,  1], [-1,  0, -1,  1], [-3,  1,  1,  1], [-1, -1,  1,  0],
- [ 0, -1,  0,  1], [ 0, -1,  1,  0], [ 0,  0, -1,  1], [-1,  0,  0,  1],
- [-2,  0,  1,  1], [-2,  1,  0,  1]]
+1,025 polytopes scanned (h11=13..24, limit=100/h11)
+  └─ 583 have h⁰ ≥ 3 line bundles (57%)
+      └─ 337 pass Tier 1 (dP divisors + Swiss cheese + symmetry)
+          └─ 157 pass Tier 1.5 (fibrations + 300-bundle probe, ≥3 clean)
+              └─ ~177 Tier 2 complete (full bundle search + h³ verification)
+                  └─ Top candidates listed below
 ```
 
-24 lattice points total. The reflexive dual yields a CY3 hypersurface with:
-- 22 toric divisors, 17 Kähler parameters
-- 283 non-zero triple intersection numbers
-- Kähler cone: 81 walls, 547 Mori generators
-- GL(ℤ,4) symmetry order: 12 (dihedral group D₁₂)
+### Top Candidates (by T2 score, 55 max)
 
-## Notebook Contents
+| Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 fib | Ell fib | h11_eff |
+|----------|-----|------------|-------|--------|--------|---------|---------|
+| h17/poly63 [NF] | 45 | 198 | 922 | 40 | 5 | 6 | 13 |
+| h18/poly34 [NF] | 45 | 189 | 730 | 16 | 4 | 4 | 13 |
+| h17/poly90 [NF] | 45 | 148 | 542 | 16 | 3 | 3 | 13 |
+| h16/poly63 [NF] | 45 | 72 | 584 | 37 | 4 | 4 | 13 |
+| h13/poly1 (bench) | 45 | 25 | 76 | 6 | 3 | 3 | 13 |
 
-`cy_manifold_query.ipynb` (86 cells) covers:
+Full results in [results/](results/). All top candidates are **non-favorable** polytopes — these were invisible until we fixed [Bug B-11](PROCESS_LOG.md).
 
-1. **KS Database Query** — Filter 30,108 polytopes to χ=±6 candidates
-2. **Polytope Construction** — Triangulation, GLSM charges, Kähler structure
-3. **Intersection Numbers** — Full triple intersection tensor (283 entries)
-4. **Toric Symmetry Analysis** — D₁₂ symmetry, S₃ quotient (h₁₁: 17→5)
-5. **Statistical Null Test** — 5-level test rejecting chance alignment at p = 4×10⁻⁹
-6. **2-Loop RG Running** — MSSM+SM gauge coupling evolution (α⁻¹ ≈ 135, 1.5% from measured 137.036)
-7. **Tier 1: Divisor Topology** — Classification of all 22 toric divisors
-8. **Tier 2: Line Bundle Cohomology** — HRR index scan, S₃-equivariant bundles, Yukawa texture
-9. **Tier 3: Moduli Stabilization** — LVS/KKLT feasibility, flux vacuum counting, proton decay
-10. **Kähler Cone Optimization** — scipy-driven scan for instanton-viable divisor volumes
+## Pipeline Stages
 
-## Setup
+| Stage | Description | Status |
+|-------|-------------|--------|
+| 1. CY Geometry | Enumerate χ = −6 polytopes, triangulate | ✅ Done |
+| 2. Divisor Analysis | Classify divisors, Swiss cheese, intersection numbers | ✅ Done |
+| 3. Line Bundle Cohomology | h⁰ via Koszul, scan for h⁰ ≥ 3 | ✅ Done |
+| 4. Net Chirality | h¹ − h², Serre duality cross-check | 🔶 Partial |
+| 5. Vector Bundles (rank 4/5) | Monad construction, stability, chiral spectrum | ❌ Not started |
+| 6. Moduli Stabilization | LVS/KKLT, flux superpotential | 🔶 Swiss cheese only |
+| 7. Phenomenology | Yukawas, proton decay, gauge unification | ❌ Not started |
 
-Requires Python 3.10+ and [CYTools](https://cy.tools):
+Stage 5 (higher-rank bundles for non-abelian gauge groups) is the critical gap. Line bundles only give U(1). Contributions here would be especially valuable. See [FRAMEWORK.md](FRAMEWORK.md) for the full theoretical map.
+
+## Key Negative Results
+
+These save you time. Don't re-check them:
+
+- **No nef h⁰=3 bundles exist** on any scanned χ = −6 polytope. Kodaira vanishing never applies.
+- **All χ = −6 polytopes have K3 + elliptic fibrations.** This is universal, not selective — don't use it as a discriminator.
+- **Polytope 40 (h11=15) has max h⁰ = 2.** Definitively proven via Koszul + lattice point counting. 7-script audit trail. Don't try to find h⁰ = 3 on this specific polytope.
+- **Ample Champion Z₃×Z₃ quotient is singular.** Pure g₁, g₂ have fixed curves on the CY hypersurface. Diagonal Z₃ gives χ = −18 (9 generations), not −6.
+- **705/1025 polytopes were invisible** in scan v1 due to a CYTools `second_chern_class` bug for non-favorable polytopes. Fixed. But the strongest candidates are all non-favorable.
+- **cohomCalg fails** when the SR ideal has >64 generators. Most high-h¹¹ polytopes hit this. Our Koszul pipeline bypasses it.
+
+See [CATALOGUE.md](CATALOGUE.md) for the full ruled-out list.
+
+## Bugs & CYTools Gotchas
+
+9 documented issues. If you're using CYTools, check [MATH_SPEC.md](MATH_SPEC.md) first:
+
+| # | Issue | Impact |
+|---|-------|--------|
+| B-11 | `second_chern_class(in_basis=True)` wrong-size vector for non-favorable | **705/1025 polytopes invisible** |
+| #5 | cohomCalg hard limit of 64 SR generators | Cannot use cohomCalg on complex polytopes |
+| #7 | `glsm_linear_relations()` includes non-character translations | Misleading for linear equivalence |
+| #2 | Intersection numbers: toric vs basis coordinates | Must always use `in_basis=True` |
+| #3 | Mori cone: 15-dim divisor vs 20-dim Mori generators | Need explicit index mapping |
+
+## Quick Start
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install cytools jupyter numpy scipy pandas
-jupyter lab cy_manifold_query.ipynb
+git clone https://github.com/sethc5/cytools_project.git
+cd cytools_project
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Screen a single polytope (deep analysis, ~30s)
+python tier2_screen.py --h11 13 --poly 1
+
+# Full pipeline run
+python scan_chi6_h0.py                          # Stage 1+3: landscape scan
+python tier1_screen.py                           # Fast screen
+python tier15_screen.py --csv results/tier1_screen_results.csv   # Intermediate
+python tier2_screen.py --csv15 results/tier15_screen_results.csv # Deep
 ```
 
-## Tools & References
+## Contributing
 
-- **[CYTools](https://cy.tools)** — Computational algebraic geometry package (Demirtas, Long, McAllister, Stillman)
-- **[Kreuzer-Skarke Database](http://hep.itp.tuwien.ac.at/~kreuzer/CY/)** — Complete classification of 4D reflexive polytopes (473,800,776 polytopes)
-- **[PALP](http://hep.itp.tuwien.ac.at/~kreuzer/CY/CYpalp.html)** — Package for Analyzing Lattice Polytopes
+See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contributions:
 
-### Relevant Literature
+1. **Expand the scan** — run `scan_chi6_h0.py` with higher `limit` at h11 = 15..17 and PR the logs
+2. **Screen new candidates** — run the Tier 1 → 1.5 → 2 pipeline on your scan output
+3. **Stage 5 work** — monad bundle construction, stability checks, chiral index
+4. **F-theory** — discriminant locus classification on elliptic-fibered candidates
+5. **Bug fixes** — especially cohomology computation alternatives to cohomCalg
 
-- Kreuzer & Skarke, "Complete classification of reflexive polyhedra in four dimensions," [arXiv:hep-th/0002240](https://arxiv.org/abs/hep-th/0002240)
-- Demirtas et al., "CYTools: A Software Package for Analyzing Calabi-Yau Manifolds," [arXiv:2211.03823](https://arxiv.org/abs/2211.03823)
-- Braun et al., "A Standard Model from the E8×E8 Heterotic Superstring," [arXiv:hep-th/0502058](https://arxiv.org/abs/hep-th/0502058)
-- Balasubramanian et al., "Systematics of Moduli Stabilisation in Calabi-Yau Flux Compactifications," [arXiv:hep-th/0502058](https://arxiv.org/abs/hep-th/0502058)
+## File Structure
+
+```
+scan_chi6_h0.py      — Landscape scanner (Stages 1+3)
+tier1_screen.py      — Fast screener: dP divisors, Swiss cheese, symmetry
+tier15_screen.py     — Intermediate: fibrations + 300-bundle probe
+tier2_screen.py      — Deep: exact bundle count, h³, D³, fibrations
+pipeline_h13_P1.py   — Full Stages 1–4 benchmark pipeline
+run_t2_batch.sh      — Parallel batch runner (4 pipes)
+
+FRAMEWORK.md         — 7-stage theoretical pipeline map
+MATH_SPEC.md         — Formulas, conventions, CYTools API contracts, bugs
+CATALOGUE.md         — What's been checked and what's ruled out
+FINDINGS.md          — Detailed write-ups of key results
+PROCESS_LOG.md       — Chronological investigation diary
+BACKLOG.md           — Task tracking
+
+results/             — CSV + log outputs from all runs
+archive/             — Old scripts (kept for audit trail)
+refs/                — Bibliography
+```
+
+## References
+
+- [Kreuzer-Skarke Database](http://hep.itp.tuwien.ac.at/~kreuzer/CY/) — 473,800,776 reflexive 4-polytopes
+- [CYTools](https://cy.tools) — Demirtas, Long, McAllister, Stillman
+- Anderson, Gray, Lukas, Palti (2012) — Systematic line bundle cohomology on CY3
+- Braun, He, Ovrut, Pantev (2006) — Heterotic Standard Model template
+- Balasubramanian, Berglund, Conlon, Quevedo (2005) — Large Volume Scenario
 
 ## License
 
-This work is released into the public domain. Use it however you want.
-
-## Next Steps
-
-1. Run the notebook cells to explore the database
-2. Modify (h₁₁, h₂₁) pairs to search different topological regions
-3. Extract polytope properties and analyze geometric invariants
-4. Use results for further modeling or integration with Continue.dev
-
----
-
-Created: February 2026
+MIT
