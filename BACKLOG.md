@@ -19,11 +19,14 @@
 
 ## NEXT — Ready to Start
 
-### B-13: Tier 1.5 intermediate screening of remaining ~317 candidates
-- **Why**: Tier 2 takes ~1-4 min per polytope (29 min for 20). Running it on all 337 would take ~6-12 hours. Need an intermediate screen to reduce the pool.
-- **What**: Split into Tier 1.5a (cheap: exact h⁰=3 count from bundles, ~5-10s/polytope) and Tier 1.5b (moderate: add fibration count, ~5-15s/polytope). Feed survivors to full Tier 2.
-- **Acceptance**: Reduce 337 candidates to ~50 for full T2 analysis.
-- **Estimate**: Small-Medium. Codespace-suitable.
+### B-13: Tier 1.5 intermediate screening ✅ DONE
+- Moved to DONE. Built and ran `tier15_screen.py` on all 317 remaining candidates (27 min). Result: 157 T2-worthy (≥3 clean in 300-bundle probe). ALL have fibrations.
+
+### B-16: Full T2 on 157 T1.5 survivors (batch)
+- **Why**: 157 candidates survived T1.5 screening. Need full T2 deep analysis (exact bundle count, D³ stats, h³ verification).
+- **What**: Run `./run_t2_batch.sh` on Codespace (4 parallel pipes, ~40 candidates each). Merge results with `./run_t2_batch.sh merge`.
+- **Acceptance**: Complete T2 scores for all 157 candidates. Merged master CSV.
+- **Estimate**: ~40 min on 4-core Codespace. Codespace-only.
 
 ### B-14: Full pipeline on h17/poly63 (new primary candidate)
 - **Why**: Top T2 scorer (45/55, 198 clean bundles, 5 K3 + 6 elliptic, max h⁰=40). Needs full Stages 1-4 pipeline treatment like h13-P1 got.

@@ -5,6 +5,36 @@
 
 ---
 
+## 2026-02-22 — Tier 1.5 sweep complete: 157 T2-worthy candidates
+
+**Work done**: Ran `tier15_screen.py` on all 317 remaining Tier 1 candidates (excluding 20 already T2-screened). Phase A (fibrations) + Phase B (300-bundle capped probe). Total runtime: 26.8 min locally.
+
+**Results**:
+- 244/317 (77%) have clean h⁰=3 bundles in the 300-bundle probe
+- **157/317 have ≥3 clean → T2-worthy** (promotion threshold)
+- 1,584 total clean bundles found from probing alone
+- ALL 317 have K3/elliptic fibrations (universal for χ=-6)
+
+**Top T1.5 candidates** (not yet T2-screened):
+
+| Rank | Polytope | T1.5 | Probe clean | Probe h⁰≥3 | max h⁰ | K3 | Ell |
+|------|----------|------|-------------|-------------|--------|-----|-----|
+| 1 | h18/poly32 [NF] | 40 | 21 | 89 | 30 | 4 | 4 |
+| 2 | h17/poly53 [NF] | 40 | 20 | 74 | 10 | 3 | 3 |
+| 3 | h18/poly31 [NF] | 40 | 18 | 90 | 20 | 4 | 4 |
+| 4 | h15/poly61 [NF] | 40 | 15 | 40 | 4 | 3 | 3 |
+| 5 | h16/poly53 [NF] | 40 | 14 | 70 | 12 | 5 | 6 |
+
+**Early T2 validation** of top T1.5 candidates:
+- h18/poly32: T2=45/55, **49 clean bundles** (21 found in 300-probe → full search found 49)
+- h18/poly31: T2=45/55, **29 clean bundles**
+
+**Next step**: Full T2 on all 157 T2-worthy candidates via 4-pipe parallel batch on Codespace (`run_t2_batch.sh`). Estimated ~40 min with 4 cores.
+
+**Commits**: tier15_screen_results.csv, tier2_screen.py (--csv15/--offset/--batch), run_t2_batch.sh
+
+---
+
 ## 2026-02-22 — Tier 2 deep screening: new champion h17/poly63
 
 **Work done**: Built `tier2_screen.py`. Four expensive checks per polytope: (1) exact h⁰=3 bundle count with full Koszul computation, (2) h³=h⁰(-D)=0 verification for all h⁰≥3 bundles, (3) D³ intersection statistics, (4) K3/elliptic fibration count from dual-polytope geometry.

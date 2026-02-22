@@ -18,6 +18,9 @@ Usage:
   python3 tier2_screen.py --top 10               # top 10
   python3 tier2_screen.py --h11 18 --poly 8      # single polytope
   python3 tier2_screen.py --csv results/tier1_screen_results.csv
+  python3 tier2_screen.py --csv15 results/tier15_screen_results.csv --top 50
+  python3 tier2_screen.py --csv15 ... --offset 0 --batch 25   # first 25
+  python3 tier2_screen.py --csv15 ... --offset 25 --batch 25  # next 25
 
 Reference: MATH_SPEC.md §4-5, FRAMEWORK.md §1-4.
 """
@@ -234,6 +237,34 @@ def read_tier1_csv(csv_path, top_n=20):
                 'has_swiss': row['has_swiss'] == 'True',
             })
     # Already sorted by tier1_score (rank column), take top N
+    return candidates[:top_n]
+
+
+def read_tier15_csv(csv_path, top_n=50, min_clean=3):
+    """Read Tier 1.5 results and return the top N by tier15_score.
+    
+    Filters to candidates with at least min_clean clean bundles in the
+    300-bundle probe (default 3 = T2-worthy threshold).
+    """
+    candidates = []
+    with open(csv_path, 'r') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            clean = int(row['probe_clean'])
+            if clean < min_clean:
+                continue
+            candidates.append({
+                'h11': int(row['h11']),
+                'poly_idx': int(row['poly_idx']),
+                'favorable': row['favorable'] == 'True',
+                'tier15_score': int(row['tier15_score']),
+                'tier1_score': int(row['tier15_score']),  # alias for downstream compat
+                'max_h0_scan': int(row['probe_max_h0']),
+                'probe_clean': clean,
+                'n_k3_fib': int(row['n_k3_fib']),
+                'n_ell_fib': int(row['n_ell_fib']),
+            })
+    # Already sorted by tier15_score (rank column), take top N
     return candidates[:top_n]
 
 
@@ -587,8 +618,18 @@ def main():
         description='Tier 2 deep screener for χ=-6 candidates')
     parser.add_argument('--csv', default='results/tier1_screen_results.csv',
                         help='Path to Tier 1 results CSV')
+    parser.add_argument('--csv15', default=None,
+                        help='Path to Tier 1.5 results CSV (overrides --csv)')
     parser.add_argument('--top', type=int, default=20,
-                        help='Number of top Tier 1 candidates to deep-screen')
+                        help='Number of top candidates to deep-screen')
+    parser.add_argument('--min-clean', type=int, default=3,
+                        help='Min clean bundles from T1.5 probe to include (default 3)')
+    parser.add_argument('--offset', type=int, default=0,
+                        help='Skip first N candidates (for batch splitting)')
+    parser.add_argument('--batch', type=int, default=None,
+                        help='Process only this many candidates (for batch splitting)')
+    parser.add_argument('--out', default=None,
+                        help='Output CSV path (default: results/tier2_screen_results.csv)')
     parser.add_argument('--h11', type=int, default=None,
                         help='Screen a specific h11 value')
     parser.add_argument('--poly', type=int, default=None,
@@ -609,14 +650,35 @@ def main():
             return
         return
 
-    # ── Batch mode: read Tier 1 CSV ──
-    print(f"\n  Reading Tier 1 results: {args.csv}")
-    try:
-        candidates = read_tier1_csv(args.csv, top_n=args.top)
-    except FileNotFoundError:
-        print(f"  ERROR: File not found: {args.csv}")
-        print(f"  Run tier1_screen.py first, or use --h11 and --poly for single mode.")
-        sys.exit(1)
+    # ── Batch mode: read CSV ──
+    if args.csv15:
+        csv_source = args.csv15
+        print(f"\n  Reading Tier 1.5 results: {csv_source}")
+        try:
+            candidates = read_tier15_csv(csv_source, top_n=args.top + args.offset,
+                                         min_clean=args.min_clean)
+        except FileNotFoundError:
+            print(f"  ERROR: File not found: {csv_source}")
+            sys.exit(1)
+    else:
+        csv_source = args.csv
+        print(f"\n  Reading Tier 1 results: {csv_source}")
+        try:
+            candidates = read_tier1_csv(csv_source, top_n=args.top + args.offset)
+        except FileNotFoundError:
+            print(f"  ERROR: File not found: {csv_source}")
+            print(f"  Run tier1_screen.py first, or use --h11 and --poly for single mode.")
+            sys.exit(1)
+
+    # Apply offset/batch slicing for parallel runs
+    if args.offset > 0:
+        candidates = candidates[args.offset:]
+        print(f"  Skipped first {args.offset} candidates (--offset)")
+    if args.batch is not None:
+        candidates = candidates[:args.batch]
+        print(f"  Processing batch of {len(candidates)} (--batch)")
+    else:
+        candidates = candidates[:args.top]
 
     print(f"  Loaded {len(candidates)} candidates for deep screening")
 
@@ -647,7 +709,7 @@ def main():
     print_ranked_table(results)
 
     # ── Save CSV ──
-    csv_path = "results/tier2_screen_results.csv"
+    csv_path = args.out or "results/tier2_screen_results.csv"
     save_csv(results, csv_path)
 
     print(f"\n  Total time: {t_total:.0f}s ({t_total/60:.1f} min)")
