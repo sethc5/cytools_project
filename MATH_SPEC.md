@@ -414,6 +414,16 @@ Every bug encountered, so we never repeat them.
 - **Result**: All χ=3 line bundles on Polytope 40 have $h^0 \leq 2$.
 - **Lesson**: These are different claims. Always specify which one you mean.
 
+### Bug 7: GLSM linear relations ≠ character translations
+- **Where**: dragon_slayer_40i.py, Test 1
+- **What**: Used `cyobj.glsm_linear_relations()` (5 rows, shape 5×20) to generate "equivalent" divisor representatives, then checked lattice-point count invariance. Counts varied wildly (2, 39, 225).
+- **Root cause**: The GLSM kernel has dim = $n_\text{toric} - h^{1,1} = 20 - 15 = 5$, but only 4 of the 5 directions are character translations ($\dim M = 4$). The 5th direction involves the origin coordinate ($v_0 = 0$). Specifically:
+  - `linrel[0]` has `origin_component = 1` → **NOT** a character translation
+  - `linrel[1..4]` have `origin_component = 0` → ARE character translations with integer $m$ vectors
+- **Why it matters**: Character translations shift $d_\rho \to d_\rho + \langle m, v_\rho \rangle$, translating the polyhedron $P_D \to P_D + m$ (preserves lattice-point count). A GLSM shift involving the origin changes the *actual* toric divisor class on $V$, so the lattice-point count *should* differ.
+- **Impact**: Test 1 was a **false alarm**. The Koszul $h^0 = 2$ result is correct. All 8 pure character translations tested give $h^0 = 2$.
+- **Lesson**: For lattice-point testing, ONLY use character translations (inner products $\langle m, v_\rho \rangle$ for $m \in M$). Filter GLSM linrels by `origin_component == 0` before use, or compute character translations directly as $\text{pts}[1:]^T \cdot m$ for $m \in \mathbb{Z}^4$.
+
 ---
 
 ## 9. Proven Results (Polytope 40: h11=15, h21=18)
@@ -427,6 +437,9 @@ Every bug encountered, so we never repeat them.
 | Swiss cheese: $\tau_{D_{17}} = 4.0$, $\mathcal{V} = 17506$ | Volume computation | dragon_slayer_40.py |
 | 119 line bundles with $\chi = 3$ | Exhaustive HRR search | dragon_slayer_40b.py, 40h.py |
 | $\mathbb{Z}_2$ polytope symmetry | Automorphism computation | dragon_slayer_40.py |
+| $\max h^0(X, \mathcal{O}(D)) = 2$ for all $\chi=3$ bundles | Koszul + lattice points | dragon_slayer_40h.py |
+| $h^0 = 2$ invariant under character translations (8/8) | Character translation test | dragon_slayer_40i.py |
+| Koszul method matches quintic: $h^0(\text{quintic}, \mathcal{O}(n))$ for $n = -3..7$ | Independent cross-check | dragon_slayer_40i.py |
 
 ### 9.2 Confirmed False
 | Claim | Disproof | Script |
@@ -449,3 +462,4 @@ Every bug encountered, so we never repeat them.
 | Date | Change |
 |------|--------|
 | 2026-02-22 | Initial spec created from audit of dragon_slayer_40{a-h}.py |
+| 2026-02-22 | Bug #7 added (GLSM linrels vs character translations). Verified h⁰=2 via char translations (8/8 pass). Quintic cross-check confirms Koszul method. |
