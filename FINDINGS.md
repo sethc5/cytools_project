@@ -360,9 +360,70 @@ h₁₁ ≥ 16   │                  │ 0 AMPLE, 0 NEF+BIG (cone too narrow)
 
 **The fundamental tension:** Low h₁₁ gives ample bundles but wrong χ(X) for direct 3-generation physics. High h₁₁ has χ = −6 candidates but the Kähler cone is too narrow for ample bundles. Polytopes 40 and 152 sit at the sweet spot: high enough h₁₁ for χ = −6, but with cones just wide enough for nef+big D³ = 1 bundles.
 
+## 8. The Physics Pipeline: Polytope 40 Scores 20/20
+
+We ran the full 20-check physics pipeline (Tiers 1–3) on both proven manifolds and compared against the original GL=12 candidate.
+
+### 8A. Scorecard
+
+| Check | GL=12 (original) | **Polytope 40** | Polytope 152 |
+|---|---|---|---|
+| **TIER 1: Geometry** | **7/7** | **7/7** | **7/7** |
+| Rigid del Pezzo count | 14 | 11 | 13 |
+| K3-like divisors | 2 | 1 | 0 |
+| χ = −6 | ✓ | ✓ | ✓ |
+| Geometric phase | ✓ | ✓ | ✓ |
+| Flux feasible | ✓ | ✓ | ✓ |
+| α_GUT plausible | ✓ (max k_iii=9) | ✓ (max k_iii=9) | ✓ (max k_iii=8) |
+| Quotient viable | ✓ [2,3,6] | ✓ [2,3,6] | ✓ [2,3,6] |
+| **TIER 2: Bundles** | **5/6** | **6/6** | **6/6** |
+| Single-div \|χ\|=3 | 2 | 2 | 4 |
+| Two-div \|χ\|=3 | 166 | 156 | 250 |
+| Symmetry orbits | >2 | >2 | >2 |
+| HRR integer | ✓ | ✓ | ✓ |
+| Yukawa texture | ✓ | ✓ | ✓ |
+| **Proven h⁰=3** | **✗** (NEAR) | **✓** (KV vanishing) | **✓** (KV vanishing) |
+| **TIER 3: Physics** | **7/7** | **7/7** | **6/7** |
+| Swiss cheese | D₁₇: τ=4.00 | D₁₇: τ=4.00 (at tip) | **✗** (no small rigid found) |
+| Instanton viable | ✓ | ✓ | ✓ |
+| Flux landscape | ✓ | ✓ | ✓ |
+| Proton lifetime | ✓ | ✓ | ✓ |
+| W₀ feasible | ✓ | ✓ | ✓ |
+| RG unification | ✓ | ✓ | ✓ |
+| Gravitino hierarchy | ✓ | ✓ | ✓ |
+| | | | |
+| **TOTAL** | **19/20** | **20/20** | **19/20** |
+
+### 8B. Polytope 40: The New Champion
+
+Polytope 40 is the **only manifold in this project with a perfect score**: every physics check passes, and its 3-generation line bundle is proven by theorem.
+
+| Property | Value |
+|---|---|
+| h₁₁ | 15 |
+| h₂₁ | 18 |
+| χ | −6 |
+| GL symmetry | 2 |
+| Rigid del Pezzos | 11 (dP1 through dP6) |
+| K3-like | 1 |
+| Mori generators | 75 |
+| Volume (tip) | 17,505 |
+| Swiss cheese cycle | D₁₇: τ = 4.00 (instanton regime at tip) |
+| Single \|χ\|=3 bundles | 2 |
+| Two-div \|χ\|=3 bundles | 156 |
+| **Proven bundle** | D = e₃ + e₄ + e₁₀, D³ = 1, nef, 10/10 robust |
+| **h⁰** | **3 (Kawamata-Viehweg)** |
+| **Score** | **20/20** |
+
+Its swiss cheese structure (D₁₇ at τ ≈ 4 at the tip of the stretched cone) enables KKLT-style moduli stabilization with non-perturbative superpotential W_np ~ e^{−2πτ} ~ 10⁻¹¹ — exactly in the range needed for a metastable de Sitter vacuum.
+
+### 8C. Why Polytope 152 Loses One Point
+
+Polytope 152 has 13 rigid del Pezzos (more than 40's 11) and 250 two-divisor chi=3 bundles (vs 156) — but the Tier 3 optimizer could not find a Kähler modulus configuration where any rigid divisor shrinks to the instanton regime while keeping the overall volume large. This doesn't mean swiss cheese is impossible there, just that it didn't emerge from 8 optimization runs with 500-iteration Nelder-Mead. A more exhaustive search or analytical approach might find it.
+
 ### What's Next
 
-1. **Full physics pipeline on polytopes 40 and 152** — gauge coupling extraction, moduli stabilization, proton decay estimates, Yukawa analysis.
+1. ~~Full physics pipeline on polytopes 40 and 152~~ **DONE** — Polytope 40 scores 20/20.
 
 2. **Scan the transition region (h₁₁ = 6–12)** — map where NEF+BIG bundles disappear. This pins down the critical h₁₁.
 
