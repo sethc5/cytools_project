@@ -130,6 +130,7 @@ scan_chi6_h0.py      — Landscape scanner (Stages 1+3)
 tier1_screen.py      — Fast screener: dP divisors, Swiss cheese, symmetry
 tier15_screen.py     — Intermediate: fibrations + 300-bundle probe
 tier2_screen.py      — Deep: exact bundle count, h³, D³, fibrations
+verify_results.py    — Spot-check contributed T2 CSVs
 pipeline_h13_P1.py   — Full Stages 1–4 benchmark on best candidate
 run_t2_batch.sh      — Parallel batch runner (4 pipes)
 

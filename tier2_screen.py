@@ -29,12 +29,15 @@ import sys
 import csv
 import argparse
 import time
+import hashlib
 import cytools as cy
 import numpy as np
 from scipy.optimize import linprog
 from itertools import product, combinations
 from cytools.config import enable_experimental_features
 enable_experimental_features()
+
+CYTOOLS_VERSION = getattr(cy, '__version__', 'unknown')
 
 PASS = "\033[92m✓\033[0m"
 FAIL = "\033[91m✗\033[0m"
@@ -309,6 +312,10 @@ def screen_polytope_deep(h11_val, poly_idx, verbose=True):
     h11_eff = len(div_basis)
     is_favorable = (h11_eff == cyobj.h11())
 
+    # Fingerprint: hash of sorted vertex matrix for reproducibility tracking
+    verts = np.array(sorted(pts.tolist()))
+    poly_hash = hashlib.sha256(verts.tobytes()).hexdigest()[:12]
+
     intnums = dict(cyobj.intersection_numbers(in_basis=True))
     c2 = np.array(cyobj.second_chern_class(in_basis=True), dtype=float)
 
@@ -323,6 +330,8 @@ def screen_polytope_deep(h11_val, poly_idx, verbose=True):
         'h11_eff': h11_eff,
         'favorable': is_favorable,
         'n_toric': n_toric,
+        'cytools_version': CYTOOLS_VERSION,
+        'poly_hash': poly_hash,
     }
 
     # ══════════════════════════════════════════════════════════
@@ -591,7 +600,8 @@ def save_csv(results, csv_path):
             'tier2_score', 'clean_h0_3', 'h0_ge3', 'max_h0', 'n_chi3',
             'n_k3_fib', 'n_ell_fib',
             'd3_min', 'd3_max', 'd3_n_distinct', 'd3_clean_values',
-            'n_overflow', 'elapsed_s'
+            'n_overflow', 'elapsed_s',
+            'cytools_version', 'poly_hash'
         ])
         for rank, r in enumerate(results_sorted, 1):
             d3_clean_str = "|".join(str(x) for x in r.get('d3_clean', []))
@@ -603,7 +613,8 @@ def save_csv(results, csv_path):
                 r.get('d3_min', ''), r.get('d3_max', ''),
                 r['d3_n_distinct'],
                 d3_clean_str,
-                r['n_overflow'], f"{r['elapsed']:.1f}"
+                r['n_overflow'], f"{r['elapsed']:.1f}",
+                r.get('cytools_version', ''), r.get('poly_hash', '')
             ])
 
     print(f"\n  Results saved to {csv_path}")

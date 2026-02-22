@@ -82,6 +82,30 @@ Include in your PR description:
 
 Put output CSVs in `results/`. If you find a polytope with T2 score ≥ 40 or max h⁰ ≥ 10, mention it explicitly — these are the ones worth a full pipeline run.
 
+## How We Verify Contributions
+
+Contributed results are **spot-checked before merge** using `verify_results.py`. The pipeline is deterministic — same polytope + same CYTools version = same numbers — so we re-run a random sample from every PR:
+
+```bash
+# Verify 5 random rows from a contributed CSV
+python3 verify_results.py results/your_tier2_results.csv
+
+# Verify all rows (slow — ~3min/polytope)
+python3 verify_results.py results/your_tier2_results.csv --all
+
+# Verify a specific row
+python3 verify_results.py results/your_tier2_results.csv --row 7
+```
+
+Six fields are checked for exact match: `clean_h0_3`, `h0_ge3`, `max_h0`, `n_chi3`, `n_k3_fib`, `n_ell_fib`. If any differ, the PR is flagged for discussion.
+
+**Fingerprinting**: The T2 CSV now includes `cytools_version` and `poly_hash` (SHA-256 of sorted vertex matrix). This lets us detect version-dependent differences (e.g. CYTools 1.4.5 vs 2.x triangulation changes) rather than assuming bad faith.
+
+**What this catches**:
+- Fabricated or copy-pasted results
+- CYTools version mismatches that silently change output
+- Polytope indexing confusion (KS database ordering can vary)
+
 ## Code Style
 
 - No strict linter enforced. Keep it readable.
