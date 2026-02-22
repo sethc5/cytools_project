@@ -164,7 +164,7 @@ We computed the cubic self-intersection D³ and the linear term c₂·D for all 
 
 **In 59 of 61 cases, D³ = 0 exactly.** The entire χ = 3 comes from the linear term c₂·D/12 = 3, meaning c₂·D = 36. These are "topologically flat" line bundles — their first Chern class has zero triple self-intersection against the CY 3-fold. The generation count is entirely determined by the second Chern class of the tangent bundle, not by the bundle's own curvature.
 
-The two exceptions (polytopes 40 and 152, both h₁₁ = 15) have D³ = 1 and c₂·D = 34, which combine as 1/6 + 34/12 = 3.
+The two exceptions — **polytopes 40 and 152** (both h₁₁ = 15) — have D³ = 1 and c₂·D = 34, which combine as 1/6 + 34/12 = 3. These two are the critical discovery of the entire scan (see §6D below).
 
 **Physical interpretation:** D³ = 0 means the bundle lives on the boundary of the effective cone in a precise sense — it is a "degenerate" direction where the cubic form vanishes. The generation count being purely topological (from c₂) rather than geometric (from D³) is a structural constraint on how 3-generation physics can emerge from CY geometry at these Hodge numbers.
 
@@ -200,15 +200,71 @@ We ran the full Tier 1–3 pipeline on the three NEF polytopes with the highest 
 
 All three exhibit the D³ = 0 pattern. **Polytope 700 is the standout:** it is a complete intersection Calabi-Yau (CICY) with 2 nef partitions, the highest symmetry (GL=4), and the richest tangency structure (43 Mori wall hits from Tier 2 analysis). Polytope 5 is notable for having a single-generator NEF bundle (D = e₀), the simplest possible structure.
 
+### 6D. The Two Proven 3-Generation Manifolds
+
+Polytopes 40 and 152 are the only ones in the scan where D³ > 0 and the bundle is nef. A nef divisor D with D³ > 0 on a smooth 3-fold is **nef and big**. By the **Kawamata-Viehweg vanishing theorem**, for any nef-and-big line bundle L on a smooth CY 3-fold (K_X trivial):
+
+$$h^i(X, L) = 0 \quad \text{for all } i > 0$$
+
+Therefore **h⁰(L) = χ(L) = 3 exactly, by pure mathematics.** No cohomCalg, no cluster computation, no cancellation ambiguity. These are the only two manifolds out of 1,000+ where we have a **proven** 3-generation line bundle.
+
+| Property | **Polytope 40** | **Polytope 152** | Original GL=12 |
+|---|---|---|---|
+| h₁₁ | 15 | 15 | 17 |
+| h₂₁ | 18 | 18 | 20 |
+| χ | −6 | −6 | −6 |
+| GL symmetry | 2 | 1 | **12** |
+| Smooth | ✓ | ✓ | ✓ |
+| Vertices | 10 | 12 | 14 |
+| Lattice points | 19 | 21 | 24 |
+| Mori generators | 75 | 77 | 81 |
+| Kähler rays | 22 | 230 | 547 |
+| CICY | No | No | No |
+| del Pezzo divisors | 4 | 0 | **14** |
+| D3 tadpole χ/24 | −0.25 | −0.25 | −0.25 |
+| c₂ all even | ✓ | ✓ | ✓ |
+| Elliptic fibrations | 0 | 0 | **8** |
+| κ₀₀₀ | −80 | −97 | **−24** |
+
+**Proven bundles:**
+
+| Polytope | Bundle D | D³ | c₂·D | h⁰ | Proof | Robust across triangulations |
+|---|---|---|---|---|---|---|
+| 40 | e₃ + e₄ + e₁₀ | 1 | 34 | **3 (proven)** | Kawamata-Viehweg | **10/10** |
+| 152 | e₀ | 1 | 34 | **3 (proven)** | Kawamata-Viehweg | **10/10** |
+
+Both bundles are **completely triangulation-robust**: χ = 3, D³ = 1, and nef status all hold across every random triangulation tested.
+
+### 6E. Reassessing the Original GL=12 Candidate
+
+We re-ran the V3 tangency algorithm directly on the original h₁₁ = 17 polytope (loaded from `gl12_poly.txt`). Result:
+
+| Metric | Value |
+|---|---|
+| Total candidates searched | 4,302 |
+| χ = 3 candidates found | 318 |
+| NEF bundles | **0** |
+| Best min(D·C) | **−2** |
+| Tier 2 wall hits | **0** |
+| Classification | **NEAR** |
+
+Zero wall hits means the Kähler cone at h₁₁ = 17 is so narrow that no basis direction projected onto any Mori wall stays inside the cone. The V3 algorithm — which found 2× more NEF polytopes than V1 at h₁₁ ≤ 16 — finds nothing new here.
+
+**The original polytope is not useless, but its role has changed.** It remains the highest-symmetry χ = −6 CY3 in the database, with 14 rigid divisors, 8 elliptic fibrations, and D₁₂ symmetry. These are properties none of the 61 NEF polytopes match. But its 310 line bundles with |χ| = 3 all sit outside the Kähler cone, so we cannot resolve h⁰ = 3 vs. cancellations without cohomCalg.
+
+The structural lesson: **high symmetry constrains the Kähler cone.** GL=12 forces the cone into a narrow wedge in ℝ¹⁷, making the quantization obstruction worse. The NEF winners (GL=1–4) have wider cones that can accommodate integer nef points. Symmetry is good for physics (gauge coupling, fibrations, quotients) but bad for bundle existence.
+
 ### What's Next
 
-Three open questions remain computable:
+The proven result on polytopes 40 and 152 shifts the program:
 
-1. **cohomCalg on 61 NEF bundles** — verify h⁰ = 3, h¹·² = 0 vs. cancellations. This is RAM-intensive (~10–30 GB per bundle) and requires a 16-core/64GB Codespace (~$14).
+1. **Full physics pipeline on polytopes 40 and 152** — gauge coupling extraction, moduli stabilization, proton decay estimates, Yukawa analysis. Do they score as well as the original on Tiers 1–3?
 
-2. **Extend scan to h₁₁ = 17+** — our original GL=12 polytope sits at h₁₁ = 17, beyond the current scan limit. Needs `limit > 1000` in the KS fetch.
+2. **cohomCalg on the original's bundles** — still worth doing. If any of its 310 bundles have h⁰ = 3, it would be the strongest overall candidate (proven generations + symmetry + fibrations + gauge coupling). Requires 16-core/64GB Codespace (~$14).
 
-3. **Does D³ = 0 hold universally?** — the 59/61 result suggests a structural theorem. A proof would connect to effectivity conditions on CY 3-folds with χ = −6.
+3. **cohomCalg on the 59 NEF-but-not-big bundles** — these have h³ = 0 (from nef) but D³ = 0 (not big), so KV vanishing doesn't apply. cohomCalg would resolve whether h⁰ = 3 or there are cancellations.
+
+4. **Extend scan to h₁₁ = 17+** — are there NEF+BIG bundles at higher h₁₁? The pattern suggests they become rarer as the cone narrows.
 
 ## Reproduce It
 
