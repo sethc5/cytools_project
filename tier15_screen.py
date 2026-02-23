@@ -509,35 +509,64 @@ def print_ranked_table(results):
 
 
 def save_csv(results, csv_path):
-    """Save results to CSV."""
-    results_sorted = sorted(results,
-                            key=lambda x: (-x['tier15_score'],
-                                          -x.get('probe_clean', 0)))
-    with open(csv_path, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            'rank', 'h11', 'poly_idx', 'favorable', 'h11_eff',
-            'tier15_score',
-            'probe_n_chi3', 'probe_truncated', 'probe_max_h0',
-            'probe_h0_ge3', 'probe_clean',
-            'n_k3_fib', 'n_ell_fib',
-            'elapsed_s'
-        ])
-        for rank, r in enumerate(results_sorted, 1):
-            writer.writerow([
-                rank, r['h11'], r['poly_idx'], r['favorable'],
-                r['h11_eff'], r['tier15_score'],
-                r.get('probe_n_chi3', -1),
-                r.get('probe_truncated', False),
-                r.get('probe_max_h0', -1),
-                r.get('probe_h0_ge3', -1),
-                r.get('probe_clean', -1),
-                r.get('n_k3_fib', -1),
-                r.get('n_ell_fib', -1),
-                f"{r['elapsed']:.1f}"
-            ])
+    """Save results to CSV, merging with any existing file (no duplicates)."""
+    import os
 
-    print(f"\n  Results saved to {csv_path}")
+    FIELDNAMES = [
+        'rank', 'h11', 'poly_idx', 'favorable', 'h11_eff',
+        'tier15_score',
+        'probe_n_chi3', 'probe_truncated', 'probe_max_h0',
+        'probe_h0_ge3', 'probe_clean',
+        'n_k3_fib', 'n_ell_fib',
+        'elapsed_s'
+    ]
+
+    def result_to_row(r):
+        return {
+            'h11': r['h11'], 'poly_idx': r['poly_idx'],
+            'favorable': r['favorable'], 'h11_eff': r['h11_eff'],
+            'tier15_score': r['tier15_score'],
+            'probe_n_chi3': r.get('probe_n_chi3', -1),
+            'probe_truncated': r.get('probe_truncated', False),
+            'probe_max_h0': r.get('probe_max_h0', -1),
+            'probe_h0_ge3': r.get('probe_h0_ge3', -1),
+            'probe_clean': r.get('probe_clean', -1),
+            'n_k3_fib': r.get('n_k3_fib', -1),
+            'n_ell_fib': r.get('n_ell_fib', -1),
+            'elapsed_s': f"{r['elapsed']:.1f}"
+        }
+
+    # Load existing rows (if any) keyed by (h11, poly_idx)
+    existing = {}
+    if os.path.exists(csv_path):
+        with open(csv_path, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                key = (row['h11'], row['poly_idx'])
+                existing[key] = row
+
+    # Merge: new results overwrite existing entries for same polytope
+    for r in results:
+        row = result_to_row(r)
+        key = (str(row['h11']), str(row['poly_idx']))
+        existing[key] = row
+
+    # Sort by tier15_score desc, then probe_clean desc
+    merged = sorted(existing.values(),
+                    key=lambda x: (-int(x['tier15_score']),
+                                  -int(x['probe_clean'])))
+
+    # Re-rank and write
+    with open(csv_path, 'w', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
+        writer.writeheader()
+        for rank, row in enumerate(merged, 1):
+            row['rank'] = rank
+            writer.writerow(row)
+
+    n_new = len(results)
+    n_total = len(merged)
+    print(f"\n  Results saved to {csv_path} ({n_total} total, {n_new} new/updated)")
 
 
 # ══════════════════════════════════════════════════════════════════

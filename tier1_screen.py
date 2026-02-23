@@ -23,6 +23,8 @@ Reference: MATH_SPEC.md §2-5, FRAMEWORK.md §1-2.
 
 import sys
 import re
+import os
+import csv
 import argparse
 import time
 import cytools as cy
@@ -602,22 +604,58 @@ def print_ranked_table(results):
           f"(score={best['screen_score']}, max h⁰={best['max_h0']}, "
           f"{'Swiss cheese' if best['has_swiss'] else 'no Swiss cheese'})")
 
-    # ── CSV output ──
+    # ── CSV output (merge with existing) ──
     csv_path = "results/tier1_screen_results.csv"
     try:
-        with open(csv_path, 'w') as f:
-            f.write("rank,h11,poly_idx,favorable,screen_score,"
-                    "clean_h0_3,h0_ge3,max_h0,"
-                    "n_dp,n_k3,has_swiss,best_tau,best_ratio,"
-                    "sym_order,n_chi3,elapsed_s\n")
-            for rank, r in enumerate(results, 1):
-                f.write(f"{rank},{r['h11']},{r['poly_idx']},"
-                        f"{r['favorable']},{r['screen_score']},"
-                        f"{r['clean_h0_3']},{r['h0_ge3']},{r['max_h0']},"
-                        f"{r['n_dp']},{r['n_k3']},{r['has_swiss']},"
-                        f"{r.get('best_swiss_tau','')},{r.get('best_swiss_ratio','')},"
-                        f"{r['sym_order']},{r['n_chi3']},{r['elapsed']:.1f}\n")
-        print(f"\n  Results saved to {csv_path}")
+        FIELDNAMES = [
+            'rank', 'h11', 'poly_idx', 'favorable', 'screen_score',
+            'clean_h0_3', 'h0_ge3', 'max_h0',
+            'n_dp', 'n_k3', 'has_swiss', 'best_tau', 'best_ratio',
+            'sym_order', 'n_chi3', 'elapsed_s'
+        ]
+
+        # Load existing rows (if any) keyed by (h11, poly_idx)
+        existing = {}
+        if os.path.exists(csv_path):
+            with open(csv_path, 'r') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    key = (row['h11'], row['poly_idx'])
+                    existing[key] = row
+
+        # Merge: new results overwrite existing entries for same polytope
+        for r in results:
+            row = {
+                'h11': r['h11'], 'poly_idx': r['poly_idx'],
+                'favorable': r['favorable'], 'screen_score': r['screen_score'],
+                'clean_h0_3': r['clean_h0_3'], 'h0_ge3': r['h0_ge3'],
+                'max_h0': r['max_h0'],
+                'n_dp': r['n_dp'], 'n_k3': r['n_k3'],
+                'has_swiss': r['has_swiss'],
+                'best_tau': r.get('best_swiss_tau', ''),
+                'best_ratio': r.get('best_swiss_ratio', ''),
+                'sym_order': r['sym_order'], 'n_chi3': r['n_chi3'],
+                'elapsed_s': f"{r['elapsed']:.1f}"
+            }
+            key = (str(row['h11']), str(row['poly_idx']))
+            existing[key] = row
+
+        # Sort by screen_score desc, then clean_h0_3 desc
+        merged = sorted(existing.values(),
+                        key=lambda x: (-int(x['screen_score']),
+                                      -int(x['clean_h0_3'])))
+
+        # Re-rank and write
+        with open(csv_path, 'w', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
+            writer.writeheader()
+            for rank, row in enumerate(merged, 1):
+                row['rank'] = rank
+                writer.writerow(row)
+
+        n_new = len(results)
+        n_total = len(merged)
+        print(f"\n  Results saved to {csv_path} ({n_total} total, {n_new} new/updated)")
     except Exception as e:
         print(f"\n  Warning: could not save CSV: {e}")
 

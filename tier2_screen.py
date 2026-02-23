@@ -590,34 +590,72 @@ def print_ranked_table(results):
 
 
 def save_csv(results, csv_path):
-    """Save results to CSV."""
-    results_sorted = sorted(results, key=lambda x: (-x['tier2_score'], -x['clean_h0_3']))
+    """Save results to CSV, merging with any existing file (no duplicates)."""
+    import os
 
+    FIELDNAMES = [
+        'rank', 'h11', 'poly_idx', 'favorable', 'h11_eff',
+        'tier2_score', 'clean_h0_3', 'h0_ge3', 'max_h0', 'n_chi3',
+        'n_k3_fib', 'n_ell_fib',
+        'd3_min', 'd3_max', 'd3_n_distinct', 'd3_clean_values',
+        'n_overflow', 'elapsed_s',
+        'cytools_version', 'poly_hash'
+    ]
+
+    def result_to_row(r):
+        d3_clean_str = "|".join(str(x) for x in r.get('d3_clean', []))
+        return {
+            'h11': r['h11'], 'poly_idx': r['poly_idx'],
+            'favorable': r['favorable'], 'h11_eff': r['h11_eff'],
+            'tier2_score': r['tier2_score'], 'clean_h0_3': r['clean_h0_3'],
+            'h0_ge3': r['h0_ge3'], 'max_h0': r['max_h0'],
+            'n_chi3': r['n_chi3'],
+            'n_k3_fib': r['n_k3_fib'], 'n_ell_fib': r['n_ell_fib'],
+            'd3_min': r.get('d3_min', ''), 'd3_max': r.get('d3_max', ''),
+            'd3_n_distinct': r['d3_n_distinct'],
+            'd3_clean_values': d3_clean_str,
+            'n_overflow': r['n_overflow'],
+            'elapsed_s': f"{r['elapsed']:.1f}",
+            'cytools_version': r.get('cytools_version', ''),
+            'poly_hash': r.get('poly_hash', '')
+        }
+
+    # Load existing rows (if any) keyed by (h11, poly_idx)
+    existing = {}
+    if os.path.exists(csv_path):
+        with open(csv_path, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                key = (row['h11'], row['poly_idx'])
+                existing[key] = row
+
+    # Merge: new results overwrite existing entries for same polytope
+    for r in results:
+        row = result_to_row(r)
+        key = (str(row['h11']), str(row['poly_idx']))
+        existing[key] = row
+
+    # Sort by tier2_score desc, then clean_h0_3 desc
+    merged = sorted(existing.values(),
+                    key=lambda x: (-int(x['tier2_score']), -int(x['clean_h0_3'])))
+
+    # Re-rank and write
     with open(csv_path, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            'rank', 'h11', 'poly_idx', 'favorable', 'h11_eff',
-            'tier2_score', 'clean_h0_3', 'h0_ge3', 'max_h0', 'n_chi3',
-            'n_k3_fib', 'n_ell_fib',
-            'd3_min', 'd3_max', 'd3_n_distinct', 'd3_clean_values',
-            'n_overflow', 'elapsed_s',
-            'cytools_version', 'poly_hash'
-        ])
-        for rank, r in enumerate(results_sorted, 1):
-            d3_clean_str = "|".join(str(x) for x in r.get('d3_clean', []))
-            writer.writerow([
-                rank, r['h11'], r['poly_idx'], r['favorable'], r['h11_eff'],
-                r['tier2_score'], r['clean_h0_3'], r['h0_ge3'],
-                r['max_h0'], r['n_chi3'],
-                r['n_k3_fib'], r['n_ell_fib'],
-                r.get('d3_min', ''), r.get('d3_max', ''),
-                r['d3_n_distinct'],
-                d3_clean_str,
-                r['n_overflow'], f"{r['elapsed']:.1f}",
-                r.get('cytools_version', ''), r.get('poly_hash', '')
-            ])
+        writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
+        writer.writeheader()
+        for rank, row in enumerate(merged, 1):
+            row['rank'] = rank
+            writer.writerow(row)
 
-    print(f"\n  Results saved to {csv_path}")
+    n_new = len(results)
+    n_total = len(merged)
+    n_prev = n_total - n_new + sum(
+        1 for r in results
+        if (str(r['h11']), str(r['poly_idx'])) in {
+            (str(row['h11']), str(row['poly_idx'])) for row in existing.values()
+        } and (str(r['h11']), str(r['poly_idx'])) in existing
+    )
+    print(f"\n  Results saved to {csv_path} ({n_total} total, {n_new} new/updated)")
 
 
 # ══════════════════════════════════════════════════════════════════
