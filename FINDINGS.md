@@ -611,6 +611,63 @@ Among the 104 Hodge pairs with χ = −6, the polytope at `fetch_polytopes(h11=1
 - Resolution: use the 6 Mori coordinates z₁…z₆
 
 ### What Remains
-- PF PDE system in Mori coordinates (order 4 per variable, coupled system)
 - Quantum Yukawa corrections (Gromov-Witten invariants from instanton sums)
 - Physical prepotential computation
+
+### PF Operators (completed)
+
+*Added 2026-02-23. See [GL12_GEOMETRY.md](GL12_GEOMETRY.md) §"Explicit PF Operators" for full details.*
+
+The GKZ PF system was successfully derived in Mori θ-coordinates:
+- **6 box operators** □₁–□₆ (degrees 3, 9, 2, 18, 6, 3) acting on the period ω₀
+- **S_α mapping**: 8 orbit theta-operators expressed in 6 Mori θ-operators
+- **9,366/9,366 GKZ recurrence checks pass** (verified to |n| ≤ 5)
+- **1-parameter ODE** (z₁-axis): [(θ+1)³ + t(3θ+1)(3θ+2)(3θ+3)]ω = 0
+- **Hypergeometric identification**: ₃F₂([1/3,2/3,1];[1,1];27t), AESZ #1
+- This is the period of the mirror family of cubic curves in ℙ² (elliptic curve family)
+
+---
+
+## 9. Complete Pipeline Survey — 37 T2=45 Candidates (B-24)
+
+**Date**: 2026-02-23. **Script**: `pipeline.py`.
+
+All 37 polytopes scoring T2=45 (the maximum tier-2 score) have been analyzed with the full 26-point pipeline. This represents the complete set of top candidates from the χ=−6 landscape at h¹¹ = 13–19.
+
+### Score Distribution
+
+| Score | Count | Examples |
+|-------|-------|----------|
+| 26/26 | **19** | h15/poly94, h14/poly2, h16/poly11, h16/poly86 |
+| 25/26 | 5 | h17/poly53, h17/poly51, h19/poly67, h17/poly96, h15/poly61 |
+| 23/26 | 10 | h16/poly53, h17/poly9, h15/poly23, h16/poly22 |
+| 22/26 | 2 | h18/poly32, h19/poly16 |
+| 18/20 | 1 | h13/poly1 (old pipeline format) |
+
+### Top 10 by Clean Bundle Count
+
+| Rank | Candidate | Score | Clean | τ_SC | K3 | Ell |
+|------|-----------|-------|-------|------|----|-----|
+| 1 | **h17/poly53** | 25/26 | **418** | 1,016 | 3 | 3 |
+| 2 | **h15/poly94** | 26/26 | **380** | 241 | 4 | 6 |
+| 3 | h17/poly51 | 25/26 | 340 | 210 | 3 | 3 |
+| 4 | h14/poly2 | 26/26 | 320 | 58 | 3 | 3 |
+| 5 | h19/poly67 | 25/26 | 312 | 24 | 3 | 3 |
+| 6 | h18/poly32 | 22/26 | 308 | — | 4 | 6 |
+| 7 | h16/poly53 | 23/26 | 300 | — | 5 | 10 |
+| 8 | h16/poly11 | 26/26 | 298 | 150 | 3 | 3 |
+| 9 | h17/poly96 | 25/26 | 252 | 252 | 2 | 1 |
+| 10 | h16/poly86 | 26/26 | 224 | 1,536 | 4 | 6 |
+
+### Records
+
+- **Most clean bundles (any score)**: h17/poly53 — 418 clean h⁰=3 bundles
+- **Most clean bundles (26/26)**: h15/poly94 — 380 clean bundles (surpasses h14/poly2's 320)
+- **Best τ (Swiss cheese)**: h15/poly61 — τ=14,300 (LVS champion)
+- **Best τ among 26/26**: h15/poly25 — τ=5,255
+- **Most elliptic fibrations**: h17/poly25, h17/poly45 — 15 each
+- **Most K3 fibrations**: h17/poly25, h17/poly45 — 6 each
+
+### 23/26 Pattern
+
+All 10 polytopes scoring 23/26 fail the same 3 Swiss cheese / LVS checkpoints. These are geometrically viable 3-generation candidates whose Kähler cone does not admit the large-τ / small-τ hierarchy required for Large Volume Scenario moduli stabilization. They remain valid for other stabilization mechanisms (KKLT, racetrack, etc.).

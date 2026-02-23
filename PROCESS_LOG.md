@@ -5,6 +5,83 @@
 
 ---
 
+## 2026-02-23 — B-24 complete: full pipeline on all 37 T2=45 candidates
+
+**Work done**: Ran `pipeline.py` on the remaining 24 T2=45 candidates (all h¹¹ = 15–19). Combined with the 13 prior runs, this completes the full pipeline analysis across all top-scoring T2 polytopes.
+
+### Summary
+
+| Metric | Value |
+|--------|-------|
+| Total pipeline runs | **37** |
+| Perfect 26/26 | **19** |
+| Score 25/26 | 5 |
+| Score 23/26 | 10 |
+| Score 22/26 | 2 |
+| Score 18/20 (old fmt) | 1 (h13/poly1) |
+| Max clean bundles | **418** (h17/poly53) |
+| Max τ (Swiss cheese) | **14,300** (h15/poly61) |
+| Max elliptic fibs | **15** (h17/poly25, h17/poly45) |
+| Max K3 fibs | **6** (h17/poly25, h17/poly45) |
+| Total wall-clock | ~7 min (sequential, local) |
+
+### Complete results (sorted by score, then clean count)
+
+| Candidate | Score | Clean | K3 | Ell | τ_SC |
+|-----------|-------|-------|----|-----|------|
+| h15/poly94 | **26/26** | 380 | 4 | 6 | 241 |
+| h14/poly2 | **26/26** | 320 | 3 | 3 | 58 |
+| h16/poly11 | **26/26** | 298 | 3 | 3 | 150 |
+| h16/poly86 | **26/26** | 224 | 4 | 6 | 1,536 |
+| h17/poly63 | **26/26** | 218 | 5 | 10 | 84 |
+| h17/poly89 | **26/26** | 184 | 3 | 3 | 2,598 |
+| h18/poly34 | **26/26** | 184 | 4 | 6 | — |
+| h17/poly8 | **26/26** | 180 | 3 | 3 | 2,208 |
+| h17/poly90 | **26/26** | 176 | 3 | 3 | 1,168 |
+| h17/poly25 | **26/26** | 170 | 6 | 15 | 56 |
+| h16/poly74 | **26/26** | 158 | 5 | 10 | 114 |
+| h17/poly21 | **26/26** | 142 | 4 | 6 | 243 |
+| h18/poly31 | **26/26** | 134 | 4 | 6 | — |
+| h16/poly40 | **26/26** | 112 | 5 | 10 | 102 |
+| h15/poly25 | **26/26** | 106 | 3 | 3 | 5,255 |
+| h15/poly67 | **26/26** | 82 | 4 | 6 | 128 |
+| h16/poly73 | **26/26** | 82 | 3 | 3 | 108 |
+| h16/poly63 | **26/26** | 78 | 4 | 6 | 836 |
+| h18/poly6 | **26/26** | 74 | 3 | 3 | 588 |
+| h17/poly53 | 25/26 | 418 | 3 | 3 | 1,016 |
+| h17/poly51 | 25/26 | 340 | 3 | 3 | 210 |
+| h19/poly67 | 25/26 | 312 | 3 | 3 | 24 |
+| h17/poly96 | 25/26 | 252 | 2 | 1 | 252 |
+| h15/poly61 | 25/26 | 110 | 3 | 3 | 14,300 |
+| h16/poly53 | 23/26 | 300 | 5 | 10 | — |
+| h17/poly9 | 23/26 | 192 | 1 | 0 | 72 |
+| h15/poly23 | 23/26 | 134 | 4 | 6 | — |
+| h16/poly22 | 23/26 | 112 | 4 | 6 | — |
+| h17/poly58 | 23/26 | 112 | 3 | 3 | — |
+| h17/poly32 | 23/26 | 104 | 3 | 3 | — |
+| h16/poly3 | 23/26 | 100 | 4 | 6 | — |
+| h15/poly86 | 23/26 | 86 | 5 | 10 | — |
+| h16/poly55 | 23/26 | 78 | 5 | 10 | — |
+| h17/poly45 | 23/26 | 68 | 6 | 15 | — |
+| h18/poly32 | 22/26 | 308 | 4 | 6 | — |
+| h19/poly16 | 22/26 | 86 | 5 | 10 | — |
+
+### Key new discoveries
+
+1. **h15/poly94** — new clean-bundle champion at 26/26 (380 clean, τ=241). Surpasses h14/poly2 (320) as the polytope with most clean h⁰=3 bundles among perfect scorers.
+2. **h17/poly53** — most clean bundles overall (418), but scores 25/26 (no Swiss cheese checkpoint reported). τ=1,016 from Swiss cheese analysis.
+3. **h17/poly51** — 340 clean, 25/26, τ=210.
+4. **h16/poly86** — 224 clean, 26/26, τ=1,536 (strong LVS).
+5. **h17/poly89** — 184 clean, 26/26, τ=2,598 (second-best τ among 26/26 scorers after h15/poly25's 5,255).
+6. **h16/poly74** — 158 clean, 26/26, 10 elliptic fibs. F-theory candidate.
+7. **h17/poly45** — 68 clean, K3=6, **15 elliptic fibs** (ties h17/poly25 record), but 23/26 (no Swiss cheese).
+
+### Score = 23/26 pattern
+
+All 10 polytopes scoring 23/26 fail the same 3 checkpoints: Swiss cheese (no τ found), and the two LVS-derived checks. These are geometrically viable candidates where the Kähler cone simply doesn't admit the large 4-cycle / small 4-cycle hierarchy needed for LVS moduli stabilization.
+
+---
+
 ## 2026-02-23 — h18 T2 complete (81/87 PASS); T1 batch launched on 21K pool
 
 **Work done**: Full T2 screening of top 87 h18 candidates (max_h0≥5, favorable). T1 batch launched on remaining 21K T0.25 passes.
