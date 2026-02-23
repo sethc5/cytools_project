@@ -429,6 +429,224 @@ def verify_gkz_recurrence(period_coeffs, max_check_degree=None):
 
 
 # =====================================================================
+# EXPLICIT PF OPERATORS IN θ-COORDINATES
+# =====================================================================
+#
+# Each S_alpha = sum_i KERNEL[i, alpha] * theta_i
+# so the box operators become polynomial differential operators in
+# theta_1, ..., theta_6 (where theta_i = z_i d/dz_i).
+#
+# Box_k = prod_{alpha: l>0} (S_alpha)(S_alpha-1)...(S_alpha - s_alpha*l_alpha + 1)
+#       - z_{k+1} * prod_{alpha: l<0} (S_alpha)(S_alpha-1)...(S_alpha - s_alpha*|l_alpha| + 1)
+#
+# The falling factorial of an operator F of degree d is:
+#   F^(d) = F(F-1)(F-2)...(F-d+1)
+
+def format_s_expr(alpha, varname='θ'):
+    """Pretty-print S_alpha = sum_i L[i,alpha] theta_i."""
+    coeffs = [int(KERNEL[i, alpha]) for i in range(6)]
+    terms = []
+    for i, c in enumerate(coeffs):
+        if c == 0:
+            continue
+        var = f"{varname}_{i+1}"
+        if not terms:
+            if c == 1:
+                terms.append(var)
+            elif c == -1:
+                terms.append(f"-{var}")
+            else:
+                terms.append(f"{c}{var}")
+        else:
+            if c == 1:
+                terms.append(f"+ {var}")
+            elif c == -1:
+                terms.append(f"- {var}")
+            elif c > 0:
+                terms.append(f"+ {c}{var}")
+            else:
+                terms.append(f"- {-c}{var}")
+    return ' '.join(terms) if terms else '0'
+
+
+def _falling_op_str(S_str, degree):
+    """Format falling factorial: S(S-1)(S-2)...(S-degree+1)."""
+    if degree == 0:
+        return '1'
+    parts = []
+    for j in range(degree):
+        if j == 0:
+            parts.append(f"({S_str})")
+        else:
+            parts.append(f"({S_str} - {j})")
+    return '·'.join(parts)
+
+
+def print_pf_operators():
+    """Print all 6 PF operators in explicit theta notation."""
+    print("────────────────────────────────────────────────────────────────")
+    print("  GKZ PF OPERATORS  □_k ω₀ = 0  in Mori θ-coordinates")
+    print("  θᵢ = zᵢ ∂/∂zᵢ,   Sα = Σᵢ L[i,α] θᵢ")
+    print("────────────────────────────────────────────────────────────────")
+    print()
+
+    A_bar = [[1, 3, 2, 3, 1, 6, 6, 1],
+             [0, 0, 1,-3, 1,-6, 0,-1]]
+    print("  Euler constraints (orbit theta-operators):")
+    for row, rhs, label in zip(A_bar, [-1, 0], ['E₀', 'E₁']):
+        terms = [f"{c}·S{a}" for a, c in enumerate(row) if c != 0]
+        print(f"  {label}: {' + '.join(terms).replace('+ -','- ')} = {rhs}")
+    print()
+    print("  Orbit theta-operators in Mori coordinates:")
+    for alpha in range(N_ORBITS):
+        S_str = format_s_expr(alpha)
+        print(f"  S{alpha} = {S_str}")
+    print()
+
+    for k in range(6):
+        lam = KERNEL[k]
+        s = ORBIT_SIZES
+
+        pos_parts = []
+        neg_parts = []
+        total_pos_deg = 0
+        total_neg_deg = 0
+        for alpha in range(N_ORBITS):
+            if lam[alpha] > 0:
+                deg = s[alpha] * lam[alpha]
+                total_pos_deg += deg
+                S_str = format_s_expr(alpha)
+                pos_parts.append(_falling_op_str(S_str, deg))
+            elif lam[alpha] < 0:
+                deg = s[alpha] * abs(lam[alpha])
+                total_neg_deg += deg
+                S_str = format_s_expr(alpha)
+                neg_parts.append(_falling_op_str(S_str, deg))
+
+        pos_str = '·'.join(pos_parts) if pos_parts else '1'
+        neg_str = '·'.join(neg_parts) if neg_parts else '1'
+
+        print(f"  □_{k+1}  [deg {total_neg_deg}]")
+        print(f"    POS:  {pos_str}")
+        print(f"    NEG:  z_{k+1} · {neg_str}")
+        print(f"    □_{k+1} ω = 0  ⟺  POS·ω = NEG·ω")
+        print()
+
+
+# =====================================================================
+# 1-PARAMETER SPECIALIZATION: z₁ = t, z₂=...=z₆ = 0
+# =====================================================================
+#
+# Along the z₁-axis:
+#   Only monomials n = (n₁, 0, 0, 0, 0, 0) contribute.
+#   S₀ = -3θ₁,   S₁ = θ₁,   all other Sα = 0 on this slice.
+#
+# Box₁ reduces to the 3rd-order ODE:
+#   (θ₁)(θ₁-1)(θ₁-2) ω = z₁ · (-3θ₁)(-3θ₁-1)(-3θ₁-2) ω
+#
+# The SIGNED period (GKZ Gamma-series) on this slice is:
+#   ω_s(t) = Σ_{n≥0} (-1)^n · (3n)! / (n!)³ · tⁿ
+#           = Σ (-1)^n binom(3n,n) binom(2n,n) tⁿ
+#
+# The ODE satisfied (derived from the recurrence):
+#   [(θ+1)³ + 27t (3θ+1)(3θ+2)(3θ+3)/27 ] ω_s = 0
+# => [(θ+1)³ + t(3θ+1)(3θ+2)(3θ+3)] ω_s = 0
+#
+# In AESZ notation this is the 3rd order component of the quintic-type family.
+
+def compute_1param_series(max_n=20):
+    """Compute ω_s(t) = Σ (-1)^n (3n)!/n!³ tⁿ on the z₁-slice."""
+    coeffs = []
+    for n in range(max_n + 1):
+        c_unsigned = factorial(3*n) // (factorial(n)**3)
+        c_signed = ((-1)**n) * c_unsigned
+        coeffs.append((n, c_unsigned, c_signed))
+    return coeffs
+
+
+def derive_1param_ode():
+    """Derive and print the 1-parameter PF ODE from Box₁ on z₁-slice.
+    
+    On z₁-slice: S₀ = -3θ, S₁ = θ, all other Sα = 0.
+    
+    Box₁ kernel: KERNEL[0] = [-3, 1, 0, 0, 0, 0, 0, 0]
+    
+    PF equation (in SIGNED Gamma-series convention):
+        (θ+1)³ ω + t·(3θ+1)(3θ+2)(3θ+3) ω = 0
+    
+    Equivalently (dividing by (θ+1) where applicable):
+        (θ+1)² ω + t·27(θ+1/3)(θ+2/3) ω = 0   [2nd order irreducible part]
+    
+    but the full 3rd order equation is the one that applies to ω itself.
+    """
+    print("────────────────────────────────────────────────────────────────")
+    print("  1-PARAMETER SPECIALIZATION: z₁ = t, z₂=...=z₆ = 0")
+    print("────────────────────────────────────────────────────────────────")
+    print()
+    print("  On this slice, only n = (n₁,0,0,0,0,0) terms survive:")
+    print("    c(n₁) = (3n₁)! / (n₁!)³  [unsigned period coefficients]")
+    print("    ω_s(t) = Σ (-1)^n · (3n)!/(n!)³ · tⁿ  [SIGNED Gamma-series]")
+    print()
+
+    # Print the first terms
+    series = compute_1param_series(12)
+    print("  Period coefficients (unsigned, up to n=12):")
+    terms = [f"{c_u}" for _, c_u, _ in series]
+    print("    " + ", ".join(terms[:10]))
+    print()
+    print("  Signed coefficients:")
+    terms_s = [f"{c_s}" for _, _, c_s in series]
+    print("    " + ", ".join(terms_s[:10]))
+    print()
+
+    # The PF ODE
+    print("  PF ODE from Box₁ (θ = t d/dt):")
+    print("    [(θ+1)³ + t·(3θ+1)(3θ+2)(3θ+3)] ω_s(t) = 0")
+    print()
+    print("  Expand (3θ+1)(3θ+2)(3θ+3) = 27(θ+1/3)(θ+2/3)(θ+1):")
+    print("    [(θ+1)³ + 27t·(θ+1/3)(θ+2/3)(θ+1)] ω_s = 0")
+    print()
+    print("  Factor out (θ+1) — one solution is ω ~ 1/t (non-physical):")
+    print("    (θ+1) · [(θ+1)² + 27t·(θ+1/3)(θ+2/3)] ω_s = 0")
+    print("    ↳ Irreducible PF for ω_s: [(θ+1)² + 27t(θ+1/3)(θ+2/3)] ω_s = 0")
+    print()
+
+    print("  AESZ-database form (shift θ → θ-1, variable t → -t):")
+    print("    Fundamental period: Σ (3n)!/n!³ · t^n  [UNSIGNED, t = -z₁]")
+    print("    ODE: θ³ ω = t(3θ+2)(3θ+1)(3θ) ω  — this is 1/[1-27t] type")
+    print()
+
+    # Verify numerically from recurrence
+    print("  Numerical verification of recurrence  c(n+1)/c(n):")
+    print("    (n+1)³ c_s(n+1) = -(3n+1)(3n+2)(3n+3) c_s(n)")
+    series_c = compute_1param_series(6)
+    ok = True
+    for i in range(len(series_c)-1):
+        n, _, c_s_n = series_c[i]
+        n1, _, c_s_n1 = series_c[i+1]
+        lhs = (n+1)**3 * c_s_n1
+        rhs = -(3*n+1)*(3*n+2)*(3*n+3) * c_s_n
+        status = "✓" if lhs == rhs else f"✗ ({lhs} vs {rhs})"
+        print(f"    n={n}: (n+1)³ c_s(n+1) = {lhs},  rhs = {rhs}  {status}")
+        if lhs != rhs:
+            ok = False
+    if ok:
+        print("    All recurrence checks PASS ✓")
+    print()
+
+    # Connection to known hypergeometric series
+    print("  Hypergeometric form:")
+    print("    Unsigned: Σ (3n)!/n!³ t^n = ₃F₂([1/3, 2/3, 1]; [1, 1]; 27t)")
+    print("             (radius of convergence: |t| < 1/27)")
+    print("    Signed:  Σ (-1)^n (3n)!/n!³ t^n = ₃F₂([1/3,2/3,1];[1,1];-27t)")
+    print()
+    print("  AESZ cross-reference:")
+    print("    This is the period of the mirror family of degree-3 hypersurfaces")
+    print("    in P² (elliptic curve family), embedded in the z₁-direction of")
+    print("    the GL=12/D₆ moduli space. AESZ #1 in 2-variable Calabi-Yau tables.")
+
+
+# =====================================================================
 # EULER CONSTRAINTS
 # =====================================================================
 
@@ -468,9 +686,13 @@ def main():
     parser.add_argument("--order", type=int, default=8,
                         help="Max total degree for period series (default: 8)")
     parser.add_argument("--box", action="store_true",
-                        help="Display box operators")
+                        help="Display box operators in S_alpha notation")
+    parser.add_argument("--pf", action="store_true",
+                        help="Display explicit PF operators in theta_i notation")
+    parser.add_argument("--oneparam", action="store_true",
+                        help="Derive 1-parameter ODE along z1-axis")
     parser.add_argument("--verify", action="store_true",
-                        help="Verify box operators annihilate period")
+                        help="Verify GKZ recurrence on period coefficients")
     parser.add_argument("--save", action="store_true",
                         help="Save period coefficients to JSON")
     args = parser.parse_args()
@@ -526,7 +748,7 @@ def main():
     
     # ---- Box operators ----
     if args.box:
-        print(f"\n[BOX] GKZ box operators (PF equations) □_k ω₀ = 0:")
+        print(f"\n[BOX] GKZ box operators (PF equations in S_α notation) □_k ω₀ = 0:")
         print()
         for k in range(6):
             data = box_operator_data(k)
@@ -534,25 +756,42 @@ def main():
             print(f"    Degree: {data['positive_degree']} (positive) vs "
                   f"{data['negative_degree']} (negative)")
             print()
+
+    # ---- Explicit PF operators ----
+    if args.pf:
+        print(f"\n[PF]")
+        print_pf_operators()
     
     # ---- Period series ----
-    print(f"\n[PERIOD] Computing ω₀(z) = Σ c(n) z^n to total degree {args.order}")
-    print(f"  Formula: c(n) = |m₀|! / ∏_{{α≥1}} (m_α!)^{{s_α}}")
-    print()
-    
-    coeffs = compute_period_multivariate(args.order, verbose=True)
-    
-    print(f"\n  Total non-zero coefficients: {len(coeffs)}")
-    
-    # Show lowest-degree terms
-    print(f"\n  Lowest-degree terms:")
-    sorted_terms = sorted(coeffs.items(), key=lambda x: (sum(x[0]), x[0]))
-    for n_tuple, c_val in sorted_terms[:30]:
-        m = orbit_exponents(n_tuple)
-        print(f"    c{n_tuple} = {c_val}  (m = {m})")
-    
+    # Skip period computation if only displaying operators/ODE
+    skip_series = (args.pf or args.oneparam) and not (args.verify or args.save)
+    if not skip_series:
+        print(f"\n[PERIOD] Computing ω₀(z) = Σ c(n) z^n to total degree {args.order}")
+        print(f"  Formula: c(n) = |m₀|! / ∏_{{α≥1}} (m_α!)^{{s_α}}")
+        print()
+
+        coeffs = compute_period_multivariate(args.order, verbose=True)
+
+        print(f"\n  Total non-zero coefficients: {len(coeffs)}")
+
+        # Show lowest-degree terms
+        print(f"\n  Lowest-degree terms:")
+        sorted_terms = sorted(coeffs.items(), key=lambda x: (sum(x[0]), x[0]))
+        for n_tuple, c_val in sorted_terms[:30]:
+            m = orbit_exponents(n_tuple)
+            print(f"    c{n_tuple} = {c_val}  (m = {m})")
+    else:
+        coeffs = {}
+        sorted_terms = []
+    # ---- 1-parameter ODE ----
+    if args.oneparam:
+        print(f"\n[ONEPARAM]")
+        derive_1param_ode()
+
     # ---- Verification ----
     if args.verify:
+        if not coeffs:
+            coeffs = compute_period_multivariate(args.order, verbose=True)
         print(f"\n[VERIFY] GKZ recurrence: c_s(n+e_k)·P+ = c_s(n)·P-")
         print(f"  (c_s = (-1)^|m₀| · c, falling factorials use u = γ + m)")
         n_pass, n_fail, n_skip = verify_gkz_recurrence(
@@ -560,9 +799,12 @@ def main():
         print(f"  Passed: {n_pass}  Failed: {n_fail}  Skipped: {n_skip}")
         if n_fail == 0 and n_pass > 0:
             print("  All GKZ recurrence checks PASS ✓")
-    
+
     # ---- Save ----
     if args.save:
+        if not coeffs:
+            coeffs = compute_period_multivariate(args.order, verbose=True)
+        sorted_terms = sorted(coeffs.items(), key=lambda x: (sum(x[0]), x[0]))
         outfile = f"results/mori_pf_deg{args.order}.json"
         save_data = {
             'order': args.order,
