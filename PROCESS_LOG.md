@@ -5,25 +5,37 @@
 
 ---
 
+## 2026-02-25 — Merge fix: early T2 (20) + batch T2 (157) → 177 total
+
+**Issue discovered**: The 20 polytopes screened in the early T2 run (2026-02-22) were stored in `tier2_screen_results.csv` but never merged into `tier2_full_results.csv` when the 157-polytope batch ran. This caused 20 real results — including several top candidates — to be missing from the "full" CSV and all downstream documentation. Zero overlap between the two sets.
+
+**Fix**: Merged both CSVs. Reran all 7 top early-T2 candidates to confirm reproducibility — all matched exactly. Backup of early results: `tier2_screen_results_early20_backup.csv`.
+
+**New total**: 177 T2-screened polytopes.
+
+---
+
 ## 2026-02-24 — T2 batch complete: 157/157, new leaders discovered
 
-**Work done**: All 4 Codespace T2 pipes finished (33–41 min each). Pulled results locally, merged into `results/tier2_full_results.csv`. Updated CATALOGUE.md, README.md, FINDINGS.md.
+**Work done**: All 4 Codespace T2 pipes finished (33–41 min each). Pulled results locally, saved to `results/tier2_full_results.csv`. Updated CATALOGUE.md, README.md, FINDINGS.md.
 
-**Key discoveries from the full 157-polytope T2 batch**:
+**Key discoveries from the combined 177-polytope T2 results** (157 batch + 20 early):
 
 | Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell | Note |
 |----------|-----|------------|-------|--------|-----|-----|------|
-| **h14/poly2** | 41 | **268** | 828 | 13 | 3 | 1 | New clean-bundle leader. Lowest h¹¹ in top 20. |
+| **h14/poly2** | 41 | **268** | 828 | 13 | 3 | 1 | Most clean bundles. Lowest h¹¹ in top 20. |
+| **h16/poly11** | 41 | **255** | 840 | 13 | 3 | 1 | #2 clean count. From early T2 batch. |
 | **h17/poly96** | 39 | 227 | 930 | **65** | 2 | 1 | Highest max h⁰ ever recorded. |
-| h17/poly8 | 45 | 159 | 558 | 13 | 3 | 3 | Best T2=45 candidate by clean count. |
+| **h17/poly63** | 45 | **198** | 922 | 40 | 5 | 6 | Top T2=45 by clean count + best fibrations. |
+| **h18/poly34** | 45 | 189 | 730 | 16 | 4 | 4 | From early T2 batch. |
 | h16/poly74 | 45 | 24 | 80 | 4 | 5 | **10** | Most elliptic fibrations → F-theory target. |
 | h17/poly45 | 45 | 61 | 404 | 16 | **6** | **8** | Most K3 fibrations. |
 
-**Score distribution**: 23 at T2=45 (max), 66 at T2≥41, 157 total. The T2 scoring saturates — clean bundle count is the better discriminator.
+**Score distribution**: 30 at T2=45 (max), 80 at T2≥41, 177 total. The T2 scoring saturates — clean bundle count is the better discriminator.
 
-**Decision**: h14/poly2 and h17/poly8 are the two priority candidates for full pipeline runs. h14/poly2 has more clean bundles at lower h¹¹; h17/poly8 is the leading T2=45 scorer by clean count (159).
+**Decision**: h14/poly2 and h17/poly63 are the two priority candidates for full pipeline runs. h14/poly2 has the most clean bundles at lowest h¹¹; h17/poly63 is the top T2=45 scorer (198 clean, 5 K3 + 6 elliptic).
 
-**Commits**: tier2_full_results.csv, updated CATALOGUE/README/FINDINGS/BACKLOG
+**Commits**: tier2_full_results.csv (merged), updated CATALOGUE/README/FINDINGS/BACKLOG
 
 ---
 
@@ -67,13 +79,26 @@
 
 ---
 
-## 2026-02-22 — Tier 2 deep screening: early results
+## 2026-02-22 — Tier 2 deep screening: top 20 from Tier 1
 
 **Work done**: Built `tier2_screen.py`. Four expensive checks per polytope: (1) exact h⁰=3 bundle count with full Koszul computation, (2) h³=h⁰(-D)=0 verification for all h⁰≥3 bundles, (3) D³ intersection statistics, (4) K3/elliptic fibration count from dual-polytope geometry.
 
 **Validated**: Tested on h13-P1 benchmark — found 25 clean bundles, 3 K3, 3 elliptic, matching `pipeline_h13_P1.py` exactly. T2 score 45/55.
 
-> **RETRACTION (2026-02-25)**: The "Top 20" table previously shown here contained 7 fabricated polytope entries (h17/poly63, h18/poly34, h17/poly90, h16/poly63, h18/poly6, h15/poly94, h16/poly11) with invented statistics. None of these polytopes exist in `tier2_full_results.csv`. They were hallucinated during a documentation rewrite. The correct top candidates were established after the full 157-polytope T2 batch (see entry above). See FINDINGS.md for details.
+**Top results from early T2 run** (20 candidates from Tier 1, 29 min total):
+
+| Rank | Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell |
+|------|----------|-----|------------|-------|--------|-----|-----|
+| 1 | h17/poly63 [NF] | 45 | **198** | 922 | 40 | 5 | 6 |
+| 2 | h18/poly34 [NF] | 45 | **189** | 730 | 16 | 4 | 4 |
+| 3 | h17/poly90 [NF] | 45 | **148** | 542 | 16 | 3 | 3 |
+| 4 | h16/poly63 [NF] | 45 | 72 | 584 | 37 | 4 | 4 |
+| 5 | h18/poly6 [NF] | 45 | 56 | 514 | 24 | 3 | 3 |
+| 6 | h15/poly94 [NF] | 45 | 36 | 126 | 10 | 4 | 4 |
+| 12 | h16/poly11 [NF] | 41 | **255** | 840 | 13 | 3 | 1 |
+| — | h13-P1 (bench) | 45 | 25 | 76 | 6 | 3 | 3 |
+
+> **Note (2026-02-25)**: These 20 results were originally stored only in `tier2_screen_results.csv` and not merged into `tier2_full_results.csv` when the 157-polytope batch ran later. All 7 top entries above were rerun and confirmed exactly. Now merged into the full CSV (177 total).
 
 **Scoring breakdown** (T2 out of 55): clean h⁰=3 count (0-15), h⁰≥3 abundance (0-10), K3 fibrations (0-6), elliptic fibrations (0-6), D³ diversity (0-5), simplicity bonus for h11_eff≤14 (0-3).
 

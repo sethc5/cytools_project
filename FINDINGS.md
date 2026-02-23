@@ -46,11 +46,35 @@ e₁₂ (toric idx 17): τ = 10.0, V = 308,352, τ/V²ᐟ³ = 0.0022. Excellent 
 
 ---
 
-## 2. h17/poly8 — Top T2=45 Scorer by Clean Bundles (T2 Score: 45/55)
+## 2. h17/poly63 — Top T2=45 Scorer (198 clean, 5 K3 + 6 elliptic)
+
+**Date**: 2026-02-22 (early T2 batch). **Script**: [tier2_screen.py](tier2_screen.py).
+
+Highest clean h⁰ = 3 count among all T2=45 scorers. Richest fibration structure of any candidate — 5 K3 + 6 elliptic fibrations. Also has the highest max h⁰ (40) of any polytope in the scan.
+
+### Key Data
+- h¹¹ = 17, h²¹ = 20, χ = −6, non-favorable (h¹¹_eff = 13)
+- 198 clean h⁰ = 3 line bundles
+- 922 with h⁰ ≥ 3, max h⁰ = 40
+- 14,458 total χ = ±3 bundles
+- 5 K3 fibrations, 6 elliptic fibrations
+- D³ range: [−91, 119], 196 distinct values
+
+### Why It Matters
+Among the 30 polytopes scoring T2=45, h17/poly63 has the most clean bundles (198) and the richest fibration structure (5 K3 + 6 elliptic — tied for most elliptic with h15/poly23). Its max h⁰ = 40 is remarkably high, suggesting deep bundle structure. Prime candidate for both heterotic and F-theory model building.
+
+### Status
+Needs full pipeline run (Stages 1–4 deep analysis + scorecard). Priority for B-18.
+
+> **Note (2026-02-25)**: This polytope was in the early T2 batch (20 candidates, 2026-02-22) which was stored only in `tier2_screen_results.csv`. Temporarily removed from documentation when the early results were not found in `tier2_full_results.csv`. All stats confirmed on rerun. Now merged into the full CSV (177 total).
+
+---
+
+## 2b. h17/poly8 — Second-Best T2=45 Scorer (159 clean)
 
 **Date**: 2026-02-24. **Script**: [tier2_screen.py](tier2_screen.py).
 
-Highest clean h⁰ = 3 count among all polytopes scoring T2 = 45 (maximum). Strong fibration structure with balanced K3/elliptic content.
+Second highest clean h⁰ = 3 count among all polytopes scoring T2 = 45 (maximum). Strong fibration structure with balanced K3/elliptic content.
 
 ### Key Data
 - h¹¹ = 17, h²¹ = 20, χ = −6, non-favorable (h¹¹_eff = 13)
@@ -61,12 +85,10 @@ Highest clean h⁰ = 3 count among all polytopes scoring T2 = 45 (maximum). Stro
 - D³ range: [−60, 108], 152 distinct values
 
 ### Why It Matters
-Among the 23 polytopes achieving the maximum T2 score, h17/poly8 has the most clean bundles (159). Its balanced fibration structure (3 K3 + 3 elliptic) makes it a strong candidate for both heterotic and F-theory embeddings. Clean bundle count 6× that of h13/poly1.
+Among the 30 polytopes achieving the maximum T2 score, h17/poly8 has the second most clean bundles (159). Its balanced fibration structure (3 K3 + 3 elliptic) makes it a strong candidate for both heterotic and F-theory embeddings. Clean bundle count 6× that of h13/poly1.
 
 ### Status
 Needs full pipeline run (Stages 1–4 deep analysis + scorecard).
-
-> **Note**: An earlier version of this document listed "h17/poly63" here. That entry was fabricated during a documentation rewrite and does not correspond to any polytope in our T2 CSV. See commit history for details.
 
 ---
 

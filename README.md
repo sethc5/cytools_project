@@ -37,8 +37,8 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
   └─ 634 have h⁰ ≥ 3 line bundles (62%)
       └─ 337 pass Tier 1 (dP divisors + Swiss cheese + symmetry)
           └─ 157 pass Tier 1.5 (fibrations + 300-bundle probe, ≥3 clean)
-              └─ 157 Tier 2 complete ✅ (full bundle search + h³ verification)
-                  └─ 23 scored T2=45 (max), 66 scored T2≥41
+              └─ 177 Tier 2 complete ✅ (full bundle search + h³ verification)
+                  └─ 30 scored T2=45 (max), 80 scored T2≥41
 ```
 
 ### Top Candidates (by clean h⁰=3 bundle count)
@@ -46,10 +46,12 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 | Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 fib | Ell fib |
 |----------|-----|------------|-------|--------|--------|--------|
 | **h14/poly2** [NF] | 41 | **268** | 828 | 13 | 3 | 1 |
+| **h16/poly11** [NF] | 41 | **255** | 840 | 13 | 3 | 1 |
 | h17/poly96 [NF] | 39 | 227 | 930 | **65** | 2 | 1 |
+| **h17/poly63** [NF] | 45 | **198** | 922 | 40 | 5 | 6 |
+| h18/poly34 [NF] | 45 | 189 | 730 | 16 | 4 | 4 |
 | h17/poly9 [NF] | 35 | 181 | 876 | 15 | 1 | 0 |
 | h17/poly8 [NF] | 45 | 159 | 558 | 13 | 3 | 3 |
-| h15/poly23 [NF] | 45 | 119 | 524 | 20 | 4 | 6 |
 | h13/poly1 (bench) | 45 | 25 | 76 | 6 | 3 | 3 |
 
 Full results in [results/](results/). All top candidates are **non-favorable** polytopes — these were invisible until we fixed [Bug B-11](PROCESS_LOG.md).
