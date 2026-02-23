@@ -96,7 +96,7 @@ Needs full pipeline run (Stages 1–4 deep analysis + scorecard).
 
 **Date**: 2026-02-24. Discovered in Codespace T2 batch.
 
-Most clean h⁰ = 3 bundles of any polytope scanned, at the lowest h¹¹ (14) in the top 20. Low h¹¹ implies simpler moduli stabilization — this may be the strongest candidate for a practical SM embedding.
+Most clean h⁰ = 3 bundles of any polytope scanned, at the lowest h¹¹ (14) among top candidates. Low h¹¹ implies simpler moduli stabilization — this may be the strongest candidate for a practical SM embedding.
 
 ### Key Data
 - h¹¹ = 14, h²¹ = 17, χ = −6, non-favorable (h¹¹_eff = 13)

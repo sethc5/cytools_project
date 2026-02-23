@@ -65,7 +65,7 @@
 
 ---
 
-## 3. Top 20 Candidates (Tier 2 — all 177 complete)
+## 3. Top Candidates (Tier 2 — all 177 complete)
 
 Ranked by clean h⁰=3 bundle count. All non-favorable. T2 score out of 55.
 
