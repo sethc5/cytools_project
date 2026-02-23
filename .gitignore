@@ -33,6 +33,7 @@ build/
 
 # Logs and PID files
 *.log
+!results/*.log
 *.pid
 
 # Intermediate / scratch outputs
