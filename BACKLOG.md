@@ -17,7 +17,7 @@
 - **Status**:
   - ✅ h15: **553/553 complete** (333 hits, 60%). T1→T1.5→T2 done. h15/poly61 → full pipeline 25/26.
   - ✅ h16: **5,180/5,180 complete** (1,811 hits, 35%). T1→T1.5→T2 done. 20 new T2 entries.
-  - 🔶 h17: **running on Codespace** (tmux `h17scan`, 4 workers). ~16,200/38,735 (42%). ETA ~6 hrs remaining.
+  - 🔶 h17: **running on Codespace** (tmux `h17scan`, 4 workers). ~27,000/38,735 (70%). ETA ~3 hrs remaining.
   - 🔶 h18: **running on Hetzner** (tmux `h18scan`, 14 workers). ~98,000/100,000 (98%). **Nearly done.**
 - **Estimate**: h17 ~6hrs Codespace, h18 minutes remaining.
 
@@ -66,11 +66,10 @@
 - **Acceptance**: Documented gauge groups for at least one fibration.
 - **Estimate**: Medium-Large.
 
-### B-24: Run full pipeline on remaining T2 candidates
-- **Why**: 27 T2 candidates still lack full pipeline analysis. Top picks: h18/poly32 (T2=45, 49 clean, max h⁰=30), h15/poly94 (T2=45, 36 clean).
-- **What**: Run `pipeline.py` on remaining T2=45 candidates.
-- **Acceptance**: All T2=45 candidates analyzed.
-- **Estimate**: ~10 min each, 27 remaining.
+### B-24: Run full pipeline on remaining T2 candidates ✅ DONE
+- **Result**: All 24 remaining T2=45 candidates analyzed. **37 total pipeline runs** (13 prior + 24 new).
+- **19 score 26/26** (perfect). New discoveries: h15/poly94 (380 clean, τ=241), h17/poly53 (418 clean, τ=1016), h17/poly51 (340 clean), h16/poly74 (158 clean, 10 ell fibs).
+- **Completed**: 2026-02-23.
 
 ### B-22: Run full pipeline on remaining top candidates ✅ DONE
 - All 8 original top candidates + 4 new → **12 total**, 7× score 26/26. See PROCESS_LOG entries.
@@ -100,6 +99,7 @@
 | ID | Item | Completed |
 |----|------|-----------|
 | D-26a | B-26: GL12/D₆ closed-form period + Yukawa couplings + picard_fuchs.py | 2026-02-23 |
+| D-27 | B-24: Full pipeline on all 37 T2=45 candidates (19× 26/26) | 2026-02-23 |
 | D-26c | B-26: PF operators in θ-coordinates + 1-param ODE + AESZ #1 (mori_pf.py + GL12_GEOMETRY.md) | 2026-02-23 |
 | D-26b | B-26: GL12_GEOMETRY.md complete geometry reference | 2026-02-23 |
 | D-25 | B-25: Tier 0.25 fast pre-filter (`scan_fast.py`) — 100% recall, 2.4× speedup | 2026-02-24 |
