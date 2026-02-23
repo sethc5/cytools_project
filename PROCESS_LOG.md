@@ -5,6 +5,34 @@
 
 ---
 
+## 2026-02-22 22:00 — Full pipeline on all top 7 candidates: 5× perfect 26/26
+
+**Work done**: Ran `pipeline.py` on the remaining 5 top T2 candidates (h16/poly11, h17/poly96, h18/poly34, h17/poly9, h17/poly8). Combined with the earlier h14/poly2 and h17/poly63 runs, all 7 top candidates are now fully analyzed.
+
+**Full leaderboard** (sorted by clean bundles):
+
+| Polytope | Score | Clean | T2→Pipe Δ | K3 | Ell | dP | Swiss τ |
+|----------|-------|-------|-----------|-----|-----|-----|---------|
+| h14/poly2 | 26/26 | **320** | +52 | 3 | 3 | 3 | 58.5 |
+| h16/poly11 | 26/26 | **298** | +43 | 3 | 3 | 5 | 150.0 |
+| h17/poly96 | 25/26 | **252** | +25 | 2 | 1 | 0 | 252.0 |
+| h17/poly63 | 26/26 | **218** | +20 | 5 | **10** | **6** | 84.0 |
+| h17/poly9 | 23/26 | **192** | +11 | 1 | 0 | 0 | 72.0 |
+| h18/poly34 | 26/26 | **184** | −5 | 4 | 6 | 5 | 0.0 |
+| h17/poly8 | 26/26 | **180** | +21 | 3 | 3 | 4 | **2208** |
+
+**Key findings**:
+- **5 of 7 score 26/26** (perfect). h17/poly96 loses 1 point (no dP). h17/poly9 loses 3 (no ell, no dP).
+- **Full pipeline consistently finds more clean bundles** than T2 screen (avg +24, range −5 to +52). The more thorough h³ verification via Serre duality catches bundles the T2 heuristic misses.
+- **h16/poly11 is the new #2** — 298 clean, 5 dP, 3 ell. Previously had only 1 ell fibration in T2.
+- **h17/poly8 has best LVS structure**: τ=2208 is 37× larger than any other candidate. Extremely strong volume hierarchy.
+- **h18/poly34 has τ=0.0** — a degenerate Swiss cheese direction. The flag passes but the LVS hierarchy is absent. May need investigation.
+- **h17/poly9 scores lowest (23/26)** despite 192 clean bundles — zero elliptic fibrations and zero dP divisors limit its physics utility.
+
+**Runtime**: 16-18s per candidate (total batch ~85s). All output saved to `results/pipeline_h{h11}_P{poly}_output.txt`.
+
+---
+
 ## 2026-02-22 21:00 — Generic pipeline.py + h17/poly63 Full Pipeline: 26/26, 218 clean
 
 **Work done**: Refactored all pipeline code into a single generic `pipeline.py` that takes `--h11` and `--poly` arguments. No more per-candidate custom scripts. All heavy computation imported from `cy_compute.py`. Ran full Stages 1-4 on h17/poly63.

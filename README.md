@@ -4,7 +4,7 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-> **Status**: 1,025 polytopes scanned · 177 Tier-2 screened · **2 full pipeline runs** (26/26 each) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: 1,025 polytopes scanned · 177 Tier-2 screened · **7 full pipeline runs** (5× 26/26) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -46,12 +46,12 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 | Polytope | Score | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 fib | Ell fib | Notes |
 |----------|-------|------------|-------|--------|--------|---------|-------|
 | **★ h14/poly2** [NF] | **26/26** | **320** | 828 | 13 | 3 | 3 | Heterotic champion |
-| **h16/poly11** [NF] | T2=41 | 255 | 840 | 13 | 3 | 1 | |
-| h17/poly96 [NF] | T2=39 | 227 | 930 | **65** | 2 | 1 | Highest max h⁰ |
+| **★ h16/poly11** [NF] | **26/26** | **298** | 840 | 13 | 3 | 3 | 5 dP divisors |
+| **★ h17/poly96** [NF] | **25/26** | **252** | 930 | **65** | 2 | 1 | Highest max h⁰ |
 | **★ h17/poly63** [NF] | **26/26** | **218** | 922 | 40 | 5 | **10** | F-theory champion |
-| h18/poly34 [NF] | T2=45 | 189 | 730 | 16 | 4 | 4 | |
-| h17/poly9 [NF] | T2=35 | 181 | 876 | 15 | 1 | 0 | |
-| h17/poly8 [NF] | T2=45 | 159 | 558 | 13 | 3 | 3 | |
+| **★ h17/poly9** [NF] | **23/26** | **192** | 876 | 15 | 1 | 0 | |
+| **★ h18/poly34** [NF] | **26/26** | **184** | 730 | 16 | 4 | 6 | 5 dP, h¹¹=18 |
+| **★ h17/poly8** [NF] | **26/26** | **180** | 558 | 13 | 3 | 3 | τ=2208 (best LVS) |
 | h13/poly1 (bench) | 18/20 | 25 | 76 | 6 | 3 | 3 | Benchmark |
 
 ★ = Full pipeline complete (Stages 1–4 + scorecard). [NF] = non-favorable.

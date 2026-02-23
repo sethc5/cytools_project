@@ -33,11 +33,8 @@
 - **Acceptance**: Documented gauge groups for at least one fibration.
 - **Estimate**: Medium-Large.
 
-### B-22: Run full pipeline on remaining top candidates
-- **Why**: h16/poly11 (255 clean), h17/poly96 (max h⁰=65), h18/poly34 (189 clean, 4 ell) are all untouched by full pipeline.
-- **What**: `python pipeline.py --h11 16 --poly 11` etc. Compare scores against champions.
-- **Acceptance**: Scorecard for each.
-- **Estimate**: Small (25-30s each, just needs running).
+### B-22: Run full pipeline on remaining top candidates ✅ DONE
+- All 7 top candidates analyzed. 5× score 26/26. See PROCESS_LOG 22:00 entry.
 
 ---
 
@@ -63,7 +60,7 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
-| D-20 | B-18c: Generic `pipeline.py` (replaces per-candidate scripts) | 2026-02-22 |
+| D-21 | B-22: Full pipeline on all 7 top candidates (5× 26/26) | 2026-02-22 |\n| D-20 | B-18c: Generic `pipeline.py` (replaces per-candidate scripts) | 2026-02-22 |
 | D-19 | B-18b: `cy_compute.py` shared core — 19× pipeline speedup | 2026-02-22 |
 | D-18b | B-18: Full pipeline h17/poly63 → 26/26, 218 clean (F-theory champ) | 2026-02-22 |
 | D-18a | B-18: Full pipeline h14/poly2 → 26/26, 320 clean (heterotic champ) | 2026-02-22 |
