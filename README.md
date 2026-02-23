@@ -4,7 +4,7 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-> **Status**: 1,025 polytopes scanned · 177 Tier-2 screened · **7 full pipeline runs** (5× 26/26) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: 1,478 polytopes scanned · 36 Tier-2 screened · **7 full pipeline runs** (5× 26/26) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -20,25 +20,25 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 |-----|----------|---------|----------|
 | 13 | 3 | 3 | 100% |
 | 14 | 22 | 22 | 100% |
-| 15 | 553 | 100 | 18% |
-| 16 | 5,180 | 100 | 1.9% |
+| 15 | 553 | **553** | **100%** |
+| 16 | 5,180 | ~1,800 | ~35% |
 | 17 | 38,735 | 100 | 0.26% |
 | 18–24 | ~millions | 100 ea. | ~0% |
 | 25–128 | huge | 0 | 0% |
 
-**We have scanned ~1,025 polytopes out of potentially millions.** But h¹¹ = 13–17 is the physically most interesting range (fewer moduli, simpler stabilization), and that's where our best candidates cluster.
+**We have scanned ~1,478 polytopes out of potentially millions.** h¹¹ = 15 is now fully covered. h¹¹ = 16 scan is running (ETA ~1hr). The expanded h15 scan discovered **h15/poly61** (103 clean h⁰=3 bundles, new #5 overall). See [PROCESS_LOG.md](PROCESS_LOG.md).
 
 ## Current Results
 
 ### Screening Funnel
 
 ```
-1,025 polytopes scanned (h11=13..24, limit=100/h11)
-  └─ 634 have h⁰ ≥ 3 line bundles (62%)
-      └─ 337 pass Tier 1 (dP divisors + Swiss cheese + symmetry)
-          └─ 157 pass Tier 1.5 (fibrations + 300-bundle probe, ≥3 clean)
-              └─ 177 Tier 2 complete ✅ (full bundle search + h³ verification)
-                  └─ 30 scored T2=45 (max), 80 scored T2≥41
+1,478 polytopes scanned (h11=13..24, h15 complete, h16 in progress)
+  └─ 967+ have h⁰ ≥ 3 line bundles (~65%)
+      └─ 356 pass Tier 1 (dP divisors + Swiss cheese + symmetry)
+          └─ 337 pass Tier 1.5 (fibrations + 300-bundle probe, ≥3 clean)
+              └─ 36 Tier 2 complete ✅ (full bundle search + h³ verification)
+                  └─ 14 scored T2=45 (max), 30 scored T2≥41
 ```
 
 ### Top Candidates (by clean h⁰=3 bundle count)
@@ -112,8 +112,9 @@ python pipeline.py --h11 17 --poly 63     # F-theory champion
 python pipeline.py --h11 18 --poly 34     # Next candidate
 
 # Screening pipeline (to find new candidates)
-python scan_chi6_h0.py                          # Stage 1+3: landscape scan
-python tier1_screen.py                           # Fast screen
+python scan_parallel.py --h11 15 16 --workers 4       # Parallel scan (4× faster)
+python scan_chi6_h0.py                                # Serial scan (legacy)
+python tier1_screen.py --log results/scan_h15.log      # Fast screen
 python tier15_screen.py --csv results/tier1_screen_results.csv   # Intermediate
 python tier2_screen.py --csv15 results/tier15_screen_results.csv # Deep
 ```
@@ -134,7 +135,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contributions:
 # Pipeline scripts
 pipeline.py          — Full Stages 1–4 pipeline for any candidate (--h11, --poly)
 cy_compute.py        — Shared computational core (vectorized lattice points, batch χ)
-scan_chi6_h0.py      — Landscape scanner (Stages 1+3)
+scan_chi6_h0.py      — Landscape scanner (Stages 1+3, serial)
+scan_parallel.py     — Multiprocessing scanner (4× faster, resume support)
 tier1_screen.py      — Fast screener: dP divisors, Swiss cheese, symmetry
 tier15_screen.py     — Intermediate: fibrations + 300-bundle probe
 tier2_screen.py      — Deep: exact bundle count, h³, D³, fibrations

@@ -12,10 +12,19 @@
 
 ### B-19: Expand scan — remove limit=100 cap at h¹¹ = 15–17
 - **Why**: We've only scanned 100/553 at h15, 100/5180 at h16, 100/38735 at h17. The strongest candidates are all in this range.
-- **What**: Run `scan_chi6_h0.py` with `limit=1000` (or unlimited) at h15–17. Update T1 → T1.5 → T2 pipeline on new hits.
+- **What**: Run `scan_parallel.py` (multiprocessing, 4 workers) at h15–17. Update T1 → T1.5 → T2 pipeline on new hits.
 - **Acceptance**: ≥500 polytopes scanned per h¹¹ value.
-- **Status**: h¹¹=19 batch running on Codespace.
-- **Estimate**: Large (compute-heavy, hours per h¹¹ value).
+- **Status**:
+  - ✅ h15: **553/553 complete** (333 hits, 60%). T1→T1.5→T2 done. New #5 candidate: h15/poly61 (103 clean).
+  - 🔶 h16: **~1800/5180 in progress** (35%, 913 hits, ETA ~40 min). Running locally via `scan_parallel.py`.
+  - ❌ h17: 38,735 polytopes, ~3.7 hrs. Deferred to Codespace.
+- **Estimate**: h16 ~1hr local, h17 ~4hrs Codespace.
+
+### B-23: Full pipeline on h15/poly61 (new #5 discovery)
+- **Why**: 103 clean h⁰=3 bundles — discovered in expanded h15 scan. Ranks #5 in T2 leaderboard.
+- **What**: `python pipeline.py --h11 15 --poly 61`
+- **Acceptance**: Scorecard + full divisor/fibration/bundle analysis.
+- **Estimate**: Small (~30s).
 
 ---
 
@@ -60,6 +69,7 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-22 | B-19 partial: h15 full scan (553/553, 333 hits) + scan_parallel.py | 2026-02-22 |
 | D-21 | B-22: Full pipeline on all 7 top candidates (5× 26/26) | 2026-02-22 |\n| D-20 | B-18c: Generic `pipeline.py` (replaces per-candidate scripts) | 2026-02-22 |
 | D-19 | B-18b: `cy_compute.py` shared core — 19× pipeline speedup | 2026-02-22 |
 | D-18b | B-18: Full pipeline h17/poly63 → 26/26, 218 clean (F-theory champ) | 2026-02-22 |

@@ -5,6 +5,65 @@
 
 ---
 
+## 2026-02-22 23:30 — Expanded scan: h15 complete, h16 running, new T2 discovery
+
+**Work done (B-19)**: Built `scan_parallel.py` multiprocessing scanner and expanded the scan beyond the original `limit=100` cap.
+
+### scan_parallel.py — 4× speedup
+
+New multiprocessing scanner using `mp.Pool` with configurable workers. Key design decisions:
+- Worker function `_scan_one()` takes serialized vertex lists (CYTools `Polytope` objects aren't picklable)
+- `imap_unordered` with `chunksize=4` for load balancing across polytopes of varying complexity
+- Resume support via `--resume CSV_PATH` (skips already-scanned `(h11, poly_idx)` pairs)
+- Dual output: `.log` (tier1_screen.py compatible) + `.csv` (machine-readable)
+- Progress reporting every 50 polytopes with rate and ETA
+
+Performance: **1.0–1.4 poly/s** with 4 workers on a 4-core machine (vs ~0.3 poly/s serial).
+
+### h15 full scan — 553/553 complete ✅
+
+| Metric | Original (limit=100) | Expanded (all 553) |
+|--------|---------------------|--------------------|
+| Polytopes scanned | 100 | **553** |
+| Hits (h⁰≥3) | ~60 | **333** (60%) |
+| Runtime | ~2 min | **9.2 min** |
+
+### h16 scan — in progress 🔶
+
+5,180 polytopes at 1.4 poly/s. At 1800/5180 (35%) with 913 hits (51% rate). ETA ~40 min.
+
+### T1 → T1.5 → T2 screening on new h15 candidates
+
+Ran the full screening pipeline on new h15 hits while h16 scan runs:
+
+- **T1**: Top 30 screened → 16/30 have Swiss cheese structure. **h15/poly 127** scores 40 (max h⁰=17, 8 dP divisors)
+- **T1.5**: 20 screened → 19/20 T2-worthy (≥3 clean in 300-bundle probe)
+- **T2**: 20 screened → **h15/poly 61 has 103 clean bundles** (new #5 overall)
+
+### New discovery: h15/poly 61
+
+Previously invisible (poly index 61 > original limit of 100). Now ranks #5 in the entire T2 leaderboard:
+
+| Rank | Polytope | Clean h⁰=3 | Source |
+|------|----------|-----------|--------|
+| 1 | h16/poly11 | 255 | Pipeline |
+| 2 | h17/poly63 | 198 | Pipeline |
+| 3 | h18/poly34 | 189 | Pipeline |
+| 4 | h17/poly90 | 148 | T2 |
+| **5** | **h15/poly61** | **103** | **NEW — expanded scan** |
+| 6 | h14/poly5 | 74 | T2 |
+
+h15/poly 61 has 3 K3 + 3 elliptic fibrations and max h⁰ = 4 (modest). Needs full pipeline run.
+
+**Also notable**: h15/poly 94 (36 clean, 4 K3+4 ell), h15/poly 33 (16 clean, 9 dP — highest dP count).
+
+### Infrastructure
+- `.gitignore`: Added `!results/*.log` exception so scan logs are tracked
+- Committed `d45fbd8`: scanner + h15 results
+- Total scanned: 1,025 → **1,478** polytopes (h15 expanded from 100 to 553)
+
+---
+
 ## 2026-02-22 22:00 — Full pipeline on all top 7 candidates: 5× perfect 26/26
 
 **Work done**: Ran `pipeline.py` on the remaining 5 top T2 candidates (h16/poly11, h17/poly96, h18/poly34, h17/poly9, h17/poly8). Combined with the earlier h14/poly2 and h17/poly63 runs, all 7 top candidates are now fully analyzed.

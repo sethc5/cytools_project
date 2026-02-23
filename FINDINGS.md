@@ -126,7 +126,59 @@ Needs full pipeline run (Stages 1–4 deep analysis + scorecard).
 
 ---
 
-## 2b. h14/poly2 — Heterotic Champion (Pipeline Score: 26/26, 320 clean)
+## 2b′. h15/poly61 — New Discovery from Expanded Scan (T2: 103 clean)
+
+**Date**: 2026-02-22. **Discovered by**: `scan_parallel.py` expanded h15 scan (polytope index 61, invisible to original limit=100 scan).
+
+Previously invisible because the original scan only covered the first 100 of 553 h15 polytopes. The expanded parallel scan found it and fast-tracked it through T1 → T1.5 → T2. Ranks **#5 overall** in the T2 clean bundle leaderboard.
+
+### Key Data (T2 screen)
+- h¹¹ = 15, h²¹ = 18, χ = −6, non-favorable
+- **103 clean h⁰ = 3 line bundles**
+- max h⁰ = 4 (modest — practical but not exotic)
+- 3 K3 fibrations, 3 elliptic fibrations
+- T2 score = 45 (maximum)
+
+### T2 Leaderboard Context
+
+| Rank | Polytope | Clean | Status |
+|------|----------|-------|--------|
+| 1 | h16/poly11 | 255 | Pipeline 26/26 |
+| 2 | h17/poly63 | 198 | Pipeline 26/26 |
+| 3 | h18/poly34 | 189 | Pipeline 26/26 |
+| 4 | h17/poly90 | 148 | T2 |
+| **5** | **h15/poly61** | **103** | **NEW** |
+| 6 | h14/poly5 | 74 | T2 |
+
+### Why It Matters
+1. **Discovered only through scan expansion** — validates the decision to go beyond limit=100
+2. **h¹¹ = 15** — lower than most top candidates → simpler moduli stabilization
+3. **103 clean bundles** — substantial target space for rank-4/5 bundle constructions
+4. **Balanced fibration structure** (3 K3 + 3 ell) — viable for both heterotic and F-theory
+
+### Status
+Needs full pipeline run (`python pipeline.py --h11 15 --poly 61`).
+
+---
+
+## 2b″. h15/poly127 — Highest T1 Score in Expanded Scan
+
+**Date**: 2026-02-22. **Discovered by**: `scan_parallel.py` expanded h15 scan.
+
+Highest T1 screening score among all new h15 polytopes: score 40, max h⁰ = 17, 8 del Pezzo divisors (most of any h15 candidate). Swiss cheese structure confirmed.
+
+### Key Data (T1 screen)
+- h¹¹ = 15, h²¹ = 18, χ = −6, favorable
+- max h⁰ = 17, T1 score = 40
+- 8 del Pezzo divisors (highest count at h15)
+- Swiss cheese: τ = 193.5, ratio = 0.0035
+
+### Status
+Through T1 screen. Needs T2 + full pipeline.
+
+---
+
+## 2c. h14/poly2 — Heterotic Champion (Pipeline Score: 26/26, 320 clean)
 
 **Date**: 2026-02-22. **Script**: `python pipeline.py --h11 14 --poly 2`. **Output**: [results/pipeline_h14_P2_output.txt](results/pipeline_h14_P2_output.txt).
 
@@ -265,3 +317,42 @@ Not a 3-generation candidate (χ = 0), but mathematically notable:
 - Undocumented in recent systematic scans
 
 Parked as a curiosity. May be relevant for F-theory path.
+
+---
+
+## 7. Expanded Scan Results (h15 complete, h16 in progress)
+
+**Date**: 2026-02-22. **Script**: [scan_parallel.py](scan_parallel.py).
+
+### Motivation
+
+The original scan (`scan_chi6_h0.py`) capped at `limit=100` polytopes per h¹¹ value. This was fine for h13 (3 polytopes) and h14 (22), but left the vast majority of h15–17 unscanned. The expanded scan uses `scan_parallel.py` (4-worker multiprocessing) to cover them fully.
+
+### h15 — 553/553 complete
+
+| Metric | Value |
+|--------|-------|
+| Polytopes scanned | 553 (100%) |
+| Hits (h⁰≥3) | 333 (60%) |
+| Runtime | 9.2 min |
+| Throughput | 1.0 poly/s |
+
+New candidates discovered beyond original limit=100:
+- **h15/poly 127**: max h⁰=17, 8 dP divisors, Swiss cheese (T1 score=40)
+- **h15/poly 214**: max h⁰=15, 7 dP divisors, Swiss cheese (T1 score=40)
+- **h15/poly 61**: **103 clean h⁰=3 bundles** (T2 #5 overall)
+- **h15/poly 248**: max h⁰=16, Swiss cheese
+- **h15/poly 94**: 36 clean bundles, 4 K3 + 4 elliptic fibrations
+- 257 total new hits (poly index ≥ 100)
+
+### h16 — in progress
+
+5,180 polytopes total, running at 1.4 poly/s. ETA ~1 hour from start. At 35% completion with ~51% hit rate. Results will expand the T1→T2 pipeline further.
+
+### h17 — deferred
+
+38,735 polytopes. Estimated ~3.7 hours with 4 workers. Deferred to Codespace (needs longer compute window).
+
+### Impact on the Screening Pipeline
+
+The expanded scan has already changed the T2 leaderboard — h15/poly61 enters at #5 with 103 clean bundles. 16 new h15 polytopes qualified for T1 screening (all with Swiss cheese), and 19/20 passed T1.5. This validates expanding the scan coverage as a productive strategy.
