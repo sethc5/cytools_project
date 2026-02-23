@@ -50,3 +50,4 @@ nohup.out
 
 # Local server credentials (never commit)
 .devhetzner
+LLM_CONTEXT.md
