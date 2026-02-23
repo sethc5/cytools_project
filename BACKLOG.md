@@ -1,6 +1,6 @@
 # BACKLOG — χ = −6 CY Landscape Scanner
 
-> Ordered by priority. Top = do next. Updated: 2026-02-23.
+> Ordered by priority. Top = do next. Updated: 2026-02-24.
 >
 > **Project direction**: Open-source pipeline + catalogue. Build the sieve,
 > record what passes and what doesn't, make it contributor-friendly.
@@ -19,6 +19,12 @@
   - ✅ h16: **5,180/5,180 complete** (1,811 hits, 35%). T1→T1.5→T2 done. 20 new T2 entries.
   - 🔶 h17: **running on Codespace** (tmux session `h17scan`, keepalive active). 38,735 polytopes, 4 workers, ~5.8 hrs ETA.
 - **Estimate**: h17 ~6hrs Codespace.
+
+### B-25: Tier 0.25 fast pre-filter (`scan_fast.py`) ✅ DONE
+- **Why**: Full scans at h18+ take many hours. A fast pre-filter identifies polytopes worth full analysis without computing exact h⁰ counts for all bundles.
+- **What**: Early-termination scanner — scans all χ=3 bundles with `min_h0=3` ambient bound, stops at first h⁰≥3 hit. 100% recall (zero false negatives), ~2.4× speedup.
+- **Result**: Validated on h15 (553 polytopes): 333/333 hits caught, 0 false negatives, 2.4 poly/s. On hit polytopes, finds first h⁰≥3 at bundle #316/2408 on average (13% of bundles scanned).
+- **Completed**: 2026-02-24.
 
 ### B-23: Full pipeline on h15/poly61 (new #5 discovery) ✅ DONE
 - **Why**: 103 clean h⁰=3 bundles — discovered in expanded h15 scan.
@@ -74,6 +80,7 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-25 | B-25: Tier 0.25 fast pre-filter (`scan_fast.py`) — 100% recall, 2.4× speedup | 2026-02-24 |
 | D-24c | B-22+: Full pipeline h16/poly63 → 26/26, 78 clean, τ=836 (triple-threat #2) | 2026-02-23 |
 | D-24b | B-22+: Full pipeline h17/poly25 → **26/26**, 170 clean, **15 ell** (F-theory + triple-threat champ) | 2026-02-23 |
 | D-24a | B-22+: Full pipeline h16/poly53 → 23/26, 300 clean (2nd most), no Swiss cheese | 2026-02-23 |

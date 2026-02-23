@@ -5,6 +5,36 @@
 
 ---
 
+## 2026-02-24 — Tier 0.25 fast pre-filter (`scan_fast.py`)
+
+**Work done (B-25)**: Built and validated a fast pre-filter for χ=-6 polytope screening.
+
+### Problem
+Full scans (`scan_parallel.py`) run at ~1 poly/s. At h18 (195K polytopes), that's 50+ hours. For h19-h21, it's infeasible. We needed a faster screening tool.
+
+### Approach tried and rejected: Probe-based pre-filter
+- Idea: Rank bundles by a cheap proxy (|D³| descending, then ‖D‖₁ ascending), probe only top-N.
+- Probe v1 (|D³| desc, N=50): 10.2% recall — terrible.
+- Probe v2 (‖D‖₁ asc, N=200): 29.4% recall — still terrible.
+- **Root cause**: h⁰≥3 bundles are ~1% of χ=3 bundles per polytope. No cheap proxy predicts which bundles have h⁰(X,D)≥3. The Koszul difference h⁰(V,D) − h⁰(V,D+K_V) is fundamentally unpredictable without computing both lattice-point counts.
+
+### Solution: Early termination + ambient h⁰ bound
+Two synergistic optimizations:
+1. **`min_h0=3` ambient bound** (in `compute_h0_koszul`): If h⁰(V,D) < 3, then h⁰(X,D) ≤ h⁰(V,D) < 3 → skip the second lattice-point count entirely. Saves ~40% of second-count computations.
+2. **Early termination**: For pass/fail classification, stop scanning bundles as soon as the first h⁰≥3 is found. On hit polytopes, this scans only 13% of bundles on average.
+
+### Validation (h15, 553 polytopes)
+- **Recall: 100%** (333/333 actual hits caught)
+- **Precision: 100%** (0 false positives)
+- **Speed: 2.4 poly/s** (~2.4× faster than full scan's ~1.0 poly/s)
+- Early termination saves 696K bundle evaluations
+- Average first hit at bundle #316 / 2408 (13.1% of bundle set)
+
+### Key insight
+For Tier 0.25 screening, we only need to know IF a polytope has any h⁰≥3 bundle, not HOW MANY. This asymmetry is the entire speedup: hit polytopes stop early (huge savings), while non-hit polytopes must scan all bundles (no shortcut possible). The `min_h0=3` bound adds modest savings on non-hit polytopes by avoiding the second lattice-point count when the ambient Koszul h⁰ is already too small.
+
+---
+
 ## 2026-02-23 04:00 — 4 new pipeline runs (2× 26/26) + h17 scan launched on Codespace
 
 **Work done (B-22, B-19)**: Full pipeline on 4 new candidates. h17 scan launched on Codespace in tmux with keepalive.

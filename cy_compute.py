@@ -229,7 +229,7 @@ def count_lattice_points_batch(pts, ray_indices, D_toric_list):
 #  Koszul h⁰ on CY hypersurface
 # ══════════════════════════════════════════════════════════════════
 
-def compute_h0_koszul(pts, ray_indices, D_toric, _precomp=None):
+def compute_h0_koszul(pts, ray_indices, D_toric, _precomp=None, min_h0=0):
     """h⁰(X,D) via Koszul short exact sequence.
 
     For a CY hypersurface X ⊂ V:
@@ -239,10 +239,18 @@ def compute_h0_koszul(pts, ray_indices, D_toric, _precomp=None):
     This has been verified for our divisor ranges (MATH_SPEC §4.2).
 
     Pass _precomp=precompute_vertex_data(pts, ray_indices) for ~30× speedup.
+
+    If min_h0 > 0, returns 0 early when h⁰(V,D) < min_h0.
+    Since h⁰(X,D) ≤ h⁰(V,D), this is a valid bound that skips
+    the second lattice-point count entirely.
     """
     h0_V = count_lattice_points(pts, ray_indices, D_toric, _precomp=_precomp)
     if h0_V < 0:
         return -1
+
+    # Early exit: h⁰(X,D) ≤ h⁰(V,D) < min_h0 → can't reach target
+    if min_h0 > 0 and h0_V < min_h0:
+        return 0
 
     # K_V = -Σ D_ρ, so D + K_V has d_ρ → d_ρ - 1
     D_shift = D_toric.copy()
