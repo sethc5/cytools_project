@@ -448,32 +448,91 @@ Verified for n = 0, …, 6 ✓
 
 ### PF ODE
 
-$$\boxed{\left[(\theta+1)^3 + t\,(3\theta+1)(3\theta+2)(3\theta+3)\right]\omega_s(t) = 0}$$
+$$\boxed{\theta^3 + t\,(3\theta+1)(3\theta+2)(3\theta+3) = 0}$$
 
-where θ = t d/dt.  Factor: (3θ+1)(3θ+2)(3θ+3) = 27(θ+1/3)(θ+2/3)(θ+1), so:
+where θ = t d/dt, acting on ω_s(t).  Indicial equation at t = 0: s³ = 0 (MUM point, triple root s = 0).
 
-$$(\theta+1)\left[(\theta+1)^2 + 27t\,\left(\theta+\tfrac{1}{3}\right)\left(\theta+\tfrac{2}{3}\right)\right]\omega_s = 0$$
+### ODE Factorization
 
-The irreducible factor (the physically relevant PF operator for ω_s) is:
+The 3rd-order operator **factors** over the Weyl algebra:
 
-$$(\theta+1)^2 + 27t\,\left(\theta+\tfrac{1}{3}\right)\left(\theta+\tfrac{2}{3}\right) = 0$$
+$$\theta \cdot \left[\theta^2 + 27t\,\left(\theta+\tfrac{1}{3}\right)\left(\theta+\tfrac{2}{3}\right)\right] = 0$$
+
+**Proof:** Using the commutation relation θ·(t·g) = t·(θ+1)·g:
+
+$$\theta \cdot [27t P(\theta)] = 27t(\theta+1)P(\theta) \quad \text{where } P = (\theta+\tfrac{1}{3})(\theta+\tfrac{2}{3})$$
+
+So θ·L₂ = θ³ + 27t(θ+1)(θ+1/3)(θ+2/3) = θ³ + (3θ+1)(3θ+2)(3θ+3)t.  ✓
+
+**Equivalently:** the 3rd-order recurrence n³c_n = −(3n−2)(3n−1)(3n)c_{n−1} is exactly n times the 2nd-order recurrence n²c_n = −3(3n−2)(3n−1)c_{n−1}.  Verified numerically for n = 1, …, 15. ✓
+
+**Consequence:** The z₁-axis parametrizes an **elliptic curve family** (cubic in ℙ²), not a CY3 family. There are only two independent periods (ω₀, ω₁) plus the trivial constant solution of θω = 0. There is **no independent double-log period** and hence no CY3-type prepotential or Gromov-Witten invariants on this 1-parameter slice. CY3 GW invariants require the full 6-parameter GKZ system.
 
 ### Hypergeometric Identification
+
+The 2nd-order factor is the **Gauss hypergeometric equation** for ₂F₁(1/3, 2/3; 1; −27t):
 
 | Form | Series | ODE |
 |------|--------|-----|
 | Unsigned (t → −z₁) | $\sum \frac{(3n)!}{n!^3} t^n$ | $\theta^3\omega = t(3\theta)(3\theta+1)(3\theta+2)\omega$ |
-| Signed (z₁ axis) | $\sum (-1)^n\frac{(3n)!}{n!^3} t^n$ | $(\theta+1)^3\omega + t(3\theta+1)(3\theta+2)(3\theta+3)\omega = 0$ |
+| Signed (z₁ axis) | $\sum (-1)^n\frac{(3n)!}{n!^3} t^n$ | $\theta^3\omega + t(3\theta+1)(3\theta+2)(3\theta+3)\omega = 0$ |
+| 2nd-order factor | same series | $\theta^2\omega + 27t(\theta+\tfrac{1}{3})(\theta+\tfrac{2}{3})\omega = 0$ |
 
-$$\omega(t) = {}_3F_2\!\left(\tfrac{1}{3}, \tfrac{2}{3}, 1;\, 1, 1;\, 27t\right), \quad |t| < \tfrac{1}{27}$$
+$$\omega(t) = {}_3F_2\!\left(\tfrac{1}{3}, \tfrac{2}{3}, 1;\, 1, 1;\, 27t\right) = {}_2F_1\!\left(\tfrac{1}{3}, \tfrac{2}{3};\, 1;\, 27t\right), \quad |t| < \tfrac{1}{27}$$
+
+(The ₃F₂ reduces to ₂F₁ because one upper and one lower parameter both equal 1.)
 
 This is the period of the **mirror family of cubic hypersurfaces in ℙ²** (elliptic curve family), embedded in the z₁-direction of the GL=12/D₆ moduli space. It corresponds to **AESZ entry #1** in the 2-variable Calabi-Yau period tables.
+
+### Logarithmic Period and Mirror Map
+
+The single-log (mirror map) period is ω₁ = ω₀ log(t) + g₁(t), where
+g₁(t) = Σ_{n≥1} c_n · 3(H_{3n} − H_n) · t^n  and H_n = Σ_{k=1}^n 1/k is the n-th harmonic number.
+
+**Mirror map:** q(t) = t · exp(g₁/ω₀) = t − 15t² + 279t³ − 5729t⁴ + …
+
+**Inverse mirror map:** t(q) = q + 15q² + 171q³ + 1679q⁴ + 15054q⁵ + 126981q⁶ + …
+
+All mirror map coefficients are **integers** (verified to order 30). ✓
+
+**Wronskian:** W(ω₀, ω₁) = 1/(t·(1+27t)).  Discriminant locus: t = −1/27.
+
+### Hesse Pencil and j-Invariant
+
+The curve on the z₁-axis is identified with the **Hesse pencil**:
+
+$$X^3 + Y^3 + Z^3 = 3\psi\,XYZ, \qquad \psi = -\frac{1}{3\,z_1^{1/3}}$$
+
+The j-invariant in the MUM coordinate t = z₁:
+
+$$j(t) = \frac{(216t - 1)^3}{t\,(1+27t)^3}$$
+
+| t | j | Interpretation |
+|---|---|---------------|
+| 0 | ∞ | MUM / cusp (τ → i∞) |
+| 1/216 | 0 | Equianharmonic cubic (CM by ℤ[ω]) |
+| −1/27 | ∞ | Conifold / nodal cubic |
+
+**j-invariant q-expansion** (substituting the inverse mirror map into j(t)):
+
+$$j(q) = -\frac{1}{q} + 744 - 196884\,q + 21493760\,q^2 - 864299970\,q^3 + \cdots$$
+
+The absolute values |j_n| = 1, 744, 196884, 21493760, 864299970, … are precisely the **Fourier coefficients of the Klein j-function** j(τ) = q⁻¹ + 744 + 196884q + … (OEIS A000521). The alternating signs arise because q = −q_std (our signed GKZ convention). This provides a deep cross-check: **the z₁-axis mirror map is a Hauptmodul for the modular curve Γ₀(3)**, and the j-invariant reproduces the Monster Moonshine coefficients (196884 = 196883 + 1, where 196883 is the smallest faithful representation of the Monster group).
 
 **Geometric interpretation:** The z₁ direction corresponds to the Mori cone ray with kernel vector (−3, 1, 0, …), relating ψ₀ (the origin orbit) to ψ₁ (the 3-element orbit of interior edge-midpoints). The cubic in the period $(3n)!/n!^3$ reflects the three-fold periodicity of the hexagonal D₆ symmetry along this deformation direction.
 
 ---
 
-## Key Properties for Picard-Fuchs
+## What Remains: CY3 Prepotential
+
+The z₁-axis alone cannot produce CY3 Gromov-Witten invariants because the ODE factors (elliptic, not CY3). The CY3 prepotential requires:
+
+1. **Full 6-parameter GKZ system**: 6 logarithmic periods ω_i(z₁,…,z₆) giving the mirror map t_i(z)
+2. **Double-log periods**: from the full system, yielding the prepotential matrix ∂²F/∂t_i∂t_j
+3. **Quantum Yukawa couplings**: C_{ijk}(t) = κ_{ijk} + Σ_β n_β β_i β_j β_k q^β/(1−q^β)
+4. **BPS invariant extraction**: from the multi-parameter Yukawa coupling
+
+The classical Yukawa couplings κ_{IJK} (26 non-zero D₆-invariant entries, see above) provide the large-volume limit. The infrastructure for multi-parameter logarithmic periods (h_i(n) = −L_{i,0}H_{|m₀|} − Σ s_α L_{i,α} H_{m_α}) is implemented in `mori_pf.py --logperiod`.
 
 1. **D₆ reduces h²¹ = 20 complex structure moduli → fewer invariant deformations**
 2. **h¹¹(X/D₆) = 5** invariant Kähler moduli, making PF computation feasible

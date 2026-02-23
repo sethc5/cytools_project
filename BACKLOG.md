@@ -32,11 +32,14 @@
   - ✅ `picard_fuchs.py` module + `GL12_GEOMETRY.md` reference
   - ✅ PF PDE system in Mori coordinates z₁…z₆ — 6 GKZ box operators (mori_pf.py)
   - ✅ S_α orbit-theta table, explicit □₁-□₆ in θ-form (GL12_GEOMETRY.md §PF Operators)
-  - ✅ 1-parameter ODE: ₃F₂([1/3,2/3,1];[1,1];27t), AESZ #1
+  - ✅ 1-parameter ODE: ₃F₂ = ₂F₁(1/3,2/3;1;−27t), AESZ #1
+  - ✅ ODE factorization: θ·[₂F₁ equation] — z₁-axis is elliptic curve family
+  - ✅ Logarithmic period, mirror map (integer coefficients to order 30)
+  - ✅ j-invariant: reproduces Klein j (196884 = Monster Moonshine coefficient)
+  - ✅ Hesse pencil identification, Wronskian, discriminant locus
   - ✅ 9,366/9,366 GKZ recurrence checks pass
 - **Open extensions** (not blocking acceptance):
-  - ❌ Quantum Yukawa corrections (Gromov-Witten invariants)
-  - ❌ Prepotential computation
+  - ❌ Full 6-parameter prepotential (CY3 GW invariants require multi-param analysis)
 - **Acceptance**: ✅ PF operators in Mori coordinates, verified against period series.
 
 ### B-25: Tier 0.25 fast pre-filter (`scan_fast.py`) ✅ DONE

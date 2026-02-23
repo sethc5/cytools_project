@@ -824,3 +824,35 @@ Issues that surfaced during the project, for reference.
 | I-07 | 02-22 07:43 | GLSM linrels include origin direction | Filter by origin_component==0 for char translations | Bug #7 |
 | I-08 | 02-22 01:14 | Ample Champion Z₃×Z₃ has fixed curves | Full quotient singular; diagonal Z₃ acts freely | — |
 | I-09 | 02-22 00:50 | Ample Champion misidentified as P²×P² | Different toric variety; det-3 lattice transform | — |
+
+---
+
+### B-26 update: GL12/D₆ Mirror Map, ODE Factorization & j-Invariant
+
+**Date**: 2026-02-23  
+**Commit**: (pending)
+
+**Summary**: Extended the GL12/D₆ Picard-Fuchs analysis with three major results:
+
+1. **ODE Factorization**: The 3rd-order PF ODE on the z₁-axis factors as θ·[₂F₁ ODE]:
+   - θ · [θ² + 27t(θ+1/3)(θ+2/3)] = 0
+   - Verified numerically (n=1..15): 3rd-order recurrence = n × 2nd-order recurrence
+   - Consequence: z₁-axis is an **elliptic curve family** (cubic in ℙ²), not CY3
+   - No independent double-log period → no CY3 prepotential on this slice
+
+2. **Logarithmic Period & Mirror Map** (exact rational arithmetic, order 30):
+   - h₁(n) = 3(H_{3n} − H_n) where H_n = harmonic number
+   - q(t) = t − 15t² + 279t³ − 5729t⁴ + ...  (all integer coefficients ✓)
+   - t(q) = q + 15q² + 171q³ + 1679q⁴ + 15054q⁵ + ...  (all integer ✓)
+   - Wronskian: W(ω₀, ω₁) = 1/(t·(1+27t))
+
+3. **j-Invariant** (Hesse pencil ↔ Klein j-function):
+   - Hesse pencil: X³+Y³+Z³ = 3ψXYZ with ψ = −1/(3z₁^{1/3})
+   - j(t) = (216t−1)³ / (t·(1+27t)³)
+   - j(q) = −1/q + 744 − 196884q + 21493760q² − ...
+   - **Absolute values match Klein j-function** (OEIS A000521) exactly!
+   - 196884 = 196883 + 1 (Monster Moonshine coefficient) — deep cross-check
+
+**Bug fixed**: Previous code/docs stated (θ+1)³ instead of the correct θ³ for the signed PF ODE.
+
+**Files modified**: mori_pf.py (log periods, mirror map, j-invariant, ODE factorization), GL12_GEOMETRY.md (comprehensive update), BACKLOG.md
