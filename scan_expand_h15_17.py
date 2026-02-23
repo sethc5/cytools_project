@@ -11,9 +11,14 @@ Usage:
   python3 scan_expand_h15_17.py --h11 15         # just h11=15
   python3 scan_expand_h15_17.py --h11 16 17      # h11=16,17
 
-Output: results/scan_expand_h15_17.csv  +  results/scan_expand_h15_17.log (tee)
+Output: results/scan_expand_h15_17.csv  +  results/scan_expand_h{N}.log (tee)
+
+Incremental save: CSV is written after every polytope so no data is lost
+if the process is interrupted. On restart, already-scanned polytopes
+(present in CSV) are automatically skipped.
 """
 
+import os
 import sys
 import csv
 import time
@@ -29,6 +34,38 @@ from scan_chi6_h0 import scan_polytope
 LIMIT = 1000
 SKIP = 100  # first 100 already scanned in v2
 
+CSV_FIELDS = [
+    'h11', 'h21', 'poly_idx', 'favorable', 'h11_eff', 'n_toric',
+    'n_chi3', 'n_computed', 'max_h0', 'h0_3_count', 'status'
+]
+
+
+def load_done(csv_path):
+    """Return set of (h11, poly_idx) already in the CSV."""
+    done = set()
+    if os.path.exists(csv_path):
+        with open(csv_path, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                done.add((int(row['h11']), int(row['poly_idx'])))
+    return done
+
+
+def append_row(csv_path, result):
+    """Append a single result row to the CSV (creating with header if needed)."""
+    write_header = not os.path.exists(csv_path) or os.path.getsize(csv_path) == 0
+    with open(csv_path, 'a', newline='') as f:
+        writer = csv.writer(f)
+        if write_header:
+            writer.writerow(CSV_FIELDS)
+        writer.writerow([
+            result['h11_val'], result['h21_val'], result['poly_idx'],
+            result.get('favorable', True), result.get('h11_eff', ''),
+            result.get('n_toric', ''), result.get('n_chi3', 0),
+            result.get('n_computed', 0), result.get('max_h0', 0),
+            result.get('h0_3_count', 0), result['status']
+        ])
+
 
 def main():
     parser = argparse.ArgumentParser(description='B-19: Expand scan at h11=15-17')
@@ -42,14 +79,21 @@ def main():
                         help='Output CSV path')
     args = parser.parse_args()
 
+    # Load already-done polytopes so we can resume
+    done = load_done(args.out)
+    if done:
+        print(f"  Resuming: {len(done)} polytopes already in {args.out}")
+
     print("=" * 72)
     print("  B-19: EXPAND SCAN — h11=15–17, limit=1000")
     print(f"  Scanning polytopes {args.skip}..{args.limit} for each h11")
     print("=" * 72)
 
     t_start = time.time()
-    all_results = []
     all_hits = []
+    n_total_scanned = 0
+    n_total_ok = 0
+    n_total_skipped = 0
 
     for h11_val in args.h11:
         h21_val = h11_val + 3
@@ -71,16 +115,27 @@ def main():
         print(f"  Fetched {total} polytopes. Scanning indices {start_idx}..{total-1} "
               f"({total - start_idx} new)")
 
+        n_ok_h11 = 0
+        n_hits_h11 = 0
+        n_skip_h11 = 0
+
         for idx in range(start_idx, total):
+            # Skip if already done (resume support)
+            if (h11_val, idx) in done:
+                n_skip_h11 += 1
+                continue
+
             p = polys[idx]
             result = scan_polytope(p, idx, h11_val, h21_val)
             result['h11_val'] = h11_val
             result['h21_val'] = h21_val
             result['poly_idx'] = idx
-            all_results.append(result)
+            n_total_scanned += 1
 
             status = result['status']
             if status == 'ok':
+                n_ok_h11 += 1
+                n_total_ok += 1
                 max_h0 = result['max_h0']
                 n_chi3 = result['n_chi3']
                 fav_tag = '' if result.get('favorable', True) else ' [NF]'
@@ -88,6 +143,7 @@ def main():
                 if max_h0 >= 3:
                     tag = " ★★★ HIT ★★★"
                     all_hits.append(result)
+                    n_hits_h11 += 1
                 elif max_h0 >= 2:
                     tag = " (h⁰=2)"
                 print(f"  poly {idx:4d}: n_toric={result['n_toric']:2d}, "
@@ -98,38 +154,30 @@ def main():
             else:
                 print(f"  poly {idx:4d}: {status}")
 
-        dt = time.time() - t_h11
-        n_done = total - start_idx
-        ok_h11 = [r for r in all_results if r.get('h11_val') == h11_val and r['status'] == 'ok']
-        hits_h11 = [r for r in all_hits if r.get('h11_val') == h11_val]
-        print(f"\n  h11={h11_val}: {n_done} scanned, {len(ok_h11)} ok, "
-              f"{len(hits_h11)} hits (h⁰≥3) — {dt:.0f}s ({dt/max(n_done,1):.1f}s/poly)")
+            # ── Incremental save: write each result immediately ──
+            if status == 'ok':
+                append_row(args.out, result)
 
-    # ── Save CSV ──
-    ok_results = [r for r in all_results if r['status'] == 'ok']
-    with open(args.out, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            'h11', 'h21', 'poly_idx', 'favorable', 'h11_eff', 'n_toric',
-            'n_chi3', 'n_computed', 'max_h0', 'h0_3_count', 'status'
-        ])
-        for r in ok_results:
-            writer.writerow([
-                r['h11_val'], r['h21_val'], r['poly_idx'],
-                r.get('favorable', True), r.get('h11_eff', ''),
-                r.get('n_toric', ''), r.get('n_chi3', 0),
-                r.get('n_computed', 0), r.get('max_h0', 0),
-                r.get('h0_3_count', 0), r['status']
-            ])
+        n_total_skipped += n_skip_h11
+        dt = time.time() - t_h11
+        n_done_h11 = total - start_idx - n_skip_h11
+        if n_skip_h11:
+            print(f"  (skipped {n_skip_h11} already-done polytopes)")
+        print(f"\n  h11={h11_val}: {n_done_h11} scanned, {n_ok_h11} ok, "
+              f"{n_hits_h11} hits (h⁰≥3) — {dt:.0f}s ({dt/max(n_done_h11,1):.1f}s/poly)")
 
     # ── Summary ──
     elapsed = time.time() - t_start
     print(f"\n{'═' * 72}")
     print(f"  B-19 SUMMARY")
     print(f"{'═' * 72}")
-    print(f"  Total scanned: {len(all_results)}")
-    print(f"  OK: {len(ok_results)}")
+    print(f"  Total scanned this run: {n_total_scanned}")
+    print(f"  OK: {n_total_ok}")
     print(f"  Hits (h⁰≥3): {len(all_hits)}")
+    if n_total_skipped:
+        print(f"  Skipped (already in CSV): {n_total_skipped}")
+    total_in_csv = len(load_done(args.out))
+    print(f"  Total in CSV: {total_in_csv}")
     print(f"  Saved to: {args.out}")
     print(f"  Elapsed: {elapsed:.0f}s ({elapsed/60:.1f} min)")
 
