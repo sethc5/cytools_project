@@ -5,6 +5,58 @@
 
 ---
 
+## 2026-02-23 04:00 — 4 new pipeline runs (2× 26/26) + h17 scan launched on Codespace
+
+**Work done (B-22, B-19)**: Full pipeline on 4 new candidates. h17 scan launched on Codespace in tmux with keepalive.
+
+### New pipeline results
+
+| Polytope | Score | Clean | h⁰≥3 | max h⁰ | K3 | Ell | dP | Swiss τ | Notes |
+|----------|-------|-------|-------|--------|----|-----|----|---------|-------|
+| **h17/poly25** | **26/26** | 170 | 490 | 8 | 6 | **15** | 2 | 56 | **NEW F-theory + triple-threat champion** |
+| **h16/poly63** | **26/26** | 78 | 584 | 37 | 4 | 6 | 5 | 836 | Triple-threat #2 |
+| h16/poly53 | 23/26 | **300** | 1100 | 16 | 5 | 10 | 6 | — | 2nd-most clean ever, no Swiss cheese |
+| h19/poly16 | 22/26 | 86 | 564 | 27 | 5 | 10 | 5 | — | h¹¹=19 (loses tractability point) |
+
+**h17/poly25** is the new F-theory champion: **15 elliptic fibrations** (previous record: 10, h17/poly63). Also scores 26/26 with Swiss cheese τ=56, making it a "triple-threat" — viable for heterotic, F-theory, AND LVS simultaneously.
+
+**h16/poly53** has 300 clean bundles — second only to h14/poly2 (320) — but no Swiss cheese structure, so scores 23/26.
+
+### Updated full pipeline leaderboard (12 runs, 7× 26/26)
+
+| Polytope | Score | Clean | K3 | Ell | dP | Swiss τ | Title |
+|----------|-------|-------|----|-----|----|---------|-------|
+| h14/poly2 | 26/26 | **320** | 3 | 3 | 3 | 58.5 | Heterotic champion |
+| h16/poly53 | 23/26 | **300** | 5 | 10 | 6 | — | 2nd most clean, no LVS |
+| h16/poly11 | 26/26 | **298** | 3 | 3 | 5 | 150 | |
+| h17/poly96 | 25/26 | **252** | 2 | 1 | 0 | 252 | max h⁰=65 |
+| h17/poly63 | 26/26 | **218** | 5 | 10 | 6 | 84 | Former F-theory champion |
+| h17/poly9 | 23/26 | **192** | 1 | 0 | 0 | 72 | |
+| h18/poly34 | 26/26 | **184** | 4 | 6 | 5 | 0 | |
+| h17/poly8 | 26/26 | **180** | 3 | 3 | 4 | 2,208 | |
+| **h17/poly25** | **26/26** | **170** | **6** | **15** | 2 | 56 | **F-theory + triple-threat champ** |
+| h15/poly61 | 25/26 | **110** | 3 | 3 | 0 | **14,300** | LVS champion |
+| h19/poly16 | 22/26 | 86 | 5 | 10 | 5 | — | |
+| h16/poly63 | 26/26 | 78 | 4 | 6 | 5 | 836 | Triple-threat #2 |
+
+### Triple-threat rankings (Heterotic + F-theory + LVS)
+
+Candidates that score well across all three compactification approaches:
+
+1. **h17/poly25**: 26/26, 170 clean, 15 ell (record!), τ=56, 2 dP
+2. **h16/poly63**: 26/26, 78 clean, 6 ell, τ=836, 5 dP
+3. **h17/poly8**: 26/26, 180 clean, 3 ell, τ=2,208, 4 dP
+4. **h16/poly11**: 26/26, 298 clean, 3 ell, τ=150, 5 dP
+
+### h17 scan launched on Codespace
+
+- Codespace: bookish-sniffle-g46r9xgj9vprh9pp4 (4 cores)
+- Running in tmux session `h17scan` with keepalive (SSHs every 29 min)
+- 38,735 polytopes, 4 workers, ~5.8 hrs ETA
+- At last check: 100/38,735 (0.26%), 1.8 poly/s, 72 hits
+
+---
+
 ## 2026-02-23 00:30 — h15/poly61 full pipeline (25/26, τ=14,300) + h16 complete
 
 **Work done (B-23, B-19)**: Full pipeline on h15/poly61. h16 scan complete (5180/5180). h16 screened through T1→T1.5→T2.

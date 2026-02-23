@@ -46,7 +46,73 @@ e₁₂ (toric idx 17): τ = 10.0, V = 308,352, τ/V²ᐟ³ = 0.0022. Excellent 
 
 ---
 
-## 2. h17/poly63 — F-Theory Champion (Pipeline Score: 26/26, 218 clean)
+## 2. h17/poly25 — F-Theory + Triple-Threat Champion (Pipeline Score: 26/26, 170 clean, 15 elliptic)
+
+**Date**: 2026-02-23. **Script**: `python pipeline.py --h11 17 --poly 25`. **Output**: [results/pipeline_h17_P25_output.txt](results/pipeline_h17_P25_output.txt).
+
+New record holder for elliptic fibrations — **15 elliptic fibrations** (50% more than the previous record of 10). Also has 6 K3 fibrations. Combined with Swiss cheese structure (τ=56) and 170 clean bundles, this is the only candidate that excels at heterotic, F-theory, AND Large Volume Scenario simultaneously — the "triple-threat."
+
+### Geometry
+- h¹¹ = 17, h²¹ = 20, χ = −6 (native 3-generation, no quotient needed)
+- 19 toric coordinates, non-favorable
+
+### Divisor Structure
+- **2 del Pezzo**: e₂ (dP₇), e₃ (dP₈)
+- **1 K3-like**
+- **4 rigid**
+
+### Swiss Cheese
+τ = 56.0, ratio = 0.00370. Viable LVS hierarchy.
+
+### Line Bundles
+- **18,362 χ = ±3 bundles** (matching h17/poly63)
+- **170 completely clean**: h⁰ = 3, h¹ = h² = h³ = 0
+- 490 with h⁰ ≥ 3, max h⁰ = 8
+
+### Fibrations
+- **6 K3 fibrations** — tied for most of any candidate
+- **15 elliptic fibrations** — **ALL-TIME RECORD**. 50% more than previous best (h17/poly63 at 10)
+
+### Scorecard: 26/26 (PERFECT)
+- χ = −6: 3/3 ✓
+- |χ|/2 = 3 generations: 3/3 ✓
+- h⁰ ≥ 3 exists: 3/3 ✓
+- Clean bundles: 5/5 ✓ (170)
+- Max h⁰: 2/2 ✓ (8)
+- Swiss cheese: 3/3 ✓ (τ = 56.0)
+- K3 fibrations: 2/2 ✓ (6)
+- Elliptic fibrations: 2/2 ✓ (15!)
+- del Pezzo divisors: 1/1 ✓ (2)
+- D³ diversity: 1/1 ✓
+- h¹¹ tractable: 1/1 ✓ (17)
+
+### Why It's the Triple-Threat Champion
+1. **15 elliptic fibrations** — all-time record. Each is a distinct F-theory compactification pathway with potential non-abelian gauge groups.
+2. **6 K3 fibrations** — tied for most of any candidate. Combined with 15 ell, gives 21 total fibrations (far exceeding any other candidate).
+3. **Swiss cheese τ = 56** — viable LVS moduli stabilization. Not the strongest (h15/poly61 has τ=14,300), but functional.
+4. **170 clean bundles** — solid heterotic target space.
+5. **Only candidate excelling at all three approaches** — heterotic (170 clean), F-theory (15 ell), and LVS (Swiss cheese).
+
+### Comparison — Triple-Threat Candidates
+
+| Metric | h17/poly25 | h16/poly63 | h17/poly8 | h16/poly11 |
+|--------|-----------|-----------|-----------|------------|
+| Score | 26/26 | 26/26 | 26/26 | 26/26 |
+| Clean bundles | 170 | 78 | 180 | **298** |
+| Elliptic fib. | **15** | 6 | 3 | 3 |
+| K3 fib. | **6** | 4 | 3 | 3 |
+| Swiss τ | 56 | **836** | 2,208 | 150 |
+| dP divisors | 2 | 5 | 4 | 5 |
+| Best for... | F-theory | Balanced | LVS | Heterotic |
+
+### Open Questions
+- Which of the 15 elliptic fibrations yield the richest gauge algebras (Kodaira classification)?
+- Can the 6 K3 fibrations be leveraged for heterotic/F-theory duality constructions?
+- Does the modest τ=56 suffice for realistic moduli stabilization, or is tuning needed?
+
+---
+
+## 2a. h17/poly63 — Former F-Theory Champion (Pipeline Score: 26/26, 218 clean)
 
 **Date**: 2026-02-22. **Script**: `python pipeline.py --h11 17 --poly 63`. **Output**: [results/pipeline_h17_P63_output.txt](results/pipeline_h17_P63_output.txt).
 
@@ -101,6 +167,109 @@ e₁₂ (toric idx 17): τ = 84.0, V = 853,536, τ/V²ᐟ³ = 0.0093. Good LVS h
 - Which of the 10 elliptic fibrations gives the richest gauge algebra from singular fibers?
 - Can rank-4/5 bundles be built leveraging the 6 dP divisors?
 - Does the single nef bundle have special significance?
+
+---
+
+## 2a′. h16/poly63 — Triple-Threat #2 (Pipeline Score: 26/26, 78 clean, τ=836)
+
+**Date**: 2026-02-23. **Script**: `python pipeline.py --h11 16 --poly 63`. **Output**: [results/pipeline_h16_P63_output.txt](results/pipeline_h16_P63_output.txt).
+
+Second-best triple-threat candidate. Strong across all three compactification approaches with particularly good LVS hierarchy (τ=836, 3rd overall) and 5 del Pezzo divisors.
+
+### Geometry
+- h¹¹ = 16, h²¹ = 19, χ = −6, non-favorable
+
+### Divisor Structure
+- **5 del Pezzo**: e₀ (dP₈), e₁ (dP₈), e₃ (dP₆), e₅ (dP₄), e₉ (dP₅)
+- **2 K3-like**
+- **6 rigid**
+
+### Swiss Cheese
+τ = 836.2, ratio = 0.04192. Third-best LVS hierarchy overall (after h15/poly61 at 14,300 and h17/poly8 at 2,208).
+
+### Line Bundles
+- **12,736 χ = ±3 bundles** (each sign)
+- **78 completely clean**: h⁰ = 3, h¹ = h² = h³ = 0
+- 584 with h⁰ ≥ 3, max h⁰ = 37
+
+### Fibrations
+- **4 K3 fibrations**
+- **6 elliptic fibrations**
+
+### Scorecard: 26/26 (PERFECT)
+All 26 points scored. Loses nothing.
+
+### Status
+✅ Full pipeline complete. 26/26 score.
+
+---
+
+## 2a″. h16/poly53 — Second-Most Clean Bundles (Pipeline Score: 23/26, 300 clean)
+
+**Date**: 2026-02-23. **Script**: `python pipeline.py --h11 16 --poly 53`. **Output**: [results/pipeline_h16_P53_output.txt](results/pipeline_h16_P53_output.txt).
+
+Second-highest clean bundle count of any candidate (300, behind only h14/poly2 at 320). Rich fibration structure (5 K3 + 10 ell) and 6 dP divisors. The only weakness: **no Swiss cheese structure** → loses 3 LVS points.
+
+### Geometry
+- h¹¹ = 16, h²¹ = 19, χ = −6, non-favorable
+
+### Divisor Structure
+- **6 del Pezzo**: e₂ (dP₈), e₄ (dP₄), e₅ (dP₇), e₉ (dP₅), e₁₀ (dP₅), e₁₁ (dP₄), e₁₂ (dP₄)
+- **0 K3-like**
+- **10 rigid**
+
+### Swiss Cheese
+None found. This is the critical weakness.
+
+### Line Bundles
+- **18,362 χ = ±3 bundles** (each sign)
+- **300 completely clean**: h⁰ = 3, h¹ = h² = h³ = 0
+- 1,100 with h⁰ ≥ 3, max h⁰ = 16
+
+### Fibrations
+- **5 K3 fibrations**
+- **10 elliptic fibrations**
+
+### Scorecard: 23/26
+- Swiss cheese: **0/3 ✗** (no Swiss cheese structure found)
+- All other categories: full marks
+
+### Why It Matters
+300 clean bundles is tantalizing — nearly matching the heterotic champion. This is an excellent heterotic + F-theory candidate (5 K3 + 10 ell), but LVS moduli stabilization would require alternative approaches (e.g., KKLT).
+
+### Status
+✅ Full pipeline complete. 23/26 score.
+
+---
+
+## 2a‴. h19/poly16 — High-h¹¹ Candidate (Pipeline Score: 22/26, 86 clean)
+
+**Date**: 2026-02-23. **Script**: `python pipeline.py --h11 19 --poly 16`. **Output**: [results/pipeline_h19_P16_output.txt](results/pipeline_h19_P16_output.txt).
+
+Highest h¹¹ in the full pipeline set. Rich fibration structure (5 K3 + 10 ell) and 5 dP divisors, but loses points on Swiss cheese (none) and h¹¹ tractability (19 > 18).
+
+### Geometry
+- h¹¹ = 19, h²¹ = 22, χ = −6, non-favorable
+
+### Divisor Structure
+- **5 del Pezzo**
+- **0 K3-like**
+- **7 rigid**
+
+### Line Bundles
+- **86 completely clean**: h⁰ = 3, h¹ = h² = h³ = 0
+- 564 with h⁰ ≥ 3, max h⁰ = 27
+
+### Fibrations
+- **5 K3 fibrations**
+- **10 elliptic fibrations**
+
+### Scorecard: 22/26
+- Swiss cheese: **0/3 ✗**
+- h¹¹ tractable (≤18): **0/1 ✗** (h¹¹=19)
+
+### Status
+✅ Full pipeline complete. 22/26 score.
 
 ---
 

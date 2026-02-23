@@ -4,7 +4,7 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-> **Status**: 6,658 polytopes scanned · 36 Tier-2 screened · **8 full pipeline runs** (5× 26/26) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: 6,658 polytopes scanned · 36 Tier-2 screened · **12 full pipeline runs** (7× 26/26) · h17 scan in progress · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -22,11 +22,11 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 | 14 | 22 | 22 | 100% |
 | 15 | 553 | **553** | **100%** |
 | 16 | 5,180 | **5,180** | **100%** |
-| 17 | 38,735 | 100 | 0.26% |
+| 17 | 38,735 | 🔶 running | Codespace (tmux) |
 | 18–24 | ~millions | 100 ea. | ~0% |
 | 25–128 | huge | 0 | 0% |
 
-**We have scanned ~6,658 polytopes out of potentially millions.** h¹¹ = 13–16 are now fully covered. h¹¹ = 17 scan deferred to Codespace (~3.7 hrs). The expanded scans discovered **h15/poly61** (25/26, τ=14,300 — LVS champion). See [PROCESS_LOG.md](PROCESS_LOG.md).
+**We have scanned ~6,658 polytopes out of potentially millions.** h¹¹ = 13–16 are now fully covered. h¹¹ = 17 scan running on Codespace (~5.8 hrs, 38,735 polytopes). Recent runs discovered **h17/poly25** (26/26, 15 ell — F-theory + triple-threat champion) and **h15/poly61** (25/26, τ=14,300 — LVS champion). See [PROCESS_LOG.md](PROCESS_LOG.md).
 
 ## Current Results
 
@@ -46,18 +46,24 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 | Polytope | Score | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 fib | Ell fib | Notes |
 |----------|-------|------------|-------|--------|--------|---------|-------|
 | **★ h14/poly2** [NF] | **26/26** | **320** | 828 | 13 | 3 | 3 | Heterotic champion |
+| **★ h16/poly53** [NF] | 23/26 | **300** | 1100 | 16 | 5 | 10 | 2nd most clean, no Swiss cheese |
 | **★ h16/poly11** [NF] | **26/26** | **298** | 840 | 13 | 3 | 3 | 5 dP divisors |
 | **★ h17/poly96** [NF] | **25/26** | **252** | 930 | **65** | 2 | 1 | Highest max h⁰ |
-| **★ h17/poly63** [NF] | **26/26** | **218** | 922 | 40 | 5 | **10** | F-theory champion |
+| **★ h17/poly63** [NF] | **26/26** | **218** | 922 | 40 | 5 | 10 | Former F-theory champ |
 | **★ h17/poly9** [NF] | **23/26** | **192** | 876 | 15 | 1 | 0 | |
 | **★ h18/poly34** [NF] | **26/26** | **184** | 730 | 16 | 4 | 6 | 5 dP, h¹¹=18 |
 | **★ h17/poly8** [NF] | **26/26** | **180** | 558 | 13 | 3 | 3 | τ=2208 |
+| **★ h17/poly25** [NF] | **26/26** | **170** | 490 | 8 | **6** | **15** | **F-theory + triple-threat champ** |
 | **★ h15/poly61** [NF] | **25/26** | **110** | 338 | 4 | 3 | 3 | **τ=14,300 (LVS champ)** |
+| **★ h19/poly16** [NF] | 22/26 | 86 | 564 | 27 | 5 | 10 | h¹¹=19 |
+| **★ h16/poly63** [NF] | **26/26** | 78 | 584 | 37 | 4 | 6 | τ=836, triple-threat |
 | h13/poly1 (bench) | 18/20 | 25 | 76 | 6 | 3 | 3 | Benchmark |
 
 ★ = Full pipeline complete (Stages 1–4 + scorecard). [NF] = non-favorable.
 
-**h15/poly61** has the best Large Volume Scenario hierarchy of any candidate: Swiss cheese τ = 14,300 (6.5× the runner-up h17/poly8 at τ = 2,208). Loses only the single dP point (0 del Pezzo divisors).
+**h17/poly25** is the new F-theory champion: **15 elliptic fibrations** (record) + 6 K3 fibrations + Swiss cheese τ=56. The only candidate that excels at heterotic, F-theory, AND LVS simultaneously — a "triple-threat."
+
+**h15/poly61** has the best Large Volume Scenario hierarchy: Swiss cheese τ = 14,300 (6.5× runner-up h17/poly8 at τ = 2,208).
 
 Full results in [results/](results/). All top candidates are **non-favorable** polytopes — these were invisible until we fixed [Bug B-11](PROCESS_LOG.md).
 

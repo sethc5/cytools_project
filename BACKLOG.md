@@ -17,8 +17,8 @@
 - **Status**:
   - ✅ h15: **553/553 complete** (333 hits, 60%). T1→T1.5→T2 done. h15/poly61 → full pipeline 25/26.
   - ✅ h16: **5,180/5,180 complete** (1,811 hits, 35%). T1→T1.5→T2 done. 20 new T2 entries.
-  - ❌ h17: 38,735 polytopes, ~3.7 hrs. Deferred to Codespace.
-- **Estimate**: h17 ~4hrs Codespace.
+  - 🔶 h17: **running on Codespace** (tmux session `h17scan`, keepalive active). 38,735 polytopes, 4 workers, ~5.8 hrs ETA.
+- **Estimate**: h17 ~6hrs Codespace.
 
 ### B-23: Full pipeline on h15/poly61 (new #5 discovery) ✅ DONE
 - **Why**: 103 clean h⁰=3 bundles — discovered in expanded h15 scan.
@@ -36,13 +36,19 @@
 - **Estimate**: Large (research + implementation). External contributions especially welcome.
 
 ### B-21: F-theory discriminant locus classification
-- **Why**: h17/poly63 has **10 elliptic fibrations** — the most of any analyzed candidate. Each is a potential F-theory compactification with non-abelian gauge symmetry.
-- **What**: For h17/poly63 (10 elliptic fibs), classify singular fibers (Kodaira types), determine gauge algebra.
+- **Why**: h17/poly25 has **15 elliptic fibrations** (record) and h17/poly63 has 10. Each is a potential F-theory compactification with non-abelian gauge symmetry.
+- **What**: For h17/poly25 (15 elliptic fibs) and h17/poly63 (10 elliptic fibs), classify singular fibers (Kodaira types), determine gauge algebra.
 - **Acceptance**: Documented gauge groups for at least one fibration.
 - **Estimate**: Medium-Large.
 
+### B-24: Run full pipeline on remaining T2 candidates
+- **Why**: 27 T2 candidates still lack full pipeline analysis. Top picks: h18/poly32 (T2=45, 49 clean, max h⁰=30), h15/poly94 (T2=45, 36 clean).
+- **What**: Run `pipeline.py` on remaining T2=45 candidates.
+- **Acceptance**: All T2=45 candidates analyzed.
+- **Estimate**: ~10 min each, 27 remaining.
+
 ### B-22: Run full pipeline on remaining top candidates ✅ DONE
-- All 7 top candidates analyzed. 5× score 26/26. See PROCESS_LOG 22:00 entry.
+- All 8 original top candidates + 4 new → **12 total**, 7× score 26/26. See PROCESS_LOG entries.
 
 ---
 
@@ -68,6 +74,10 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-24c | B-22+: Full pipeline h16/poly63 → 26/26, 78 clean, τ=836 (triple-threat #2) | 2026-02-23 |
+| D-24b | B-22+: Full pipeline h17/poly25 → **26/26**, 170 clean, **15 ell** (F-theory + triple-threat champ) | 2026-02-23 |
+| D-24a | B-22+: Full pipeline h16/poly53 → 23/26, 300 clean (2nd most), no Swiss cheese | 2026-02-23 |
+| D-24 | B-22+: Full pipeline h19/poly16 → 22/26, 86 clean, h¹¹=19 | 2026-02-23 |
 | D-23 | B-23: Full pipeline h15/poly61 → 25/26, 110 clean, τ=14,300 (LVS champ) | 2026-02-23 |
 | D-22b | B-19 partial: h16 full scan (5180/5180, 1811 hits) + T1→T2 | 2026-02-23 |
 | D-22 | B-19 partial: h15 full scan (553/553, 333 hits) + scan_parallel.py | 2026-02-22 |
