@@ -47,9 +47,9 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 |----------|-----|------------|-------|--------|--------|--------|
 | **h14/poly2** [NF] | 41 | **268** | 828 | 13 | 3 | 1 |
 | h17/poly96 [NF] | 39 | 227 | 930 | **65** | 2 | 1 |
-| h17/poly63 [NF] | 45 | 198 | 922 | 40 | 5 | 6 |
-| h18/poly34 [NF] | 45 | 189 | 730 | 16 | 4 | 4 |
+| h17/poly9 [NF] | 35 | 181 | 876 | 15 | 1 | 0 |
 | h17/poly8 [NF] | 45 | 159 | 558 | 13 | 3 | 3 |
+| h15/poly23 [NF] | 45 | 119 | 524 | 20 | 4 | 6 |
 | h13/poly1 (bench) | 45 | 25 | 76 | 6 | 3 | 3 |
 
 Full results in [results/](results/). All top candidates are **non-favorable** polytopes — these were invisible until we fixed [Bug B-11](PROCESS_LOG.md).

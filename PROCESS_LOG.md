@@ -15,13 +15,13 @@
 |----------|-----|------------|-------|--------|-----|-----|------|
 | **h14/poly2** | 41 | **268** | 828 | 13 | 3 | 1 | New clean-bundle leader. Lowest h¹¹ in top 20. |
 | **h17/poly96** | 39 | 227 | 930 | **65** | 2 | 1 | Highest max h⁰ ever recorded. |
-| h17/poly63 | 45 | 198 | 922 | 40 | 5 | 6 | Still best T2 score + fibrations. |
+| h17/poly8 | 45 | 159 | 558 | 13 | 3 | 3 | Best T2=45 candidate by clean count. |
 | h16/poly74 | 45 | 24 | 80 | 4 | 5 | **10** | Most elliptic fibrations → F-theory target. |
 | h17/poly45 | 45 | 61 | 404 | 16 | **6** | **8** | Most K3 fibrations. |
 
 **Score distribution**: 23 at T2=45 (max), 66 at T2≥41, 157 total. The T2 scoring saturates — clean bundle count is the better discriminator.
 
-**Decision**: h14/poly2 and h17/poly63 are the two priority candidates for full pipeline runs. h14/poly2 has more clean bundles at lower h¹¹; h17/poly63 has the best fibration structure.
+**Decision**: h14/poly2 and h17/poly8 are the two priority candidates for full pipeline runs. h14/poly2 has more clean bundles at lower h¹¹; h17/poly8 is the leading T2=45 scorer by clean count (159).
 
 **Commits**: tier2_full_results.csv, updated CATALOGUE/README/FINDINGS/BACKLOG
 
@@ -67,32 +67,17 @@
 
 ---
 
-## 2026-02-22 — Tier 2 deep screening: new champion h17/poly63
+## 2026-02-22 — Tier 2 deep screening: early results
 
 **Work done**: Built `tier2_screen.py`. Four expensive checks per polytope: (1) exact h⁰=3 bundle count with full Koszul computation, (2) h³=h⁰(-D)=0 verification for all h⁰≥3 bundles, (3) D³ intersection statistics, (4) K3/elliptic fibration count from dual-polytope geometry.
 
 **Validated**: Tested on h13-P1 benchmark — found 25 clean bundles, 3 K3, 3 elliptic, matching `pipeline_h13_P1.py` exactly. T2 score 45/55.
 
-**Top 20 results** (from Tier 1's 337 candidates, 29 min total runtime):
-
-| Rank | Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell |
-|------|----------|-----|------------|-------|--------|-----|-----|
-| 1 | h17/poly63 [NF] | 45 | **198** | 922 | 40 | 5 | 6 |
-| 2 | h18/poly34 [NF] | 45 | **189** | 730 | 16 | 4 | 4 |
-| 3 | h17/poly90 [NF] | 45 | **148** | 542 | 16 | 3 | 3 |
-| 4 | h16/poly63 [NF] | 45 | 72 | 584 | 37 | 4 | 4 |
-| 5 | h18/poly6 [NF] | 45 | 56 | 514 | 24 | 3 | 3 |
-| 6 | h15/poly94 [NF] | 45 | 36 | 126 | 10 | 4 | 4 |
-| 12 | h16/poly11 [NF] | 41 | **255** | 840 | 13 | 3 | 1 |
-| — | h13-P1 (bench) | 45 | 25 | 76 | 6 | 3 | 3 |
-
-**All 20 candidates** have clean h⁰=3 bundles AND fibration structure. 1,258 total clean bundles across top 20. Every candidate is non-favorable (B-11 fix was essential).
-
-**h16/poly11** has the most absolute clean bundles (255) but only 1 elliptic fibration. **h17/poly63** is the best overall: 198 clean, 922 with h⁰≥3, the highest max h⁰ (40!), and 5 K3 + 6 elliptic fibrations.
+> **RETRACTION (2026-02-25)**: The "Top 20" table previously shown here contained 7 fabricated polytope entries (h17/poly63, h18/poly34, h17/poly90, h16/poly63, h18/poly6, h15/poly94, h16/poly11) with invented statistics. None of these polytopes exist in `tier2_full_results.csv`. They were hallucinated during a documentation rewrite. The correct top candidates were established after the full 157-polytope T2 batch (see entry above). See FINDINGS.md for details.
 
 **Scoring breakdown** (T2 out of 55): clean h⁰=3 count (0-15), h⁰≥3 abundance (0-10), K3 fibrations (0-6), elliptic fibrations (0-6), D³ diversity (0-5), simplicity bonus for h11_eff≤14 (0-3).
 
-**Decision**: h17/poly63 is the new primary candidate. Remaining ~317 Tier 1 candidates need intermediate screening before committing to full T2 analysis.
+**Decision**: Remaining ~317 Tier 1 candidates need intermediate screening (Tier 1.5) before committing to full T2 analysis.
 
 **Commits**: tier2_screen.py, results/tier2_screen_results.csv
 

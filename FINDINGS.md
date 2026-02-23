@@ -46,25 +46,27 @@ e₁₂ (toric idx 17): τ = 10.0, V = 308,352, τ/V²ᐟ³ = 0.0022. Excellent 
 
 ---
 
-## 2. h17/poly63 — Richest Bundle Landscape (T2 Score: 45/55)
+## 2. h17/poly8 — Top T2=45 Scorer by Clean Bundles (T2 Score: 45/55)
 
 **Date**: 2026-02-24. **Script**: [tier2_screen.py](tier2_screen.py).
 
-Top-scoring polytope in the T2 batch. Extraordinary bundle abundance — nearly 200 clean h⁰ = 3 bundles and 922 with h⁰ ≥ 3. Awaiting full pipeline treatment.
+Highest clean h⁰ = 3 count among all polytopes scoring T2 = 45 (maximum). Strong fibration structure with balanced K3/elliptic content.
 
 ### Key Data
 - h¹¹ = 17, h²¹ = 20, χ = −6, non-favorable (h¹¹_eff = 13)
-- 198 clean h⁰ = 3 line bundles
-- 922 with h⁰ ≥ 3, max h⁰ = 40
-- 14,458 total χ = ±3 bundles
-- 5 K3 fibrations, 6 elliptic fibrations
-- D³ range: [−91, 119], 196 distinct values
+- 159 clean h⁰ = 3 line bundles
+- 558 with h⁰ ≥ 3, max h⁰ = 13
+- 12,928 total χ = ±3 bundles
+- 3 K3 fibrations, 3 elliptic fibrations
+- D³ range: [−60, 108], 152 distinct values
 
 ### Why It Matters
-The sheer volume of clean bundles (8× more than h13/poly1) makes this the richest target for Stage 5 vector bundle construction. If any χ = −6 polytope has Standard Model bundles hiding in its landscape, this is the best bet.
+Among the 23 polytopes achieving the maximum T2 score, h17/poly8 has the most clean bundles (159). Its balanced fibration structure (3 K3 + 3 elliptic) makes it a strong candidate for both heterotic and F-theory embeddings. Clean bundle count 6× that of h13/poly1.
 
 ### Status
 Needs full pipeline run (Stages 1–4 deep analysis + scorecard).
+
+> **Note**: An earlier version of this document listed "h17/poly63" here. That entry was fabricated during a documentation rewrite and does not correspond to any polytope in our T2 CSV. See commit history for details.
 
 ---
 
@@ -86,7 +88,7 @@ Most clean h⁰ = 3 bundles of any polytope scanned, at the lowest h¹¹ (14) in
 Combines the most clean bundles with the second-lowest h¹¹ in the landscape. Fewer Kähler moduli = more tractable vacuum stabilization. The large clean bundle count gives the widest possible target space for Stage 5 higher-rank bundle construction.
 
 ### Status
-Needs full pipeline run. Top priority alongside h17/poly63.
+Needs full pipeline run. Top priority alongside h17/poly8.
 
 ---
 

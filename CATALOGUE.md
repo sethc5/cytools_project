@@ -73,24 +73,24 @@ Ranked by clean h⁰=3 bundle count. All non-favorable. T2 score out of 55.
 |------|----------|----|------------|-------|--------|-----|-----|
 | 1 | **h14/poly2** | 41 | **268** | 828 | 13 | 3 | 1 |
 | 2 | h17/poly96 | 39 | 227 | 930 | **65** | 2 | 1 |
-| 3 | h17/poly63 | 45 | 198 | 922 | 40 | 5 | 6 |
-| 4 | h18/poly34 | 45 | 189 | 730 | 16 | 4 | 4 |
-| 5 | h17/poly9 | 35 | 181 | 876 | 15 | 1 | 0 |
-| 6 | h17/poly8 | 45 | 159 | 558 | 13 | 3 | 3 |
-| 7 | h17/poly90 | 45 | 148 | 542 | 16 | 3 | 3 |
-| 8 | h15/poly23 | 45 | 119 | 524 | 20 | 4 | 6 |
-| 9 | h17/poly21 | 45 | 118 | 532 | 13 | 4 | 6 |
-| 10 | h19/poly7 | 41 | 114 | 374 | 6 | 3 | 1 |
-| 11 | h16/poly22 | 45 | 111 | 440 | 10 | 4 | 6 |
-| 12 | h16/poly51 | 41 | 109 | 486 | 12 | 3 | 1 |
-| 13 | h15/poly36 | 41 | 107 | 310 | 11 | 3 | 1 |
-| 14 | h15/poly61 | 45 | 103 | 338 | 4 | 3 | 3 |
-| 15 | h17/poly58 | 45 | 102 | 520 | 6 | 3 | 3 |
-| 16 | h16/poly43 | 41 | 98 | 544 | 13 | 3 | 1 |
-| 17 | h17/poly32 | 45 | 95 | 438 | 13 | 3 | 3 |
-| 18 | h15/poly25 | 45 | 95 | 418 | 13 | 3 | 3 |
-| 19 | h16/poly52 | 41 | 94 | 388 | 4 | 3 | 1 |
-| 20 | h13/poly0 | 35 | 86 | 380 | 10 | 1 | 0 |
+| 3 | h17/poly9 | 35 | 181 | 876 | 15 | 1 | 0 |
+| 4 | h17/poly8 | 45 | 159 | 558 | 13 | 3 | 3 |
+| 5 | h15/poly23 | 45 | 119 | 524 | 20 | 4 | 6 |
+| 6 | h17/poly21 | 45 | 118 | 532 | 13 | 4 | 6 |
+| 7 | h19/poly7 | 41 | 114 | 374 | 6 | 3 | 1 |
+| 8 | h16/poly22 | 45 | 111 | 440 | 10 | 4 | 6 |
+| 9 | h16/poly51 | 41 | 109 | 486 | 12 | 3 | 1 |
+| 10 | h15/poly36 | 41 | 107 | 310 | 11 | 3 | 1 |
+| 11 | h15/poly61 | 45 | 103 | 338 | 4 | 3 | 3 |
+| 12 | h17/poly58 | 45 | 102 | 520 | 6 | 3 | 3 |
+| 13 | h16/poly43 | 41 | 98 | 544 | 13 | 3 | 1 |
+| 14 | h15/poly25 | 45 | 95 | 418 | 13 | 3 | 3 |
+| 15 | h17/poly32 | 45 | 95 | 438 | 13 | 3 | 3 |
+| 16 | h16/poly52 | 41 | 94 | 388 | 4 | 3 | 1 |
+| 17 | h16/poly3 | 45 | 86 | 458 | 15 | 4 | 4 |
+| 18 | h13/poly0 | 35 | 86 | 380 | 10 | 1 | 0 |
+| 19 | h15/poly14 | 39 | 76 | 588 | 44 | 2 | 1 |
+| 20 | h16/poly73 | 45 | 74 | 382 | 12 | 3 | 3 |
 
 Full merged CSV: [results/tier2_full_results.csv](results/tier2_full_results.csv)
 
@@ -186,7 +186,7 @@ Ordered by expected impact:
 
 1. **Full pipeline on h14/poly2** — New clean-bundle leader (268) at h¹¹=14. Lowest h¹¹ with this many bundles. Needs Stages 1–4 deep analysis + scorecard.
 
-2. **Full pipeline on h17/poly63** — Top T2 scorer (198 clean, max h⁰=40, 5 K3 + 6 elliptic). Best fibration structure.
+2. **Full pipeline on h17/poly8** — Top T2=45 scorer by clean count (159 clean, K3=3, ell=3). Best candidate among those with maximum T2 score.
 
 3. **Expand scan at h¹¹ = 15–17** — Remove `limit=100` cap. We scanned 100/553 at h15, 100/5180 at h16, 100/38735 at h17.
 

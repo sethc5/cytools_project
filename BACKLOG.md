@@ -22,9 +22,9 @@
 
 ## NEXT — Ready to Start
 
-### B-18: Full pipeline on h17/poly63
-- **Why**: Top T2 scorer (45/55, 198 clean bundles, 5 K3 + 6 elliptic, max h⁰=40). Needs full Stages 1–4 treatment like h13/poly1 got.
-- **What**: Build `pipeline_h17_P63.py`. Full divisor analysis, cohomology table, net chirality.
+### B-18: Full pipeline on top T2 candidate
+- **Why**: h14/poly2 (T2=41, 268 clean bundles, lowest h¹¹=14 in top tier) and h17/poly8 (T2=45, 159 clean, K3=3, ell=3) are both strong candidates. Needs full Stages 1–4 treatment like h13/poly1 got.
+- **What**: Build `pipeline_h14_P2.py` or `pipeline_h17_P8.py`. Full divisor analysis, cohomology table, net chirality.
 - **Acceptance**: Complete 20-check scorecard. Document in FINDINGS.md.
 - **Estimate**: Medium.
 
@@ -36,13 +36,13 @@
 
 ### B-20: Stage 5 — Higher-rank vector bundles
 - **Why**: Line bundles only give U(1). Standard Model needs SU(3)×SU(2)×U(1), which requires rank 4 or 5 vector bundles. This is the critical gap.
-- **What**: Implement monad/extension bundle construction on top candidates (h13/poly1 or h17/poly63). Check stability, compute chiral index.
+- **What**: Implement monad/extension bundle construction on top candidates (h13/poly1 or h14/poly2). Check stability, compute chiral index.
 - **Acceptance**: At least one stable rank-n bundle with net chirality = 3 on any candidate.
 - **Estimate**: Large (research + implementation). External contributions especially welcome.
 
 ### B-21: F-theory discriminant locus classification
 - **Why**: All top candidates have elliptic fibrations. Discriminant locus determines gauge groups directly from geometry.
-- **What**: For h17/poly63 (6 elliptic fibs), classify singular fibers, determine gauge algebra.
+- **What**: For h16/poly74 (10 elliptic fibs) or h17/poly45 (8 elliptic fibs), classify singular fibers, determine gauge algebra.
 - **Acceptance**: Documented gauge groups for at least one fibration.
 - **Estimate**: Medium-Large.
 
@@ -53,7 +53,7 @@
 ### B-06: Ample Champion orbifold resolution
 - **Why**: The full Z₃×Z₃ quotient is singular. Could resolve and check if χ changes to −6.
 - **What**: Compute resolved Hodge numbers for the Z₃×Z₃ orbifold.
-- **Status**: Parked. Native χ = −6 candidates (h13/poly1, h17/poly63) are cleaner paths.
+- **Status**: Parked. Native χ = −6 candidates (h13/poly1, h14/poly2) are cleaner paths.
 
 ### B-09: Self-mirror polytope (h11=20, h21=20) deep analysis
 - **Why**: Novel self-mirror CY with χ = 0. Rich fibration structure. Undocumented.
@@ -62,7 +62,7 @@
 
 ### B-07: Paper draft
 - **Why**: Publishable as a methodology/survey paper even without SM discovery. The pipeline, catalogue of negative results, and CYTools gotchas are useful to the community.
-- **Status**: Deferred until T2 batch completes and full pipeline on h17/poly63 is done.
+- **Status**: Deferred until T2 batch completes and full pipeline on top candidate is done.
 
 ---
 
