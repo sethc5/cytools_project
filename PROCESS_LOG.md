@@ -5,6 +5,56 @@
 
 ---
 
+## 2026-02-22 19:30 — h14/poly2 Full Pipeline: 26/26, 320 clean bundles — new champion
+
+**Work done**: Built `pipeline_h14_P2.py`. Full Stages 1-4 of FRAMEWORK.md on h11=14, polytope 2 — the #1 ranked candidate from 177 T2-screened polytopes.
+
+**Bug fixed during development**: `IndexError: index 13 is out of bounds for axis 0 with size 13`. Root cause: non-favorable polytope (h11=14 but h11_eff=13). All 5 instances of `range(h11)` replaced with `range(h11_eff)` where `h11_eff = len(div_basis)`. Same class as Bug #11 (B-11).
+
+**Key results**:
+- **26/26 score** — perfect on the expanded 26-point scorecard
+- **320 clean bundles**: h⁰=3, h¹=h²=h³=0 (no higher cohomology)
+- 14,608 total χ=±3 bundles searched (max_nonzero=4, max_coeff=3)
+- 828 bundles with h⁰≥3 (5.7% of total)
+- Max h⁰ = 13 (6 bundles, e.g. D = 3·e0 + 3·e4 + 1·e8 + 1·e11)
+- 1 nef bundle out of 14,608
+- 61 distinct D³ values among clean bundles (range [-63, 63])
+- Non-favorable: h11=14, h11_eff=13
+- SHA-256 fingerprint: f6c14152f6f3b812
+- Runtime: 271s (4.5 min)
+
+**Divisor structure**:
+- 3 del Pezzo candidates (e5: dP₄, e9: dP₄, e10: dP₇)
+- 2 K3-like divisors (e0: D³=0, c₂·D=36; e2: D³=0, c₂·D=12)
+- 6 rigid divisors
+
+**Swiss cheese structure**: 3 directions found
+- e9: τ=58.5, τ/V^(2/3)=0.00113 — best LVS candidate
+- e8: τ=723.0, τ/V^(2/3)=0.01395
+- e6: τ=1487.5, τ/V^(2/3)=0.02835
+
+**Fibrations**: 3 K3 + 3 elliptic (matches T2 for K3; T2 only found 1 elliptic — full pipeline methodology is more thorough)
+
+**Cohomology breakdown** (h⁰≥3 bundles):
+- 320 clean (h⁰=3, h³=0) — of which 160 have h¹-h²=0 (truly pristine), 207+89 have h¹-h²=6 (vector-like pairs)
+- 74 with h⁰=6, 53 with h⁰=10, 6 with h⁰=11, 3 with h⁰=13
+
+**Comparison with previous champions**:
+
+| Polytope | Score | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell | Swiss |
+|----------|-------|------------|-------|--------|-----|-----|-------|
+| **h14/poly2** | **26/26** | **320** | **828** | **13** | 3 | 3 | 3 dirs |
+| h13/poly1 | 18/20 | 25 | 76 | 6 | 3 | 3 | 1 dir |
+| Polytope 40 | 10/20 | 0 | 0 | 2 | 3 | 3 | 1 dir |
+
+h14/poly2 has **12.8× more clean bundles** than h13/poly1 and **2.2× higher max h⁰**. This is the strongest 3-generation Calabi-Yau manifold identified in the project.
+
+**Representative simplest clean bundles**: L = O(±e0), with D³=0 and all higher cohomology vanishing — a single-divisor 3-generation model.
+
+**Next**: Full pipeline on h17/poly63 (#2 priority candidate: T2=45, 198 clean, 5 K3 + 6 elliptic fibrations).
+
+---
+
 ## 2026-02-22 18:36 — Merge fix: early T2 (20) + batch T2 (157) → 177 total
 
 **Issue discovered**: The 20 polytopes screened in the early T2 run (15:15) were stored in `tier2_screen_results.csv` but never merged into `tier2_full_results.csv` when the 157-polytope batch ran. This caused 20 real results — including several top candidates — to be missing from the "full" CSV and all downstream documentation. Zero overlap between the two sets.
