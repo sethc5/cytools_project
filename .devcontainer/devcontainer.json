@@ -28,5 +28,6 @@
       }
     }
   },
-  "postCreateCommand": "python -c 'import cytools; from cytools import Polytope; print(\"CYTools ready\")'"
+  "postCreateCommand": "python -c 'import cytools; from cytools import Polytope; print(\"CYTools ready\")' && echo \"Cores: $(nproc) | RAM: $(free -h | awk '/Mem:/{print $2}')\"",
+  "shutdownAction": "none"
 }
