@@ -438,3 +438,49 @@ Hypothesis H9 above — train a regression on normalized lattice point density, 
 - **Hodge pair**: (h¹¹, h²¹). χ = 2(h¹¹ - h²¹). For χ = −6: h²¹ = h¹¹ + 3.
 - **D₆ / Dih(6)**: Dihedral group of order 12 (symmetries of a hexagon). Not to be confused with D₆ Lie algebra. In GAP notation: SmallGroup(12,4).
 - **GKZ system**: Gelfand-Kapranov-Zelevinsky hypergeometric system. The natural class of differential equations for period integrals of toric hypersurfaces. The PF system for our GL=12 polytope is a GKZ system in 5 variables (D₆-invariant complex-structure moduli).
+
+---
+
+## 12. CURRENT RESULTS & WORKING THOUGHTS (2026-02-23)
+
+*Status: T1 batch running on Hetzner (21K h18 candidates), ~2hr to completion. T2 on top-87 complete.*
+
+### h18 T2 snapshot (81/87 pass)
+
+The 87 candidates screened were favorable polytopes with max_h0≥5 from the T0.25 scan (105K total). Results:
+
+| Stat | Value | Context |
+|------|-------|---------|
+| Pass rate | 81/87 (93%) | max_h0≥5 is near-perfect T2 predictor |
+| n_clean ≥ 30 | 21 polys | Rich bundle structure throughout |
+| Best n_clean | 40 (poly 3105, 37037) | Restricted search — real count likely much higher |
+| Best elliptic | 13 (poly 30303, 91896) | vs all-time record 15 (h17/poly25) |
+| Best K3 | **7** (polys 8607, 17309, 32432, 35953) | **New all-time record** (prev: 6, h17/poly25) |
+| Swiss cheese | unknown — T1 running | Will resolve in ~2hrs |
+
+### What the 6 NONEs mean
+
+Polys 2476 and 16290 had max_h0=7 at T0.25 but zero clean bundles at T2. This means every χ=+3 bundle on those polytopes with h⁰=7 has h³≠0 — Serre duality vanishing fails. Geometrically, these likely have non-trivial H³ from non-ample divisor classes. They are genuinely not useful for heterotic model building. The early-termination in T0.25 correctly flagged max_h0 but could not detect this.
+
+### The restricted search caveat
+
+At h11_eff=18, `find_chi3_bundles` uses max_coeff=2, max_nonzero=3 — a fraction of the coefficient space used at h11=14 (max_coeff=3, max_nonzero=4). The 40 clean bundles found for poly 3105 should be interpreted as **at least 40**, not as a ceiling. A broader search would likely find hundreds, comparable to h14/poly2's 320. This is a compute budget decision, not a geometric limitation.
+
+### The h18 fibration density is structurally notable
+
+Almost every PASS poly has both K3 and elliptic fibrations — typically K3=4-6, ell=4-11. This is systematically richer than h13-h15 where many candidates have only 1-3 of each. The explanation is that at larger h11, the Mori cone has more rays and the dual polytope has more facets, mechanically creating more fibration structures. But the χ=-6 constraint is doing real selection work: these are not generic h18 polytopes, they are specifically the ones where the geometry conspires to give both large h⁰ AND rich fibrations.
+
+### What T1 will tell us and why it matters
+
+T1 adds three things the T2 results are missing:
+1. **Swiss cheese structure** — without this, LVS moduli stabilization fails. If the 40-clean-bundle polys also have Swiss cheese, they become full-stack candidates matching the top leaderboard.
+2. **del Pezzo type and count** — dP8 supports E₈ instantons, dP5 supports E₅. The specific types determine which non-perturbative effects are possible.
+3. **Symmetry order** — any sym_order > 2 hints at discrete symmetries that could suppress off-diagonal Yukawa couplings.
+
+The critical join will be: *which of the 81 T2 PASS polys (from the top-87 run) have Swiss cheese AND which of the 21K T0.25 passes (from T1) have n_dp≥3 + Swiss cheese but max_h0<5 (missed by T2)?* That second group is the one we've been blind to.
+
+### Strategic picture after this run
+
+If the T1 results on 21K show the usual ~15-20% Swiss cheese rate seen at h13-h17, we'd expect **3,000-4,000 h18 polytopes with Swiss cheese**. Even at a conservative 5% having n_dp≥3, that's **150-200 h18 candidates** that pass the structural gates. Those all need T2. A follow-up T2 run on T1 qualifiers will likely take 1-2 days of Hetzner compute.
+
+The important open question: **does h18 produce any 26/26 scorers?** The existing leaderboard has h14-h17 polys. If h18 has Swiss cheese + 7 K3 + 13 ell + n_dp≥3 in one polytope, it wins on F-theory grounds. We don't know yet.

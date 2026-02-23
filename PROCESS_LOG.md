@@ -5,6 +5,75 @@
 
 ---
 
+## 2026-02-23 — h18 T2 complete (81/87 PASS); T1 batch launched on 21K pool
+
+**Work done**: Full T2 screening of top 87 h18 candidates (max_h0≥5, favorable). T1 batch launched on remaining 21K T0.25 passes.
+
+### Pipeline state
+- h18 T0.25 scan: **complete** — 105,811 polytopes, 30,293 passes (commits `02f4c3a`)
+- h18 T2 (high-h0): **complete** — 87 screened, **81 PASS**, 6 NONE (commits `e6977c9`)
+- h18 T1 (21K pool): **running** on Hetzner (`batch_t1_h18.py`, 14 workers, ~2hr ETA)
+
+### h18 T2 results — 81/87 PASS
+
+**n_clean distribution** (87 screened, min_h0≥5, favorable only):
+
+| n_clean range | count |
+|---|---|
+| 30+ | 21 |
+| 20–29 | 11 |
+| 10–19 | 16 |
+| 5–9 | 27 |
+| 1–4 | 6 |
+
+**Top candidates by n_clean:**
+
+| poly_idx | max_h0 | n_clean | K3 | elliptic |
+|----------|--------|---------|----|----------|
+| 3105 | 6 | **40** | 2 | 1 |
+| 37037 | 6 | **40** | 4 | 4 |
+| 34670 | 7 | **38** | 2 | 1 |
+| 18005 | 6 | **38** | 2 | 1 |
+| 25921 | 6 | **38** | 3 | 3 |
+| 57305 | 6 | **38** | 4 | 4 |
+| 178 | 10 | 32 | 1 | 0 |
+
+**Top by elliptic fibrations:**
+
+| poly_idx | elliptic | K3 | n_clean |
+|----------|----------|----|---------|
+| 30303 | **13** | 6 | 9 |
+| 91896 | **13** | 6 | 17 |
+| 8607 | 9 | **7** | 15 |
+| 17309 | 9 | **7** | 1 |
+| 32432 | 9 | **7** | 3 |
+| 35953 | 9 | **7** | 2 |
+
+**New records (pending T1/Swiss cheese verification):**
+- K3 fibrations: 4 polys with k3=7 — exceeds current all-time record of 6 (h17/poly25)
+- Elliptic: 13 — below h17/poly25 record of 15
+- n_clean: 40 — below h14/poly2 record of 320 (but search was restricted at h18 due to h11_eff=18 coefficient limits)
+
+**6 NONE polys** (max_h0≥5 but zero clean bundles — h³≠0 on everything):
+- poly 2476 (max_h0=7, 1548 bundles checked)
+- poly 16290 (max_h0=7, 1632 bundles checked)
+- poly 29123, 7122, 25462, 39779 (max_h0=5–6)
+
+### T1 batch (21K pool) — running
+- Script: `batch_t1_h18.py` (committed `81b584d`)
+- Input: 21,115 favorable polys with max_h0≥3 from combined T0.25 CSVs
+- Checks: dP classification + Swiss cheese + GL symmetry order
+- Workers: 14, ETA ~2hrs
+- Output: `results/tier1_h18.csv`
+- Next step: join T1 results with T2 results → full scoring → identify h18 champions
+
+### Decision log
+- Skipped T1.5 for top-87 pool (appropriate: max_h0≥5 is stronger than T1.5 gate)
+- T1 on full 21K instead of T1.5 first: Hetzner idle, T1 is faster per-poly (~2-5s vs 5-30s), produces richer output (dP types, Swiss τ, sym order) directly useful for scoring
+- After T1: candidates with n_dp≥3 + has_swiss → send to T2 (will be manageable subset)
+
+---
+
 ## 2026-02-24 — Hetzner dedicated server provisioned
 
 **Work done**: Provisioned Hetzner dedicated server as primary compute node.
