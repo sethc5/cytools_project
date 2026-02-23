@@ -32,10 +32,17 @@ import time
 import hashlib
 import cytools as cy
 import numpy as np
-from scipy.optimize import linprog
-from itertools import product, combinations
 from cytools.config import enable_experimental_features
 enable_experimental_features()
+
+from cy_compute import (
+    compute_h0_koszul,
+    compute_D3,
+    basis_to_toric,
+    find_chi3_bundles,
+    count_fibrations,
+    precompute_vertex_data,
+)
 
 CYTOOLS_VERSION = getattr(cy, '__version__', 'unknown')
 
@@ -44,180 +51,6 @@ FAIL = "\033[91m✗\033[0m"
 STAR = "\033[93m★\033[0m"
 BOLD = "\033[1m"
 RESET = "\033[0m"
-
-# ══════════════════════════════════════════════════════════════════
-#  Core methods (proven in dragon_slayer_40h, verified in 40i)
-# ══════════════════════════════════════════════════════════════════
-
-def count_lattice_points(pts, ray_indices, D_toric):
-    """Count |{m ∈ Z⁴ : ⟨m, v_ρ⟩ ≥ -d_ρ ∀ rays ρ}|."""
-    dim = pts.shape[1]
-    n_rays = len(ray_indices)
-    A_ub = np.zeros((n_rays, dim))
-    b_ub = np.zeros(n_rays)
-    for k, rho in enumerate(ray_indices):
-        A_ub[k] = -pts[rho]
-        b_ub[k] = D_toric[rho]
-
-    bounds = []
-    for i in range(dim):
-        c = np.zeros(dim); c[i] = 1
-        r_min = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=(None, None), method='highs')
-        c[i] = -1
-        r_max = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=(None, None), method='highs')
-        if r_min.success and r_max.success:
-            bounds.append((int(np.floor(r_min.fun)), int(np.ceil(-r_max.fun))))
-        else:
-            return 0
-
-    vol = 1
-    for lo, hi in bounds:
-        vol *= (hi - lo + 1)
-    if vol > 200_000_000:
-        return -1
-
-    count = 0
-    for m0 in range(bounds[0][0], bounds[0][1] + 1):
-        for m1 in range(bounds[1][0], bounds[1][1] + 1):
-            for m2 in range(bounds[2][0], bounds[2][1] + 1):
-                for m3 in range(bounds[3][0], bounds[3][1] + 1):
-                    m = np.array([m0, m1, m2, m3])
-                    ok = True
-                    for k, rho in enumerate(ray_indices):
-                        if np.dot(m, pts[rho]) < -D_toric[rho]:
-                            ok = False
-                            break
-                    if ok:
-                        count += 1
-    return count
-
-
-def compute_h0_koszul(pts, ray_indices, D_toric):
-    """h⁰(X,D) = h⁰(V,D) - h⁰(V,D+K_V), assuming h¹ correction=0."""
-    h0_V = count_lattice_points(pts, ray_indices, D_toric)
-    if h0_V < 0:
-        return -1
-    D_shift = D_toric.copy()
-    for rho in ray_indices:
-        D_shift[rho] -= 1
-    h0_shift = count_lattice_points(pts, ray_indices, D_shift)
-    if h0_shift < 0:
-        return -1
-    return h0_V - h0_shift
-
-
-def compute_chi(D_basis, intnums, c2, h11):
-    """HRR: χ(O(D)) = D³/6 + c₂·D/12 on CY3."""
-    D3 = 0.0
-    for (i, j, k), val in intnums.items():
-        D3 += D_basis[i] * D_basis[j] * D_basis[k] * val
-    c2D = sum(D_basis[a] * c2[a] for a in range(h11))
-    return D3 / 6.0 + c2D / 12.0
-
-
-def compute_D3(D_basis, intnums):
-    """Compute D³ = triple self-intersection."""
-    D3 = 0.0
-    for (i, j, k), val in intnums.items():
-        D3 += D_basis[i] * D_basis[j] * D_basis[k] * val
-    return D3
-
-
-def basis_to_toric(D_basis, div_basis, n_toric):
-    """Convert basis-indexed divisor to toric-indexed."""
-    D_toric = np.zeros(n_toric, dtype=int)
-    for a, idx in enumerate(div_basis):
-        D_toric[idx] = D_basis[a]
-    return D_toric
-
-
-def find_chi3_bundles(intnums, c2, h11, max_coeff=3, max_nonzero=4):
-    """Find all divisors D with |χ(O(D))| ≈ 3."""
-    bundles = []
-    indices = list(range(h11))
-    for n_nz in range(1, min(max_nonzero + 1, h11 + 1)):
-        for chosen in combinations(indices, n_nz):
-            coeff_range = list(range(-max_coeff, max_coeff + 1))
-            coeff_range.remove(0)
-            for coeffs in product(coeff_range, repeat=n_nz):
-                D_basis = np.zeros(h11, dtype=int)
-                for idx, c in zip(chosen, coeffs):
-                    D_basis[idx] = c
-                chi_val = compute_chi(D_basis, intnums, c2, h11)
-                if abs(abs(chi_val) - 3.0) < 0.01:
-                    bundles.append((D_basis.copy(), chi_val))
-    return bundles
-
-
-# ══════════════════════════════════════════════════════════════════
-#  Fibration analysis (adapted from fibration_analysis.py)
-# ══════════════════════════════════════════════════════════════════
-
-def count_fibrations(polytope):
-    """
-    Count K3 and elliptic fibration structures from dual polytope geometry.
-    
-    K3 fibrations: dual-polytope points p with -p also a dual point
-        (= P¹ direction in M lattice)
-    Elliptic fibrations: 2D reflexive subpolytopes in the dual
-        (= 4-10 lattice points in a rank-2 slice through origin)
-    
-    Returns (n_k3, n_elliptic).
-    """
-    try:
-        dual_p = polytope.dual()
-    except Exception:
-        return (0, 0)
-
-    dual_pts = np.array(dual_p.points(), dtype=int)
-    dual_pts_set = set(tuple(x) for x in dual_pts)
-
-    # ── K3 fibrations: points p in dual with -p also present ──
-    k3_directions = []
-    for pt in dual_pts:
-        if np.all(pt == 0):
-            continue
-        if tuple(-pt) in dual_pts_set:
-            # Normalize: pick the lexicographically first of p, -p
-            if tuple(pt) < tuple(-pt):
-                # Check primitive (gcd of abs = 1)
-                gcd = np.gcd.reduce(np.abs(pt))
-                if gcd == 1:
-                    k3_directions.append(tuple(pt))
-
-    n_k3 = len(k3_directions)
-
-    # ── Elliptic fibrations: 2D reflexive subpolytopes in dual ──
-    n_elliptic = 0
-    seen_subspaces = set()
-
-    for i in range(len(k3_directions)):
-        for j in range(i + 1, len(k3_directions)):
-            v1 = np.array(k3_directions[i])
-            v2 = np.array(k3_directions[j])
-
-            # Check linear independence
-            mat_check = np.vstack([v1, v2])
-            if np.linalg.matrix_rank(mat_check) < 2:
-                continue
-
-            # Find all dual points in span(v1, v2)
-            subspace_pts = []
-            for pt in dual_pts:
-                mat = np.vstack([v1, v2, pt])
-                if np.linalg.matrix_rank(mat) <= 2:
-                    subspace_pts.append(tuple(pt))
-
-            # 2D reflexive polytopes have 4-10 lattice points
-            n_sub = len(subspace_pts)
-            if 4 <= n_sub <= 10:
-                # Deduplicate by the set of points (unordered)
-                key = frozenset(subspace_pts)
-                if key not in seen_subspaces:
-                    seen_subspaces.add(key)
-                    n_elliptic += 1
-
-    return (n_k3, n_elliptic)
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -359,6 +192,9 @@ def screen_polytope_deep(h11_val, poly_idx, verbose=True):
         print(f"    [2/4] Computing h⁰ (Koszul) + h³ verification...",
               end="", flush=True)
 
+    # Precompute vertex data for fast h⁰ (~30× faster bounding box)
+    _precomp = precompute_vertex_data(pts, ray_indices)
+
     max_h0 = 0
     h0_ge3_count = 0
     clean_h0_3_count = 0   # h⁰=3, h³=0
@@ -372,11 +208,13 @@ def screen_polytope_deep(h11_val, poly_idx, verbose=True):
 
         if chi_val > 0:
             # χ=+3: compute h⁰(D) directly
-            h0 = compute_h0_koszul(pts, ray_indices, D_toric)
+            h0 = compute_h0_koszul(pts, ray_indices, D_toric,
+                                   _precomp=_precomp)
         else:
             # χ=-3: h³(D) = h⁰(-D) by Serre. Compute h⁰(-D).
             D_neg_toric = basis_to_toric(-D_basis, div_basis, n_toric)
-            h0 = compute_h0_koszul(pts, ray_indices, D_neg_toric)
+            h0 = compute_h0_koszul(pts, ray_indices, D_neg_toric,
+                                   _precomp=_precomp)
 
         if h0 < 0:
             n_overflow += 1
@@ -394,7 +232,8 @@ def screen_polytope_deep(h11_val, poly_idx, verbose=True):
             # For h⁰=3 with χ=+3: verify h³=0 by computing h⁰(-D)
             if h0 == 3 and abs(chi_val - 3.0) < 0.01:
                 D_neg_toric = basis_to_toric(-D_basis, div_basis, n_toric)
-                h3 = compute_h0_koszul(pts, ray_indices, D_neg_toric)
+                h3 = compute_h0_koszul(pts, ray_indices, D_neg_toric,
+                                       _precomp=_precomp)
                 if h3 == 0:
                     clean_h0_3_count += 1
                     clean_bundles.append(D_basis.copy())

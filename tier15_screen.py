@@ -33,163 +33,22 @@ import argparse
 import time
 import cytools as cy
 import numpy as np
-from scipy.optimize import linprog
-from itertools import product, combinations
 from cytools.config import enable_experimental_features
 enable_experimental_features()
+
+from cy_compute import (
+    compute_h0_koszul,
+    basis_to_toric,
+    find_chi3_bundles_capped,
+    count_fibrations,
+    precompute_vertex_data,
+)
 
 PASS = "\033[92m✓\033[0m"
 FAIL = "\033[91m✗\033[0m"
 STAR = "\033[93m★\033[0m"
 BOLD = "\033[1m"
 RESET = "\033[0m"
-
-# ══════════════════════════════════════════════════════════════════
-#  Core methods (proven in dragon_slayer_40h, verified in 40i)
-# ══════════════════════════════════════════════════════════════════
-
-def count_lattice_points(pts, ray_indices, D_toric):
-    """Count |{m ∈ Z⁴ : ⟨m, v_ρ⟩ ≥ -d_ρ ∀ rays ρ}|."""
-    dim = pts.shape[1]
-    n_rays = len(ray_indices)
-    A_ub = np.zeros((n_rays, dim))
-    b_ub = np.zeros(n_rays)
-    for k, rho in enumerate(ray_indices):
-        A_ub[k] = -pts[rho]
-        b_ub[k] = D_toric[rho]
-
-    bounds = []
-    for i in range(dim):
-        c = np.zeros(dim); c[i] = 1
-        r_min = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=(None, None), method='highs')
-        c[i] = -1
-        r_max = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=(None, None), method='highs')
-        if r_min.success and r_max.success:
-            bounds.append((int(np.floor(r_min.fun)), int(np.ceil(-r_max.fun))))
-        else:
-            return 0
-
-    vol = 1
-    for lo, hi in bounds:
-        vol *= (hi - lo + 1)
-    if vol > 200_000_000:
-        return -1
-
-    count = 0
-    for m0 in range(bounds[0][0], bounds[0][1] + 1):
-        for m1 in range(bounds[1][0], bounds[1][1] + 1):
-            for m2 in range(bounds[2][0], bounds[2][1] + 1):
-                for m3 in range(bounds[3][0], bounds[3][1] + 1):
-                    m = np.array([m0, m1, m2, m3])
-                    ok = True
-                    for k, rho in enumerate(ray_indices):
-                        if np.dot(m, pts[rho]) < -D_toric[rho]:
-                            ok = False
-                            break
-                    if ok:
-                        count += 1
-    return count
-
-
-def compute_h0_koszul(pts, ray_indices, D_toric):
-    """h⁰(X,D) = h⁰(V,D) - h⁰(V,D+K_V)."""
-    h0_V = count_lattice_points(pts, ray_indices, D_toric)
-    if h0_V < 0:
-        return -1
-    D_shift = D_toric.copy()
-    for rho in ray_indices:
-        D_shift[rho] -= 1
-    h0_shift = count_lattice_points(pts, ray_indices, D_shift)
-    if h0_shift < 0:
-        return -1
-    return h0_V - h0_shift
-
-
-def compute_chi(D_basis, intnums, c2, h11):
-    """HRR: χ(O(D)) = D³/6 + c₂·D/12."""
-    D3 = 0.0
-    for (i, j, k), val in intnums.items():
-        D3 += D_basis[i] * D_basis[j] * D_basis[k] * val
-    c2D = sum(D_basis[a] * c2[a] for a in range(h11))
-    return D3 / 6.0 + c2D / 12.0
-
-
-def basis_to_toric(D_basis, div_basis, n_toric):
-    """Convert basis-indexed divisor to toric-indexed."""
-    D_toric = np.zeros(n_toric, dtype=int)
-    for a, idx in enumerate(div_basis):
-        D_toric[idx] = D_basis[a]
-    return D_toric
-
-
-def find_chi3_bundles_capped(intnums, c2, h11, max_coeff=3, max_nonzero=3, cap=300):
-    """Find χ=±3 bundles, stopping after cap found."""
-    bundles = []
-    indices = list(range(h11))
-    for n_nz in range(1, min(max_nonzero + 1, h11 + 1)):
-        for chosen in combinations(indices, n_nz):
-            coeff_range = list(range(-max_coeff, max_coeff + 1))
-            coeff_range.remove(0)
-            for coeffs in product(coeff_range, repeat=n_nz):
-                D_basis = np.zeros(h11, dtype=int)
-                for idx, c in zip(chosen, coeffs):
-                    D_basis[idx] = c
-                chi_val = compute_chi(D_basis, intnums, c2, h11)
-                if abs(abs(chi_val) - 3.0) < 0.01:
-                    bundles.append((D_basis.copy(), chi_val))
-                    if len(bundles) >= cap:
-                        return bundles, True  # truncated
-    return bundles, False
-
-
-# ══════════════════════════════════════════════════════════════════
-#  Phase A: Fibration count (very fast)
-# ══════════════════════════════════════════════════════════════════
-
-def count_fibrations(polytope):
-    """Count K3 and elliptic fibration structures from dual polytope."""
-    try:
-        dual_p = polytope.dual()
-    except Exception:
-        return (0, 0)
-
-    dual_pts = np.array(dual_p.points(), dtype=int)
-    dual_pts_set = set(tuple(x) for x in dual_pts)
-
-    # K3 fibrations: pairs p, -p in dual
-    k3_directions = []
-    for pt in dual_pts:
-        if np.all(pt == 0):
-            continue
-        if tuple(-pt) in dual_pts_set:
-            if tuple(pt) < tuple(-pt):
-                gcd = np.gcd.reduce(np.abs(pt))
-                if gcd == 1:
-                    k3_directions.append(tuple(pt))
-
-    n_k3 = len(k3_directions)
-
-    # Elliptic fibrations: 2D reflexive subpolytopes in dual
-    n_elliptic = 0
-    seen = set()
-    for i in range(len(k3_directions)):
-        for j in range(i + 1, len(k3_directions)):
-            v1 = np.array(k3_directions[i])
-            v2 = np.array(k3_directions[j])
-            if np.linalg.matrix_rank(np.vstack([v1, v2])) < 2:
-                continue
-            sub_pts = []
-            for pt in dual_pts:
-                mat = np.vstack([v1, v2, pt])
-                if np.linalg.matrix_rank(mat) <= 2:
-                    sub_pts.append(tuple(pt))
-            if 4 <= len(sub_pts) <= 10:
-                key = frozenset(sub_pts)
-                if key not in seen:
-                    seen.add(key)
-                    n_elliptic += 1
-
-    return (n_k3, n_elliptic)
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -345,9 +204,13 @@ def screen_polytope_15(h11_val, poly_idx, phase='both', verbose=True):
         else:
             max_coeff, max_nonzero = 2, 2
 
-        bundles, truncated = find_chi3_bundles_capped(
+        bundles = find_chi3_bundles_capped(
             intnums, c2, h11_eff, max_coeff, max_nonzero, cap=300
         )
+        truncated = (len(bundles) >= 300)
+
+        # Precompute vertex data for fast h⁰ (~30× faster bounding box)
+        _precomp = precompute_vertex_data(pts, ray_indices)
 
         # Compute h⁰ for the probed bundles
         max_h0 = 0
@@ -358,10 +221,12 @@ def screen_polytope_15(h11_val, poly_idx, phase='both', verbose=True):
             D_toric = basis_to_toric(D_basis, div_basis, n_toric)
 
             if chi_val > 0:
-                h0 = compute_h0_koszul(pts, ray_indices, D_toric)
+                h0 = compute_h0_koszul(pts, ray_indices, D_toric,
+                                       _precomp=_precomp)
             else:
                 D_neg_toric = basis_to_toric(-D_basis, div_basis, n_toric)
-                h0 = compute_h0_koszul(pts, ray_indices, D_neg_toric)
+                h0 = compute_h0_koszul(pts, ray_indices, D_neg_toric,
+                                       _precomp=_precomp)
 
             if h0 < 0:
                 continue
@@ -373,7 +238,8 @@ def screen_polytope_15(h11_val, poly_idx, phase='both', verbose=True):
                 # Check h³=0 for h⁰=3, χ=+3
                 if h0 == 3 and abs(chi_val - 3.0) < 0.01:
                     D_neg_toric = basis_to_toric(-D_basis, div_basis, n_toric)
-                    h3 = compute_h0_koszul(pts, ray_indices, D_neg_toric)
+                    h3 = compute_h0_koszul(pts, ray_indices, D_neg_toric,
+                                           _precomp=_precomp)
                     if h3 == 0:
                         clean_count += 1
 

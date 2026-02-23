@@ -331,18 +331,18 @@ def compute_D3(D_basis, intnums):
 
 
 def build_intnum_tensor(intnums, h11_eff):
-    """Build dense symmetric (h11_eff, h11_eff, h11_eff) intersection tensor.
+    """Build dense (h11_eff, h11_eff, h11_eff) intersection tensor.
 
-    This enables vectorized χ computation for many bundles at once.
+    CYTools' intersection_numbers(in_basis=True) returns sorted-index
+    entries only (each triple (i,j,k) appears once with i≤j≤k).
+    The scalar χ formula sums D_i·D_j·D_k·val over these dict entries,
+    which is correct as-is. For the tensor einsum to give the same result
+    (D³ = Σ_{i,j,k} D_i D_j D_k T_ijk), we store each val at its
+    original index position WITHOUT additional symmetrization.
     """
     T = np.zeros((h11_eff, h11_eff, h11_eff), dtype=np.float64)
     for (i, j, k), val in intnums.items():
         T[i, j, k] = val
-        T[i, k, j] = val
-        T[j, i, k] = val
-        T[j, k, i] = val
-        T[k, i, j] = val
-        T[k, j, i] = val
     return T
 
 
