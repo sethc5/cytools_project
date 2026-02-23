@@ -21,20 +21,23 @@
   - 🔶 h18: **running on Hetzner** (tmux `h18scan`, 14 workers). ~98,000/100,000 (98%). **Nearly done.**
 - **Estimate**: h17 ~6hrs Codespace, h18 minutes remaining.
 
-### B-26: GL=12/D₆ Picard-Fuchs study 🔶 IN PROGRESS
+### B-26: GL=12/D₆ Picard-Fuchs study ✅ DONE (core)
 - **Why**: The GL=12 polytope (h11=17, h21=20) has the largest automorphism group (|GL(Δ)|=12, D₆) among all χ=−6 polytopes. D₆ symmetry reduces moduli from 20 to 6, making Picard-Fuchs tractable.
 - **What**: Compute GKZ periods, derive PF PDE system, extract Yukawa couplings.
-- **Completed so far**:
+- **Completed**:
   - ✅ GKZ A-matrix (5×23, rank 5), integer kernel (18-dim)
   - ✅ D₆ orbit compression: 6 invariant complex structure moduli
   - ✅ Closed-form CT formula (double factorial sum, 501 exact coefficients in 38s)
   - ✅ 26 D₆-invariant Yukawa couplings + invariant c₂ numbers
   - ✅ `picard_fuchs.py` module + `GL12_GEOMETRY.md` reference
-- **Remaining**:
-  - ❌ PF PDE system in Mori coordinates z₁…z₆
+  - ✅ PF PDE system in Mori coordinates z₁…z₆ — 6 GKZ box operators (mori_pf.py)
+  - ✅ S_α orbit-theta table, explicit □₁-□₆ in θ-form (GL12_GEOMETRY.md §PF Operators)
+  - ✅ 1-parameter ODE: ₃F₂([1/3,2/3,1];[1,1];27t), AESZ #1
+  - ✅ 9,366/9,366 GKZ recurrence checks pass
+- **Open extensions** (not blocking acceptance):
   - ❌ Quantum Yukawa corrections (Gromov-Witten invariants)
   - ❌ Prepotential computation
-- **Acceptance**: PF operators in Mori coordinates, verified against period series.
+- **Acceptance**: ✅ PF operators in Mori coordinates, verified against period series.
 
 ### B-25: Tier 0.25 fast pre-filter (`scan_fast.py`) ✅ DONE
 - **Why**: Full scans at h18+ take many hours. A fast pre-filter identifies polytopes worth full analysis without computing exact h⁰ counts for all bundles.
@@ -97,6 +100,7 @@
 | ID | Item | Completed |
 |----|------|-----------|
 | D-26a | B-26: GL12/D₆ closed-form period + Yukawa couplings + picard_fuchs.py | 2026-02-23 |
+| D-26c | B-26: PF operators in θ-coordinates + 1-param ODE + AESZ #1 (mori_pf.py + GL12_GEOMETRY.md) | 2026-02-23 |
 | D-26b | B-26: GL12_GEOMETRY.md complete geometry reference | 2026-02-23 |
 | D-25 | B-25: Tier 0.25 fast pre-filter (`scan_fast.py`) — 100% recall, 2.4× speedup | 2026-02-24 |
 | D-24c | B-22+: Full pipeline h16/poly63 → 26/26, 78 clean, τ=836 (triple-threat #2) | 2026-02-23 |
