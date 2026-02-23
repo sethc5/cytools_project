@@ -84,19 +84,26 @@ The Higgs field enters at two levels:
 
 **Issue**: For the exact $h^0 = \chi = 3$ bundles, we get $h^1 = h^2$ but don't know if both are 0. If $h^1 = h^2 = 0$, the bundle has "no higher cohomology" — the cleanest case. If $h^1 = h^2 = k > 0$, there are $k$ vector-like pairs that may or may not decouple.
 
-### Stage 5: Vector Bundle Construction ❌ NOT STARTED
+### Stage 5: Vector Bundle Construction 🔶 IN PROGRESS
 
 > *Moving beyond line bundles to get realistic gauge groups*
 
 | Step | Description | Status |
 |------|-------------|--------|
-| 5.1 | Monad construction: $0 \to V \to B \to C \to 0$ | ❌ |
-| 5.2 | Extension bundles | ❌ |
-| 5.3 | Stability check (slope or Gieseker) | ❌ |
-| 5.4 | Chiral spectrum: $h^1(X, V)$ for rank-$n$ $V$ | ❌ |
-| 5.5 | Higgs doublets: $h^1(X, \wedge^2 V)$ | ❌ |
+| 5.1 | Direct sum construction: $V = \oplus L_i$ | ✅ `rank_n_bundles.py` — SU(4) and SU(5) scanners, meet-in-the-middle |
+| 5.2 | Monad construction: $0 \to V \to B \to C \to 0$ | ✅ `rank_n_bundles.py` — pair+triple decomposition, (5,1) and (6,2) |
+| 5.3 | Stability check (Hoppe criterion) | ✅ H⁰(V)=0 check via Koszul; ∧²V check ❌ |
+| 5.4 | Chiral spectrum: $\chi(V)$ for rank-$n$ $V$ | ✅ Verified: additivity + monad exact sequence |
+| 5.5 | Higgs doublets: $\chi(\wedge^2 V)$ | ✅ For direct sums; ❌ for monads |
+| 5.6 | Extension bundles | ❌ |
+| 5.7 | Individual $h^i(V)$ computation | ❌ |
 
-**This is the critical gap.** Line bundles only give $U(1)$ gauge groups. For the Standard Model, we need rank-4 or rank-5 bundles (for $SU(4)$ or $SU(5)$ GUT embedding). The index theorem gives $\text{ind}(V) = \int_X \text{ch}(V) \cdot \text{Td}(X)$, but individual cohomology dimensions need explicit computation.
+**First results (h14/poly2):**
+- 100+ SU(4) direct sums with $|\chi| = 3$
+- 100+ SU(5) direct sums with $|\chi| = 3$ and $|\chi(\wedge^2 V)| = 3$
+- 100+ SU(4) monads, 3 pass Hoppe stability check
+- All direct sums are decomposable (polystable at best, never truly stable)
+- Monad candidates with $H^0(B) \leq H^0(C)$ may admit stable deformations
 
 ### Stage 6: Moduli Stabilization ✅ PARTIALLY DONE
 
@@ -125,7 +132,7 @@ The Higgs field enters at two levels:
 Stage 1 ──── Stage 2 ──── Stage 3 ──── Stage 4 ──── Stage 5 ──── Stage 6 ──── Stage 7
   CY           Divs         Line         Net          Vec          Moduli       Pheno
   Geom         Anal         Bundles      Chiral       Bundles      Stabil       Checks
-  ✅            ✅            ✅            🔶            ❌            🔶            ❌
+  ✅            ✅            ✅            🔶            🔶            🔶            ❌
 ```
 
 **We are at the Stage 3→4 transition.** The line bundle analysis is complete. The next physics step is either:
@@ -174,7 +181,7 @@ Ranked by "what can we compute now with existing tools":
 |------|-----------|----------------|----------|
 | Full pipeline on h13-P1 | **Easy** | All Stage 1-3 tools proven | **NOW** |
 | Individual $h^1, h^2$ (Stage 4.3) | Medium | Čech cohomology or exact sequences | Next |
-| Rank-2 monad bundles (Stage 5.1) | Medium-Hard | Need to build from scratch | After 4.3 |
+| Rank-4/5 bundles (Stage 5.1-5.2) | Medium-Hard | ✅ `rank_n_bundles.py` built | **DONE** |
 | $\wedge^2 V$ Higgs count (Stage 5.5) | Hard | Requires Stage 5.1 first | After 5.1 |
 | Flux superpotential (Stage 6.2) | Hard | Period integrals, Picard-Fuchs | Later |
 | Yukawa couplings (Stage 7.1) | Very hard | $\Omega$ integration on CY3 | Later |

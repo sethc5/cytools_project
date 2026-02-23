@@ -249,9 +249,67 @@ point count is invariant under linear equivalence.
 
 ---
 
-## 5. Vanishing Theorems
+## 5. Rank-n Vector Bundles (Stage 5)
 
-### 5.1 Kodaira Vanishing
+### 5.1 Chern Character and Index Theorem
+
+For a rank-$n$ vector bundle $V$ on CY3 $X$ (with $c_1(X) = 0$, $\text{Td}(X) = 1 + c_2(X)/12$):
+
+$$\chi(V) = \int_X \text{ch}(V) \cdot \text{Td}(X) = \text{ch}_3(V) + \text{ch}_1(V) \cdot c_2(X)/12$$
+
+where $\text{ch}(V) = \text{rk}(V) + \text{ch}_1 + \text{ch}_2 + \text{ch}_3$.
+
+### 5.2 Direct Sum: $V = L_1 \oplus \cdots \oplus L_n$
+
+For $L_i = \mathcal{O}(D_i)$:
+
+$$\chi(V) = \sum_i \chi(L_i) = \sum_i \left(\frac{D_i^3}{6} + \frac{c_2 \cdot D_i}{12}\right)$$
+
+Chern classes:
+- $c_1(V) = \sum D_i$
+- SU($n$) structure group $\Leftrightarrow$ $c_1(V) = 0 \Leftrightarrow \sum D_i = 0$
+
+Wedge product for Higgs counting:
+$$\wedge^2 V = \bigoplus_{i<j} (L_i \otimes L_j), \quad \chi(\wedge^2 V) = \sum_{i<j} \chi(\mathcal{O}(D_i + D_j))$$
+
+**Stability**: Direct sums are NEVER stable (each $L_i$ is a proper sub-bundle). They are polystable iff all $\mu(L_i)$ are equal.
+
+### 5.3 Monad: $0 \to V \to B \to C \to 0$
+
+$B = \bigoplus_{i=1}^{r_B} \mathcal{O}(b_i)$, $C = \bigoplus_{j=1}^{r_C} \mathcal{O}(c_j)$, $\text{rk}(V) = r_B - r_C$.
+
+$$\text{ch}(V) = \text{ch}(B) - \text{ch}(C) \implies \chi(V) = \chi(B) - \chi(C) = \sum_i \chi(\mathcal{O}(b_i)) - \sum_j \chi(\mathcal{O}(c_j))$$
+
+SU constraint: $c_1(V) = 0 \Leftrightarrow \sum b_i = \sum c_j$.
+
+### 5.4 Hoppe Stability Criterion
+
+For SU($n$) bundle $V$ (i.e., $c_1(V) = 0$):
+
+$$V \text{ is } \mu\text{-stable} \Longleftrightarrow H^0(X, \wedge^p V) = 0 \text{ for } 1 \leq p \leq \text{rk}(V)-1$$
+
+For a monad $0 \to V \to B \to C \to 0$, the LES gives:
+$$0 \to H^0(V) \to H^0(B) \to H^0(C) \to H^1(V) \to \cdots$$
+
+Necessary condition for $H^0(V) = 0$: if $f: H^0(B) \to H^0(C)$ is injective, then $H^0(V) = 0$.
+If $h^0(B) > h^0(C)$, then $\dim\ker(f) \geq h^0(B) - h^0(C) > 0$ and stability fails.
+
+### 5.5 Search Strategy
+
+For 3-generation models ($|\chi(V)| = 3$):
+
+| Construction | Gauge group | Search method | Results (h14/poly2) |
+|---|---|---|---|
+| Direct sum, rk 4 | $U(1)^4 \subset SU(4)$ | Meet-in-the-middle (pairs) | 100+ |
+| Direct sum, rk 5 | $U(1)^5 \subset SU(5)$ | Meet-in-the-middle (2+3) | 100+ |
+| Monad $(5,1)$ | $SU(4)$ | Pair+triple index | 100+, all Hoppe-fail |
+| Monad $(6,2)$ | $SU(4)$ | Triple+triple index | 100+, **3 Hoppe-pass** |
+
+---
+
+## 6. Vanishing Theorems
+
+### 6.1 Kodaira Vanishing
 
 **Statement**: If $L$ is an ample line bundle on a smooth projective variety $X$, then:
 $$H^i(X, \omega_X \otimes L) = 0 \quad \text{for } i > 0$$
@@ -285,9 +343,9 @@ So HRR simplifies to: $\chi = h^0 - h^1 + h^2$.
 
 ---
 
-## 6. Cone Pairings
+## 7. Cone Pairings
 
-### 6.1 Mori Cone Pairing (Nef Test)
+### 7.1 Mori Cone Pairing (Nef Test)
 
 **⚠️ This is where Bug #3 lived.**
 
@@ -320,16 +378,16 @@ t_tip = cyobj.toric_kahler_cone().tip_of_stretched_cone(1)
 
 ---
 
-## 7. CYTools API Quick Reference
+## 8. CYTools API Quick Reference
 
-### 7.1 Always Use `in_basis=True`
+### 8.1 Always Use `in_basis=True`
 
 | Method | Without flag | With `in_basis=True` |
 |--------|-------------|---------------------|
 | `intersection_numbers()` | Keys = toric indices | **Keys = basis indices** ← USE THIS |
 | `second_chern_class()` | Toric-indexed array | **Basis-indexed array** ← USE THIS |
 
-### 7.2 Key API Contracts
+### 8.2 Key API Contracts
 
 ```python
 # Setup
@@ -377,7 +435,7 @@ auts = p.automorphisms()   # list of 4×4 integer matrices
 
 ---
 
-## 8. Bug Registry
+## 9. Bug Registry
 
 Every bug encountered, so we never repeat them.
 
@@ -426,9 +484,9 @@ Every bug encountered, so we never repeat them.
 
 ---
 
-## 9. Proven Results (Polytope 40: h11=15, h21=18)
+## 10. Proven Results (Polytope 40: h11=15, h21=18)
 
-### 9.1 Confirmed True
+### 10.1 Confirmed True
 | Claim | Method | Script |
 |-------|--------|--------|
 | $h^{1,1} = 15, h^{2,1} = 18, \chi = -6$ | CYTools + HRR | dragon_slayer_40.py |
@@ -441,14 +499,14 @@ Every bug encountered, so we never repeat them.
 | $h^0 = 2$ invariant under character translations (8/8) | Character translation test | dragon_slayer_40i.py |
 | Koszul method matches quintic: $h^0(\text{quintic}, \mathcal{O}(n))$ for $n = -3..7$ | Independent cross-check | dragon_slayer_40i.py |
 
-### 9.2 Confirmed False
+### 10.2 Confirmed False
 | Claim | Disproof | Script |
 |-------|----------|--------|
 | $D = e_3 + e_4 + e_{10}$ has $D^3 = 1$, $\chi = 3$ | Actual: $D^3 = 14$, $\chi = 2.667$ | dragon_slayer_40b.py |
 | `proven_h0_3 = True` | No line bundle has $h^0 = 3$; max is 2 | dragon_slayer_40h.py |
 | Any $\chi = 3$ bundle is nef | 0 nef bundles among 246; closest Mori pairing = −2 | dragon_slayer_40d.py |
 
-### 9.3 Open / Unresolved
+### 10.3 Open / Unresolved
 | Question | Status |
 |----------|--------|
 | Does any higher-rank vector bundle yield $h^1(V) = 3$? | Not investigated |
@@ -457,9 +515,10 @@ Every bug encountered, so we never repeat them.
 
 ---
 
-## 10. Version History
+## 11. Version History
 
 | Date | Change |
 |------|--------|
 | 2026-02-22 | Initial spec created from audit of dragon_slayer_40{a-h}.py |
 | 2026-02-22 | Bug #7 added (GLSM linrels vs character translations). Verified h⁰=2 via char translations (8/8 pass). Quintic cross-check confirms Koszul method. |
+| 2026-02-23 | §5 added: Rank-n vector bundle formulas (direct sum, monad, Hoppe, ∧²V). First Stage 5 results on h14/poly2. Sections renumbered. |
