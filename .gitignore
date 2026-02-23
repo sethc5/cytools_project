@@ -47,3 +47,6 @@ tangency_scan_t3.csv
 tangency_smoke_test.csv
 tangency_scan_v2.log
 nohup.out
+
+# Local server credentials (never commit)
+.devhetzner
