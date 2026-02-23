@@ -22,15 +22,20 @@ Reference: MATH_SPEC.md §4-5, FRAMEWORK.md §1-4.
 
 import sys
 import os
-import csv
 import time
-import hashlib
 import cytools as cy
 import numpy as np
-from scipy.optimize import linprog
-from itertools import product, combinations
 from cytools.config import enable_experimental_features
 enable_experimental_features()
+
+from cy_compute import (
+    compute_h0_koszul,
+    basis_to_toric,
+    find_chi3_bundles,
+    compute_D3,
+    poly_hash,
+    precompute_vertex_data,
+)
 
 CYTOOLS_VERSION = getattr(cy, '__version__', 'unknown')
 
@@ -51,118 +56,9 @@ OUT_DIR = "results"
 OUT_FILE = os.path.join(OUT_DIR, "pipeline_h14_P2_output.txt")
 
 
-# ══════════════════════════════════════════════════════════════════
-#  Core Computational Methods
-# ══════════════════════════════════════════════════════════════════
-
-def count_lattice_points(pts, ray_indices, D_toric):
-    """Count |{m ∈ Z⁴ : ⟨m, v_ρ⟩ ≥ -d_ρ ∀ rays ρ}|.
-
-    This is the core lattice-point enumeration for computing h⁰ on
-    a toric variety V via the Demazure vanishing theorem:
-        h⁰(V, O(D)) = #{m ∈ M : ⟨m, v_ρ⟩ ≥ -d_ρ}
-    """
-    dim = pts.shape[1]
-    n_rays = len(ray_indices)
-    A_ub = np.zeros((n_rays, dim))
-    b_ub = np.zeros(n_rays)
-    for k, rho in enumerate(ray_indices):
-        A_ub[k] = -pts[rho]
-        b_ub[k] = D_toric[rho]
-
-    # Find bounding box via LP
-    bounds = []
-    for i in range(dim):
-        c = np.zeros(dim); c[i] = 1
-        r_min = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=(None, None), method='highs')
-        c[i] = -1
-        r_max = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=(None, None), method='highs')
-        if r_min.success and r_max.success:
-            bounds.append((int(np.floor(r_min.fun)), int(np.ceil(-r_max.fun))))
-        else:
-            return 0
-
-    vol = 1
-    for lo, hi in bounds:
-        vol *= (hi - lo + 1)
-    if vol > 200_000_000:
-        return -1  # overflow guard
-
-    count = 0
-    for m0 in range(bounds[0][0], bounds[0][1] + 1):
-        for m1 in range(bounds[1][0], bounds[1][1] + 1):
-            for m2 in range(bounds[2][0], bounds[2][1] + 1):
-                for m3 in range(bounds[3][0], bounds[3][1] + 1):
-                    m = np.array([m0, m1, m2, m3])
-                    ok = True
-                    for k, rho in enumerate(ray_indices):
-                        if np.dot(m, pts[rho]) < -D_toric[rho]:
-                            ok = False
-                            break
-                    if ok:
-                        count += 1
-    return count
-
-
-def compute_h0_koszul(pts, ray_indices, D_toric):
-    """h⁰(X,D) via Koszul short exact sequence.
-
-    For a CY hypersurface X ⊂ V:
-        0 → O_V(D + K_V) → O_V(D) → O_X(D) → 0
-    gives h⁰(X, D) = h⁰(V, D) - h⁰(V, D + K_V)
-    when the connecting map vanishes (verified for our range).
-    """
-    h0_V = count_lattice_points(pts, ray_indices, D_toric)
-    if h0_V < 0:
-        return -1
-    D_shift = D_toric.copy()
-    for rho in ray_indices:
-        D_shift[rho] -= 1  # K_V = -Σ D_ρ, so D + K_V has d_ρ → d_ρ - 1
-    h0_shift = count_lattice_points(pts, ray_indices, D_shift)
-    if h0_shift < 0:
-        return -1
-    return h0_V - h0_shift
-
-
-def compute_chi(D_basis, intnums, c2, h11_eff):
-    """Hirzebruch-Riemann-Roch: χ(O(D)) = D³/6 + c₂·D/12."""
-    D3 = 0.0
-    for (i, j, k), val in intnums.items():
-        D3 += D_basis[i] * D_basis[j] * D_basis[k] * val
-    c2D = sum(D_basis[a] * c2[a] for a in range(h11_eff))
-    return D3 / 6.0 + c2D / 12.0
-
-
-def basis_to_toric(D_basis, div_basis, n_toric):
-    """Convert basis-indexed divisor to full toric divisor vector."""
-    D_toric = np.zeros(n_toric, dtype=int)
-    for a, idx in enumerate(div_basis):
-        D_toric[idx] = D_basis[a]
-    return D_toric
-
-
-def find_chi3_bundles(intnums, c2, h11_eff, max_coeff=3, max_nonzero=4):
-    """Enumerate line bundles with |χ(O(D))| = 3 (sparse search)."""
-    bundles = []
-    indices = list(range(h11_eff))
-    for n_nz in range(1, min(max_nonzero + 1, h11_eff + 1)):
-        for chosen in combinations(indices, n_nz):
-            coeff_range = list(range(-max_coeff, max_coeff + 1))
-            coeff_range.remove(0)
-            for coeffs in product(coeff_range, repeat=n_nz):
-                D_basis = np.zeros(h11_eff, dtype=int)
-                for idx, c in zip(chosen, coeffs):
-                    D_basis[idx] = c
-                chi = compute_chi(D_basis, intnums, c2, h11_eff)
-                if abs(abs(chi) - 3.0) < 0.01:
-                    bundles.append((D_basis.copy(), chi))
-    return bundles
-
-
-def poly_hash(polytope):
-    """SHA-256 fingerprint for reproducibility."""
-    pts = np.array(polytope.points(), dtype=int)
-    return hashlib.sha256(pts.tobytes()).hexdigest()[:16]
+# Core computation imported from cy_compute.py
+# (count_lattice_points, compute_h0_koszul, basis_to_toric,
+#  find_chi3_bundles, compute_D3, poly_hash, precompute_vertex_data)
 
 
 class Tee:
@@ -230,7 +126,10 @@ def run_stage1():
     fav_str = "Yes (h¹¹ = n_toric - 5)" if favorable else f"No (h¹¹_eff = {n_toric - 5})"
     print(f"    Favorable    = {fav_str}")
 
-    return p, tri, cyobj, pts, ray_indices, phash
+    # Precompute LP vertex data for fast h⁰ computation
+    precomp = precompute_vertex_data(pts, ray_indices)
+
+    return p, tri, cyobj, pts, ray_indices, phash, precomp
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -388,7 +287,8 @@ def run_stage2(cyobj, pts, ray_indices, polytope):
 #  Stage 3: Line Bundle Cohomology
 # ══════════════════════════════════════════════════════════════════
 
-def run_stage3(cyobj, pts, ray_indices, div_basis, intnums, c2, mori):
+def run_stage3(cyobj, pts, ray_indices, div_basis, intnums, c2, mori,
+               precomp=None):
     """Full χ=±3 bundle search + Koszul h⁰ + Serre h³ computation."""
     h11_eff = len(div_basis)
     n_toric = pts.shape[0]
@@ -441,7 +341,7 @@ def run_stage3(cyobj, pts, ray_indices, div_basis, intnums, c2, mori):
             D_neg = D_basis
 
         D_toric = basis_to_toric(D_compute, div_basis, n_toric)
-        h0 = compute_h0_koszul(pts, ray_indices, D_toric)
+        h0 = compute_h0_koszul(pts, ray_indices, D_toric, _precomp=precomp)
 
         if h0 < 0:
             n_overflow += 1
@@ -449,14 +349,12 @@ def run_stage3(cyobj, pts, ray_indices, div_basis, intnums, c2, mori):
 
         # Also compute h³ = h⁰(-D) via Serre duality
         D_neg_toric = basis_to_toric(D_neg, div_basis, n_toric)
-        h3 = compute_h0_koszul(pts, ray_indices, D_neg_toric)
+        h3 = compute_h0_koszul(pts, ray_indices, D_neg_toric, _precomp=precomp)
         if h3 < 0:
             h3 = -1  # overflow
 
         # D³ value
-        D3 = 0.0
-        for (i, j, k), val in intnums.items():
-            D3 += D_basis[i] * D_basis[j] * D_basis[k] * val
+        D3 = compute_D3(D_basis, intnums)
 
         label = "h⁰(D)" if chi > 0 else "h⁰(-D)=h³(D)"
         is_clean = (h0 == 3 and h3 == 0 and abs(chi) == 3)
@@ -688,7 +586,7 @@ def main():
     print("=" * 72)
 
     # Stage 1: CY Geometry
-    p, tri, cyobj, pts, ray_indices, phash = run_stage1()
+    p, tri, cyobj, pts, ray_indices, phash, precomp = run_stage1()
 
     # Stage 2: Divisor Analysis
     (div_basis, intnums, c2, mori, has_swiss, best_tau, best_ratio,
@@ -697,7 +595,8 @@ def main():
 
     # Stage 3: Line Bundle Cohomology
     results, bundles, d3_unique = \
-        run_stage3(cyobj, pts, ray_indices, div_basis, intnums, c2, mori)
+        run_stage3(cyobj, pts, ray_indices, div_basis, intnums, c2, mori,
+                   precomp)
 
     # Stage 4: Net Chirality
     h11_eff = len(div_basis)
