@@ -146,6 +146,7 @@ pipeline.py          — Full Stages 1–4 pipeline for any candidate (--h11, --
 cy_compute.py        — Shared computational core (vectorized lattice points, batch χ)
 scan_chi6_h0.py      — Landscape scanner (Stages 1+3, serial)
 scan_parallel.py     — Multiprocessing scanner (4× faster, resume support)
+scan_fast.py         — Tier 0.25 fast pre-filter (early termination, 100% recall)
 tier1_screen.py      — Fast screener: dP divisors, Swiss cheese, symmetry
 tier15_screen.py     — Intermediate: fibrations + 300-bundle probe
 tier2_screen.py      — Deep: exact bundle count, h³, D³, fibrations
@@ -158,6 +159,7 @@ MATH_SPEC.md         — Formulas, CYTools API contracts, 9 documented bugs
 CATALOGUE.md         — What's been checked, what's ruled out
 FINDINGS.md          — Detailed write-ups of key results
 PROCESS_LOG.md       — Chronological investigation diary
+HETZNER.md           — Dedicated server setup & reconnection guide
 
 # Output
 results/             — CSV + log outputs from all runs

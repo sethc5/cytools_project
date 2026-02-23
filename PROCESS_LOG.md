@@ -5,6 +5,21 @@
 
 ---
 
+## 2026-02-24 — Hetzner dedicated server provisioned
+
+**Work done**: Provisioned Hetzner dedicated server as primary compute node.
+
+- **Hardware**: i9-9900K (8c/16t), 128 GB RAM, 2× 1TB NVMe RAID-1
+- **OS**: Ubuntu 24.04.3 LTS, installed via Hetzner `installimage`
+- **Partitions**: LVM on RAID-1 — 100G root, 200G /home, 200G /var/lib/docker, 50G /tmp (~400G unallocated)
+- **Stack**: Docker 29.2.1, devcontainer CLI 0.83.3, tmux, git
+- **Dev container**: Built from `.devcontainer/Dockerfile` — Python 3.12, CYTools 1.4.5, pplpy, python-flint
+- **User**: `seth` with Docker group + passwordless sudo + SSH key auth
+- **Benchmark**: `scan_fast.py` at 12.7 poly/s (8 workers) — **5.3× faster than Dell5**
+- **Docs**: See [HETZNER.md](HETZNER.md) for connection details, scan commands, rebuild instructions.
+
+---
+
 ## 2026-02-24 — Tier 0.25 fast pre-filter (`scan_fast.py`)
 
 **Work done (B-25)**: Built and validated a fast pre-filter for χ=-6 polytope screening.
