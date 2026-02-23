@@ -1,0 +1,1737 @@
+/home/seth/dev/cytools_project/venv/lib/python3.13/site-packages/cytools/config.py:154: UserWarning: 
+**************************************************************
+Warning: You have enabled experimental features of CYTools.
+Some of these features may be broken or not fully tested,
+and they may undergo significant changes in future versions.
+**************************************************************
+
+  warnings.warn(
+========================================================================
+  B-01: SCAN χ=-6 POLYTOPES FOR h⁰ ≥ 3 LINE BUNDLES
+  Method: Verified Koszul + lattice-point counting
+========================================================================
+
+
+────────────────────────────────────────────────────────────
+  h11=13, h21=16  —  3 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=18, h11_eff=13, 1102 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★
+  poly   1: n_toric=18, h11_eff=13,  946 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★
+  poly   2: n_toric=18, h11_eff=13, 1428 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+
+────────────────────────────────────────────────────────────
+  h11=14, h21=17  —  22 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=19, h11_eff=14, 1808 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly   1: n_toric=18, h11_eff=13, 1514 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   2: n_toric=18, h11_eff=13, 1416 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly   3: n_toric=17, h11_eff=12, 1400 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   4: n_toric=17, h11_eff=12, 1508 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly   5: n_toric=18, h11_eff=13, 1354 χ=3 bundles, max h⁰=17 ★★★ HIT ★★★ [NF]
+  poly   6: n_toric=19, h11_eff=14, 2112 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★
+  poly   7: n_toric=21, h11_eff=14, 1762 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly   8: n_toric=18, h11_eff=13, 1276 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly   9: n_toric=18, h11_eff=13, 1388 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  10: n_toric=18, h11_eff=13, 1470 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  11: n_toric=19, h11_eff=14, 2024 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  12: n_toric=17, h11_eff=12,  870 χ=3 bundles, max h⁰=1 [NF]
+  poly  13: n_toric=19, h11_eff=14, 1546 χ=3 bundles, max h⁰=1
+  poly  14: n_toric=19, h11_eff=14, 1980 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  15: n_toric=19, h11_eff=14, 1774 χ=3 bundles, max h⁰=1
+  poly  16: n_toric=19, h11_eff=14, 1842 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  17: n_toric=18, h11_eff=13, 1502 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  18: n_toric=18, h11_eff=13, 1384 χ=3 bundles, max h⁰=1 [NF]
+  poly  19: n_toric=17, h11_eff=12, 1352 χ=3 bundles, max h⁰=1 [NF]
+  poly  20: n_toric=19, h11_eff=14, 1858 χ=3 bundles, max h⁰=1
+  poly  21: n_toric=19, h11_eff=14, 1766 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★
+
+────────────────────────────────────────────────────────────
+  h11=15, h21=18  —  100 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=20, h11_eff=13, 1170 χ=3 bundles, max h⁰=1 [NF]
+  poly   1: n_toric=20, h11_eff=14, 1388 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   2: n_toric=20, h11_eff=15, 2992 χ=3 bundles, max h⁰=1
+  poly   3: n_toric=20, h11_eff=15, 2586 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly   4: n_toric=19, h11_eff=13, 1230 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly   5: n_toric=22, h11_eff=15, 3114 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly   6: n_toric=19, h11_eff=13, 1668 χ=3 bundles, max h⁰=18 ★★★ HIT ★★★ [NF]
+  poly   7: n_toric=16, h11_eff=11,  908 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   8: n_toric=20, h11_eff=15, 2552 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly   9: n_toric=20, h11_eff=14, 1752 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  10: n_toric=20, h11_eff=14, 1964 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  11: n_toric=20, h11_eff=15, 3582 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  12: n_toric=20, h11_eff=15, 2560 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  13: n_toric=22, h11_eff=15, 2288 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  14: n_toric=19, h11_eff=13, 1264 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  15: n_toric=19, h11_eff=14, 2110 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  16: n_toric=21, h11_eff=15, 2990 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  17: n_toric=20, h11_eff=15, 2204 χ=3 bundles, max h⁰=1
+  poly  18: n_toric=20, h11_eff=15, 2954 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★
+  poly  19: n_toric=19, h11_eff=14, 1946 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  20: n_toric=19, h11_eff=14, 2038 χ=3 bundles, max h⁰=1 [NF]
+  poly  21: n_toric=20, h11_eff=15, 2648 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  22: n_toric=17, h11_eff=12, 1658 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  23: n_toric=18, h11_eff=13, 1512 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  24: n_toric=19, h11_eff=14, 1760 χ=3 bundles, max h⁰=1 [NF]
+  poly  25: n_toric=16, h11_eff=11,  972 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  26: n_toric=20, h11_eff=14, 1668 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  27: n_toric=18, h11_eff=13, 1944 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  28: n_toric=20, h11_eff=15, 2086 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  29: n_toric=18, h11_eff=13, 1308 χ=3 bundles, max h⁰=1 [NF]
+  poly  30: n_toric=20, h11_eff=14, 1718 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  31: n_toric=20, h11_eff=15, 2770 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★
+  poly  32: n_toric=20, h11_eff=15, 2080 χ=3 bundles, max h⁰=1
+  poly  33: n_toric=20, h11_eff=15, 2036 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★
+  poly  34: n_toric=21, h11_eff=15, 2656 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  35: n_toric=21, h11_eff=15, 2672 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  36: n_toric=18, h11_eff=13, 1752 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  37: n_toric=18, h11_eff=13, 1698 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  38: n_toric=18, h11_eff=13, 1620 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  39: n_toric=22, h11_eff=15, 2120 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  40: n_toric=20, h11_eff=15, 2232 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  41: n_toric=22, h11_eff=15, 2296 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  42: n_toric=19, h11_eff=14, 2174 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  43: n_toric=20, h11_eff=15, 2534 χ=3 bundles, max h⁰=1
+  poly  44: n_toric=20, h11_eff=15, 2622 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  45: n_toric=20, h11_eff=15, 2800 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★
+  poly  46: n_toric=19, h11_eff=14, 2078 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  47: n_toric=20, h11_eff=15, 1842 χ=3 bundles, max h⁰=1
+  poly  48: n_toric=19, h11_eff=14, 2358 χ=3 bundles, max h⁰=8 ★★★ HIT ★★★ [NF]
+  poly  49: n_toric=20, h11_eff=15, 3104 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  50: n_toric=20, h11_eff=15, 2434 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  51: n_toric=20, h11_eff=15, 2360 χ=3 bundles, max h⁰=1
+  poly  52: n_toric=20, h11_eff=15, 2004 χ=3 bundles, max h⁰=1
+  poly  53: n_toric=20, h11_eff=15, 2054 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  54: n_toric=20, h11_eff=15, 2376 χ=3 bundles, max h⁰=1
+  poly  55: n_toric=20, h11_eff=15, 2954 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★
+  poly  56: n_toric=20, h11_eff=15, 2816 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  57: n_toric=20, h11_eff=15, 3074 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  58: n_toric=19, h11_eff=14, 1976 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  59: n_toric=20, h11_eff=15, 2974 χ=3 bundles, max h⁰=1
+  poly  60: n_toric=21, h11_eff=15, 2204 χ=3 bundles, max h⁰=1
+  poly  61: n_toric=18, h11_eff=13, 1576 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  62: n_toric=19, h11_eff=14, 2272 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  63: n_toric=20, h11_eff=15, 2434 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  64: n_toric=21, h11_eff=15, 2634 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  65: n_toric=21, h11_eff=15, 2432 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  66: n_toric=20, h11_eff=15, 2244 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  67: n_toric=19, h11_eff=14, 1428 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  68: n_toric=20, h11_eff=15, 2418 χ=3 bundles, max h⁰=1
+  poly  69: n_toric=21, h11_eff=15, 2604 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  70: n_toric=20, h11_eff=15, 2270 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  71: n_toric=19, h11_eff=14, 1724 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  72: n_toric=20, h11_eff=15, 2468 χ=3 bundles, max h⁰=1
+  poly  73: n_toric=20, h11_eff=15, 2130 χ=3 bundles, max h⁰=1
+  poly  74: n_toric=21, h11_eff=15, 2162 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  75: n_toric=20, h11_eff=15, 2140 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  76: n_toric=18, h11_eff=13, 1266 χ=3 bundles, max h⁰=1 [NF]
+  poly  77: n_toric=19, h11_eff=14, 1682 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  78: n_toric=19, h11_eff=14, 1786 χ=3 bundles, max h⁰=1 [NF]
+  poly  79: n_toric=20, h11_eff=15, 2392 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  80: n_toric=20, h11_eff=15, 3040 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  81: n_toric=20, h11_eff=15, 2728 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  82: n_toric=21, h11_eff=15, 2798 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  83: n_toric=21, h11_eff=15, 2814 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  84: n_toric=20, h11_eff=15, 2534 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  85: n_toric=20, h11_eff=15, 2242 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  86: n_toric=18, h11_eff=13, 1684 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  87: n_toric=20, h11_eff=15, 2274 χ=3 bundles, max h⁰=1
+  poly  88: n_toric=20, h11_eff=15, 2634 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  89: n_toric=20, h11_eff=15, 1858 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  90: n_toric=21, h11_eff=15, 2146 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  91: n_toric=19, h11_eff=14, 2292 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  92: n_toric=21, h11_eff=15, 2660 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  93: n_toric=20, h11_eff=15, 2280 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  94: n_toric=19, h11_eff=14, 1968 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  95: n_toric=20, h11_eff=15, 2238 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  96: n_toric=20, h11_eff=15, 2570 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  97: n_toric=21, h11_eff=15, 1844 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  98: n_toric=20, h11_eff=15, 2452 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  99: n_toric=19, h11_eff=14, 1680 χ=3 bundles, max h⁰=1 [NF]
+
+────────────────────────────────────────────────────────────
+  h11=16, h21=19  —  100 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=13, h11_eff= 8,  316 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   1: n_toric=13, h11_eff= 8,  590 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   2: n_toric=21, h11_eff=14, 2072 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   3: n_toric=19, h11_eff=13, 1706 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly   4: n_toric=20, h11_eff=14, 2600 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   5: n_toric=21, h11_eff=16, 1214 χ=3 bundles, max h⁰=1
+  poly   6: n_toric=21, h11_eff=16, 1048 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly   7: n_toric=19, h11_eff=13, 1548 χ=3 bundles, max h⁰=36 ★★★ HIT ★★★ [NF]
+  poly   8: n_toric=20, h11_eff=15, 2596 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   9: n_toric=19, h11_eff=14, 2110 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  10: n_toric=21, h11_eff=16, 1552 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  11: n_toric=18, h11_eff=13, 1678 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  12: n_toric=19, h11_eff=14, 2870 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  13: n_toric=19, h11_eff=14, 2046 χ=3 bundles, max h⁰=1 [NF]
+  poly  14: n_toric=19, h11_eff=14, 1494 χ=3 bundles, max h⁰=1 [NF]
+  poly  15: n_toric=21, h11_eff=16,  756 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  16: n_toric=21, h11_eff=16, 1162 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  17: n_toric=18, h11_eff=13, 1692 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  18: n_toric=21, h11_eff=16,  938 χ=3 bundles, max h⁰=1
+  poly  19: n_toric=19, h11_eff=14, 3458 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  20: n_toric=18, h11_eff=12, 1070 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  21: n_toric=21, h11_eff=16,  752 χ=3 bundles, max h⁰=1
+  poly  22: n_toric=18, h11_eff=13, 1324 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  23: n_toric=17, h11_eff=12, 1310 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  24: n_toric=21, h11_eff=15, 2554 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  25: n_toric=23, h11_eff=16, 1248 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  26: n_toric=22, h11_eff=16, 1120 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  27: n_toric=22, h11_eff=16, 1622 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  28: n_toric=20, h11_eff=14, 2364 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  29: n_toric=23, h11_eff=16, 1624 χ=3 bundles, max h⁰=1
+  poly  30: n_toric=22, h11_eff=16, 1762 χ=3 bundles, max h⁰=1
+  poly  31: n_toric=18, h11_eff=13, 1468 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  32: n_toric=23, h11_eff=16, 1732 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  33: n_toric=23, h11_eff=16, 1202 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  34: n_toric=21, h11_eff=16, 1166 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  35: n_toric=23, h11_eff=16,  784 χ=3 bundles, max h⁰=1
+  poly  36: n_toric=21, h11_eff=15, 2426 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  37: n_toric=19, h11_eff=13, 1948 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  38: n_toric=20, h11_eff=14, 1476 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly  39: n_toric=21, h11_eff=16,  696 χ=3 bundles, max h⁰=1
+  poly  40: n_toric=18, h11_eff=13, 1380 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  41: n_toric=21, h11_eff=16,  824 χ=3 bundles, max h⁰=1
+  poly  42: n_toric=21, h11_eff=16, 1212 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  43: n_toric=17, h11_eff=12, 1646 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  44: n_toric=20, h11_eff=14, 2152 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  45: n_toric=21, h11_eff=16, 1160 χ=3 bundles, max h⁰=1
+  poly  46: n_toric=21, h11_eff=16,  928 χ=3 bundles, max h⁰=1
+  poly  47: n_toric=21, h11_eff=16, 1288 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  48: n_toric=21, h11_eff=16,  990 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  49: n_toric=21, h11_eff=16,  964 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  50: n_toric=17, h11_eff=12, 1236 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  51: n_toric=17, h11_eff=12, 1408 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  52: n_toric=17, h11_eff=12, 1300 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  53: n_toric=20, h11_eff=14, 1886 χ=3 bundles, max h⁰=12 ★★★ HIT ★★★ [NF]
+  poly  54: n_toric=21, h11_eff=16, 1328 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  55: n_toric=18, h11_eff=12,  940 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  56: n_toric=21, h11_eff=16, 1268 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  57: n_toric=21, h11_eff=16, 1430 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  58: n_toric=21, h11_eff=16, 1110 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  59: n_toric=17, h11_eff=12,  812 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  60: n_toric=21, h11_eff=16, 1544 χ=3 bundles, max h⁰=1
+  poly  61: n_toric=19, h11_eff=14, 2008 χ=3 bundles, max h⁰=1 [NF]
+  poly  62: n_toric=19, h11_eff=14, 2106 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  63: n_toric=18, h11_eff=13, 1406 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  64: n_toric=21, h11_eff=16, 1240 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  65: n_toric=21, h11_eff=16, 1048 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  66: n_toric=21, h11_eff=16, 1422 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  67: n_toric=23, h11_eff=16,  872 χ=3 bundles, max h⁰=1
+  poly  68: n_toric=21, h11_eff=16, 1078 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  69: n_toric=20, h11_eff=15, 2178 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  70: n_toric=21, h11_eff=16, 1114 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  71: n_toric=21, h11_eff=16, 1120 χ=3 bundles, max h⁰=1
+  poly  72: n_toric=22, h11_eff=16, 1072 χ=3 bundles, max h⁰=1
+  poly  73: n_toric=17, h11_eff=12, 1584 χ=3 bundles, max h⁰=12 ★★★ HIT ★★★ [NF]
+  poly  74: n_toric=19, h11_eff=14, 1940 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  75: n_toric=22, h11_eff=16, 1702 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  76: n_toric=19, h11_eff=14, 1956 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  77: n_toric=21, h11_eff=16, 1300 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★
+  poly  78: n_toric=19, h11_eff=14, 1934 χ=3 bundles, max h⁰=1 [NF]
+  poly  79: n_toric=19, h11_eff=14, 1864 χ=3 bundles, max h⁰=1 [NF]
+  poly  80: n_toric=21, h11_eff=16, 1174 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  81: n_toric=23, h11_eff=16, 1402 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  82: n_toric=18, h11_eff=13, 1362 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  83: n_toric=21, h11_eff=16, 1362 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★
+  poly  84: n_toric=18, h11_eff=13, 1636 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  85: n_toric=23, h11_eff=16, 1150 χ=3 bundles, max h⁰=1
+  poly  86: n_toric=19, h11_eff=14, 1880 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  87: n_toric=21, h11_eff=16, 1164 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  88: n_toric=20, h11_eff=14, 1500 χ=3 bundles, max h⁰=18 ★★★ HIT ★★★ [NF]
+  poly  89: n_toric=23, h11_eff=16, 1194 χ=3 bundles, max h⁰=1
+  poly  90: n_toric=21, h11_eff=16, 1326 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  91: n_toric=20, h11_eff=14, 1834 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly  92: n_toric=21, h11_eff=16, 1252 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  93: n_toric=20, h11_eff=14, 1792 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  94: n_toric=20, h11_eff=14, 1866 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  95: n_toric=22, h11_eff=16, 1484 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  96: n_toric=19, h11_eff=14, 2162 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  97: n_toric=21, h11_eff=16, 1644 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  98: n_toric=21, h11_eff=16, 1464 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  99: n_toric=20, h11_eff=15, 2324 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+
+────────────────────────────────────────────────────────────
+  h11=17, h21=20  —  100 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=14, h11_eff= 9,  198 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly   1: n_toric=24, h11_eff=17, 1656 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly   2: n_toric=22, h11_eff=17,  626 χ=3 bundles, max h⁰=1
+  poly   3: n_toric=16, h11_eff=11,  330 χ=3 bundles, max h⁰=8 ★★★ HIT ★★★ [NF]
+  poly   4: n_toric=16, h11_eff=11,  718 χ=3 bundles, max h⁰=12 ★★★ HIT ★★★ [NF]
+  poly   5: n_toric=16, h11_eff= 9,  230 χ=3 bundles, max h⁰=8 ★★★ HIT ★★★ [NF]
+  poly   6: n_toric=22, h11_eff=17, 1966 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly   7: n_toric=21, h11_eff=15, 3184 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly   8: n_toric=18, h11_eff=13, 1386 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly   9: n_toric=18, h11_eff=13, 1346 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  10: n_toric=24, h11_eff=17, 2270 χ=3 bundles, max h⁰=1
+  poly  11: n_toric=22, h11_eff=16, 1032 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  12: n_toric=23, h11_eff=17, 1514 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  13: n_toric=22, h11_eff=16, 1504 χ=3 bundles, max h⁰=1 [NF]
+  poly  14: n_toric=23, h11_eff=17, 1660 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  15: n_toric=18, h11_eff=13, 1210 χ=3 bundles, max h⁰=1 [NF]
+  poly  16: n_toric=23, h11_eff=16, 1290 χ=3 bundles, max h⁰=1 [NF]
+  poly  17: n_toric=21, h11_eff=15, 2454 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  18: n_toric=23, h11_eff=17, 1734 χ=3 bundles, max h⁰=1
+  poly  19: n_toric=22, h11_eff=16, 1270 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  20: n_toric=21, h11_eff=15, 3846 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  21: n_toric=18, h11_eff=13, 1334 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  22: n_toric=21, h11_eff=15, 2390 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  23: n_toric=19, h11_eff=14, 1678 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  24: n_toric=24, h11_eff=17, 2110 χ=3 bundles, max h⁰=1
+  poly  25: n_toric=19, h11_eff=14, 1856 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  26: n_toric=24, h11_eff=17, 1694 χ=3 bundles, max h⁰=1
+  poly  27: n_toric=24, h11_eff=17, 1332 χ=3 bundles, max h⁰=1
+  poly  28: n_toric=22, h11_eff=17, 1960 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  29: n_toric=24, h11_eff=17, 1364 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  30: n_toric=16, h11_eff=11,  634 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  31: n_toric=17, h11_eff=12, 1060 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  32: n_toric=18, h11_eff=13, 1214 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  33: n_toric=24, h11_eff=17, 1344 χ=3 bundles, max h⁰=1
+  poly  34: n_toric=22, h11_eff=16, 1178 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  35: n_toric=20, h11_eff=14, 2144 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  36: n_toric=21, h11_eff=15, 2740 χ=3 bundles, max h⁰=16 ★★★ HIT ★★★ [NF]
+  poly  37: n_toric=24, h11_eff=17, 1720 χ=3 bundles, max h⁰=1
+  poly  38: n_toric=19, h11_eff=14, 1566 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  39: n_toric=16, h11_eff=11,  496 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  40: n_toric=24, h11_eff=17, 1164 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  41: n_toric=21, h11_eff=15, 2650 χ=3 bundles, max h⁰=12 ★★★ HIT ★★★ [NF]
+  poly  42: n_toric=19, h11_eff=14, 1404 χ=3 bundles, max h⁰=12 ★★★ HIT ★★★ [NF]
+  poly  43: n_toric=16, h11_eff=11,  396 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  44: n_toric=23, h11_eff=16, 1482 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  45: n_toric=19, h11_eff=13, 1138 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  46: n_toric=18, h11_eff=13, 1336 χ=3 bundles, max h⁰=1 [NF]
+  poly  47: n_toric=19, h11_eff=13, 1572 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  48: n_toric=20, h11_eff=13, 1536 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  49: n_toric=20, h11_eff=15, 2648 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  50: n_toric=19, h11_eff=14, 1624 χ=3 bundles, max h⁰=1 [NF]
+  poly  51: n_toric=19, h11_eff=14, 1950 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  52: n_toric=19, h11_eff=14, 1800 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  53: n_toric=19, h11_eff=14, 1968 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  54: n_toric=19, h11_eff=14, 1634 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  55: n_toric=20, h11_eff=15, 2140 χ=3 bundles, max h⁰=1 [NF]
+  poly  56: n_toric=21, h11_eff=16, 1554 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  57: n_toric=19, h11_eff=14, 1784 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  58: n_toric=18, h11_eff=13, 1878 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  59: n_toric=21, h11_eff=15, 2480 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  60: n_toric=20, h11_eff=15, 2188 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  61: n_toric=20, h11_eff=15, 3054 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  62: n_toric=19, h11_eff=14, 2040 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  63: n_toric=18, h11_eff=13, 1510 χ=3 bundles, max h⁰=12 ★★★ HIT ★★★ [NF]
+  poly  64: n_toric=20, h11_eff=14, 1744 χ=3 bundles, max h⁰=1 [NF]
+  poly  65: n_toric=20, h11_eff=14, 1608 χ=3 bundles, max h⁰=1 [NF]
+  poly  66: n_toric=20, h11_eff=15, 2192 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  67: n_toric=24, h11_eff=17, 1332 χ=3 bundles, max h⁰=1
+  poly  68: n_toric=20, h11_eff=15, 2444 χ=3 bundles, max h⁰=1 [NF]
+  poly  69: n_toric=23, h11_eff=17, 1714 χ=3 bundles, max h⁰=1
+  poly  70: n_toric=20, h11_eff=15, 3158 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  71: n_toric=21, h11_eff=16, 1228 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  72: n_toric=20, h11_eff=15, 2682 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  73: n_toric=23, h11_eff=17, 1578 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  74: n_toric=18, h11_eff=13, 1606 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  75: n_toric=22, h11_eff=16, 1334 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  76: n_toric=22, h11_eff=16, 1128 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  77: n_toric=25, h11_eff=17, 2042 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  78: n_toric=21, h11_eff=16, 1228 χ=3 bundles, max h⁰=1 [NF]
+  poly  79: n_toric=23, h11_eff=17, 1540 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  80: n_toric=24, h11_eff=17, 2016 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  81: n_toric=20, h11_eff=15, 2164 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  82: n_toric=22, h11_eff=16, 1190 χ=3 bundles, max h⁰=1 [NF]
+  poly  83: n_toric=24, h11_eff=17, 1472 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  84: n_toric=22, h11_eff=17, 1056 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  85: n_toric=21, h11_eff=16, 1290 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  86: n_toric=20, h11_eff=15, 2558 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  87: n_toric=22, h11_eff=17, 1292 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  88: n_toric=23, h11_eff=17, 1910 χ=3 bundles, max h⁰=1
+  poly  89: n_toric=19, h11_eff=14, 2394 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  90: n_toric=18, h11_eff=13, 2342 χ=3 bundles, max h⁰=16 ★★★ HIT ★★★ [NF]
+  poly  91: n_toric=22, h11_eff=16, 1378 χ=3 bundles, max h⁰=1 [NF]
+  poly  92: n_toric=22, h11_eff=16, 1108 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  93: n_toric=20, h11_eff=15, 3344 χ=3 bundles, max h⁰=1 [NF]
+  poly  94: n_toric=23, h11_eff=17, 2126 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  95: n_toric=21, h11_eff=15, 1950 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  96: n_toric=18, h11_eff=13, 1282 χ=3 bundles, max h⁰=37 ★★★ HIT ★★★ [NF]
+  poly  97: n_toric=23, h11_eff=17, 1478 χ=3 bundles, max h⁰=1
+  poly  98: n_toric=22, h11_eff=16, 1432 χ=3 bundles, max h⁰=1 [NF]
+  poly  99: n_toric=21, h11_eff=16, 1254 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+
+────────────────────────────────────────────────────────────
+  h11=18, h21=21  —  100 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=26, h11_eff=18, 2510 χ=3 bundles, max h⁰=1
+  poly   1: n_toric=15, h11_eff=10, 1844 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly   2: n_toric=26, h11_eff=18, 2642 χ=3 bundles, max h⁰=1
+  poly   3: n_toric=26, h11_eff=18, 2674 χ=3 bundles, max h⁰=1
+  poly   4: n_toric=27, h11_eff=18, 1526 χ=3 bundles, max h⁰=1
+  poly   5: n_toric=26, h11_eff=18, 2004 χ=3 bundles, max h⁰=1
+  poly   6: n_toric=18, h11_eff=12, 1572 χ=3 bundles, max h⁰=22 ★★★ HIT ★★★ [NF]
+  poly   7: n_toric=26, h11_eff=18, 1362 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly   8: n_toric=20, h11_eff=14, 2138 χ=3 bundles, max h⁰=16 ★★★ HIT ★★★ [NF]
+  poly   9: n_toric=23, h11_eff=16, 1510 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  10: n_toric=25, h11_eff=18, 2348 χ=3 bundles, max h⁰=1
+  poly  11: n_toric=23, h11_eff=16,  994 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  12: n_toric=23, h11_eff=16, 1444 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  13: n_toric=24, h11_eff=17, 1816 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  14: n_toric=24, h11_eff=17, 2074 χ=3 bundles, max h⁰=1 [NF]
+  poly  15: n_toric=24, h11_eff=17, 1834 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  16: n_toric=25, h11_eff=18, 2478 χ=3 bundles, max h⁰=1
+  poly  17: n_toric=25, h11_eff=18, 2228 χ=3 bundles, max h⁰=1
+  poly  18: n_toric=25, h11_eff=18, 1958 χ=3 bundles, max h⁰=1
+  poly  19: n_toric=25, h11_eff=18, 2624 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  20: n_toric=25, h11_eff=18, 2414 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  21: n_toric=25, h11_eff=18, 2946 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  22: n_toric=25, h11_eff=18, 2930 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  23: n_toric=22, h11_eff=15, 2092 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  24: n_toric=22, h11_eff=15, 1804 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  25: n_toric=23, h11_eff=16, 1828 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  26: n_toric=24, h11_eff=17, 2332 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  27: n_toric=25, h11_eff=18, 2142 χ=3 bundles, max h⁰=1
+  poly  28: n_toric=25, h11_eff=18, 2162 χ=3 bundles, max h⁰=1
+  poly  29: n_toric=24, h11_eff=17, 1784 χ=3 bundles, max h⁰=1 [NF]
+  poly  30: n_toric=23, h11_eff=16, 1510 χ=3 bundles, max h⁰=1 [NF]
+  poly  31: n_toric=21, h11_eff=14, 1424 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  32: n_toric=20, h11_eff=14, 1672 χ=3 bundles, max h⁰=30 ★★★ HIT ★★★ [NF]
+  poly  33: n_toric=22, h11_eff=15, 1524 χ=3 bundles, max h⁰=1 [NF]
+  poly  34: n_toric=18, h11_eff=13, 1344 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly  35: n_toric=15, h11_eff=10,  660 χ=3 bundles, max h⁰=8 ★★★ HIT ★★★ [NF]
+  poly  36: n_toric=15, h11_eff=10,  828 χ=3 bundles, max h⁰=16 ★★★ HIT ★★★ [NF]
+  poly  37: n_toric=20, h11_eff=15, 1886 χ=3 bundles, max h⁰=1 [NF]
+  poly  38: n_toric=24, h11_eff=18, 2588 χ=3 bundles, max h⁰=1
+  poly  39: n_toric=22, h11_eff=16, 1164 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  40: n_toric=19, h11_eff=14, 2104 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  41: n_toric=15, h11_eff=10,  674 χ=3 bundles, max h⁰=17 ★★★ HIT ★★★ [NF]
+  poly  42: n_toric=21, h11_eff=15, 2544 χ=3 bundles, max h⁰=8 ★★★ HIT ★★★ [NF]
+  poly  43: n_toric=23, h11_eff=16, 1614 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  44: n_toric=24, h11_eff=18, 2446 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★
+  poly  45: n_toric=21, h11_eff=15, 2114 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  46: n_toric=22, h11_eff=16, 1418 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  47: n_toric=22, h11_eff=16, 1342 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  48: n_toric=23, h11_eff=17, 1592 χ=3 bundles, max h⁰=1 [NF]
+  poly  49: n_toric=24, h11_eff=18, 2300 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  50: n_toric=24, h11_eff=18, 2100 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  51: n_toric=20, h11_eff=14, 1912 χ=3 bundles, max h⁰=1 [NF]
+  poly  52: n_toric=17, h11_eff=12, 1246 χ=3 bundles, max h⁰=1 [NF]
+  poly  53: n_toric=26, h11_eff=18, 1344 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★
+  poly  54: n_toric=15, h11_eff=10,  748 χ=3 bundles, max h⁰=16 ★★★ HIT ★★★ [NF]
+  poly  55: n_toric=20, h11_eff=14, 1818 χ=3 bundles, max h⁰=1 [NF]
+  poly  56: n_toric=21, h11_eff=16, 1310 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  57: n_toric=18, h11_eff=12, 1592 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  58: n_toric=23, h11_eff=16, 2192 χ=3 bundles, max h⁰=1 [NF]
+  poly  59: n_toric=21, h11_eff=14, 2420 χ=3 bundles, max h⁰=14 ★★★ HIT ★★★ [NF]
+  poly  60: n_toric=22, h11_eff=16, 2098 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  61: n_toric=21, h11_eff=14, 2042 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  62: n_toric=19, h11_eff=14, 1552 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  63: n_toric=19, h11_eff=14, 2212 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  64: n_toric=26, h11_eff=18, 2078 χ=3 bundles, max h⁰=1
+  poly  65: n_toric=23, h11_eff=18, 2328 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  66: n_toric=23, h11_eff=16, 2536 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  67: n_toric=22, h11_eff=16, 1420 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  68: n_toric=23, h11_eff=16, 1534 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  69: n_toric=21, h11_eff=15, 2360 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  70: n_toric=25, h11_eff=18, 1806 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  71: n_toric=24, h11_eff=17, 1586 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  72: n_toric=21, h11_eff=15, 1940 χ=3 bundles, max h⁰=21 ★★★ HIT ★★★ [NF]
+  poly  73: n_toric=25, h11_eff=18, 1664 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  74: n_toric=21, h11_eff=15, 1560 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  75: n_toric=21, h11_eff=15, 2052 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  76: n_toric=21, h11_eff=14, 1656 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  77: n_toric=22, h11_eff=16,  986 χ=3 bundles, max h⁰=1 [NF]
+  poly  78: n_toric=23, h11_eff=18, 1734 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  79: n_toric=23, h11_eff=18, 2198 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  80: n_toric=23, h11_eff=18, 1786 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  81: n_toric=23, h11_eff=16, 1654 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  82: n_toric=23, h11_eff=18, 2204 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  83: n_toric=23, h11_eff=18, 1986 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  84: n_toric=19, h11_eff=14, 1574 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  85: n_toric=22, h11_eff=16, 1128 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  86: n_toric=22, h11_eff=16, 1076 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  87: n_toric=22, h11_eff=16, 1540 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  88: n_toric=22, h11_eff=16, 1346 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  89: n_toric=22, h11_eff=16, 1374 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  90: n_toric=23, h11_eff=17, 1456 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  91: n_toric=23, h11_eff=17, 1494 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  92: n_toric=23, h11_eff=17, 1782 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  93: n_toric=23, h11_eff=17, 1564 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  94: n_toric=23, h11_eff=17, 1490 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  95: n_toric=23, h11_eff=17, 1564 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  96: n_toric=23, h11_eff=17, 1780 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  97: n_toric=24, h11_eff=18, 2028 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  98: n_toric=24, h11_eff=18, 1936 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  99: n_toric=24, h11_eff=18, 1844 χ=3 bundles, max h⁰=1
+
+────────────────────────────────────────────────────────────
+  h11=19, h21=22  —  100 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=24, h11_eff=17, 2438 χ=3 bundles, max h⁰=1 [NF]
+  poly   1: n_toric=27, h11_eff=19, 2440 χ=3 bundles, max h⁰=1
+  poly   2: n_toric=21, h11_eff=16, 1392 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly   3: n_toric=24, h11_eff=17, 2078 χ=3 bundles, max h⁰=1 [NF]
+  poly   4: n_toric=24, h11_eff=17, 2526 χ=3 bundles, max h⁰=1 [NF]
+  poly   5: n_toric=21, h11_eff=15, 2290 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly   6: n_toric=21, h11_eff=16, 1390 χ=3 bundles, max h⁰=1 [NF]
+  poly   7: n_toric=18, h11_eff=13, 1378 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly   8: n_toric=21, h11_eff=16, 1236 χ=3 bundles, max h⁰=1 [NF]
+  poly   9: n_toric=23, h11_eff=17, 2336 χ=3 bundles, max h⁰=1 [NF]
+  poly  10: n_toric=21, h11_eff=15, 2564 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  11: n_toric=22, h11_eff=16, 1736 χ=3 bundles, max h⁰=1 [NF]
+  poly  12: n_toric=23, h11_eff=17, 1990 χ=3 bundles, max h⁰=1 [NF]
+  poly  13: n_toric=22, h11_eff=17, 1788 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  14: n_toric=22, h11_eff=16, 1426 χ=3 bundles, max h⁰=1 [NF]
+  poly  15: n_toric=19, h11_eff=14, 1680 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  16: n_toric=17, h11_eff=12,  976 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  17: n_toric=23, h11_eff=17, 1882 χ=3 bundles, max h⁰=1 [NF]
+  poly  18: n_toric=21, h11_eff=15, 2302 χ=3 bundles, max h⁰=1 [NF]
+  poly  19: n_toric=22, h11_eff=16, 1250 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  20: n_toric=21, h11_eff=15, 2490 χ=3 bundles, max h⁰=1 [NF]
+  poly  21: n_toric=24, h11_eff=17,  892 χ=3 bundles, max h⁰=1 [NF]
+  poly  22: n_toric=22, h11_eff=17, 1238 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  23: n_toric=25, h11_eff=18, 1058 χ=3 bundles, max h⁰=1 [NF]
+  poly  24: n_toric=26, h11_eff=19, 1944 χ=3 bundles, max h⁰=1
+  poly  25: n_toric=24, h11_eff=19, 1688 χ=3 bundles, max h⁰=1
+  poly  26: n_toric=22, h11_eff=16, 2022 χ=3 bundles, max h⁰=1 [NF]
+  poly  27: n_toric=23, h11_eff=17, 2298 χ=3 bundles, max h⁰=1 [NF]
+  poly  28: n_toric=23, h11_eff=17, 2002 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  29: n_toric=21, h11_eff=15, 2756 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  30: n_toric=22, h11_eff=16, 1516 χ=3 bundles, max h⁰=1 [NF]
+  poly  31: n_toric=24, h11_eff=17, 2168 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  32: n_toric=23, h11_eff=17, 2102 χ=3 bundles, max h⁰=1 [NF]
+  poly  33: n_toric=25, h11_eff=18, 2156 χ=3 bundles, max h⁰=1 [NF]
+  poly  34: n_toric=22, h11_eff=17, 2244 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  35: n_toric=20, h11_eff=15, 1944 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  36: n_toric=20, h11_eff=15, 2684 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  37: n_toric=23, h11_eff=18, 1360 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  38: n_toric=22, h11_eff=16, 1184 χ=3 bundles, max h⁰=1 [NF]
+  poly  39: n_toric=23, h11_eff=17, 1312 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  40: n_toric=21, h11_eff=15, 2816 χ=3 bundles, max h⁰=1 [NF]
+  poly  41: n_toric=22, h11_eff=16, 1788 χ=3 bundles, max h⁰=1 [NF]
+  poly  42: n_toric=23, h11_eff=17, 2220 χ=3 bundles, max h⁰=1 [NF]
+  poly  43: n_toric=26, h11_eff=19, 2242 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★
+  poly  44: n_toric=24, h11_eff=18,  966 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  45: n_toric=24, h11_eff=19, 1578 χ=3 bundles, max h⁰=1
+  poly  46: n_toric=21, h11_eff=15, 2570 χ=3 bundles, max h⁰=1 [NF]
+  poly  47: n_toric=23, h11_eff=17, 2244 χ=3 bundles, max h⁰=1 [NF]
+  poly  48: n_toric=22, h11_eff=16, 1548 χ=3 bundles, max h⁰=1 [NF]
+  poly  49: n_toric=24, h11_eff=17, 2360 χ=3 bundles, max h⁰=1 [NF]
+  poly  50: n_toric=19, h11_eff=14, 1550 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  51: n_toric=26, h11_eff=19, 1680 χ=3 bundles, max h⁰=1
+  poly  52: n_toric=21, h11_eff=15, 2134 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  53: n_toric=20, h11_eff=15, 1842 χ=3 bundles, max h⁰=16 ★★★ HIT ★★★ [NF]
+  poly  54: n_toric=20, h11_eff=15, 2622 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  55: n_toric=22, h11_eff=17, 2146 χ=3 bundles, max h⁰=1 [NF]
+  poly  56: n_toric=21, h11_eff=16, 1558 χ=3 bundles, max h⁰=1 [NF]
+  poly  57: n_toric=22, h11_eff=17, 2344 χ=3 bundles, max h⁰=1 [NF]
+  poly  58: n_toric=22, h11_eff=17, 2164 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  59: n_toric=21, h11_eff=16, 1366 χ=3 bundles, max h⁰=1 [NF]
+  poly  60: n_toric=21, h11_eff=16, 1670 χ=3 bundles, max h⁰=1 [NF]
+  poly  61: n_toric=20, h11_eff=15, 3298 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  62: n_toric=22, h11_eff=17, 2138 χ=3 bundles, max h⁰=1 [NF]
+  poly  63: n_toric=22, h11_eff=17, 2012 χ=3 bundles, max h⁰=1 [NF]
+  poly  64: n_toric=17, h11_eff=11,  534 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  65: n_toric=26, h11_eff=19, 2248 χ=3 bundles, max h⁰=1
+  poly  66: n_toric=23, h11_eff=17, 1828 χ=3 bundles, max h⁰=8 ★★★ HIT ★★★ [NF]
+  poly  67: n_toric=19, h11_eff=14, 1802 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  68: n_toric=20, h11_eff=15, 1646 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  69: n_toric=21, h11_eff=15, 2356 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  70: n_toric=22, h11_eff=15, 3024 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  71: n_toric=24, h11_eff=17, 2266 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  72: n_toric=21, h11_eff=15, 2806 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  73: n_toric=23, h11_eff=18, 1932 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  74: n_toric=24, h11_eff=18, 1982 χ=3 bundles, max h⁰=1 [NF]
+  poly  75: n_toric=23, h11_eff=18, 1704 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  76: n_toric=20, h11_eff=15, 2968 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  77: n_toric=23, h11_eff=17, 1944 χ=3 bundles, max h⁰=1 [NF]
+  poly  78: n_toric=22, h11_eff=15, 2270 χ=3 bundles, max h⁰=19 ★★★ HIT ★★★ [NF]
+  poly  79: n_toric=18, h11_eff=13, 1978 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  80: n_toric=25, h11_eff=19, 1690 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★
+  poly  81: n_toric=23, h11_eff=17, 1288 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  82: n_toric=22, h11_eff=16, 1360 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  83: n_toric=20, h11_eff=15, 2394 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  84: n_toric=21, h11_eff=16, 1560 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  85: n_toric=20, h11_eff=15, 2310 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  86: n_toric=26, h11_eff=19, 2042 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★
+  poly  87: n_toric=24, h11_eff=17, 2754 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  88: n_toric=20, h11_eff=15, 2276 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  89: n_toric=19, h11_eff=14, 2118 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  90: n_toric=24, h11_eff=17,  922 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  91: n_toric=25, h11_eff=17, 1932 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  92: n_toric=20, h11_eff=15, 2200 χ=3 bundles, max h⁰=1 [NF]
+  poly  93: n_toric=24, h11_eff=18, 1320 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  94: n_toric=20, h11_eff=15, 2954 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  95: n_toric=23, h11_eff=17, 1296 χ=3 bundles, max h⁰=1 [NF]
+  poly  96: n_toric=21, h11_eff=15, 2136 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  97: n_toric=22, h11_eff=16, 1392 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  98: n_toric=20, h11_eff=15, 2784 χ=3 bundles, max h⁰=23 ★★★ HIT ★★★ [NF]
+  poly  99: n_toric=21, h11_eff=16, 1312 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+
+────────────────────────────────────────────────────────────
+  h11=20, h21=23  —  100 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=23, h11_eff=17, 1570 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   1: n_toric=23, h11_eff=18, 2282 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   2: n_toric=23, h11_eff=18, 2192 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   3: n_toric=23, h11_eff=17, 1542 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   4: n_toric=27, h11_eff=20, 2124 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly   5: n_toric=27, h11_eff=20, 2088 χ=3 bundles, max h⁰=1
+  poly   6: n_toric=27, h11_eff=20, 2276 χ=3 bundles, max h⁰=1
+  poly   7: n_toric=25, h11_eff=19, 1960 χ=3 bundles, max h⁰=1 [NF]
+  poly   8: n_toric=25, h11_eff=19, 2170 χ=3 bundles, max h⁰=1 [NF]
+  poly   9: n_toric=25, h11_eff=20, 2238 χ=3 bundles, max h⁰=1
+  poly  10: n_toric=24, h11_eff=18, 2018 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  11: n_toric=24, h11_eff=18, 2202 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  12: n_toric=24, h11_eff=19, 2142 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  13: n_toric=24, h11_eff=19, 2022 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  14: n_toric=24, h11_eff=17, 1486 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  15: n_toric=24, h11_eff=18, 1818 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  16: n_toric=24, h11_eff=18, 1942 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  17: n_toric=26, h11_eff=20, 2018 χ=3 bundles, max h⁰=1
+  poly  18: n_toric=26, h11_eff=20, 1982 χ=3 bundles, max h⁰=1
+  poly  19: n_toric=25, h11_eff=19, 2036 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  20: n_toric=24, h11_eff=18, 2192 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  21: n_toric=25, h11_eff=19, 2142 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  22: n_toric=27, h11_eff=20, 1704 χ=3 bundles, max h⁰=1
+  poly  23: n_toric=28, h11_eff=20, 1420 χ=3 bundles, max h⁰=1
+  poly  24: n_toric=26, h11_eff=20, 2054 χ=3 bundles, max h⁰=1
+  poly  25: n_toric=28, h11_eff=20, 2480 χ=3 bundles, max h⁰=1
+  poly  26: n_toric=21, h11_eff=16, 1482 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  27: n_toric=15, h11_eff=10,  408 χ=3 bundles, max h⁰=30 ★★★ HIT ★★★ [NF]
+  poly  28: n_toric=20, h11_eff=14, 2536 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  29: n_toric=26, h11_eff=20, 2214 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  30: n_toric=22, h11_eff=17, 1680 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  31: n_toric=26, h11_eff=19, 2088 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  32: n_toric=20, h11_eff=15, 2654 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  33: n_toric=23, h11_eff=17, 1608 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  34: n_toric=26, h11_eff=19, 2806 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  35: n_toric=26, h11_eff=20, 2912 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  36: n_toric=24, h11_eff=18, 1654 χ=3 bundles, max h⁰=1 [NF]
+  poly  37: n_toric=22, h11_eff=17, 1764 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  38: n_toric=24, h11_eff=19, 1946 χ=3 bundles, max h⁰=1 [NF]
+  poly  39: n_toric=22, h11_eff=17, 1702 χ=3 bundles, max h⁰=1 [NF]
+  poly  40: n_toric=29, h11_eff=20, 2290 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★
+  poly  41: n_toric=26, h11_eff=19, 2226 χ=3 bundles, max h⁰=1 [NF]
+  poly  42: n_toric=16, h11_eff=11, 1098 χ=3 bundles, max h⁰=16 ★★★ HIT ★★★ [NF]
+  poly  43: n_toric=21, h11_eff=16, 1988 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  44: n_toric=20, h11_eff=15, 3158 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  45: n_toric=19, h11_eff=14, 2066 χ=3 bundles, max h⁰=24 ★★★ HIT ★★★ [NF]
+  poly  46: n_toric=21, h11_eff=15, 3250 χ=3 bundles, max h⁰=17 ★★★ HIT ★★★ [NF]
+  poly  47: n_toric=24, h11_eff=17, 2226 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  48: n_toric=21, h11_eff=16, 1594 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  49: n_toric=21, h11_eff=16, 1428 χ=3 bundles, max h⁰=1 [NF]
+  poly  50: n_toric=25, h11_eff=20, 2602 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  51: n_toric=26, h11_eff=19, 2098 χ=3 bundles, max h⁰=1 [NF]
+  poly  52: n_toric=26, h11_eff=18, 2172 χ=3 bundles, max h⁰=1 [NF]
+  poly  53: n_toric=20, h11_eff=14, 2486 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  54: n_toric=23, h11_eff=16, 1060 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  55: n_toric=27, h11_eff=19, 2156 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  56: n_toric=26, h11_eff=18, 1886 χ=3 bundles, max h⁰=8 ★★★ HIT ★★★ [NF]
+  poly  57: n_toric=30, h11_eff=20, 2424 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  58: n_toric=30, h11_eff=20, 2900 χ=3 bundles, max h⁰=1
+  poly  59: n_toric=26, h11_eff=19, 2222 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  60: n_toric=28, h11_eff=20, 2052 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  61: n_toric=25, h11_eff=19, 2600 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  62: n_toric=25, h11_eff=18, 1506 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  63: n_toric=26, h11_eff=18, 1994 χ=3 bundles, max h⁰=12 ★★★ HIT ★★★ [NF]
+  poly  64: n_toric=25, h11_eff=19, 1840 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  65: n_toric=30, h11_eff=20, 2558 χ=3 bundles, max h⁰=1
+  poly  66: n_toric=26, h11_eff=20, 2114 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  67: n_toric=26, h11_eff=18, 1834 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  68: n_toric=25, h11_eff=18, 2578 χ=3 bundles, max h⁰=1 [NF]
+  poly  69: n_toric=23, h11_eff=16, 1798 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  70: n_toric=20, h11_eff=14, 1720 χ=3 bundles, max h⁰=19 ★★★ HIT ★★★ [NF]
+  poly  71: n_toric=23, h11_eff=15, 2144 χ=3 bundles, max h⁰=30 ★★★ HIT ★★★ [NF]
+  poly  72: n_toric=27, h11_eff=18, 1680 χ=3 bundles, max h⁰=1 [NF]
+  poly  73: n_toric=23, h11_eff=17, 1326 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  74: n_toric=15, h11_eff=10,  352 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  75: n_toric=26, h11_eff=20, 2148 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  76: n_toric=25, h11_eff=18, 2060 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  77: n_toric=25, h11_eff=19, 2020 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  78: n_toric=25, h11_eff=20, 2252 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  79: n_toric=25, h11_eff=20, 2654 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  80: n_toric=26, h11_eff=19, 1990 χ=3 bundles, max h⁰=1 [NF]
+  poly  81: n_toric=26, h11_eff=20, 2082 χ=3 bundles, max h⁰=1
+  poly  82: n_toric=26, h11_eff=20, 2182 χ=3 bundles, max h⁰=1
+  poly  83: n_toric=26, h11_eff=19, 1950 χ=3 bundles, max h⁰=1 [NF]
+  poly  84: n_toric=26, h11_eff=20, 2106 χ=3 bundles, max h⁰=1
+  poly  85: n_toric=26, h11_eff=20, 2102 χ=3 bundles, max h⁰=1
+  poly  86: n_toric=25, h11_eff=19, 2002 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  87: n_toric=25, h11_eff=18, 2234 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  88: n_toric=25, h11_eff=19, 2108 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  89: n_toric=25, h11_eff=19, 1884 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  90: n_toric=25, h11_eff=19, 1900 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  91: n_toric=22, h11_eff=17, 1508 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  92: n_toric=25, h11_eff=17, 1556 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  93: n_toric=23, h11_eff=16, 2222 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  94: n_toric=22, h11_eff=15, 2172 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  95: n_toric=25, h11_eff=18, 2504 χ=3 bundles, max h⁰=1 [NF]
+  poly  96: n_toric=24, h11_eff=18, 2298 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  97: n_toric=28, h11_eff=20, 2818 χ=3 bundles, max h⁰=1
+  poly  98: n_toric=23, h11_eff=18, 2008 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  99: n_toric=23, h11_eff=18, 2430 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+
+────────────────────────────────────────────────────────────
+  h11=21, h21=24  —  100 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=22, h11_eff=17, 2680 χ=3 bundles, max h⁰=1 [NF]
+  poly   1: n_toric=23, h11_eff=18, 2138 χ=3 bundles, max h⁰=1 [NF]
+  poly   2: n_toric=23, h11_eff=18, 2034 χ=3 bundles, max h⁰=1 [NF]
+  poly   3: n_toric=24, h11_eff=17, 2238 χ=3 bundles, max h⁰=1 [NF]
+  poly   4: n_toric=23, h11_eff=17, 2208 χ=3 bundles, max h⁰=1 [NF]
+  poly   5: n_toric=23, h11_eff=17, 2288 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly   6: n_toric=28, h11_eff=19, 2668 χ=3 bundles, max h⁰=1 [NF]
+  poly   7: n_toric=25, h11_eff=19, 2848 χ=3 bundles, max h⁰=1 [NF]
+  poly   8: n_toric=24, h11_eff=19, 2698 χ=3 bundles, max h⁰=1 [NF]
+  poly   9: n_toric=23, h11_eff=18, 2438 χ=3 bundles, max h⁰=1 [NF]
+  poly  10: n_toric=20, h11_eff=15, 2512 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  11: n_toric=26, h11_eff=20, 2152 χ=3 bundles, max h⁰=1 [NF]
+  poly  12: n_toric=24, h11_eff=18, 2346 χ=3 bundles, max h⁰=1 [NF]
+  poly  13: n_toric=34, h11_eff=21,   38 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  14: n_toric=25, h11_eff=19, 2530 χ=3 bundles, max h⁰=1 [NF]
+  poly  15: n_toric=24, h11_eff=19, 1832 χ=3 bundles, max h⁰=1 [NF]
+  poly  16: n_toric=24, h11_eff=19, 2194 χ=3 bundles, max h⁰=1 [NF]
+  poly  17: n_toric=26, h11_eff=19, 2844 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  18: n_toric=26, h11_eff=21,   90 χ=3 bundles, max h⁰=1
+  poly  19: n_toric=22, h11_eff=16, 1646 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  20: n_toric=26, h11_eff=19, 2328 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  21: n_toric=25, h11_eff=20, 2608 χ=3 bundles, max h⁰=1 [NF]
+  poly  22: n_toric=25, h11_eff=20, 2448 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  23: n_toric=25, h11_eff=19, 2912 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  24: n_toric=24, h11_eff=19, 2702 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  25: n_toric=24, h11_eff=19, 2070 χ=3 bundles, max h⁰=1 [NF]
+  poly  26: n_toric=23, h11_eff=17, 2258 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  27: n_toric=24, h11_eff=18, 2726 χ=3 bundles, max h⁰=1 [NF]
+  poly  28: n_toric=23, h11_eff=17, 2156 χ=3 bundles, max h⁰=1 [NF]
+  poly  29: n_toric=24, h11_eff=19, 1734 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  30: n_toric=24, h11_eff=18, 1992 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  31: n_toric=25, h11_eff=19, 2532 χ=3 bundles, max h⁰=1 [NF]
+  poly  32: n_toric=24, h11_eff=18, 2198 χ=3 bundles, max h⁰=1 [NF]
+  poly  33: n_toric=26, h11_eff=18, 1758 χ=3 bundles, max h⁰=1 [NF]
+  poly  34: n_toric=25, h11_eff=19, 2688 χ=3 bundles, max h⁰=1 [NF]
+  poly  35: n_toric=25, h11_eff=19, 2530 χ=3 bundles, max h⁰=1 [NF]
+  poly  36: n_toric=27, h11_eff=19, 2062 χ=3 bundles, max h⁰=1 [NF]
+  poly  37: n_toric=28, h11_eff=21,  140 χ=3 bundles, max h⁰=1
+  poly  38: n_toric=25, h11_eff=20, 2646 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  39: n_toric=26, h11_eff=19, 1858 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  40: n_toric=27, h11_eff=21,  116 χ=3 bundles, max h⁰=1
+  poly  41: n_toric=26, h11_eff=20, 2902 χ=3 bundles, max h⁰=1 [NF]
+  poly  42: n_toric=26, h11_eff=19, 2754 χ=3 bundles, max h⁰=1 [NF]
+  poly  43: n_toric=29, h11_eff=21,   58 χ=3 bundles, max h⁰=1
+  poly  44: n_toric=25, h11_eff=19, 2794 χ=3 bundles, max h⁰=1 [NF]
+  poly  45: n_toric=24, h11_eff=19, 2634 χ=3 bundles, max h⁰=1 [NF]
+  poly  46: n_toric=26, h11_eff=20, 2402 χ=3 bundles, max h⁰=1 [NF]
+  poly  47: n_toric=36, h11_eff=21,   48 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  48: n_toric=19, h11_eff=14, 2470 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  49: n_toric=22, h11_eff=17, 1426 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  50: n_toric=21, h11_eff=16, 1314 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  51: n_toric=21, h11_eff=16, 1584 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  52: n_toric=22, h11_eff=16, 1418 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  53: n_toric=20, h11_eff=15, 3022 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  54: n_toric=28, h11_eff=20, 2268 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  55: n_toric=25, h11_eff=18, 2554 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  56: n_toric=22, h11_eff=15, 2694 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  57: n_toric=25, h11_eff=17, 2558 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  58: n_toric=28, h11_eff=20, 2030 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  59: n_toric=27, h11_eff=19, 2436 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  60: n_toric=27, h11_eff=19, 2632 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  61: n_toric=30, h11_eff=21,  162 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  62: n_toric=27, h11_eff=19, 2476 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  63: n_toric=24, h11_eff=17, 1546 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  64: n_toric=23, h11_eff=17, 1864 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  65: n_toric=26, h11_eff=19, 2324 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  66: n_toric=30, h11_eff=21,  124 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  67: n_toric=29, h11_eff=21,  132 χ=3 bundles, max h⁰=1
+  poly  68: n_toric=25, h11_eff=19, 2366 χ=3 bundles, max h⁰=1 [NF]
+  poly  69: n_toric=29, h11_eff=21,  148 χ=3 bundles, max h⁰=1
+  poly  70: n_toric=27, h11_eff=21,   58 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  71: n_toric=29, h11_eff=21,   58 χ=3 bundles, max h⁰=1
+  poly  72: n_toric=26, h11_eff=19, 2062 χ=3 bundles, max h⁰=1 [NF]
+  poly  73: n_toric=28, h11_eff=21,  200 χ=3 bundles, max h⁰=1
+  poly  74: n_toric=29, h11_eff=21,  194 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  75: n_toric=24, h11_eff=17, 1800 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  76: n_toric=28, h11_eff=21,  130 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  77: n_toric=28, h11_eff=21,  160 χ=3 bundles, max h⁰=1
+  poly  78: n_toric=25, h11_eff=18, 1682 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  79: n_toric=25, h11_eff=18, 1866 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  80: n_toric=23, h11_eff=18, 1818 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  81: n_toric=28, h11_eff=21,  142 χ=3 bundles, max h⁰=1
+  poly  82: n_toric=28, h11_eff=20, 1820 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  83: n_toric=25, h11_eff=17, 2218 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  84: n_toric=22, h11_eff=17, 1388 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly  85: n_toric=25, h11_eff=18, 1588 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  86: n_toric=22, h11_eff=16, 1468 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  87: n_toric=19, h11_eff=14, 1926 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  88: n_toric=28, h11_eff=19, 3472 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  89: n_toric=28, h11_eff=21,  152 χ=3 bundles, max h⁰=1
+  poly  90: n_toric=29, h11_eff=21,  176 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  91: n_toric=26, h11_eff=20, 2220 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  92: n_toric=25, h11_eff=20, 1916 χ=3 bundles, max h⁰=1 [NF]
+  poly  93: n_toric=31, h11_eff=21,  122 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  94: n_toric=28, h11_eff=20, 2422 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  95: n_toric=25, h11_eff=19, 2406 χ=3 bundles, max h⁰=1 [NF]
+  poly  96: n_toric=26, h11_eff=19, 2336 χ=3 bundles, max h⁰=1 [NF]
+  poly  97: n_toric=22, h11_eff=15, 2224 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  98: n_toric=29, h11_eff=21,   90 χ=3 bundles, max h⁰=1
+  poly  99: n_toric=29, h11_eff=21,  122 χ=3 bundles, max h⁰=2 (h⁰=2)
+
+────────────────────────────────────────────────────────────
+  h11=22, h21=25  —  100 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=26, h11_eff=18, 2156 χ=3 bundles, max h⁰=1 [NF]
+  poly   1: n_toric=23, h11_eff=18, 1738 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   2: n_toric=23, h11_eff=18, 1360 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   3: n_toric=25, h11_eff=18, 1282 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly   4: n_toric=27, h11_eff=20, 3208 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly   5: n_toric=24, h11_eff=17, 1272 χ=3 bundles, max h⁰=1 [NF]
+  poly   6: n_toric=25, h11_eff=18, 2174 χ=3 bundles, max h⁰=1 [NF]
+  poly   7: n_toric=25, h11_eff=18, 1934 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   8: n_toric=30, h11_eff=22,   56 χ=3 bundles, max h⁰=1
+  poly   9: n_toric=24, h11_eff=19, 1710 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  10: n_toric=27, h11_eff=22,  100 χ=3 bundles, max h⁰=1
+  poly  11: n_toric=26, h11_eff=21,  226 χ=3 bundles, max h⁰=1 [NF]
+  poly  12: n_toric=25, h11_eff=20, 2960 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  13: n_toric=28, h11_eff=22,   80 χ=3 bundles, max h⁰=1
+  poly  14: n_toric=24, h11_eff=18, 1628 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  15: n_toric=26, h11_eff=18, 2066 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  16: n_toric=26, h11_eff=18, 2536 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  17: n_toric=27, h11_eff=21,  158 χ=3 bundles, max h⁰=1 [NF]
+  poly  18: n_toric=24, h11_eff=19, 1774 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  19: n_toric=24, h11_eff=17, 1816 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  20: n_toric=32, h11_eff=22,  104 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  21: n_toric=26, h11_eff=21,  210 χ=3 bundles, max h⁰=1 [NF]
+  poly  22: n_toric=25, h11_eff=20, 2646 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  23: n_toric=24, h11_eff=19, 2132 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  24: n_toric=25, h11_eff=19, 1610 χ=3 bundles, max h⁰=1 [NF]
+  poly  25: n_toric=32, h11_eff=22,  138 χ=3 bundles, max h⁰=1
+  poly  26: n_toric=29, h11_eff=22,   94 χ=3 bundles, max h⁰=1
+  poly  27: n_toric=22, h11_eff=17, 2224 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  28: n_toric=22, h11_eff=16, 1992 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  29: n_toric=30, h11_eff=22,  170 χ=3 bundles, max h⁰=1
+  poly  30: n_toric=23, h11_eff=16, 1676 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  31: n_toric=25, h11_eff=20, 2268 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  32: n_toric=25, h11_eff=18, 2750 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  33: n_toric=28, h11_eff=20, 3262 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  34: n_toric=25, h11_eff=20, 3028 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  35: n_toric=22, h11_eff=17, 1564 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  36: n_toric=28, h11_eff=21,  204 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  37: n_toric=28, h11_eff=21,  136 χ=3 bundles, max h⁰=1 [NF]
+  poly  38: n_toric=25, h11_eff=18, 2096 χ=3 bundles, max h⁰=1 [NF]
+  poly  39: n_toric=19, h11_eff=14, 2126 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  40: n_toric=25, h11_eff=19, 1516 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  41: n_toric=29, h11_eff=22,  120 χ=3 bundles, max h⁰=1
+  poly  42: n_toric=29, h11_eff=22,  176 χ=3 bundles, max h⁰=1
+  poly  43: n_toric=22, h11_eff=17, 1498 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  44: n_toric=21, h11_eff=16, 1940 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  45: n_toric=30, h11_eff=22,  132 χ=3 bundles, max h⁰=1
+  poly  46: n_toric=29, h11_eff=22,   90 χ=3 bundles, max h⁰=1
+  poly  47: n_toric=32, h11_eff=22,  156 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  48: n_toric=29, h11_eff=22,   86 χ=3 bundles, max h⁰=1
+  poly  49: n_toric=21, h11_eff=16, 1720 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  50: n_toric=22, h11_eff=16, 1862 χ=3 bundles, max h⁰=1 [NF]
+  poly  51: n_toric=29, h11_eff=21,  140 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  52: n_toric=23, h11_eff=17, 1466 χ=3 bundles, max h⁰=1 [NF]
+  poly  53: n_toric=24, h11_eff=18, 1624 χ=3 bundles, max h⁰=1 [NF]
+  poly  54: n_toric=28, h11_eff=20, 3160 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  55: n_toric=31, h11_eff=22,   74 χ=3 bundles, max h⁰=1
+  poly  56: n_toric=29, h11_eff=21,  128 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  57: n_toric=31, h11_eff=22,  170 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★
+  poly  58: n_toric=28, h11_eff=22,  104 χ=3 bundles, max h⁰=1
+  poly  59: n_toric=27, h11_eff=22,  144 χ=3 bundles, max h⁰=1
+  poly  60: n_toric=26, h11_eff=21,  228 χ=3 bundles, max h⁰=1 [NF]
+  poly  61: n_toric=28, h11_eff=22,  130 χ=3 bundles, max h⁰=1
+  poly  62: n_toric=32, h11_eff=22,   88 χ=3 bundles, max h⁰=1
+  poly  63: n_toric=28, h11_eff=22,  116 χ=3 bundles, max h⁰=1
+  poly  64: n_toric=27, h11_eff=22,  128 χ=3 bundles, max h⁰=1
+  poly  65: n_toric=27, h11_eff=21,  200 χ=3 bundles, max h⁰=1 [NF]
+  poly  66: n_toric=26, h11_eff=20, 2788 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  67: n_toric=25, h11_eff=20, 2676 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  68: n_toric=18, h11_eff=13, 1396 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  69: n_toric=25, h11_eff=20, 2578 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  70: n_toric=25, h11_eff=17, 1226 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  71: n_toric=25, h11_eff=18, 2078 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  72: n_toric=25, h11_eff=18, 2372 χ=3 bundles, max h⁰=1 [NF]
+  poly  73: n_toric=28, h11_eff=20, 3258 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  74: n_toric=22, h11_eff=17, 1600 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  75: n_toric=30, h11_eff=21,  108 χ=3 bundles, max h⁰=1 [NF]
+  poly  76: n_toric=27, h11_eff=20, 2254 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  77: n_toric=25, h11_eff=16, 1088 χ=3 bundles, max h⁰=14 ★★★ HIT ★★★ [NF]
+  poly  78: n_toric=25, h11_eff=17, 1160 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  79: n_toric=25, h11_eff=17, 1590 χ=3 bundles, max h⁰=14 ★★★ HIT ★★★ [NF]
+  poly  80: n_toric=30, h11_eff=20, 3030 χ=3 bundles, max h⁰=1 [NF]
+  poly  81: n_toric=32, h11_eff=22,   88 χ=3 bundles, max h⁰=1
+  poly  82: n_toric=23, h11_eff=18, 2288 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  83: n_toric=31, h11_eff=22,  130 χ=3 bundles, max h⁰=1
+  poly  84: n_toric=31, h11_eff=22,   80 χ=3 bundles, max h⁰=1
+  poly  85: n_toric=25, h11_eff=19, 1958 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  86: n_toric=28, h11_eff=22,  174 χ=3 bundles, max h⁰=1
+  poly  87: n_toric=32, h11_eff=22,  174 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  88: n_toric=32, h11_eff=22,  178 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  89: n_toric=32, h11_eff=22,  166 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  90: n_toric=25, h11_eff=17, 1448 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  91: n_toric=26, h11_eff=17, 1332 χ=3 bundles, max h⁰=15 ★★★ HIT ★★★ [NF]
+  poly  92: n_toric=32, h11_eff=22,  136 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  93: n_toric=22, h11_eff=17, 1532 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  94: n_toric=25, h11_eff=18, 2242 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  95: n_toric=25, h11_eff=18, 2380 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  96: n_toric=27, h11_eff=20, 2232 χ=3 bundles, max h⁰=1 [NF]
+  poly  97: n_toric=27, h11_eff=21,  158 χ=3 bundles, max h⁰=1 [NF]
+  poly  98: n_toric=27, h11_eff=21,  172 χ=3 bundles, max h⁰=1 [NF]
+  poly  99: n_toric=25, h11_eff=20, 2202 χ=3 bundles, max h⁰=1 [NF]
+
+────────────────────────────────────────────────────────────
+  h11=23, h21=26  —  100 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=33, h11_eff=23,  138 χ=3 bundles, max h⁰=1
+  poly   1: n_toric=28, h11_eff=19, 1938 χ=3 bundles, max h⁰=1 [NF]
+  poly   2: n_toric=24, h11_eff=17, 2266 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly   3: n_toric=24, h11_eff=17, 2180 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly   4: n_toric=32, h11_eff=23,  218 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly   5: n_toric=30, h11_eff=23,  166 χ=3 bundles, max h⁰=1
+  poly   6: n_toric=20, h11_eff=15, 1212 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly   7: n_toric=24, h11_eff=17, 2116 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly   8: n_toric=24, h11_eff=17, 2154 χ=3 bundles, max h⁰=1 [NF]
+  poly   9: n_toric=22, h11_eff=17, 1570 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  10: n_toric=22, h11_eff=17, 2346 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  11: n_toric=22, h11_eff=17, 2204 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  12: n_toric=22, h11_eff=16, 1440 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  13: n_toric=24, h11_eff=17, 1846 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  14: n_toric=23, h11_eff=17, 1624 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  15: n_toric=25, h11_eff=19, 2246 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  16: n_toric=22, h11_eff=17, 2000 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  17: n_toric=27, h11_eff=21,  154 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  18: n_toric=21, h11_eff=15, 1872 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  19: n_toric=32, h11_eff=23,  172 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  20: n_toric=29, h11_eff=21,  182 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  21: n_toric=27, h11_eff=19, 1884 χ=3 bundles, max h⁰=1 [NF]
+  poly  22: n_toric=20, h11_eff=15, 2194 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  23: n_toric=25, h11_eff=18, 1896 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  24: n_toric=26, h11_eff=21,  138 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  25: n_toric=24, h11_eff=19, 1942 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly  26: n_toric=32, h11_eff=23,  200 χ=3 bundles, max h⁰=1
+  poly  27: n_toric=25, h11_eff=20, 2398 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  28: n_toric=31, h11_eff=23,  168 χ=3 bundles, max h⁰=1
+  poly  29: n_toric=31, h11_eff=23,  172 χ=3 bundles, max h⁰=1
+  poly  30: n_toric=21, h11_eff=16, 1486 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  31: n_toric=25, h11_eff=20, 2472 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  32: n_toric=21, h11_eff=16, 1396 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  33: n_toric=29, h11_eff=22,  178 χ=3 bundles, max h⁰=1 [NF]
+  poly  34: n_toric=25, h11_eff=17, 1604 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  35: n_toric=22, h11_eff=15, 2116 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  36: n_toric=29, h11_eff=21,  102 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  37: n_toric=23, h11_eff=17, 1998 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  38: n_toric=22, h11_eff=17, 1168 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  39: n_toric=33, h11_eff=23,  144 χ=3 bundles, max h⁰=1
+  poly  40: n_toric=33, h11_eff=23,  102 χ=3 bundles, max h⁰=1
+  poly  41: n_toric=32, h11_eff=23,  130 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★
+  poly  42: n_toric=29, h11_eff=20, 2792 χ=3 bundles, max h⁰=1 [NF]
+  poly  43: n_toric=20, h11_eff=14, 1192 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  44: n_toric=22, h11_eff=14, 1078 χ=3 bundles, max h⁰=30 ★★★ HIT ★★★ [NF]
+  poly  45: n_toric=29, h11_eff=21,  168 χ=3 bundles, max h⁰=1 [NF]
+  poly  46: n_toric=23, h11_eff=17, 1742 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  47: n_toric=20, h11_eff=14, 1430 χ=3 bundles, max h⁰=30 ★★★ HIT ★★★ [NF]
+  poly  48: n_toric=29, h11_eff=21,  100 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  49: n_toric=22, h11_eff=15, 1986 χ=3 bundles, max h⁰=36 ★★★ HIT ★★★ [NF]
+  poly  50: n_toric=25, h11_eff=20, 2154 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  51: n_toric=26, h11_eff=19, 2548 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  52: n_toric=25, h11_eff=20, 2038 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  53: n_toric=22, h11_eff=17, 1352 χ=3 bundles, max h⁰=1 [NF]
+  poly  54: n_toric=25, h11_eff=20, 2786 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  55: n_toric=25, h11_eff=20, 1724 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  56: n_toric=33, h11_eff=23,  194 χ=3 bundles, max h⁰=1
+  poly  57: n_toric=28, h11_eff=21,  128 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  58: n_toric=22, h11_eff=17, 2398 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  59: n_toric=31, h11_eff=23,  164 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  60: n_toric=29, h11_eff=21,  178 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  61: n_toric=25, h11_eff=19, 1508 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  62: n_toric=25, h11_eff=19, 1980 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  63: n_toric=21, h11_eff=16, 1252 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  64: n_toric=29, h11_eff=20, 2626 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly  65: n_toric=32, h11_eff=23,  142 χ=3 bundles, max h⁰=1
+  poly  66: n_toric=23, h11_eff=17, 1304 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  67: n_toric=25, h11_eff=20, 1916 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  68: n_toric=29, h11_eff=20, 3744 χ=3 bundles, max h⁰=14 ★★★ HIT ★★★ [NF]
+  poly  69: n_toric=31, h11_eff=23,   94 χ=3 bundles, max h⁰=1
+  poly  70: n_toric=28, h11_eff=21,  174 χ=3 bundles, max h⁰=1 [NF]
+  poly  71: n_toric=31, h11_eff=23,   92 χ=3 bundles, max h⁰=1
+  poly  72: n_toric=24, h11_eff=17, 1670 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  73: n_toric=21, h11_eff=15, 1384 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  74: n_toric=20, h11_eff=15, 1200 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  75: n_toric=31, h11_eff=23,  260 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  76: n_toric=28, h11_eff=21,  104 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  77: n_toric=22, h11_eff=16, 1704 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  78: n_toric=23, h11_eff=17, 2110 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  79: n_toric=20, h11_eff=15, 1910 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  80: n_toric=23, h11_eff=17, 2152 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  81: n_toric=23, h11_eff=17, 2118 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  82: n_toric=21, h11_eff=15, 1122 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  83: n_toric=21, h11_eff=15, 1270 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  84: n_toric=24, h11_eff=17,  924 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  85: n_toric=28, h11_eff=20, 3546 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  86: n_toric=24, h11_eff=17, 2124 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  87: n_toric=23, h11_eff=17, 2020 χ=3 bundles, max h⁰=1 [NF]
+  poly  88: n_toric=23, h11_eff=17, 2050 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  89: n_toric=21, h11_eff=15, 1936 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  90: n_toric=21, h11_eff=15, 2012 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  91: n_toric=22, h11_eff=16, 1544 χ=3 bundles, max h⁰=1 [NF]
+  poly  92: n_toric=22, h11_eff=16, 1592 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  93: n_toric=32, h11_eff=22,  184 χ=3 bundles, max h⁰=1 [NF]
+  poly  94: n_toric=27, h11_eff=21,  108 χ=3 bundles, max h⁰=1 [NF]
+  poly  95: n_toric=32, h11_eff=22,  204 χ=3 bundles, max h⁰=1 [NF]
+  poly  96: n_toric=32, h11_eff=22,  172 χ=3 bundles, max h⁰=1 [NF]
+  poly  97: n_toric=24, h11_eff=18, 1598 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  98: n_toric=25, h11_eff=17, 1576 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly  99: n_toric=18, h11_eff=13, 1800 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+
+────────────────────────────────────────────────────────────
+  h11=24, h21=27  —  100 polytopes
+────────────────────────────────────────────────────────────
+  poly   0: n_toric=23, h11_eff=18, 2004 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   1: n_toric=27, h11_eff=22,  198 χ=3 bundles, max h⁰=1 [NF]
+  poly   2: n_toric=20, h11_eff=15, 2346 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly   3: n_toric=21, h11_eff=16, 1298 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   4: n_toric=23, h11_eff=14, 1058 χ=3 bundles, max h⁰=30 ★★★ HIT ★★★ [NF]
+  poly   5: n_toric=21, h11_eff=16, 1216 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly   6: n_toric=24, h11_eff=16,  746 χ=3 bundles, max h⁰=1 [NF]
+  poly   7: n_toric=23, h11_eff=16, 1052 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly   8: n_toric=24, h11_eff=18, 1846 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly   9: n_toric=22, h11_eff=16, 1860 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  10: n_toric=24, h11_eff=18, 2118 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  11: n_toric=23, h11_eff=18, 1066 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  12: n_toric=23, h11_eff=18, 1578 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  13: n_toric=31, h11_eff=24,  164 χ=3 bundles, max h⁰=1
+  poly  14: n_toric=32, h11_eff=24,  108 χ=3 bundles, max h⁰=1
+  poly  15: n_toric=30, h11_eff=24,   98 χ=3 bundles, max h⁰=1
+  poly  16: n_toric=29, h11_eff=24,  120 χ=3 bundles, max h⁰=1
+  poly  17: n_toric=28, h11_eff=22,  146 χ=3 bundles, max h⁰=1 [NF]
+  poly  18: n_toric=28, h11_eff=23,  184 χ=3 bundles, max h⁰=1 [NF]
+  poly  19: n_toric=25, h11_eff=19, 2360 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly  20: n_toric=34, h11_eff=24,  158 χ=3 bundles, max h⁰=1
+  poly  21: n_toric=32, h11_eff=24,  138 χ=3 bundles, max h⁰=1
+  poly  22: n_toric=22, h11_eff=17, 2174 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  23: n_toric=21, h11_eff=16, 1796 χ=3 bundles, max h⁰=1 [NF]
+  poly  24: n_toric=33, h11_eff=24,  112 χ=3 bundles, max h⁰=1
+  poly  25: n_toric=29, h11_eff=20, 2298 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  26: n_toric=32, h11_eff=24,   90 χ=3 bundles, max h⁰=1
+  poly  27: n_toric=28, h11_eff=21,  170 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  28: n_toric=25, h11_eff=19, 2316 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  29: n_toric=23, h11_eff=17, 1626 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  30: n_toric=35, h11_eff=24,  124 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★
+  poly  31: n_toric=26, h11_eff=20, 2234 χ=3 bundles, max h⁰=13 ★★★ HIT ★★★ [NF]
+  poly  32: n_toric=33, h11_eff=24,  188 χ=3 bundles, max h⁰=1
+  poly  33: n_toric=29, h11_eff=22,  150 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  34: n_toric=34, h11_eff=24,  120 χ=3 bundles, max h⁰=1
+  poly  35: n_toric=27, h11_eff=20, 2524 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  36: n_toric=32, h11_eff=24,  136 χ=3 bundles, max h⁰=1
+  poly  37: n_toric=24, h11_eff=19, 2042 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  38: n_toric=24, h11_eff=19, 2034 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  39: n_toric=26, h11_eff=18, 1194 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  40: n_toric=24, h11_eff=18, 1360 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  41: n_toric=24, h11_eff=18, 2026 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  42: n_toric=30, h11_eff=24,  276 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  43: n_toric=30, h11_eff=24,  144 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  44: n_toric=34, h11_eff=24,  158 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  45: n_toric=17, h11_eff=12,  816 χ=3 bundles, max h⁰=29 ★★★ HIT ★★★ [NF]
+  poly  46: n_toric=33, h11_eff=24,  166 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★
+  poly  47: n_toric=33, h11_eff=24,  184 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★
+  poly  48: n_toric=26, h11_eff=18, 1764 χ=3 bundles, max h⁰=8 ★★★ HIT ★★★ [NF]
+  poly  49: n_toric=30, h11_eff=22,  142 χ=3 bundles, max h⁰=7 ★★★ HIT ★★★ [NF]
+  poly  50: n_toric=33, h11_eff=24,  186 χ=3 bundles, max h⁰=1
+  poly  51: n_toric=30, h11_eff=21,  198 χ=3 bundles, max h⁰=1 [NF]
+  poly  52: n_toric=34, h11_eff=24,   86 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  53: n_toric=21, h11_eff=16, 2328 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  54: n_toric=35, h11_eff=24,   98 χ=3 bundles, max h⁰=1
+  poly  55: n_toric=21, h11_eff=15, 2686 χ=3 bundles, max h⁰=20 ★★★ HIT ★★★ [NF]
+  poly  56: n_toric=18, h11_eff=13, 1420 χ=3 bundles, max h⁰=16 ★★★ HIT ★★★ [NF]
+  poly  57: n_toric=22, h11_eff=16, 2298 χ=3 bundles, max h⁰=5 ★★★ HIT ★★★ [NF]
+  poly  58: n_toric=22, h11_eff=14, 1154 χ=3 bundles, max h⁰=56 ★★★ HIT ★★★ [NF]
+  poly  59: n_toric=28, h11_eff=20, 2832 χ=3 bundles, max h⁰=1 [NF]
+  poly  60: n_toric=32, h11_eff=24,  168 χ=3 bundles, max h⁰=1
+  poly  61: n_toric=22, h11_eff=16, 1302 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  62: n_toric=25, h11_eff=19, 2384 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  63: n_toric=33, h11_eff=24,  116 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  64: n_toric=24, h11_eff=19, 1518 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  65: n_toric=25, h11_eff=16,  724 χ=3 bundles, max h⁰=24 ★★★ HIT ★★★ [NF]
+  poly  66: n_toric=24, h11_eff=19, 1826 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  67: n_toric=25, h11_eff=20, 2350 χ=3 bundles, max h⁰=11 ★★★ HIT ★★★ [NF]
+  poly  68: n_toric=31, h11_eff=22,  192 χ=3 bundles, max h⁰=1 [NF]
+  poly  69: n_toric=24, h11_eff=18, 2062 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  70: n_toric=25, h11_eff=18, 2042 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  71: n_toric=28, h11_eff=20, 2872 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  72: n_toric=35, h11_eff=24,  182 χ=3 bundles, max h⁰=14 ★★★ HIT ★★★
+  poly  73: n_toric=30, h11_eff=20, 2218 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  74: n_toric=25, h11_eff=18, 2034 χ=3 bundles, max h⁰=1 [NF]
+  poly  75: n_toric=25, h11_eff=19, 2230 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  76: n_toric=22, h11_eff=16,  924 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  77: n_toric=26, h11_eff=21,  134 χ=3 bundles, max h⁰=12 ★★★ HIT ★★★ [NF]
+  poly  78: n_toric=31, h11_eff=24,  142 χ=3 bundles, max h⁰=1
+  poly  79: n_toric=22, h11_eff=15, 2132 χ=3 bundles, max h⁰=4 ★★★ HIT ★★★ [NF]
+  poly  80: n_toric=20, h11_eff=15, 2250 χ=3 bundles, max h⁰=9 ★★★ HIT ★★★ [NF]
+  poly  81: n_toric=32, h11_eff=24,  126 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★
+  poly  82: n_toric=24, h11_eff=15, 1588 χ=3 bundles, max h⁰=12 ★★★ HIT ★★★ [NF]
+  poly  83: n_toric=25, h11_eff=18, 2076 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  84: n_toric=20, h11_eff=15, 2360 χ=3 bundles, max h⁰=1 [NF]
+  poly  85: n_toric=21, h11_eff=16, 1732 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  86: n_toric=34, h11_eff=24,   88 χ=3 bundles, max h⁰=1
+  poly  87: n_toric=33, h11_eff=24,   66 χ=3 bundles, max h⁰=1
+  poly  88: n_toric=27, h11_eff=20, 2814 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+  poly  89: n_toric=26, h11_eff=20, 2672 χ=3 bundles, max h⁰=15 ★★★ HIT ★★★ [NF]
+  poly  90: n_toric=35, h11_eff=24,  178 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  91: n_toric=26, h11_eff=20, 2346 χ=3 bundles, max h⁰=10 ★★★ HIT ★★★ [NF]
+  poly  92: n_toric=28, h11_eff=22,  134 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  93: n_toric=33, h11_eff=24,  148 χ=3 bundles, max h⁰=1
+  poly  94: n_toric=32, h11_eff=24,  194 χ=3 bundles, max h⁰=1
+  poly  95: n_toric=29, h11_eff=22,  142 χ=3 bundles, max h⁰=2 (h⁰=2) [NF]
+  poly  96: n_toric=23, h11_eff=18, 2756 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  97: n_toric=31, h11_eff=23,  186 χ=3 bundles, max h⁰=3 ★★★ HIT ★★★ [NF]
+  poly  98: n_toric=35, h11_eff=24,   98 χ=3 bundles, max h⁰=2 (h⁰=2)
+  poly  99: n_toric=26, h11_eff=20, 2292 χ=3 bundles, max h⁰=6 ★★★ HIT ★★★ [NF]
+
+========================================================================
+  SUMMARY
+========================================================================
+
+Polytopes scanned: 1025
+Successfully analyzed: 1025 (705 non-favorable)
+Skipped (c2 mismatch): 0
+Polytopes with χ=3 bundles: 1025
+Polytopes with max h⁰ ≥ 3: 633
+
+────────────────────────────────────────────────────────────
+  ★★★ h⁰ ≥ 3 HITS ★★★
+────────────────────────────────────────────────────────────
+  h11=13, poly 0: max h⁰=6, best=-3·e0 + -2·e4 + -1·e8, 52 bundles with h⁰≥3
+  h11=13, poly 1: max h⁰=5, best=-3·e2 + -1·e7 + -2·e10, 2 bundles with h⁰≥3
+  h11=13, poly 2: max h⁰=4, best=-3·e1 + -3·e4 + -2·e8, 22 bundles with h⁰≥3
+  h11=14, poly 0: max h⁰=3, best=-2·e3 + -2·e5 + -2·e8, 2 bundles with h⁰≥3
+  h11=14, poly 1: max h⁰=3, best=-2·e1 + -2·e4 + -3·e9, 2 bundles with h⁰≥3
+  h11=14, poly 2: max h⁰=11, best=-3·e0 + -3·e1 + -2·e11, 96 bundles with h⁰≥3
+  h11=14, poly 3: max h⁰=3, best=-2·e3 + -2·e4 + -1·e5, 8 bundles with h⁰≥3
+  h11=14, poly 4: max h⁰=13, best=-3·e3 + -2·e4 + -2·e7, 38 bundles with h⁰≥3
+  h11=14, poly 5: max h⁰=17, best=-3·e0 + -3·e4 + -1·e5, 70 bundles with h⁰≥3
+  h11=14, poly 6: max h⁰=5, best=-2·e4 + -3·e8 + -1·e10, 26 bundles with h⁰≥3
+  h11=14, poly 7: max h⁰=3, best=-2·e1 + -3·e9 + -3·e12, 2 bundles with h⁰≥3
+  h11=14, poly 8: max h⁰=7, best=-2·e0 + -2·e2 + -2·e6, 4 bundles with h⁰≥3
+  h11=14, poly 9: max h⁰=7, best=-2·e0 + -2·e2 + -2·e7, 2 bundles with h⁰≥3
+  h11=14, poly 10: max h⁰=3, best=-3·e0 + -3·e2 + -2·e4, 8 bundles with h⁰≥3
+  h11=14, poly 11: max h⁰=3, best=-3·e1 + -2·e9 + -2·e13, 6 bundles with h⁰≥3
+  h11=14, poly 14: max h⁰=3, best=-3·e4 + -2·e5 + -2·e11, 4 bundles with h⁰≥3
+  h11=14, poly 17: max h⁰=4, best=-3·e0 + -2·e2 + -3·e3, 10 bundles with h⁰≥3
+  h11=14, poly 21: max h⁰=6, best=-1·e2 + -1·e3 + -2·e4, 44 bundles with h⁰≥3
+  h11=15, poly 1: max h⁰=3, best=-3·e0 + -2·e7 + -2·e13, 2 bundles with h⁰≥3
+  h11=15, poly 3: max h⁰=3, best=-2·e4 + -2·e8 + -3·e11, 4 bundles with h⁰≥3
+  h11=15, poly 4: max h⁰=5, best=-1·e2 + -2·e7 + -1·e9, 16 bundles with h⁰≥3
+  h11=15, poly 5: max h⁰=4, best=-2·e4 + -3·e5 + -3·e9, 28 bundles with h⁰≥3
+  h11=15, poly 6: max h⁰=18, best=-3·e0 + -1·e2 + -1·e9, 58 bundles with h⁰≥3
+  h11=15, poly 7: max h⁰=3, best=-2·e3 + -2·e6 + -1·e10, 2 bundles with h⁰≥3
+  h11=15, poly 8: max h⁰=4, best=-3·e0 + -1·e12, 146 bundles with h⁰≥3
+  h11=15, poly 9: max h⁰=4, best=-3·e2 + -2·e3 + -3·e5, 12 bundles with h⁰≥3
+  h11=15, poly 10: max h⁰=4, best=-3·e0 + -2·e7 + -3·e11, 36 bundles with h⁰≥3
+  h11=15, poly 12: max h⁰=4, best=-3·e4 + -3·e6 + -1·e12, 10 bundles with h⁰≥3
+  h11=15, poly 13: max h⁰=3, best=-3·e5 + -2·e9 + -2·e11, 4 bundles with h⁰≥3
+  h11=15, poly 14: max h⁰=20, best=-3·e0 + -2·e3 + -1·e8, 76 bundles with h⁰≥3
+  h11=15, poly 15: max h⁰=7, best=-2·e3 + -2·e5 + -1·e7, 38 bundles with h⁰≥3
+  h11=15, poly 16: max h⁰=4, best=-1·e0 + -3·e4 + -3·e5, 24 bundles with h⁰≥3
+  h11=15, poly 18: max h⁰=13, best=-2·e4 + -3·e10 + -2·e11, 40 bundles with h⁰≥3
+  h11=15, poly 19: max h⁰=3, best=-2·e3 + -2·e5 + -1·e7, 6 bundles with h⁰≥3
+  h11=15, poly 21: max h⁰=3, best=-2·e2 + -2·e6 + -2·e10, 2 bundles with h⁰≥3
+  h11=15, poly 22: max h⁰=6, best=-3·e2 + -2·e5 + -2·e6, 40 bundles with h⁰≥3
+  h11=15, poly 23: max h⁰=10, best=-3·e1 + -2·e2 + -3·e7, 70 bundles with h⁰≥3
+  h11=15, poly 25: max h⁰=10, best=-3·e0 + -3·e1 + -3·e5, 72 bundles with h⁰≥3
+  h11=15, poly 26: max h⁰=3, best=-2·e5 + -2·e6 + -2·e9, 2 bundles with h⁰≥3
+  h11=15, poly 28: max h⁰=4, best=-3·e0 + -1·e4, 128 bundles with h⁰≥3
+  h11=15, poly 30: max h⁰=4, best=-3·e0 + -3·e2 + -2·e5, 6 bundles with h⁰≥3
+  h11=15, poly 31: max h⁰=10, best=-3·e2 + -3·e5 + -2·e6, 190 bundles with h⁰≥3
+  h11=15, poly 33: max h⁰=10, best=-3·e0 + -3·e2 + -2·e13, 60 bundles with h⁰≥3
+  h11=15, poly 34: max h⁰=3, best=-2·e4 + -2·e6 + -2·e10, 2 bundles with h⁰≥3
+  h11=15, poly 35: max h⁰=4, best=-3·e0 + -2·e1, 86 bundles with h⁰≥3
+  h11=15, poly 36: max h⁰=6, best=-2·e5 + -3·e6 + -1·e8, 44 bundles with h⁰≥3
+  h11=15, poly 37: max h⁰=3, best=-3·e1 + -2·e5 + -2·e7, 2 bundles with h⁰≥3
+  h11=15, poly 38: max h⁰=4, best=-3·e4 + -3·e6 + -2·e8, 16 bundles with h⁰≥3
+  h11=15, poly 39: max h⁰=3, best=-3·e4 + -2·e5 + -3·e9, 2 bundles with h⁰≥3
+  h11=15, poly 40: max h⁰=4, best=-3·e0 + -2·e1 + -1·e6, 20 bundles with h⁰≥3
+  h11=15, poly 41: max h⁰=3, best=-2·e0 + -1·e3 + -2·e7, 18 bundles with h⁰≥3
+  h11=15, poly 44: max h⁰=4, best=-3·e0 + -3·e1 + -1·e3, 22 bundles with h⁰≥3
+  h11=15, poly 45: max h⁰=6, best=-2·e0 + -2·e3 + -2·e4, 28 bundles with h⁰≥3
+  h11=15, poly 46: max h⁰=3, best=-2·e1 + -3·e4 + -2·e10, 4 bundles with h⁰≥3
+  h11=15, poly 48: max h⁰=8, best=-3·e2 + -2·e7 + -2·e9, 30 bundles with h⁰≥3
+  h11=15, poly 49: max h⁰=3, best=-2·e0 + -3·e4 + -3·e8, 4 bundles with h⁰≥3
+  h11=15, poly 50: max h⁰=4, best=-3·e3 + -3·e4 + -2·e10, 14 bundles with h⁰≥3
+  h11=15, poly 53: max h⁰=3, best=-2·e1 + -1·e2 + -3·e7, 26 bundles with h⁰≥3
+  h11=15, poly 55: max h⁰=5, best=-3·e5 + -2·e8 + -1·e9, 22 bundles with h⁰≥3
+  h11=15, poly 56: max h⁰=4, best=-2·e0 + -3·e1 + -3·e2, 22 bundles with h⁰≥3
+  h11=15, poly 57: max h⁰=3, best=-2·e3 + -2·e6 + -3·e10, 4 bundles with h⁰≥3
+  h11=15, poly 58: max h⁰=4, best=-3·e0 + -3·e3 + -1·e13, 6 bundles with h⁰≥3
+  h11=15, poly 61: max h⁰=4, best=-3·e0 + -2·e7, 68 bundles with h⁰≥3
+  h11=15, poly 62: max h⁰=5, best=-3·e5 + -2·e10 + -3·e11, 20 bundles with h⁰≥3
+  h11=15, poly 63: max h⁰=4, best=-2·e1 + -3·e4 + -3·e9, 38 bundles with h⁰≥3
+  h11=15, poly 64: max h⁰=4, best=-3·e2 + -3·e5 + -1·e6, 6 bundles with h⁰≥3
+  h11=15, poly 65: max h⁰=4, best=-3·e0 + -1·e2 + -3·e8, 22 bundles with h⁰≥3
+  h11=15, poly 66: max h⁰=4, best=-3·e0 + -2·e1, 74 bundles with h⁰≥3
+  h11=15, poly 67: max h⁰=10, best=-3·e1 + -3·e3 + -2·e11, 90 bundles with h⁰≥3
+  h11=15, poly 69: max h⁰=4, best=-3·e0 + -1·e2 + -3·e9, 22 bundles with h⁰≥3
+  h11=15, poly 70: max h⁰=4, best=-2·e2 + -3·e3 + -3·e10, 32 bundles with h⁰≥3
+  h11=15, poly 71: max h⁰=4, best=-3·e1 + -1·e3 + -3·e6, 18 bundles with h⁰≥3
+  h11=15, poly 74: max h⁰=3, best=-3·e0 + -2·e5 + -2·e9, 2 bundles with h⁰≥3
+  h11=15, poly 75: max h⁰=3, best=-2·e0 + -2·e4 + -2·e6, 8 bundles with h⁰≥3
+  h11=15, poly 77: max h⁰=4, best=-3·e4 + -3·e5 + -1·e12, 12 bundles with h⁰≥3
+  h11=15, poly 79: max h⁰=4, best=-3·e0 + -3·e1 + -1·e3, 26 bundles with h⁰≥3
+  h11=15, poly 80: max h⁰=3, best=-2·e4 + -2·e6 + -3·e11, 4 bundles with h⁰≥3
+  h11=15, poly 81: max h⁰=4, best=-3·e0 + -2·e1 + -2·e2, 30 bundles with h⁰≥3
+  h11=15, poly 82: max h⁰=3, best=-2·e0 + -3·e1 + -3·e2, 10 bundles with h⁰≥3
+  h11=15, poly 83: max h⁰=4, best=-3·e0 + -2·e2 + -1·e12, 8 bundles with h⁰≥3
+  h11=15, poly 84: max h⁰=4, best=-3·e2 + -2·e3 + -3·e6, 22 bundles with h⁰≥3
+  h11=15, poly 85: max h⁰=4, best=-3·e0 + -2·e3 + -1·e8, 4 bundles with h⁰≥3
+  h11=15, poly 86: max h⁰=9, best=-2·e0 + -3·e2 + -3·e8, 24 bundles with h⁰≥3
+  h11=15, poly 88: max h⁰=4, best=-2·e1 + -3·e3, 88 bundles with h⁰≥3
+  h11=15, poly 89: max h⁰=4, best=-3·e0 + -3·e1 + -2·e8, 12 bundles with h⁰≥3
+  h11=15, poly 90: max h⁰=3, best=-2·e0 + -2·e3 + -2·e6, 2 bundles with h⁰≥3
+  h11=15, poly 91: max h⁰=13, best=-2·e2 + -2·e3 + -3·e6, 58 bundles with h⁰≥3
+  h11=15, poly 92: max h⁰=4, best=-3·e0 + -2·e1, 136 bundles with h⁰≥3
+  h11=15, poly 93: max h⁰=3, best=-3·e1 + -2·e3, 10 bundles with h⁰≥3
+  h11=15, poly 94: max h⁰=10, best=-3·e0 + -3·e3, 126 bundles with h⁰≥3
+  h11=15, poly 95: max h⁰=3, best=-3·e3 + -2·e5, 18 bundles with h⁰≥3
+  h11=15, poly 96: max h⁰=3, best=-2·e2 + -2·e6 + -2·e9, 2 bundles with h⁰≥3
+  h11=15, poly 97: max h⁰=4, best=-3·e1 + -1·e3 + -3·e7, 18 bundles with h⁰≥3
+  h11=15, poly 98: max h⁰=4, best=-3·e1 + -3·e8 + -3·e9, 10 bundles with h⁰≥3
+  h11=16, poly 0: max h⁰=3, best=-2·e0 + -2·e1 + -1·e5, 4 bundles with h⁰≥3
+  h11=16, poly 1: max h⁰=3, best=-2·e0 + -3·e2, 14 bundles with h⁰≥3
+  h11=16, poly 2: max h⁰=3, best=-3·e0 + -3·e6 + -2·e9, 2 bundles with h⁰≥3
+  h11=16, poly 3: max h⁰=7, best=-3·e1 + -2·e5 + -1·e9, 48 bundles with h⁰≥3
+  h11=16, poly 4: max h⁰=3, best=-2·e2 + -2·e4 + -2·e9, 4 bundles with h⁰≥3
+  h11=16, poly 6: max h⁰=3, best=-2·e1, 30 bundles with h⁰≥3
+  h11=16, poly 7: max h⁰=36, best=-3·e0 + -2·e3 + -3·e6, 56 bundles with h⁰≥3
+  h11=16, poly 8: max h⁰=3, best=-2·e1 + -3·e3, 22 bundles with h⁰≥3
+  h11=16, poly 9: max h⁰=13, best=-2·e0 + -3·e2 + -2·e6, 36 bundles with h⁰≥3
+  h11=16, poly 10: max h⁰=3, best=-2·e0, 2 bundles with h⁰≥3
+  h11=16, poly 11: max h⁰=10, best=-3·e0 + -3·e2 + -2·e11, 62 bundles with h⁰≥3
+  h11=16, poly 12: max h⁰=3, best=-3·e1 + -2·e9 + -2·e13, 8 bundles with h⁰≥3
+  h11=16, poly 15: max h⁰=3, best=-2·e0 + -2·e6 + -2·e7, 2 bundles with h⁰≥3
+  h11=16, poly 16: max h⁰=3, best=-2·e0 + -2·e5 + -2·e11, 4 bundles with h⁰≥3
+  h11=16, poly 17: max h⁰=3, best=-2·e3 + -3·e4, 14 bundles with h⁰≥3
+  h11=16, poly 19: max h⁰=3, best=-3·e3 + -2·e4 + -3·e9, 8 bundles with h⁰≥3
+  h11=16, poly 20: max h⁰=3, best=-3·e3 + -3·e4 + -2·e8, 2 bundles with h⁰≥3
+  h11=16, poly 22: max h⁰=6, best=-2·e1 + -3·e2 + -2·e6, 60 bundles with h⁰≥3
+  h11=16, poly 23: max h⁰=3, best=-2·e4 + -2·e5, 4 bundles with h⁰≥3
+  h11=16, poly 24: max h⁰=10, best=-3·e0 + -3·e1 + -3·e5, 144 bundles with h⁰≥3
+  h11=16, poly 25: max h⁰=3, best=-2·e1, 48 bundles with h⁰≥3
+  h11=16, poly 26: max h⁰=3, best=-2·e1, 26 bundles with h⁰≥3
+  h11=16, poly 28: max h⁰=7, best=-2·e0 + -3·e1 + -1·e5, 72 bundles with h⁰≥3
+  h11=16, poly 31: max h⁰=4, best=-3·e0 + -3·e1 + -1·e10, 6 bundles with h⁰≥3
+  h11=16, poly 32: max h⁰=3, best=-2·e0 + -1·e1 + -2·e7, 26 bundles with h⁰≥3
+  h11=16, poly 33: max h⁰=3, best=-2·e0 + -1·e1 + -1·e11, 42 bundles with h⁰≥3
+  h11=16, poly 34: max h⁰=3, best=-2·e5 + -2·e6, 4 bundles with h⁰≥3
+  h11=16, poly 36: max h⁰=6, best=-3·e0 + -1·e10, 124 bundles with h⁰≥3
+  h11=16, poly 37: max h⁰=3, best=-2·e2 + -2·e5 + -2·e8, 4 bundles with h⁰≥3
+  h11=16, poly 38: max h⁰=11, best=-3·e0 + -2·e8, 32 bundles with h⁰≥3
+  h11=16, poly 40: max h⁰=4, best=-3·e0 + -3·e2 + -1·e4, 38 bundles with h⁰≥3
+  h11=16, poly 43: max h⁰=10, best=-3·e1 + -3·e2 + -3·e7, 116 bundles with h⁰≥3
+  h11=16, poly 48: max h⁰=3, best=-2·e6 + -2·e7 + -2·e10, 2 bundles with h⁰≥3
+  h11=16, poly 49: max h⁰=3, best=-2·e4 + -2·e6 + -2·e10, 2 bundles with h⁰≥3
+  h11=16, poly 50: max h⁰=4, best=-2·e0 + -3·e4, 16 bundles with h⁰≥3
+  h11=16, poly 51: max h⁰=10, best=-3·e5 + -3·e7 + -2·e9, 102 bundles with h⁰≥3
+  h11=16, poly 52: max h⁰=4, best=-3·e0 + -2·e4 + -3·e5, 70 bundles with h⁰≥3
+  h11=16, poly 53: max h⁰=12, best=-3·e0 + -1·e3 + -2·e6, 182 bundles with h⁰≥3
+  h11=16, poly 55: max h⁰=4, best=-3·e1 + -1·e2, 50 bundles with h⁰≥3
+  h11=16, poly 58: max h⁰=3, best=-2·e4 + -2·e7, 6 bundles with h⁰≥3
+  h11=16, poly 62: max h⁰=3, best=-2·e0 + -2·e3 + -1·e4, 12 bundles with h⁰≥3
+  h11=16, poly 63: max h⁰=13, best=-3·e0 + 2·e3 + -3·e6, 56 bundles with h⁰≥3
+  h11=16, poly 64: max h⁰=3, best=-2·e2 + -2·e5 + -2·e13, 2 bundles with h⁰≥3
+  h11=16, poly 65: max h⁰=3, best=-2·e1 + -1·e9, 8 bundles with h⁰≥3
+  h11=16, poly 66: max h⁰=3, best=-1·e0, 6 bundles with h⁰≥3
+  h11=16, poly 68: max h⁰=3, best=-2·e0 + -1·e9, 4 bundles with h⁰≥3
+  h11=16, poly 69: max h⁰=4, best=-2·e0 + -3·e1 + -2·e3, 10 bundles with h⁰≥3
+  h11=16, poly 70: max h⁰=3, best=-2·e0 + -1·e9, 4 bundles with h⁰≥3
+  h11=16, poly 73: max h⁰=12, best=-3·e0 + -3·e7 + -2·e9, 56 bundles with h⁰≥3
+  h11=16, poly 74: max h⁰=4, best=-3·e1 + -2·e12, 80 bundles with h⁰≥3
+  h11=16, poly 75: max h⁰=3, best=-2·e0, 10 bundles with h⁰≥3
+  h11=16, poly 76: max h⁰=9, best=-3·e3 + -2·e5 + -2·e6, 104 bundles with h⁰≥3
+  h11=16, poly 77: max h⁰=5, best=-2·e0 + -2·e4 + -1·e10, 50 bundles with h⁰≥3
+  h11=16, poly 80: max h⁰=3, best=-2·e2 + -2·e3 + -2·e4, 2 bundles with h⁰≥3
+  h11=16, poly 81: max h⁰=3, best=-2·e3 + -2·e6 + -1·e7, 4 bundles with h⁰≥3
+  h11=16, poly 82: max h⁰=6, best=-3·e0 + 2·e9, 52 bundles with h⁰≥3
+  h11=16, poly 83: max h⁰=5, best=-2·e0 + 1·e5 + -2·e6, 70 bundles with h⁰≥3
+  h11=16, poly 84: max h⁰=3, best=-2·e1 + -2·e2 + -1·e3, 12 bundles with h⁰≥3
+  h11=16, poly 86: max h⁰=10, best=-3·e0 + -3·e4 + -3·e5, 126 bundles with h⁰≥3
+  h11=16, poly 87: max h⁰=3, best=-2·e3 + -2·e7 + -1·e8, 2 bundles with h⁰≥3
+  h11=16, poly 88: max h⁰=18, best=-3·e0 + -3·e3 + -1·e10, 100 bundles with h⁰≥3
+  h11=16, poly 90: max h⁰=3, best=-2·e3 + -2·e6 + -1·e8, 2 bundles with h⁰≥3
+  h11=16, poly 91: max h⁰=11, best=-3·e0 + -1·e11, 102 bundles with h⁰≥3
+  h11=16, poly 92: max h⁰=3, best=-2·e0 + -2·e1 + -2·e13, 6 bundles with h⁰≥3
+  h11=16, poly 93: max h⁰=5, best=-2·e0 + -2·e1 + -1·e5, 48 bundles with h⁰≥3
+  h11=16, poly 94: max h⁰=4, best=-3·e0 + -2·e2 + -1·e9, 16 bundles with h⁰≥3
+  h11=16, poly 95: max h⁰=3, best=-1·e0, 4 bundles with h⁰≥3
+  h11=16, poly 96: max h⁰=4, best=-3·e1 + -3·e3 + -1·e5, 24 bundles with h⁰≥3
+  h11=16, poly 99: max h⁰=6, best=-2·e0 + -3·e1 + -3·e3, 40 bundles with h⁰≥3
+  h11=17, poly 0: max h⁰=4, best=-1·e2 + -1·e3 + -1·e5, 12 bundles with h⁰≥3
+  h11=17, poly 1: max h⁰=3, best=-2·e4 + -2·e5, 6 bundles with h⁰≥3
+  h11=17, poly 3: max h⁰=8, best=-1·e0 + -2·e2 + -3·e4, 26 bundles with h⁰≥3
+  h11=17, poly 4: max h⁰=12, best=-3·e0 + -3·e2 + -2·e4, 30 bundles with h⁰≥3
+  h11=17, poly 5: max h⁰=8, best=-2·e0 + 3·e1 + 3·e4, 20 bundles with h⁰≥3
+  h11=17, poly 6: max h⁰=3, best=-2·e2 + -2·e5 + -2·e7, 2 bundles with h⁰≥3
+  h11=17, poly 7: max h⁰=4, best=-2·e0 + -3·e1 + -3·e5, 40 bundles with h⁰≥3
+  h11=17, poly 8: max h⁰=10, best=-3·e1 + -2·e3 + -3·e4, 98 bundles with h⁰≥3
+  h11=17, poly 9: max h⁰=10, best=-3·e0 + -2·e7, 142 bundles with h⁰≥3
+  h11=17, poly 11: max h⁰=3, best=-1·e3 + -2·e4 + -2·e11, 12 bundles with h⁰≥3
+  h11=17, poly 12: max h⁰=3, best=-2·e1 + -2·e2 + -2·e12, 14 bundles with h⁰≥3
+  h11=17, poly 14: max h⁰=3, best=-2·e1 + -2·e6, 6 bundles with h⁰≥3
+  h11=17, poly 17: max h⁰=10, best=-3·e0 + -3·e7, 190 bundles with h⁰≥3
+  h11=17, poly 19: max h⁰=5, best=-2·e0 + -1·e6 + -1·e11, 50 bundles with h⁰≥3
+  h11=17, poly 20: max h⁰=4, best=-3·e0 + -1·e1 + -3·e2, 96 bundles with h⁰≥3
+  h11=17, poly 21: max h⁰=13, best=-3·e0 + -3·e6 + -2·e8, 68 bundles with h⁰≥3
+  h11=17, poly 22: max h⁰=4, best=-3·e1 + -3·e5 + -2·e7, 18 bundles with h⁰≥3
+  h11=17, poly 23: max h⁰=4, best=-3·e1 + -2·e5 + -1·e7, 46 bundles with h⁰≥3
+  h11=17, poly 25: max h⁰=4, best=-3·e0 + -2·e9, 68 bundles with h⁰≥3
+  h11=17, poly 29: max h⁰=3, best=-2·e0 + -2·e5, 8 bundles with h⁰≥3
+  h11=17, poly 30: max h⁰=4, best=-3·e1 + -3·e4 + -1·e5, 36 bundles with h⁰≥3
+  h11=17, poly 31: max h⁰=4, best=-3·e0 + -3·e2 + -2·e8, 14 bundles with h⁰≥3
+  h11=17, poly 32: max h⁰=6, best=-3·e0 + 1·e2 + -1·e3, 50 bundles with h⁰≥3
+  h11=17, poly 34: max h⁰=6, best=-2·e0 + -2·e1 + -1·e7, 8 bundles with h⁰≥3
+  h11=17, poly 35: max h⁰=4, best=-3·e0 + -2·e2 + -1·e5, 70 bundles with h⁰≥3
+  h11=17, poly 36: max h⁰=16, best=-3·e1 + -3·e4 + -2·e5, 122 bundles with h⁰≥3
+  h11=17, poly 38: max h⁰=6, best=-3·e0 + -2·e2 + -1·e8, 54 bundles with h⁰≥3
+  h11=17, poly 39: max h⁰=4, best=-3·e0 + -3·e2 + -3·e4, 8 bundles with h⁰≥3
+  h11=17, poly 40: max h⁰=3, best=-2·e5 + -2·e6 + -1·e7, 8 bundles with h⁰≥3
+  h11=17, poly 41: max h⁰=12, best=-3·e0 + -2·e1 + -2·e5, 66 bundles with h⁰≥3
+  h11=17, poly 42: max h⁰=12, best=-3·e0 + -3·e2 + -2·e4, 50 bundles with h⁰≥3
+  h11=17, poly 43: max h⁰=4, best=-1·e0 + -3·e4 + -1·e6, 16 bundles with h⁰≥3
+  h11=17, poly 44: max h⁰=3, best=-2·e0 + -2·e1 + -2·e7, 12 bundles with h⁰≥3
+  h11=17, poly 45: max h⁰=9, best=-2·e0 + -2·e1 + -2·e9, 50 bundles with h⁰≥3
+  h11=17, poly 47: max h⁰=10, best=-3·e0 + -1·e2 + -2·e6, 40 bundles with h⁰≥3
+  h11=17, poly 48: max h⁰=10, best=-3·e0 + -3·e6 + -3·e10, 32 bundles with h⁰≥3
+  h11=17, poly 49: max h⁰=4, best=-3·e2 + -3·e6 + -2·e9, 16 bundles with h⁰≥3
+  h11=17, poly 51: max h⁰=10, best=-3·e0 + -3·e1, 156 bundles with h⁰≥3
+  h11=17, poly 52: max h⁰=10, best=-3·e0 + -2·e1 + -2·e2, 112 bundles with h⁰≥3
+  h11=17, poly 53: max h⁰=10, best=-3·e0 + -3·e4, 174 bundles with h⁰≥3
+  h11=17, poly 54: max h⁰=5, best=-2·e1 + -1·e3 + -2·e8, 18 bundles with h⁰≥3
+  h11=17, poly 56: max h⁰=4, best=-1·e0 + -1·e7 + -2·e9, 10 bundles with h⁰≥3
+  h11=17, poly 57: max h⁰=10, best=-3·e0 + -3·e3, 70 bundles with h⁰≥3
+  h11=17, poly 58: max h⁰=6, best=-3·e1 + -3·e4 + -1·e8, 94 bundles with h⁰≥3
+  h11=17, poly 59: max h⁰=6, best=-3·e0 + -1·e7, 120 bundles with h⁰≥3
+  h11=17, poly 60: max h⁰=10, best=-3·e0 + -3·e6, 178 bundles with h⁰≥3
+  h11=17, poly 61: max h⁰=4, best=-3·e1 + -2·e2 + -2·e4, 24 bundles with h⁰≥3
+  h11=17, poly 62: max h⁰=4, best=-3·e0 + -3·e6 + -1·e8, 12 bundles with h⁰≥3
+  h11=17, poly 63: max h⁰=12, best=-1·e0 + -3·e1 + -3·e9, 70 bundles with h⁰≥3
+  h11=17, poly 66: max h⁰=3, best=-2·e0 + -1·e3 + -2·e6, 12 bundles with h⁰≥3
+  h11=17, poly 70: max h⁰=4, best=-3·e0 + -1·e14, 76 bundles with h⁰≥3
+  h11=17, poly 71: max h⁰=3, best=-1·e0, 4 bundles with h⁰≥3
+  h11=17, poly 72: max h⁰=4, best=-3·e0 + -1·e12, 104 bundles with h⁰≥3
+  h11=17, poly 73: max h⁰=3, best=-1·e0, 2 bundles with h⁰≥3
+  h11=17, poly 74: max h⁰=4, best=-3·e3 + -3·e6 + -2·e7, 14 bundles with h⁰≥3
+  h11=17, poly 75: max h⁰=5, best=-2·e0 + -2·e2 + -1·e6, 82 bundles with h⁰≥3
+  h11=17, poly 76: max h⁰=3, best=-2·e0, 26 bundles with h⁰≥3
+  h11=17, poly 77: max h⁰=3, best=-2·e1 + -2·e3 + -2·e4, 2 bundles with h⁰≥3
+  h11=17, poly 79: max h⁰=4, best=-2·e0 + -1·e8, 28 bundles with h⁰≥3
+  h11=17, poly 80: max h⁰=4, best=-2·e0 + -1·e8, 38 bundles with h⁰≥3
+  h11=17, poly 81: max h⁰=10, best=-3·e0 + -3·e1 + -3·e5, 90 bundles with h⁰≥3
+  h11=17, poly 83: max h⁰=3, best=-2·e0, 10 bundles with h⁰≥3
+  h11=17, poly 85: max h⁰=3, best=-2·e2 + -2·e3, 46 bundles with h⁰≥3
+  h11=17, poly 86: max h⁰=4, best=-3·e0 + -1·e2 + -3·e3, 52 bundles with h⁰≥3
+  h11=17, poly 87: max h⁰=3, best=-2·e2 + -2·e3, 50 bundles with h⁰≥3
+  h11=17, poly 89: max h⁰=4, best=-3·e0 + -3·e1 + -1·e12, 50 bundles with h⁰≥3
+  h11=17, poly 90: max h⁰=16, best=-3·e0 + -3·e1 + -3·e6, 58 bundles with h⁰≥3
+  h11=17, poly 92: max h⁰=4, best=-2·e0 + -1·e1 + -1·e8, 74 bundles with h⁰≥3
+  h11=17, poly 94: max h⁰=3, best=-1·e0 + -2·e1 + -2·e6, 10 bundles with h⁰≥3
+  h11=17, poly 95: max h⁰=10, best=-3·e0 + -2·e6 + -1·e11, 68 bundles with h⁰≥3
+  h11=17, poly 96: max h⁰=37, best=-3·e0 + -3·e4 + 2·e5, 126 bundles with h⁰≥3
+  h11=17, poly 99: max h⁰=4, best=-2·e0 + -1·e2 + -1·e9, 18 bundles with h⁰≥3
+  h11=18, poly 1: max h⁰=4, best=-2·e1 + -3·e2 + -3·e3, 12 bundles with h⁰≥3
+  h11=18, poly 6: max h⁰=22, best=-3·e0 + -2·e4 + -2·e8, 52 bundles with h⁰≥3
+  h11=18, poly 8: max h⁰=16, best=-3·e0 + -3·e2 + -2·e4, 122 bundles with h⁰≥3
+  h11=18, poly 9: max h⁰=3, best=-2·e0 + -1·e10, 18 bundles with h⁰≥3
+  h11=18, poly 11: max h⁰=4, best=-2·e0 + -1·e3 + -1·e13, 16 bundles with h⁰≥3
+  h11=18, poly 12: max h⁰=3, best=-2·e0 + -2·e3 + -2·e7, 4 bundles with h⁰≥3
+  h11=18, poly 13: max h⁰=3, best=-2·e0 + -2·e3 + -2·e9, 2 bundles with h⁰≥3
+  h11=18, poly 15: max h⁰=3, best=-2·e0 + -1·e4 + -2·e5, 16 bundles with h⁰≥3
+  h11=18, poly 20: max h⁰=3, best=-2·e0 + -1·e2 + -1·e10, 52 bundles with h⁰≥3
+  h11=18, poly 21: max h⁰=3, best=-2·e0, 12 bundles with h⁰≥3
+  h11=18, poly 22: max h⁰=3, best=-2·e0 + -1·e2, 48 bundles with h⁰≥3
+  h11=18, poly 23: max h⁰=20, best=-3·e0 + -3·e2 + -1·e12, 158 bundles with h⁰≥3
+  h11=18, poly 24: max h⁰=4, best=-3·e0 + -2·e1 + -3·e4, 94 bundles with h⁰≥3
+  h11=18, poly 25: max h⁰=3, best=-2·e0, 12 bundles with h⁰≥3
+  h11=18, poly 26: max h⁰=3, best=-2·e0, 12 bundles with h⁰≥3
+  h11=18, poly 31: max h⁰=20, best=-3·e0 + -3·e2 + -1·e11, 124 bundles with h⁰≥3
+  h11=18, poly 32: max h⁰=30, best=-3·e0 + -3·e2 + -2·e7, 192 bundles with h⁰≥3
+  h11=18, poly 34: max h⁰=11, best=-3·e0 + -3·e3 + -2·e12, 50 bundles with h⁰≥3
+  h11=18, poly 35: max h⁰=8, best=-2·e0 + -2·e2 + -1·e5, 30 bundles with h⁰≥3
+  h11=18, poly 36: max h⁰=16, best=-3·e0 + -3·e3, 22 bundles with h⁰≥3
+  h11=18, poly 39: max h⁰=6, best=-2·e0 + -2·e4 + -1·e8, 52 bundles with h⁰≥3
+  h11=18, poly 40: max h⁰=13, best=-2·e0 + -2·e5 + -2·e7, 154 bundles with h⁰≥3
+  h11=18, poly 41: max h⁰=17, best=-3·e0 + 2·e2 + -3·e5, 42 bundles with h⁰≥3
+  h11=18, poly 42: max h⁰=8, best=-3·e0 + -1·e7 + -1·e11, 94 bundles with h⁰≥3
+  h11=18, poly 43: max h⁰=3, best=-2·e0 + -2·e3, 2 bundles with h⁰≥3
+  h11=18, poly 44: max h⁰=6, best=-2·e0 + -2·e2 + -1·e12, 6 bundles with h⁰≥3
+  h11=18, poly 45: max h⁰=5, best=-3·e0 + -1·e13 + -1·e14, 62 bundles with h⁰≥3
+  h11=18, poly 46: max h⁰=3, best=-2·e0, 32 bundles with h⁰≥3
+  h11=18, poly 47: max h⁰=3, best=-2·e0, 40 bundles with h⁰≥3
+  h11=18, poly 49: max h⁰=3, best=-2·e3 + -2·e4 + -1·e9, 4 bundles with h⁰≥3
+  h11=18, poly 50: max h⁰=3, best=-2·e2 + -2·e4, 4 bundles with h⁰≥3
+  h11=18, poly 53: max h⁰=5, best=-2·e0 + -1·e6 + -1·e7, 60 bundles with h⁰≥3
+  h11=18, poly 54: max h⁰=16, best=-3·e0 + -3·e3, 36 bundles with h⁰≥3
+  h11=18, poly 56: max h⁰=3, best=-2·e0 + -2·e2 + -1·e13, 4 bundles with h⁰≥3
+  h11=18, poly 57: max h⁰=10, best=-3·e0 + -2·e2 + -3·e5, 44 bundles with h⁰≥3
+  h11=18, poly 59: max h⁰=14, best=-3·e0 + -1·e5 + -2·e6, 78 bundles with h⁰≥3
+  h11=18, poly 61: max h⁰=3, best=-3·e4 + -3·e5 + -2·e8, 2 bundles with h⁰≥3
+  h11=18, poly 62: max h⁰=4, best=-2·e0 + -3·e1, 80 bundles with h⁰≥3
+  h11=18, poly 63: max h⁰=4, best=-2·e0 + -3·e2 + -2·e4, 52 bundles with h⁰≥3
+  h11=18, poly 65: max h⁰=3, best=-1·e0, 6 bundles with h⁰≥3
+  h11=18, poly 66: max h⁰=3, best=-1·e0 + -2·e1 + -1·e7, 46 bundles with h⁰≥3
+  h11=18, poly 67: max h⁰=6, best=-2·e0 + -2·e2 + -2·e5, 36 bundles with h⁰≥3
+  h11=18, poly 68: max h⁰=6, best=-2·e0 + -2·e2 + -2·e8, 32 bundles with h⁰≥3
+  h11=18, poly 69: max h⁰=10, best=-3·e0 + -3·e2 + -3·e10, 102 bundles with h⁰≥3
+  h11=18, poly 70: max h⁰=3, best=-2·e0 + -1·e5 + -1·e6, 10 bundles with h⁰≥3
+  h11=18, poly 71: max h⁰=3, best=-1·e0 + -2·e2 + -1·e5, 2 bundles with h⁰≥3
+  h11=18, poly 72: max h⁰=21, best=-3·e0 + -3·e3 + -1·e14, 196 bundles with h⁰≥3
+  h11=18, poly 73: max h⁰=3, best=-2·e0 + -1·e4 + -1·e7, 8 bundles with h⁰≥3
+  h11=18, poly 74: max h⁰=20, best=-3·e0 + -3·e1 + -3·e4, 38 bundles with h⁰≥3
+  h11=18, poly 75: max h⁰=4, best=-3·e0 + -1·e2, 132 bundles with h⁰≥3
+  h11=18, poly 76: max h⁰=4, best=-3·e1 + -1·e5, 52 bundles with h⁰≥3
+  h11=18, poly 81: max h⁰=3, best=-2·e0 + -2·e1 + -1·e3, 18 bundles with h⁰≥3
+  h11=18, poly 84: max h⁰=4, best=-3·e0 + -1·e5, 48 bundles with h⁰≥3
+  h11=18, poly 85: max h⁰=3, best=-2·e0, 18 bundles with h⁰≥3
+  h11=18, poly 86: max h⁰=3, best=-2·e2 + -1·e8, 14 bundles with h⁰≥3
+  h11=18, poly 87: max h⁰=3, best=-2·e0, 6 bundles with h⁰≥3
+  h11=18, poly 88: max h⁰=3, best=-2·e2 + -1·e8, 6 bundles with h⁰≥3
+  h11=18, poly 89: max h⁰=5, best=-2·e0 + -2·e7 + -1·e11, 8 bundles with h⁰≥3
+  h11=18, poly 90: max h⁰=3, best=-2·e2 + -2·e4, 4 bundles with h⁰≥3
+  h11=18, poly 91: max h⁰=3, best=-2·e0 + -1·e3, 62 bundles with h⁰≥3
+  h11=18, poly 92: max h⁰=3, best=-2·e0, 22 bundles with h⁰≥3
+  h11=18, poly 93: max h⁰=3, best=-2·e0, 44 bundles with h⁰≥3
+  h11=18, poly 94: max h⁰=3, best=-2·e0, 10 bundles with h⁰≥3
+  h11=18, poly 95: max h⁰=3, best=-2·e1 + -2·e2 + -1·e5, 16 bundles with h⁰≥3
+  h11=18, poly 96: max h⁰=3, best=-2·e0, 12 bundles with h⁰≥3
+  h11=18, poly 97: max h⁰=3, best=-2·e0 + -1·e3, 60 bundles with h⁰≥3
+  h11=18, poly 98: max h⁰=3, best=-2·e0 + -1·e3, 56 bundles with h⁰≥3
+  h11=19, poly 2: max h⁰=6, best=-2·e0 + -2·e2 + -2·e3, 12 bundles with h⁰≥3
+  h11=19, poly 5: max h⁰=10, best=-3·e0 + -2·e1, 54 bundles with h⁰≥3
+  h11=19, poly 7: max h⁰=4, best=-3·e0 + -1·e2, 56 bundles with h⁰≥3
+  h11=19, poly 10: max h⁰=4, best=-3·e0 + -2·e4, 80 bundles with h⁰≥3
+  h11=19, poly 13: max h⁰=3, best=-1·e0, 6 bundles with h⁰≥3
+  h11=19, poly 15: max h⁰=5, best=-3·e0 + -2·e2 + 1·e13, 58 bundles with h⁰≥3
+  h11=19, poly 16: max h⁰=13, best=-3·e0 + -3·e8, 64 bundles with h⁰≥3
+  h11=19, poly 19: max h⁰=6, best=-2·e0 + -2·e1 + -2·e2, 14 bundles with h⁰≥3
+  h11=19, poly 22: max h⁰=5, best=-2·e0 + -1·e4, 40 bundles with h⁰≥3
+  h11=19, poly 28: max h⁰=3, best=-1·e0, 4 bundles with h⁰≥3
+  h11=19, poly 29: max h⁰=4, best=-3·e0 + -1·e1 + -2·e7, 88 bundles with h⁰≥3
+  h11=19, poly 31: max h⁰=6, best=-2·e0 + -2·e3 + -2·e11, 8 bundles with h⁰≥3
+  h11=19, poly 34: max h⁰=6, best=-2·e0 + -1·e12 + -1·e13, 12 bundles with h⁰≥3
+  h11=19, poly 35: max h⁰=10, best=-3·e0 + -2·e1 + -1·e5, 36 bundles with h⁰≥3
+  h11=19, poly 36: max h⁰=10, best=-3·e2 + -2·e3 + -3·e9, 62 bundles with h⁰≥3
+  h11=19, poly 37: max h⁰=5, best=-2·e0 + -1·e4 + -2·e13, 50 bundles with h⁰≥3
+  h11=19, poly 39: max h⁰=5, best=-2·e0 + -1·e4 + -2·e11, 46 bundles with h⁰≥3
+  h11=19, poly 43: max h⁰=5, best=-2·e2 + -1·e4 + -2·e12, 48 bundles with h⁰≥3
+  h11=19, poly 44: max h⁰=4, best=-2·e0 + -1·e3 + -1·e8, 46 bundles with h⁰≥3
+  h11=19, poly 50: max h⁰=10, best=-3·e1 + -2·e2, 130 bundles with h⁰≥3
+  h11=19, poly 52: max h⁰=7, best=-3·e1 + -2·e3 + -1·e9, 140 bundles with h⁰≥3
+  h11=19, poly 53: max h⁰=16, best=-3·e0 + -2·e7 + -2·e8, 108 bundles with h⁰≥3
+  h11=19, poly 54: max h⁰=4, best=-3·e1 + -1·e11, 68 bundles with h⁰≥3
+  h11=19, poly 61: max h⁰=4, best=-3·e0 + -1·e3, 112 bundles with h⁰≥3
+  h11=19, poly 64: max h⁰=10, best=-3·e0 + -3·e4 + -2·e8, 22 bundles with h⁰≥3
+  h11=19, poly 66: max h⁰=8, best=-2·e0 + 2·e6 + -2·e8, 108 bundles with h⁰≥3
+  h11=19, poly 67: max h⁰=10, best=-3·e0 + -3·e2 + -2·e8, 100 bundles with h⁰≥3
+  h11=19, poly 68: max h⁰=10, best=-3·e0 + -2·e4, 90 bundles with h⁰≥3
+  h11=19, poly 69: max h⁰=5, best=-2·e0 + -1·e4 + -1·e9, 100 bundles with h⁰≥3
+  h11=19, poly 70: max h⁰=6, best=-3·e0 + -1·e2 + -1·e12, 180 bundles with h⁰≥3
+  h11=19, poly 71: max h⁰=6, best=-2·e0 + -1·e11, 92 bundles with h⁰≥3
+  h11=19, poly 72: max h⁰=10, best=-3·e0 + -3·e4, 168 bundles with h⁰≥3
+  h11=19, poly 73: max h⁰=10, best=-2·e1 + -2·e2 + -2·e3, 104 bundles with h⁰≥3
+  h11=19, poly 75: max h⁰=5, best=-2·e0 + -1·e6, 38 bundles with h⁰≥3
+  h11=19, poly 76: max h⁰=4, best=-3·e0 + -3·e2 + -2·e4, 72 bundles with h⁰≥3
+  h11=19, poly 78: max h⁰=19, best=-3·e0 + -3·e1 + -2·e6, 116 bundles with h⁰≥3
+  h11=19, poly 79: max h⁰=13, best=-3·e0 + -3·e1, 86 bundles with h⁰≥3
+  h11=19, poly 80: max h⁰=7, best=-2·e0 + 2·e4 + -1·e11, 54 bundles with h⁰≥3
+  h11=19, poly 81: max h⁰=3, best=-2·e1 + -2·e2 + -1·e3, 10 bundles with h⁰≥3
+  h11=19, poly 82: max h⁰=3, best=-2·e0, 42 bundles with h⁰≥3
+  h11=19, poly 83: max h⁰=20, best=-3·e0 + -2·e2 + -3·e3, 98 bundles with h⁰≥3
+  h11=19, poly 84: max h⁰=4, best=-2·e0 + -1·e3 + -1·e8, 14 bundles with h⁰≥3
+  h11=19, poly 85: max h⁰=4, best=-3·e0 + -1·e1, 140 bundles with h⁰≥3
+  h11=19, poly 86: max h⁰=4, best=-2·e0 + -2·e6 + -2·e18, 6 bundles with h⁰≥3
+  h11=19, poly 87: max h⁰=4, best=-2·e0 + -1·e11, 26 bundles with h⁰≥3
+  h11=19, poly 88: max h⁰=4, best=-3·e0 + -1·e1, 120 bundles with h⁰≥3
+  h11=19, poly 89: max h⁰=13, best=-3·e0 + -3·e4, 90 bundles with h⁰≥3
+  h11=19, poly 90: max h⁰=3, best=-2·e5 + -2·e6 + -1·e7, 10 bundles with h⁰≥3
+  h11=19, poly 91: max h⁰=9, best=-2·e0 + -2·e8 + -2·e12, 102 bundles with h⁰≥3
+  h11=19, poly 93: max h⁰=5, best=-2·e0 + -1·e6 + -2·e12, 50 bundles with h⁰≥3
+  h11=19, poly 94: max h⁰=13, best=-3·e0 + -3·e11, 80 bundles with h⁰≥3
+  h11=19, poly 96: max h⁰=10, best=-3·e0 + -3·e4 + -3·e5, 50 bundles with h⁰≥3
+  h11=19, poly 97: max h⁰=3, best=-2·e0, 30 bundles with h⁰≥3
+  h11=19, poly 98: max h⁰=23, best=-3·e0 + -3·e2 + -1·e3, 160 bundles with h⁰≥3
+  h11=19, poly 99: max h⁰=3, best=-2·e0, 26 bundles with h⁰≥3
+  h11=20, poly 0: max h⁰=3, best=-1·e0 + -2·e3 + -1·e9, 42 bundles with h⁰≥3
+  h11=20, poly 1: max h⁰=3, best=-2·e1 + -2·e4 + -1·e12, 34 bundles with h⁰≥3
+  h11=20, poly 2: max h⁰=3, best=-1·e1 + -2·e4 + -1·e11, 24 bundles with h⁰≥3
+  h11=20, poly 3: max h⁰=3, best=-2·e3 + -1·e12 + -1·e13, 6 bundles with h⁰≥3
+  h11=20, poly 12: max h⁰=3, best=-2·e1 + -2·e4 + -2·e7, 2 bundles with h⁰≥3
+  h11=20, poly 13: max h⁰=3, best=-2·e1 + -2·e4 + -2·e7, 2 bundles with h⁰≥3
+  h11=20, poly 14: max h⁰=3, best=-1·e0 + -2·e3 + -1·e7, 32 bundles with h⁰≥3
+  h11=20, poly 15: max h⁰=3, best=-1·e0 + -2·e3 + -1·e9, 26 bundles with h⁰≥3
+  h11=20, poly 16: max h⁰=3, best=-1·e0 + -2·e3 + -1·e9, 60 bundles with h⁰≥3
+  h11=20, poly 21: max h⁰=4, best=-2·e0 + -1·e1 + -1·e8, 96 bundles with h⁰≥3
+  h11=20, poly 26: max h⁰=3, best=-2·e0 + -1·e5 + -2·e7, 2 bundles with h⁰≥3
+  h11=20, poly 27: max h⁰=30, best=-3·e0 + -3·e2 + 3·e4, 38 bundles with h⁰≥3
+  h11=20, poly 28: max h⁰=4, best=-3·e1 + -1·e5 + -1·e6, 68 bundles with h⁰≥3
+  h11=20, poly 29: max h⁰=3, best=-2·e0, 12 bundles with h⁰≥3
+  h11=20, poly 30: max h⁰=4, best=-2·e0 + -1·e1 + 1·e15, 8 bundles with h⁰≥3
+  h11=20, poly 31: max h⁰=4, best=-2·e0 + -1·e1 + -1·e8, 90 bundles with h⁰≥3
+  h11=20, poly 32: max h⁰=20, best=-3·e0 + -3·e2 + -2·e7, 66 bundles with h⁰≥3
+  h11=20, poly 33: max h⁰=3, best=-1·e0, 6 bundles with h⁰≥3
+  h11=20, poly 34: max h⁰=4, best=-2·e0 + -1·e3 + -1·e6, 12 bundles with h⁰≥3
+  h11=20, poly 35: max h⁰=3, best=-2·e0, 8 bundles with h⁰≥3
+  h11=20, poly 37: max h⁰=6, best=-2·e1 + -2·e2 + -2·e5, 18 bundles with h⁰≥3
+  h11=20, poly 40: max h⁰=5, best=-2·e0 + 1·e1 + -2·e9, 106 bundles with h⁰≥3
+  h11=20, poly 42: max h⁰=16, best=-3·e0 + -3·e1, 52 bundles with h⁰≥3
+  h11=20, poly 43: max h⁰=6, best=-2·e0 + -2·e1 + -2·e4, 14 bundles with h⁰≥3
+  h11=20, poly 44: max h⁰=4, best=-2·e2 + -3·e3 + -3·e6, 68 bundles with h⁰≥3
+  h11=20, poly 45: max h⁰=24, best=-2·e0 + -3·e2 + -3·e4, 142 bundles with h⁰≥3
+  h11=20, poly 46: max h⁰=17, best=-3·e0 + -2·e4 + -1·e5, 126 bundles with h⁰≥3
+  h11=20, poly 47: max h⁰=4, best=-2·e0 + -1·e2 + -1·e5, 42 bundles with h⁰≥3
+  h11=20, poly 48: max h⁰=6, best=-2·e0 + -2·e3 + -2·e5, 20 bundles with h⁰≥3
+  h11=20, poly 53: max h⁰=20, best=-3·e0 + -3·e2 + -1·e7, 94 bundles with h⁰≥3
+  h11=20, poly 54: max h⁰=10, best=-2·e0 + 2·e2 + -2·e11, 32 bundles with h⁰≥3
+  h11=20, poly 56: max h⁰=8, best=-2·e0 + -1·e1 + -2·e14, 76 bundles with h⁰≥3
+  h11=20, poly 57: max h⁰=3, best=-2·e0 + -1·e1 + -1·e11, 18 bundles with h⁰≥3
+  h11=20, poly 59: max h⁰=3, best=-2·e0, 6 bundles with h⁰≥3
+  h11=20, poly 60: max h⁰=3, best=-2·e0 + -1·e1 + -2·e6, 10 bundles with h⁰≥3
+  h11=20, poly 63: max h⁰=12, best=-2·e0 + -1·e2 + 2·e9, 110 bundles with h⁰≥3
+  h11=20, poly 67: max h⁰=6, best=-2·e0 + -1·e5 + -1·e8, 18 bundles with h⁰≥3
+  h11=20, poly 69: max h⁰=6, best=-2·e0 + -1·e1 + -2·e2, 110 bundles with h⁰≥3
+  h11=20, poly 70: max h⁰=19, best=-3·e0 + 2·e10 + -1·e12, 128 bundles with h⁰≥3
+  h11=20, poly 71: max h⁰=30, best=-3·e0 + -3·e2 + -3·e4, 196 bundles with h⁰≥3
+  h11=20, poly 73: max h⁰=3, best=-2·e0 + -2·e4 + -2·e16, 8 bundles with h⁰≥3
+  h11=20, poly 74: max h⁰=4, best=-3·e0 + -2·e4 + -2·e5, 4 bundles with h⁰≥3
+  h11=20, poly 75: max h⁰=3, best=-2·e4 + -2·e6 + -2·e14, 2 bundles with h⁰≥3
+  h11=20, poly 77: max h⁰=3, best=-2·e2 + -2·e4 + -2·e5, 2 bundles with h⁰≥3
+  h11=20, poly 86: max h⁰=3, best=-2·e2 + -2·e4 + -2·e5, 2 bundles with h⁰≥3
+  h11=20, poly 87: max h⁰=3, best=-2·e1 + -2·e3 + -2·e5, 2 bundles with h⁰≥3
+  h11=20, poly 88: max h⁰=3, best=-2·e2 + -2·e4 + -2·e5, 2 bundles with h⁰≥3
+  h11=20, poly 89: max h⁰=3, best=-2·e1 + -2·e4 + -2·e6, 2 bundles with h⁰≥3
+  h11=20, poly 90: max h⁰=3, best=-2·e1 + -2·e4 + -2·e6, 2 bundles with h⁰≥3
+  h11=20, poly 91: max h⁰=9, best=-2·e2 + -2·e3 + -2·e6, 30 bundles with h⁰≥3
+  h11=20, poly 92: max h⁰=3, best=-1·e0 + -2·e1 + -1·e6, 48 bundles with h⁰≥3
+  h11=20, poly 93: max h⁰=4, best=-1·e0 + -1·e7, 14 bundles with h⁰≥3
+  h11=20, poly 94: max h⁰=10, best=-3·e0 + -1·e7 + -2·e8, 78 bundles with h⁰≥3
+  h11=20, poly 96: max h⁰=3, best=-2·e0, 2 bundles with h⁰≥3
+  h11=20, poly 98: max h⁰=3, best=-1·e0 + -2·e3 + -1·e7, 42 bundles with h⁰≥3
+  h11=20, poly 99: max h⁰=3, best=-1·e0 + -2·e4 + -1·e9, 4 bundles with h⁰≥3
+  h11=21, poly 5: max h⁰=6, best=-2·e0 + -1·e11 + -1·e12, 22 bundles with h⁰≥3
+  h11=21, poly 10: max h⁰=4, best=-3·e1 + -1·e2, 112 bundles with h⁰≥3
+  h11=21, poly 17: max h⁰=4, best=-2·e0 + -1·e3 + -2·e11, 34 bundles with h⁰≥3
+  h11=21, poly 19: max h⁰=3, best=-1·e1 + -1·e2, 34 bundles with h⁰≥3
+  h11=21, poly 20: max h⁰=3, best=-2·e2 + -2·e8, 6 bundles with h⁰≥3
+  h11=21, poly 23: max h⁰=3, best=-2·e3 + -2·e8 + -2·e14, 2 bundles with h⁰≥3
+  h11=21, poly 26: max h⁰=3, best=-2·e0 + -2·e2 + -1·e15, 32 bundles with h⁰≥3
+  h11=21, poly 29: max h⁰=3, best=-1·e1 + -2·e4 + -1·e5, 6 bundles with h⁰≥3
+  h11=21, poly 30: max h⁰=3, best=-2·e3, 14 bundles with h⁰≥3
+  h11=21, poly 39: max h⁰=3, best=-2·e0 + -1·e3, 46 bundles with h⁰≥3
+  h11=21, poly 48: max h⁰=9, best=-2·e0 + -3·e1 + -3·e6, 62 bundles with h⁰≥3
+  h11=21, poly 49: max h⁰=3, best=-2·e0 + -1·e3, 60 bundles with h⁰≥3
+  h11=21, poly 50: max h⁰=3, best=-2·e1 + -1·e2, 62 bundles with h⁰≥3
+  h11=21, poly 51: max h⁰=3, best=-2·e1, 6 bundles with h⁰≥3
+  h11=21, poly 52: max h⁰=3, best=-2·e0 + -1·e3, 58 bundles with h⁰≥3
+  h11=21, poly 53: max h⁰=6, best=-2·e0 + -2·e4 + -2·e5, 40 bundles with h⁰≥3
+  h11=21, poly 54: max h⁰=5, best=-2·e0 + -2·e5 + -2·e7, 14 bundles with h⁰≥3
+  h11=21, poly 55: max h⁰=9, best=-2·e0 + -2·e5 + -2·e6, 124 bundles with h⁰≥3
+  h11=21, poly 56: max h⁰=6, best=-3·e0 + -1·e10, 124 bundles with h⁰≥3
+  h11=21, poly 57: max h⁰=3, best=-2·e1, 22 bundles with h⁰≥3
+  h11=21, poly 58: max h⁰=3, best=-2·e0 + -2·e3 + -1·e10, 6 bundles with h⁰≥3
+  h11=21, poly 59: max h⁰=7, best=-2·e0 + -2·e1 + -1·e8, 122 bundles with h⁰≥3
+  h11=21, poly 60: max h⁰=7, best=-2·e0 + -1·e5 + -1·e13, 96 bundles with h⁰≥3
+  h11=21, poly 62: max h⁰=6, best=-2·e0 + -2·e7 + -1·e12, 112 bundles with h⁰≥3
+  h11=21, poly 63: max h⁰=9, best=-2·e0 + -2·e9 + -2·e10, 98 bundles with h⁰≥3
+  h11=21, poly 64: max h⁰=6, best=-2·e0 + -2·e5 + -1·e8, 54 bundles with h⁰≥3
+  h11=21, poly 65: max h⁰=4, best=-2·e0 + -1·e1 + -1·e4, 78 bundles with h⁰≥3
+  h11=21, poly 74: max h⁰=3, best=-2·e0 + -1·e1, 28 bundles with h⁰≥3
+  h11=21, poly 75: max h⁰=7, best=-2·e0 + -1·e5 + -1·e7, 18 bundles with h⁰≥3
+  h11=21, poly 78: max h⁰=4, best=-2·e0 + 1·e2 + 2·e9, 2 bundles with h⁰≥3
+  h11=21, poly 79: max h⁰=6, best=-2·e0 + -2·e2 + -1·e9, 84 bundles with h⁰≥3
+  h11=21, poly 80: max h⁰=3, best=-1·e0 + -2·e3 + -1·e9, 12 bundles with h⁰≥3
+  h11=21, poly 82: max h⁰=6, best=-2·e0 + 1·e3 + -2·e7, 40 bundles with h⁰≥3
+  h11=21, poly 83: max h⁰=6, best=-2·e0 + -2·e5 + -2·e14, 28 bundles with h⁰≥3
+  h11=21, poly 84: max h⁰=11, best=-2·e0 + -1·e2 + 2·e4, 60 bundles with h⁰≥3
+  h11=21, poly 85: max h⁰=3, best=-2·e6 + -2·e7 + -2·e12, 2 bundles with h⁰≥3
+  h11=21, poly 86: max h⁰=5, best=-2·e0 + -1·e1 + -1·e13, 14 bundles with h⁰≥3
+  h11=21, poly 87: max h⁰=4, best=-3·e1 + -1·e6 + -1·e7, 18 bundles with h⁰≥3
+  h11=21, poly 88: max h⁰=4, best=-2·e0 + -1·e2 + -2·e9, 38 bundles with h⁰≥3
+  h11=21, poly 90: max h⁰=3, best=-1·e0 + -1·e2, 2 bundles with h⁰≥3
+  h11=21, poly 93: max h⁰=3, best=-2·e0 + -1·e4, 14 bundles with h⁰≥3
+  h11=21, poly 94: max h⁰=6, best=-2·e0, 212 bundles with h⁰≥3
+  h11=21, poly 97: max h⁰=13, best=-3·e0 + -3·e1 + 2·e9, 182 bundles with h⁰≥3
+  h11=22, poly 1: max h⁰=3, best=-1·e0 + -2·e4 + -1·e10, 8 bundles with h⁰≥3
+  h11=22, poly 2: max h⁰=3, best=-2·e4 + -2·e7 + -2·e8, 2 bundles with h⁰≥3
+  h11=22, poly 4: max h⁰=4, best=-2·e0 + -1·e1 + -2·e5, 18 bundles with h⁰≥3
+  h11=22, poly 7: max h⁰=3, best=-2·e7 + -2·e9 + -1·e16, 2 bundles with h⁰≥3
+  h11=22, poly 15: max h⁰=3, best=-2·e0 + 1·e1, 58 bundles with h⁰≥3
+  h11=22, poly 16: max h⁰=3, best=-2·e0, 4 bundles with h⁰≥3
+  h11=22, poly 19: max h⁰=5, best=-2·e0 + -2·e1 + 1·e3, 246 bundles with h⁰≥3
+  h11=22, poly 20: max h⁰=3, best=-1·e0, 2 bundles with h⁰≥3
+  h11=22, poly 23: max h⁰=3, best=-2·e3 + -2·e4 + -2·e12, 2 bundles with h⁰≥3
+  h11=22, poly 27: max h⁰=9, best=-2·e0 + -2·e2 + 2·e12, 106 bundles with h⁰≥3
+  h11=22, poly 28: max h⁰=7, best=-2·e0 + -2·e2 + 1·e3, 66 bundles with h⁰≥3
+  h11=22, poly 30: max h⁰=3, best=-2·e0 + -2·e5 + -2·e6, 2 bundles with h⁰≥3
+  h11=22, poly 31: max h⁰=3, best=-2·e0, 6 bundles with h⁰≥3
+  h11=22, poly 32: max h⁰=3, best=-1·e0, 4 bundles with h⁰≥3
+  h11=22, poly 33: max h⁰=5, best=-2·e0 + -1·e6 + -1·e9, 14 bundles with h⁰≥3
+  h11=22, poly 34: max h⁰=3, best=-2·e0 + -2·e4, 6 bundles with h⁰≥3
+  h11=22, poly 35: max h⁰=6, best=-2·e0 + -1·e3, 82 bundles with h⁰≥3
+  h11=22, poly 39: max h⁰=20, best=-3·e0 + -3·e3 + -3·e5, 70 bundles with h⁰≥3
+  h11=22, poly 43: max h⁰=3, best=-2·e0 + -1·e2 + -1·e7, 6 bundles with h⁰≥3
+  h11=22, poly 49: max h⁰=3, best=-2·e0, 2 bundles with h⁰≥3
+  h11=22, poly 54: max h⁰=5, best=-2·e0 + -2·e1 + 2·e2, 114 bundles with h⁰≥3
+  h11=22, poly 56: max h⁰=5, best=-2·e0 + 1·e1, 26 bundles with h⁰≥3
+  h11=22, poly 57: max h⁰=5, best=-2·e0 + 1·e1, 26 bundles with h⁰≥3
+  h11=22, poly 67: max h⁰=3, best=-2·e1 + -2·e5 + -2·e13, 2 bundles with h⁰≥3
+  h11=22, poly 68: max h⁰=7, best=-2·e0 + -2·e1 + 1·e2, 30 bundles with h⁰≥3
+  h11=22, poly 69: max h⁰=3, best=-1·e0 + -2·e3 + -1·e9, 8 bundles with h⁰≥3
+  h11=22, poly 70: max h⁰=3, best=-2·e1 + -1·e8 + -1·e12, 6 bundles with h⁰≥3
+  h11=22, poly 71: max h⁰=3, best=-2·e0 + -1·e1 + -1·e7, 14 bundles with h⁰≥3
+  h11=22, poly 73: max h⁰=4, best=-2·e0 + -1·e1 + -2·e5, 20 bundles with h⁰≥3
+  h11=22, poly 74: max h⁰=3, best=-2·e1 + -1·e5 + -1·e12, 6 bundles with h⁰≥3
+  h11=22, poly 76: max h⁰=3, best=-2·e3, 6 bundles with h⁰≥3
+  h11=22, poly 77: max h⁰=14, best=-2·e0 + -2·e3 + 2·e10, 24 bundles with h⁰≥3
+  h11=22, poly 78: max h⁰=9, best=-2·e0 + 1·e2 + -2·e7, 30 bundles with h⁰≥3
+  h11=22, poly 79: max h⁰=14, best=-2·e0 + 2·e4 + 2·e13, 36 bundles with h⁰≥3
+  h11=22, poly 82: max h⁰=3, best=-1·e0 + -2·e3 + -1·e9, 6 bundles with h⁰≥3
+  h11=22, poly 85: max h⁰=3, best=-2·e1 + -2·e4 + -2·e8, 2 bundles with h⁰≥3
+  h11=22, poly 88: max h⁰=3, best=-2·e0 + 2·e3, 2 bundles with h⁰≥3
+  h11=22, poly 89: max h⁰=3, best=-2·e0 + 2·e4, 2 bundles with h⁰≥3
+  h11=22, poly 90: max h⁰=9, best=-2·e0 + -2·e2 + 1·e7, 22 bundles with h⁰≥3
+  h11=22, poly 91: max h⁰=15, best=-2·e0 + -2·e1 + -2·e2, 60 bundles with h⁰≥3
+  h11=22, poly 92: max h⁰=3, best=-2·e0 + 2·e4, 2 bundles with h⁰≥3
+  h11=22, poly 93: max h⁰=7, best=-2·e0 + 1·e4 + 2·e5, 10 bundles with h⁰≥3
+  h11=22, poly 94: max h⁰=5, best=-2·e0 + -2·e1 + 1·e3, 234 bundles with h⁰≥3
+  h11=22, poly 95: max h⁰=3, best=-2·e0 + -1·e3, 66 bundles with h⁰≥3
+  h11=23, poly 3: max h⁰=11, best=-2·e0 + -2·e6 + -1·e12, 94 bundles with h⁰≥3
+  h11=23, poly 4: max h⁰=3, best=-2·e2 + -1·e3, 30 bundles with h⁰≥3
+  h11=23, poly 6: max h⁰=4, best=-3·e0 + -1·e2, 54 bundles with h⁰≥3
+  h11=23, poly 7: max h⁰=5, best=-2·e0 + -2·e3 + 2·e12, 10 bundles with h⁰≥3
+  h11=23, poly 9: max h⁰=3, best=-1·e0, 32 bundles with h⁰≥3
+  h11=23, poly 10: max h⁰=5, best=-2·e0 + -1·e5 + -2·e12, 28 bundles with h⁰≥3
+  h11=23, poly 11: max h⁰=7, best=-2·e0 + -1·e1 + -1·e11, 94 bundles with h⁰≥3
+  h11=23, poly 12: max h⁰=3, best=-2·e0 + -1·e2, 40 bundles with h⁰≥3
+  h11=23, poly 13: max h⁰=3, best=-2·e0 + -1·e12, 18 bundles with h⁰≥3
+  h11=23, poly 14: max h⁰=3, best=-2·e1, 6 bundles with h⁰≥3
+  h11=23, poly 16: max h⁰=3, best=-2·e1, 16 bundles with h⁰≥3
+  h11=23, poly 17: max h⁰=3, best=-1·e1 + -1·e3, 6 bundles with h⁰≥3
+  h11=23, poly 18: max h⁰=10, best=-3·e0 + -2·e7 + -3·e13, 30 bundles with h⁰≥3
+  h11=23, poly 20: max h⁰=3, best=-2·e0 + -1·e1, 26 bundles with h⁰≥3
+  h11=23, poly 22: max h⁰=13, best=-3·e0 + -1·e3 + -2·e8, 70 bundles with h⁰≥3
+  h11=23, poly 23: max h⁰=9, best=-2·e0 + -2·e5 + -2·e6, 56 bundles with h⁰≥3
+  h11=23, poly 24: max h⁰=3, best=-1·e0 + 1·e18, 4 bundles with h⁰≥3
+  h11=23, poly 25: max h⁰=11, best=-2·e0 + 2·e3 + 1·e5, 132 bundles with h⁰≥3
+  h11=23, poly 27: max h⁰=3, best=-2·e2 + -2·e3 + -1·e8, 2 bundles with h⁰≥3
+  h11=23, poly 30: max h⁰=3, best=-2·e0, 8 bundles with h⁰≥3
+  h11=23, poly 31: max h⁰=3, best=-2·e0 + -2·e2 + -1·e6, 2 bundles with h⁰≥3
+  h11=23, poly 32: max h⁰=4, best=-2·e0 + -1·e1 + 1·e11, 6 bundles with h⁰≥3
+  h11=23, poly 34: max h⁰=3, best=-2·e0 + -1·e1, 36 bundles with h⁰≥3
+  h11=23, poly 35: max h⁰=4, best=-3·e0 + -2·e1 + -2·e3, 80 bundles with h⁰≥3
+  h11=23, poly 37: max h⁰=6, best=-2·e0 + -2·e8 + -1·e11, 26 bundles with h⁰≥3
+  h11=23, poly 38: max h⁰=3, best=-2·e2 + -2·e4 + -2·e8, 4 bundles with h⁰≥3
+  h11=23, poly 41: max h⁰=10, best=-2·e0 + 2·e4, 28 bundles with h⁰≥3
+  h11=23, poly 43: max h⁰=4, best=-2·e0 + -3·e2 + -2·e5, 34 bundles with h⁰≥3
+  h11=23, poly 44: max h⁰=30, best=-3·e0 + -3·e5 + -1·e6, 108 bundles with h⁰≥3
+  h11=23, poly 46: max h⁰=5, best=-2·e0 + 2·e1 + -1·e2, 10 bundles with h⁰≥3
+  h11=23, poly 47: max h⁰=30, best=-3·e0 + -3·e2 + 3·e10, 132 bundles with h⁰≥3
+  h11=23, poly 48: max h⁰=10, best=-2·e0 + 2·e3, 26 bundles with h⁰≥3
+  h11=23, poly 49: max h⁰=36, best=-3·e0 + 3·e8 + -1·e14, 106 bundles with h⁰≥3
+  h11=23, poly 50: max h⁰=3, best=-1·e0 + -2·e3 + -1·e9, 6 bundles with h⁰≥3
+  h11=23, poly 51: max h⁰=3, best=-2·e8 + -2·e9 + -2·e14, 2 bundles with h⁰≥3
+  h11=23, poly 52: max h⁰=3, best=-2·e4 + -2·e6 + -1·e17, 6 bundles with h⁰≥3
+  h11=23, poly 54: max h⁰=3, best=-2·e2 + -2·e3 + -1·e12, 8 bundles with h⁰≥3
+  h11=23, poly 55: max h⁰=3, best=-2·e2 + -2·e3 + -1·e8, 6 bundles with h⁰≥3
+  h11=23, poly 57: max h⁰=3, best=-2·e5 + -2·e6, 2 bundles with h⁰≥3
+  h11=23, poly 58: max h⁰=5, best=-2·e0 + 1·e1 + -1·e12, 94 bundles with h⁰≥3
+  h11=23, poly 59: max h⁰=3, best=-2·e1 + -2·e8, 2 bundles with h⁰≥3
+  h11=23, poly 60: max h⁰=3, best=-1·e3 + -2·e5, 22 bundles with h⁰≥3
+  h11=23, poly 61: max h⁰=3, best=-2·e1 + -1·e3 + -1·e11, 8 bundles with h⁰≥3
+  h11=23, poly 62: max h⁰=3, best=-2·e0 + -2·e3 + -1·e4, 18 bundles with h⁰≥3
+  h11=23, poly 63: max h⁰=9, best=-2·e0 + -2·e1 + -2·e4, 12 bundles with h⁰≥3
+  h11=23, poly 64: max h⁰=11, best=-2·e0 + 1·e6 + -2·e7, 134 bundles with h⁰≥3
+  h11=23, poly 66: max h⁰=3, best=-1·e0 + -2·e2 + -1·e7, 6 bundles with h⁰≥3
+  h11=23, poly 67: max h⁰=6, best=-2·e0 + -1·e4 + -2·e6, 52 bundles with h⁰≥3
+  h11=23, poly 68: max h⁰=14, best=-2·e0 + -2·e8, 192 bundles with h⁰≥3
+  h11=23, poly 72: max h⁰=3, best=-2·e0 + -1·e1 + -1·e7, 26 bundles with h⁰≥3
+  h11=23, poly 73: max h⁰=4, best=-3·e0 + -2·e1 + -2·e2, 22 bundles with h⁰≥3
+  h11=23, poly 74: max h⁰=4, best=-3·e0 + -2·e1 + -2·e2, 14 bundles with h⁰≥3
+  h11=23, poly 76: max h⁰=10, best=-2·e0 + 2·e5, 22 bundles with h⁰≥3
+  h11=23, poly 77: max h⁰=13, best=-2·e0 + -2·e2 + -2·e4, 158 bundles with h⁰≥3
+  h11=23, poly 78: max h⁰=3, best=-2·e0 + -1·e2, 42 bundles with h⁰≥3
+  h11=23, poly 79: max h⁰=20, best=-3·e0 + -3·e3 + -2·e5, 88 bundles with h⁰≥3
+  h11=23, poly 80: max h⁰=7, best=-2·e0 + -1·e5 + -1·e10, 84 bundles with h⁰≥3
+  h11=23, poly 81: max h⁰=5, best=-2·e0 + -2·e1 + 1·e2, 168 bundles with h⁰≥3
+  h11=23, poly 82: max h⁰=4, best=-3·e0 + -1·e2, 40 bundles with h⁰≥3
+  h11=23, poly 83: max h⁰=4, best=-3·e1 + -1·e4, 48 bundles with h⁰≥3
+  h11=23, poly 84: max h⁰=9, best=-2·e0 + -2·e5, 72 bundles with h⁰≥3
+  h11=23, poly 85: max h⁰=20, best=-2·e0 + -2·e9 + -2·e10, 136 bundles with h⁰≥3
+  h11=23, poly 86: max h⁰=6, best=-2·e0 + -2·e7 + -2·e9, 8 bundles with h⁰≥3
+  h11=23, poly 88: max h⁰=5, best=-2·e0 + 2·e1 + 1·e2, 12 bundles with h⁰≥3
+  h11=23, poly 89: max h⁰=4, best=-3·e4 + -3·e7 + -2·e8, 6 bundles with h⁰≥3
+  h11=23, poly 90: max h⁰=20, best=-3·e0 + -3·e6 + -1·e7, 100 bundles with h⁰≥3
+  h11=23, poly 92: max h⁰=5, best=-2·e0 + 2·e1 + 1·e2, 14 bundles with h⁰≥3
+  h11=23, poly 97: max h⁰=13, best=-2·e0 + -1·e11 + 2·e16, 102 bundles with h⁰≥3
+  h11=23, poly 98: max h⁰=11, best=-2·e0 + -2·e2 + 1·e15, 102 bundles with h⁰≥3
+  h11=23, poly 99: max h⁰=13, best=-3·e0 + -1·e1 + 3·e4, 46 bundles with h⁰≥3
+  h11=24, poly 0: max h⁰=3, best=-2·e4 + -1·e6 + -1·e13, 12 bundles with h⁰≥3
+  h11=24, poly 2: max h⁰=20, best=-3·e0 + -3·e1 + -1·e5, 92 bundles with h⁰≥3
+  h11=24, poly 3: max h⁰=3, best=-1·e0, 28 bundles with h⁰≥3
+  h11=24, poly 4: max h⁰=30, best=-3·e0 + 3·e3 + 1·e4, 164 bundles with h⁰≥3
+  h11=24, poly 5: max h⁰=5, best=-2·e0 + 1·e12 + 1·e13, 14 bundles with h⁰≥3
+  h11=24, poly 7: max h⁰=6, best=-2·e2 + -1·e10 + -1·e14, 38 bundles with h⁰≥3
+  h11=24, poly 8: max h⁰=3, best=-2·e4 + -1·e5 + -1·e14, 10 bundles with h⁰≥3
+  h11=24, poly 9: max h⁰=3, best=-2·e0 + -2·e4 + -2·e5, 6 bundles with h⁰≥3
+  h11=24, poly 10: max h⁰=3, best=-2·e3 + -2·e4 + -2·e6, 2 bundles with h⁰≥3
+  h11=24, poly 11: max h⁰=7, best=-2·e2 + -1·e4 + 1·e14, 40 bundles with h⁰≥3
+  h11=24, poly 12: max h⁰=6, best=-2·e2, 152 bundles with h⁰≥3
+  h11=24, poly 19: max h⁰=11, best=-2·e0 + -1·e8 + 2·e15, 98 bundles with h⁰≥3
+  h11=24, poly 22: max h⁰=5, best=-2·e0 + 1·e2 + 1·e13, 62 bundles with h⁰≥3
+  h11=24, poly 25: max h⁰=3, best=-2·e5 + -2·e9, 6 bundles with h⁰≥3
+  h11=24, poly 27: max h⁰=5, best=-2·e0 + 1·e15, 8 bundles with h⁰≥3
+  h11=24, poly 28: max h⁰=3, best=-1·e0 + -1·e3 + -1·e8, 6 bundles with h⁰≥3
+  h11=24, poly 29: max h⁰=3, best=-1·e0, 10 bundles with h⁰≥3
+  h11=24, poly 30: max h⁰=6, best=-2·e0 + 2·e5, 8 bundles with h⁰≥3
+  h11=24, poly 31: max h⁰=13, best=-2·e0 + 1·e4 + 2·e15, 100 bundles with h⁰≥3
+  h11=24, poly 33: max h⁰=3, best=-2·e0, 4 bundles with h⁰≥3
+  h11=24, poly 35: max h⁰=6, best=-2·e0 + -2·e1 + -1·e12, 112 bundles with h⁰≥3
+  h11=24, poly 38: max h⁰=9, best=-2·e1 + -2·e2 + -2·e10, 8 bundles with h⁰≥3
+  h11=24, poly 39: max h⁰=6, best=-2·e0 + -2·e1 + -1·e3, 40 bundles with h⁰≥3
+  h11=24, poly 40: max h⁰=9, best=-2·e0 + -1·e2 + -2·e6, 66 bundles with h⁰≥3
+  h11=24, poly 41: max h⁰=9, best=-2·e0 + -2·e6, 214 bundles with h⁰≥3
+  h11=24, poly 44: max h⁰=3, best=-2·e5 + -2·e9, 2 bundles with h⁰≥3
+  h11=24, poly 45: max h⁰=29, best=-3·e0 + -2·e1 + 2·e10, 70 bundles with h⁰≥3
+  h11=24, poly 46: max h⁰=6, best=-2·e0, 10 bundles with h⁰≥3
+  h11=24, poly 47: max h⁰=9, best=-2·e0 + -2·e5, 6 bundles with h⁰≥3
+  h11=24, poly 48: max h⁰=8, best=-2·e0 + -1·e2 + -1·e10, 34 bundles with h⁰≥3
+  h11=24, poly 49: max h⁰=7, best=-2·e0 + 2·e13, 18 bundles with h⁰≥3
+  h11=24, poly 52: max h⁰=3, best=-1·e0, 2 bundles with h⁰≥3
+  h11=24, poly 53: max h⁰=4, best=-1·e0 + -1·e9, 16 bundles with h⁰≥3
+  h11=24, poly 55: max h⁰=20, best=-3·e0 + -3·e1 + -1·e6, 112 bundles with h⁰≥3
+  h11=24, poly 56: max h⁰=16, best=-3·e0 + -3·e1 + 1·e7, 56 bundles with h⁰≥3
+  h11=24, poly 57: max h⁰=5, best=-2·e0 + -2·e1 + 2·e6, 20 bundles with h⁰≥3
+  h11=24, poly 58: max h⁰=56, best=-3·e0 + 3·e4 + -2·e8, 38 bundles with h⁰≥3
+  h11=24, poly 61: max h⁰=3, best=-2·e0, 2 bundles with h⁰≥3
+  h11=24, poly 63: max h⁰=3, best=-1·e0, 2 bundles with h⁰≥3
+  h11=24, poly 64: max h⁰=3, best=-2·e0 + -1·e2 + -1·e10, 8 bundles with h⁰≥3
+  h11=24, poly 65: max h⁰=24, best=-2·e0 + -1·e1 + -2·e6, 46 bundles with h⁰≥3
+  h11=24, poly 67: max h⁰=11, best=-2·e0 + -1·e2 + 2·e6, 114 bundles with h⁰≥3
+  h11=24, poly 69: max h⁰=9, best=-2·e0 + -1·e1 + -2·e8, 44 bundles with h⁰≥3
+  h11=24, poly 70: max h⁰=3, best=-2·e0 + -2·e1 + -1·e10, 20 bundles with h⁰≥3
+  h11=24, poly 71: max h⁰=3, best=-2·e0 + -2·e8, 8 bundles with h⁰≥3
+  h11=24, poly 72: max h⁰=14, best=-2·e0 + -2·e13, 8 bundles with h⁰≥3
+  h11=24, poly 73: max h⁰=3, best=-2·e6, 24 bundles with h⁰≥3
+  h11=24, poly 75: max h⁰=3, best=-2·e3 + -1·e6 + -2·e8, 2 bundles with h⁰≥3
+  h11=24, poly 76: max h⁰=3, best=-2·e0 + -1·e4 + -2·e11, 8 bundles with h⁰≥3
+  h11=24, poly 77: max h⁰=12, best=-2·e0 + -2·e3, 10 bundles with h⁰≥3
+  h11=24, poly 79: max h⁰=4, best=-3·e0 + -2·e1 + -2·e9, 34 bundles with h⁰≥3
+  h11=24, poly 80: max h⁰=9, best=-2·e0 + -2·e1 + -2·e9, 130 bundles with h⁰≥3
+  h11=24, poly 81: max h⁰=3, best=-2·e10 + -2·e11, 2 bundles with h⁰≥3
+  h11=24, poly 82: max h⁰=12, best=-2·e1 + -3·e4 + -1·e6, 136 bundles with h⁰≥3
+  h11=24, poly 83: max h⁰=3, best=-2·e4 + -2·e5 + -2·e10, 2 bundles with h⁰≥3
+  h11=24, poly 85: max h⁰=3, best=-2·e3 + -2·e4, 4 bundles with h⁰≥3
+  h11=24, poly 88: max h⁰=6, best=-1·e0 + -1·e4 + -2·e10, 52 bundles with h⁰≥3
+  h11=24, poly 89: max h⁰=15, best=-2·e0 + -1·e6 + -2·e9, 84 bundles with h⁰≥3
+  h11=24, poly 91: max h⁰=10, best=-2·e0 + 2·e1 + 2·e9, 68 bundles with h⁰≥3
+  h11=24, poly 92: max h⁰=3, best=-1·e0 + 1·e5, 8 bundles with h⁰≥3
+  h11=24, poly 96: max h⁰=3, best=-1·e0, 10 bundles with h⁰≥3
+  h11=24, poly 97: max h⁰=3, best=-2·e9 + -2·e10, 2 bundles with h⁰≥3
+  h11=24, poly 99: max h⁰=6, best=-2·e0 + 2·e7 + 2·e13, 36 bundles with h⁰≥3
+
+max h⁰ distribution: {1: 316, 2: 76, 3: 249, 4: 117, 5: 42, 6: 50, 7: 17, 8: 8, 9: 20, 10: 42, 11: 11, 12: 9, 13: 17, 14: 5, 15: 2, 16: 8, 17: 3, 18: 2, 19: 2, 20: 13, 21: 1, 22: 1, 23: 1, 24: 2, 29: 1, 30: 6, 36: 2, 37: 1, 56: 1}
+
+Done.
