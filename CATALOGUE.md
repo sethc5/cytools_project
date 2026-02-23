@@ -3,7 +3,7 @@
 > **Purpose**: Record what's been checked, what passed, and what's ruled out.
 > If a polytope or approach appears here, you don't need to redo the work.
 >
-> **Last updated**: 2026-02-22. Scan v2 complete (1,025 polytopes). T2 complete (177/177). **2 full pipeline runs** (h14/poly2 + h17/poly63 — both 26/26).
+> **Last updated**: 2026-02-23. h13–h16 fully scanned (~11,000 polytopes). h17 scan 42% (Codespace). h18 scan 98% (Hetzner). **12 full pipeline runs** (7× 26/26). GL=12/D₆ geometry study in progress.
 
 ---
 
@@ -31,9 +31,8 @@
 
 ### What We Haven't Scanned
 
-- **h¹¹ = 25–128**: 92 of 104 Hodge pairs are completely untouched. The KS database has millions of polytopes at high h¹¹.
-- **Limit cap**: Even at h¹¹ = 15–17, we saw only the first 100 of thousands. The KS CGI returns polytopes in an unspecified order — we have no guarantee the first 100 are representative.
-- **Favorable bias**: Scan v1 (pre-B-11 fix) missed all 705 non-favorable polytopes. Scan v2 fixed this, but our best candidates are all non-favorable. There may be non-favorable polytopes we haven't reached in the first 100.
+- **h¹¹ = 19–128**: 90+ of 104 Hodge pairs have only 100 polytopes sampled. The KS database has millions at high h¹¹.
+- **Favorable bias**: Scan v1 (pre-B-11 fix) missed all 705 non-favorable polytopes. Scan v2 fixed this, but our best candidates are all non-favorable.
 
 ---
 
@@ -119,20 +118,46 @@ Full merged CSV: [results/tier2_full_results.csv](results/tier2_full_results.csv
 
 ---
 
-## 4. Deep Pipeline Results
+## 4. Deep Pipeline Results (12 complete)
 
-### h13/poly1 — Full Pipeline Score: 18/20
+### ★ h14/poly2 — Heterotic Champion (Score: 26/26)
 
-The strongest candidate found so far. Full write-up in [FINDINGS.md](FINDINGS.md).
+- h¹¹=14, h²¹=17, χ=−6 (native 3-gen)
+- **320 completely clean bundles** (most of any candidate)
+- 828 with h⁰ ≥ 3, max h⁰ = 13
+- 3 dP divisors, 3 Swiss cheese directions (τ=58.5)
+- 3 K3 + 3 elliptic fibrations
 
-- h¹¹=13, h²¹=16, χ=−6 (native 3-generation)
-- **25 completely clean bundles**: h⁰=3, h¹=h²=h³=0
-- 11,054 total χ=±3 bundles (5,527 each sign)
-- 76 bundles with h⁰ ≥ 3, max h⁰ = 6
-- 3 del Pezzo divisors (dP₄, dP₆, dP₄), 1 K3-like
-- Swiss cheese: τ=10.0, V=308,352, ratio=0.0022
-- **No nef bundles** (min Mori pairing = −19)
-- Favorable: No. h¹¹_eff = 13.
+### ★ h17/poly25 — F-Theory + Triple-Threat Champion (Score: 26/26)
+
+- h¹¹=17, h²¹=20, χ=−6
+- **170 clean bundles**, 490 with h⁰ ≥ 3, max h⁰ = 8
+- **15 elliptic fibrations** (all-time record) + 6 K3 + Swiss cheese τ=56
+- Only candidate excelling at heterotic + F-theory + LVS simultaneously
+
+### ★ h15/poly61 — LVS Champion (Score: 25/26)
+
+- h¹¹=15, h²¹=18, χ=−6
+- **110 clean bundles**, 338 with h⁰ ≥ 3, max h⁰ = 4
+- **Swiss cheese τ = 14,300** (6.5× runner-up)
+- 3 K3 + 3 elliptic fibrations. 0 dP (−1 point)
+
+### ★ h17/poly63 — Former F-Theory Champion (Score: 26/26)
+
+- 218 clean bundles, max h⁰=40, 6 dP, 5 K3 + 10 elliptic
+- 1 nef bundle (extremely rare)
+
+### ★ h16/poly11 (26/26, 298 clean), h18/poly34 (26/26, 184 clean), h17/poly8 (26/26, 180 clean, τ=2208)
+
+### All 12 pipeline runs: see [FINDINGS.md](FINDINGS.md)
+
+### h13/poly1 — Benchmark (Score: 18/20, legacy scoring)
+
+The original benchmark candidate. Full write-up in [FINDINGS.md](FINDINGS.md).
+
+- h¹¹=13, h²¹=16, χ=−6
+- **25 completely clean bundles**
+- 3 dP divisors, Swiss cheese τ=10.0
 
 ### Polytope 40 (h15/poly40) — Pipeline Score: 10/20
 
@@ -186,15 +211,17 @@ These bugs wasted significant time. If you're using CYTools 1.4.5, be aware:
 
 Ordered by expected impact:
 
-1. **Full pipeline on h14/poly2** — New clean-bundle leader (268) at h¹¹=14. Lowest h¹¹ with this many bundles. Needs Stages 1–4 deep analysis + scorecard.
+1. **Complete h17 + h18 scans** — h17 running on Codespace (42%), h18 on Hetzner (98% — nearly done). Results will add thousands of new candidates to the T1→T2 funnel.
 
-2. **Full pipeline on h17/poly63** — Top T2=45 scorer (198 clean, max h⁰=40, 5 K3 + 6 elliptic). Best fibration structure.
+2. **Stage 5: Higher-rank bundles** — `rank_n_bundles.py` exists but needs stability analysis beyond Hoppe. Find a truly stable rank-4/5 bundle with net chirality = 3.
 
-3. **Expand scan at h¹¹ = 15–17** — Remove `limit=100` cap. We scanned 100/553 at h15, 100/5180 at h16, 100/38735 at h17.
+3. **Picard-Fuchs in Mori coordinates** — The GL=12/D₆ polytope has a closed-form period formula and 26 D₆-invariant Yukawa couplings. Next: derive the PF PDE system in the 6 Mori coordinates for exact period integrals.
 
-4. **Stage 5: Higher-rank bundles** — Line bundles only give U(1) gauge group. Standard Model needs SU(3)×SU(2)×U(1). This requires rank 4 or 5 vector bundles (monads, extensions). Nobody has attempted this yet on our candidates.
+4. **F-theory discriminant locus** — h17/poly25 has **15 elliptic fibrations** (record). Classify singular fibers (Kodaira types) to determine gauge algebras.
 
-5. **F-theory on h16/poly74** — 10 elliptic fibrations (most of any candidate). Prime target for discriminant locus classification.
+5. **Run full pipeline on remaining T2 candidates** — 27 T2 candidates still lack full pipeline analysis.
+
+6. **Expand to h¹¹ ≥ 19** — Use `scan_fast.py` (2.4× speedup) on the Hetzner server after h18 completes.
 
 ---
 

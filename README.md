@@ -4,12 +4,13 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-> **Status**: 6,658 polytopes scanned · 36 Tier-2 screened · **12 full pipeline runs** (7× 26/26) · h17 scan in progress · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: ~50,000 polytopes scanned · h13–h16 **complete** · h17 scan 42% · h18 scan 98% · **12 full pipeline runs** (7× 26/26) · GL=12/D₆ Picard-Fuchs study in progress · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
 - **A screening pipeline** — scans polytopes for the right topology, then filters through 3 tiers of increasingly expensive geometric checks (divisor structure → fibrations → full cohomology)
 - **A catalogue of results** — what passed, what didn't, and why ([CATALOGUE.md](CATALOGUE.md)) — so nobody has to repeat the work
+- **A Picard-Fuchs / Yukawa study** — deep geometry of the most symmetric χ = −6 polytope (GL=12, D₆ symmetry). Closed-form period formula, 26 D₆-invariant Yukawa couplings, GKZ system analysis. See [GL12_GEOMETRY.md](GL12_GEOMETRY.md).
 - **Documented pitfalls** — 9 CYTools API bugs discovered and worked around ([MATH_SPEC.md](MATH_SPEC.md))
 
 ## The Landscape
@@ -22,11 +23,12 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 | 14 | 22 | 22 | 100% |
 | 15 | 553 | **553** | **100%** |
 | 16 | 5,180 | **5,180** | **100%** |
-| 17 | 38,735 | 🔶 running | Codespace (tmux) |
-| 18–24 | ~millions | 100 ea. | ~0% |
+| 17 | 38,735 | 🔶 ~16,200 | Codespace (42%) |
+| 18 | ~195,000 | 🔶 ~98,000 | Hetzner (50%) |
+| 19–24 | ~millions | 100 ea. | ~0% |
 | 25–128 | huge | 0 | 0% |
 
-**We have scanned ~6,658 polytopes out of potentially millions.** h¹¹ = 13–16 are now fully covered. h¹¹ = 17 scan running on Codespace (~5.8 hrs, 38,735 polytopes). Recent runs discovered **h17/poly25** (26/26, 15 ell — F-theory + triple-threat champion) and **h15/poly61** (25/26, τ=14,300 — LVS champion). See [PROCESS_LOG.md](PROCESS_LOG.md).
+**We have scanned ~50,000+ polytopes out of potentially millions.** h¹¹ = 13–16 are fully covered. h¹¹ = 17 running on Codespace (4 workers, ~6 hrs total). h¹¹ = 18 running on Hetzner dedicated server (14 workers, ~3 hrs total). See [PROCESS_LOG.md](PROCESS_LOG.md).
 
 ## Current Results
 
@@ -75,11 +77,11 @@ Full results in [results/](results/). All top candidates are **non-favorable** p
 | 2. Divisor Analysis | Classify divisors, Swiss cheese, intersection numbers | ✅ Done |
 | 3. Line Bundle Cohomology | h⁰ via Koszul, scan for h⁰ ≥ 3 | ✅ Done |
 | 4. Net Chirality | h¹ − h², Serre duality cross-check | ✅ Done |
-| 5. Vector Bundles (rank 4/5) | Monad construction, stability, chiral spectrum | ❌ Not started |
-| 6. Moduli Stabilization | LVS/KKLT, flux superpotential | 🔶 Swiss cheese only |
-| 7. Phenomenology | Yukawas, proton decay, gauge unification | ❌ Not started |
+| 5. Vector Bundles (rank 4/5) | Monad construction, stability, chiral spectrum | 🔶 `rank_n_bundles.py` built |
+| 6. Moduli Stabilization | LVS/KKLT, flux superpotential | 🔶 Swiss cheese + PF periods |
+| 7. Phenomenology | Yukawas, proton decay, gauge unification | 🔶 D₆-invariant Yukawas computed |
 
-Stage 5 (higher-rank bundles for non-abelian gauge groups) is the critical gap. Line bundles only give U(1). Contributions here would be especially valuable. See [FRAMEWORK.md](FRAMEWORK.md) for the full theoretical map.
+Stage 5 has initial results: `rank_n_bundles.py` finds SU(4) and SU(5) direct sums and monads with |χ|=3, with Hoppe stability checks. Stage 7 now includes D₆-invariant Yukawa couplings for the GL=12 polytope (see [GL12_GEOMETRY.md](GL12_GEOMETRY.md)). See [FRAMEWORK.md](FRAMEWORK.md) for the full theoretical map.
 
 ## Key Negative Results
 
@@ -153,6 +155,13 @@ tier2_screen.py      — Deep: exact bundle count, h³, D³, fibrations
 verify_results.py    — Spot-check contributed T2 CSVs
 run_t2_batch.sh      — Parallel batch runner (4 pipes)
 
+# Stage 5+ scripts
+rank_n_bundles.py    — SU(4)/SU(5) bundle scanner (direct sum + monad, meet-in-middle)
+picard_fuchs.py      — GKZ periods, D₆-invariant Yukawa couplings, closed-form CT formula
+
+# Geometry studies
+GL12_GEOMETRY.md     — GL=12 / D₆ polytope: complete geometry, Yukawas, GKZ, periods
+
 # Documentation
 FRAMEWORK.md         — 7-stage theoretical pipeline map
 MATH_SPEC.md         — Formulas, CYTools API contracts, 9 documented bugs
@@ -160,6 +169,7 @@ CATALOGUE.md         — What's been checked, what's ruled out
 FINDINGS.md          — Detailed write-ups of key results
 PROCESS_LOG.md       — Chronological investigation diary
 HETZNER.md           — Dedicated server setup & reconnection guide
+BACKLOG.md           — Prioritized task list + sprint tracking
 
 # Output
 results/             — CSV + log outputs from all runs

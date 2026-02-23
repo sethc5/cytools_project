@@ -105,21 +105,21 @@ The Higgs field enters at two levels:
 - All direct sums are decomposable (polystable at best, never truly stable)
 - Monad candidates with $H^0(B) \leq H^0(C)$ may admit stable deformations
 
-### Stage 6: Moduli Stabilization ✅ PARTIALLY DONE
+### Stage 6: Moduli Stabilization 🔶 IN PROGRESS
 
 > *Fix the ~100 moduli to get definite 4D physics*
 
 | Step | Description | Status |
 |------|-------------|--------|
-| 6.1 | Kähler moduli: Swiss cheese / LVS | ✅ Polytope 40 viable, h13-P1 viable |
-| 6.2 | Complex structure moduli: flux superpotential | ❌ |
+| 6.1 | Kähler moduli: Swiss cheese / LVS | ✅ Multiple candidates viable (best: h15/poly61 τ=14,300) |
+| 6.2 | Complex structure moduli: flux superpotential | 🔶 Picard-Fuchs periods computed for GL=12/D₆ polytope (closed-form formula, 501 terms) |
 | 6.3 | Vacuum energy / cosmological constant | ❌ |
 
-### Stage 7: Phenomenological Checks ❌ NOT STARTED
+### Stage 7: Phenomenological Checks 🔶 IN PROGRESS
 
 | Step | Description | Status |
 |------|-------------|--------|
-| 7.1 | Yukawa couplings: $\int_X \Omega \wedge A \wedge A \wedge A$ | ❌ |
+| 7.1 | Yukawa couplings: $\int_X \Omega \wedge A \wedge A \wedge A$ | 🔶 D₆-invariant classical Yukawas computed (26 non-zero entries) for GL=12 polytope. Quantum corrections (GW invariants) not yet. |
 | 7.2 | Proton decay rate (dimension-6 operators) | ❌ |
 | 7.3 | Gauge coupling unification | ❌ |
 | 7.4 | Neutrino masses | ❌ |
@@ -132,30 +132,42 @@ The Higgs field enters at two levels:
 Stage 1 ──── Stage 2 ──── Stage 3 ──── Stage 4 ──── Stage 5 ──── Stage 6 ──── Stage 7
   CY           Divs         Line         Net          Vec          Moduli       Pheno
   Geom         Anal         Bundles      Chiral       Bundles      Stabil       Checks
-  ✅            ✅            ✅            🔶            🔶            🔶            ❌
+  ✅            ✅            ✅            🔶            🔶            🔶            🔶
 ```
 
-**We are at the Stage 3→4 transition.** The line bundle analysis is complete. The next physics step is either:
-- (A) Push to Stage 5 (vector bundles — high ceiling, hard)
-- (B) Complete Stage 4 by computing individual $h^1, h^2$ (fills the gap)
-- (C) Deep-dive Stage 6 on the best candidate (moduli stabilization realism)
+**We are working across Stages 5–7 in parallel.** Line bundle analysis (Stages 1–4) is complete for 12 candidates. Active fronts:
+- (A) Stage 5: `rank_n_bundles.py` built — SU(4)/SU(5) scanners with direct sum + monad construction. First results on h14/poly2.
+- (B) Stage 6.2: Picard-Fuchs periods for the GL=12/D₆ polytope (closed-form formula, 501 exact coefficients, GKZ orbit compression to 6 invariant moduli).
+- (C) Stage 7.1: D₆-invariant classical Yukawa couplings (26 non-zero entries, two-sector structure). See [GL12_GEOMETRY.md](GL12_GEOMETRY.md).
 
 ---
 
 ## 3. Candidate Comparison
 
-| | Polytope 40 (h11=15) | h13-P0 | h13-P1 | h13-P2 |
+| | h14/poly2 | h17/poly25 | h15/poly61 | h17/poly63 |
 |---|---|---|---|---|
 | **Stage 1**: $\chi = -6$ | ✅ | ✅ | ✅ | ✅ |
-| **Stage 2**: Rigid divisors | 11/15 | **13/13** | **13/13** | **13/13** |
-| **Stage 2**: Swiss cheese | **YES** ($\tau=4.0$) | NO | **YES** ($\tau=10.0$) | NO |
-| **Stage 3**: $h^0 = 3$ exists | ❌ (max 2) | **YES** (12 bundles) | **YES** (25 bundles) | **YES** (17 bundles) |
-| **Stage 3**: Nef $h^0=3$ bundle | ❌ | ❌ | ❌ | ❌ |
-| **Stage 4**: Clean $h^0=3$ ($h^{1,2,3}=0$) | ❌ | ❌ untested | **YES (all 25)** | ❌ untested |
-| **Stage 4-7**: Anything else | ❌ | ❌ | ❌ | ❌ |
-| **Score** | 10/20 | — | **18/20** | — |
+| **Stage 2**: Rigid divisors | **13/13** | 13/17 | 10/15 | **13/13** |
+| **Stage 2**: Swiss cheese | **YES** ($\tau=58.5$) | YES ($\tau=56$) | **YES** ($\tau=14,300$) | YES ($\tau=84$) |
+| **Stage 3**: Clean $h^0=3$ | **320** | 170 | 110 | 218 |
+| **Stage 3**: Max $h^0$ | 13 | 8 | 4 | **40** |
+| **Stage 4**: All clean verified | ✅ | ✅ | ✅ | ✅ |
+| **Stage 5**: Rank-4/5 bundles | 🔶 initial | ❌ | ❌ | ❌ |
+| **Fibrations**: K3 / Ell | 3/3 | **6/15** | 3/3 | 5/10 |
+| **Score** | **26/26** | **26/26** | 25/26 | **26/26** |
+| **Best for…** | Heterotic | F-theory + triple-threat | LVS | Fibrations |
 
-**Best overall candidate**: **h13-P1** — Swiss cheese + 25 completely clean h⁰=3 bundles.
+### GL=12 / D₆ Polytope (h¹¹=17, h²¹=20)
+
+The polytope with the largest lattice automorphism group (|GL(Δ)| = 12, D₆) among all χ = −6 polytopes. Selected for deep theoretical study:
+
+- **D₆ symmetry reduces moduli**: h¹¹_inv = 5, h²¹_inv = 6
+- **26 D₆-invariant Yukawa couplings** organized into two sectors with one cross-coupling
+- **Closed-form period formula**: CT[P^k] as a double factorial sum
+- **GKZ system**: 6 orbit-compressed Mori coordinates define the invariant moduli space
+- **Next step**: Picard-Fuchs PDE system in Mori coordinates
+
+Full reference: [GL12_GEOMETRY.md](GL12_GEOMETRY.md). Analysis code: [picard_fuchs.py](picard_fuchs.py).
 
 ---
 
@@ -179,21 +191,25 @@ Ranked by "what can we compute now with existing tools":
 
 | Task | Difficulty | Tools available | Priority |
 |------|-----------|----------------|----------|
-| Full pipeline on h13-P1 | **Easy** | All Stage 1-3 tools proven | **NOW** |
+| Full pipeline on top candidates | **Easy** | All Stage 1-4 tools proven | ✅ DONE (12 runs) |
+| Rank-4/5 bundles (Stage 5.1-5.2) | Medium-Hard | ✅ `rank_n_bundles.py` built | **Active** |
+| Picard-Fuchs in Mori coordinates | Hard | `picard_fuchs.py` + sympy | **Active** |
 | Individual $h^1, h^2$ (Stage 4.3) | Medium | Čech cohomology or exact sequences | Next |
-| Rank-4/5 bundles (Stage 5.1-5.2) | Medium-Hard | ✅ `rank_n_bundles.py` built | **DONE** |
 | $\wedge^2 V$ Higgs count (Stage 5.5) | Hard | Requires Stage 5.1 first | After 5.1 |
-| Flux superpotential (Stage 6.2) | Hard | Period integrals, Picard-Fuchs | Later |
-| Yukawa couplings (Stage 7.1) | Very hard | $\Omega$ integration on CY3 | Later |
+| Flux superpotential (Stage 6.2) | Hard | Period integrals — closed-form available | Active |
+| Yukawa couplings (Stage 7.1) | Very hard | Classical done, quantum (GW) needed | Active |
+| F-theory discriminant locus | Hard | CYTools fiber analysis + Kodaira | Next |
 
 ---
 
 ## 6. Open Questions
 
-1. **Why does Polytope 40 have max $h^0 = 2$?** It has more toric coordinates (20 vs 18), more SR generators (97 vs 79-87), and Z₂ symmetry. Is there a structural reason why higher h11 polytopes have *lower* max $h^0$?
+1. **Can we find a truly stable rank-4/5 bundle with net chirality = 3?** `rank_n_bundles.py` finds candidates (100+ SU(4) direct sums, 3 Hoppe-stable monads on h14/poly2). But direct sums are polystable at best. Need genuinely indecomposable stable bundles.
 
-2. **Are the $h^0 = 3$ bundles on h13-P0 cohomology-vanishing?** If $h^1 = h^2 = 0$, these are the cleanest possible 3-generation line bundles. We haven't verified this.
+2. **What gauge algebras arise from the 15 elliptic fibrations on h17/poly25?** Kodaira fiber classification would determine the non-abelian gauge content in F-theory.
 
-3. **Does h13-P1's Swiss cheese structure persist under $\alpha'$ corrections?** The LVS mechanism requires control over perturbative corrections. This depends on $\chi(X) = -6$ (small) and the Euler characteristic of the "small" divisor.
+3. **Can the Picard-Fuchs system in Mori coordinates be solved?** The GL=12/D₆ polytope has 6 invariant complex structure moduli. The PF system in the naive 1-parameter model has degree ∼72 (= Vol(Δ*)). In proper Mori coordinates z₁…z₆, it should factor into tractable coupled PDEs.
 
-4. **Can we build a rank-4 or rank-5 bundle on any of these CYs?** This is the Standard Model question. Line bundles give $U(1)$; we need non-abelian gauge groups.
+4. **Does the D₆-invariant Yukawa sector structure (A/B/cross) constrain fermion mass textures?** The 26 non-zero couplings organize into two sectors with one cross-coupling κ(O1,O2,O3) = 18. This may constrain CKM-like mixing.
+
+5. **Does h15/poly61's extreme τ = 14,300 translate to viable moduli stabilization in a concrete flux model?**  Can the absence of dP divisors be compensated by other instanton sources?

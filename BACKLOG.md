@@ -10,15 +10,31 @@
 
 ## NOW — Active Sprint
 
-### B-19: Expand scan — remove limit=100 cap at h¹¹ = 15–17
+### B-19: Expand scan — remove limit=100 cap at h¹¹ = 15–18
 - **Why**: We've only scanned 100/553 at h15, 100/5180 at h16, 100/38735 at h17. The strongest candidates are all in this range.
-- **What**: Run `scan_parallel.py` (multiprocessing, 4 workers) at h15–17. Update T1 → T1.5 → T2 pipeline on new hits.
+- **What**: Run `scan_parallel.py` (multiprocessing, 4 workers) at h15–17, `scan_fast.py` (14 workers) at h18.
 - **Acceptance**: ≥500 polytopes scanned per h¹¹ value.
 - **Status**:
   - ✅ h15: **553/553 complete** (333 hits, 60%). T1→T1.5→T2 done. h15/poly61 → full pipeline 25/26.
   - ✅ h16: **5,180/5,180 complete** (1,811 hits, 35%). T1→T1.5→T2 done. 20 new T2 entries.
-  - 🔶 h17: **running on Codespace** (tmux session `h17scan`, keepalive active). 38,735 polytopes, 4 workers, ~5.8 hrs ETA.
-- **Estimate**: h17 ~6hrs Codespace.
+  - 🔶 h17: **running on Codespace** (tmux `h17scan`, 4 workers). ~16,200/38,735 (42%). ETA ~6 hrs remaining.
+  - 🔶 h18: **running on Hetzner** (tmux `h18scan`, 14 workers). ~98,000/100,000 (98%). **Nearly done.**
+- **Estimate**: h17 ~6hrs Codespace, h18 minutes remaining.
+
+### B-26: GL=12/D₆ Picard-Fuchs study 🔶 IN PROGRESS
+- **Why**: The GL=12 polytope (h11=17, h21=20) has the largest automorphism group (|GL(Δ)|=12, D₆) among all χ=−6 polytopes. D₆ symmetry reduces moduli from 20 to 6, making Picard-Fuchs tractable.
+- **What**: Compute GKZ periods, derive PF PDE system, extract Yukawa couplings.
+- **Completed so far**:
+  - ✅ GKZ A-matrix (5×23, rank 5), integer kernel (18-dim)
+  - ✅ D₆ orbit compression: 6 invariant complex structure moduli
+  - ✅ Closed-form CT formula (double factorial sum, 501 exact coefficients in 38s)
+  - ✅ 26 D₆-invariant Yukawa couplings + invariant c₂ numbers
+  - ✅ `picard_fuchs.py` module + `GL12_GEOMETRY.md` reference
+- **Remaining**:
+  - ❌ PF PDE system in Mori coordinates z₁…z₆
+  - ❌ Quantum Yukawa corrections (Gromov-Witten invariants)
+  - ❌ Prepotential computation
+- **Acceptance**: PF operators in Mori coordinates, verified against period series.
 
 ### B-25: Tier 0.25 fast pre-filter (`scan_fast.py`) ✅ DONE
 - **Why**: Full scans at h18+ take many hours. A fast pre-filter identifies polytopes worth full analysis without computing exact h⁰ counts for all bundles.
@@ -80,6 +96,8 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-26a | B-26: GL12/D₆ closed-form period + Yukawa couplings + picard_fuchs.py | 2026-02-23 |
+| D-26b | B-26: GL12_GEOMETRY.md complete geometry reference | 2026-02-23 |
 | D-25 | B-25: Tier 0.25 fast pre-filter (`scan_fast.py`) — 100% recall, 2.4× speedup | 2026-02-24 |
 | D-24c | B-22+: Full pipeline h16/poly63 → 26/26, 78 clean, τ=836 (triple-threat #2) | 2026-02-23 |
 | D-24b | B-22+: Full pipeline h17/poly25 → **26/26**, 170 clean, **15 ell** (F-theory + triple-threat champ) | 2026-02-23 |

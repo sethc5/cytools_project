@@ -8,7 +8,7 @@ Detailed write-ups of key results. For the quick summary, see [README.md](README
 
 **Date**: 2026-02-23. **Script**: [pipeline_h13_P1.py](pipeline_h13_P1.py).
 
-The strongest χ = −6 candidate found in our scan. Smallest h¹¹ in the landscape, completely clean line bundles.
+The original benchmark for the pipeline. Smallest h¹¹ in the landscape, completely clean line bundles. Superseded in all metrics by h14/poly2 (320 clean, 26/26) but remains the standard test polytope.
 
 ### Geometry
 - h¹¹ = 13, h²¹ = 16, χ = −6 (native 3-generation, no quotient needed)
@@ -566,10 +566,51 @@ New T2-notable from expanded scan:
 - **h17/poly53**: T2=45, 45 clean, 3 K3 + 3 ell
 - **h15/poly94**: T2=45, 36 clean, 4 K3 + 4 ell
 
-### h17 — deferred
+### h17 — in progress
 
-38,735 polytopes. Estimated ~3.7 hours with 4 workers. Deferred to Codespace (needs longer compute window).
+38,735 polytopes. Running on Codespace (4 workers, tmux `h17scan`). ~42% complete (~16,200 polytopes, ~6,500 hits).
+
+### h18 — in progress
+
+~195,000 polytopes. Running on Hetzner dedicated server (14 workers, `scan_fast.py`). ~98% complete (~98,000 polytopes, ~30,000 pass).
 
 ### Impact on the Screening Pipeline
 
 The expanded scan has fundamentally changed the leaderboard — h15/poly61 was discovered, fast-tracked through all tiers, and scored **25/26 on full pipeline** with τ=14,300. 36 total T2 entries now span h13–h19. The expanded h16 scan added 20 new T2 candidates, all quality-rated ★★★. This validates expanding the scan coverage as the most productive strategy for finding new physics candidates.
+
+---
+
+## 8. GL=12 / D₆ Polytope — Picard-Fuchs and Yukawa Study
+
+**Date**: 2026-02-23. **Scripts**: [picard_fuchs.py](picard_fuchs.py). **Reference**: [GL12_GEOMETRY.md](GL12_GEOMETRY.md).
+
+### Motivation
+
+Among the 104 Hodge pairs with χ = −6, the polytope at `fetch_polytopes(h11=17, h21=20, lattice='N')` index 37 has the **largest lattice automorphism group**: |GL(Δ)| = 12, isomorphic to D₆ (dihedral group of the hexagon). This symmetry reduces the 20 complex structure moduli to just 6 invariant deformations, making Picard-Fuchs computation tractable.
+
+### Key Results
+
+**GKZ System:**
+- A-matrix: 5×23 (from 23 dual lattice points), rank 5, β=(−1,0,0,0,0)
+- Integer kernel: 18-dimensional
+- D₆ orbit compression: 8 orbits on Δ*, rank(Ā)=2 → **6 invariant complex structure moduli** (h²¹_inv=6)
+- 6 orbit-compressed Mori coordinates z₁…z₆ defining the invariant moduli space
+
+**Closed-Form Period:**
+- CT[P^k] = Σ_{a,γ} k!·(r−γ)! / [a!²·(γ+a)!·β!·γ!·j!³]
+- 501 exact coefficients computed in 38 seconds
+- First non-trivial: c₃=6, c₄=72, c₅=540 (c₅₀₀ has 469 digits)
+
+**D₆-Invariant Yukawa Couplings:**
+- 26 non-zero entries from 283 raw triple intersection numbers
+- Two-sector structure: Sector A {O1,O3,O4,O5} (19 couplings) + Sector B {O2,O6} (4 couplings) + 1 cross-coupling κ(O1,O2,O3)=18
+- Invariant c₂ numbers: O1=68, O2=36, O3=4, O4=12, O5=12, O6=−12
+
+**Coordinate Issue:**
+- PF in z=1/ψ (1-parameter model) has polynomial degree ≈ Vol(Δ*) = 72 — confirmed intractable by modular Gaussian elimination over 501 terms
+- Resolution: use the 6 Mori coordinates z₁…z₆
+
+### What Remains
+- PF PDE system in Mori coordinates (order 4 per variable, coupled system)
+- Quantum Yukawa corrections (Gromov-Witten invariants from instanton sums)
+- Physical prepotential computation

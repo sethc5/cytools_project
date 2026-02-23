@@ -6,17 +6,19 @@ Contributions welcome — especially scan runs, pipeline improvements, and negat
 
 **Highest impact** (roughly ordered):
 
-1. **Scan expansion** — Run `scan_chi6_h0.py` with higher limits at h¹¹ = 15–17. Or add h¹¹ values we haven't touched (h¹¹ = 25+). The first 100 polytopes per h¹¹ is just scratching the surface.
+1. **Scan expansion** — Run `scan_fast.py` (fastest, Tier 0.25) or `scan_parallel.py` (full detail) at h¹¹ ≥ 19. h13–16 are complete; h17+h18 are in progress.
 
 2. **Pipeline results** — Screen your scan output through T1 → T1.5 → T2 and PR the CSVs.
 
-3. **Stage 5 implementation** — Monad/extension bundle construction and stability checks. This is the critical gap: line bundles only give U(1), but SM needs non-abelian gauge groups.
+3. **Stage 5 implementation** — Monad/extension bundle construction and stability checks. `rank_n_bundles.py` has initial SU(4)/SU(5) scanners — extending with true stability analysis (beyond Hoppe) is the key gap.
 
-4. **F-theory** — Discriminant locus analysis on elliptic-fibered candidates.
+4. **Picard-Fuchs / geometry** — The GL=12/D₆ polytope study ([GL12_GEOMETRY.md](GL12_GEOMETRY.md), [picard_fuchs.py](picard_fuchs.py)) needs the PF PDE system in Mori coordinates. Also: quantum Yukawa corrections (Gromov-Witten invariants).
 
-5. **Bug fixes** — Especially cohomology alternatives to cohomCalg (which fails above 64 SR generators).
+5. **F-theory** — Discriminant locus analysis on elliptic-fibered candidates (h17/poly25 has 15 elliptic fibrations).
 
-6. **Negative results** — If you prove something doesn't work, that's just as valuable. Add it to [CATALOGUE.md](CATALOGUE.md).
+6. **Bug fixes** — Especially cohomology alternatives to cohomCalg (which fails above 64 SR generators).
+
+7. **Negative results** — If you prove something doesn't work, that's just as valuable. Add it to [CATALOGUE.md](CATALOGUE.md).
 
 ## Setup
 
@@ -41,9 +43,14 @@ The repo has a `.devcontainer/devcontainer.json`. Just open in GitHub Codespaces
 ### 1. Scan
 
 ```bash
-# Edit limit= in scan_chi6_h0.py to control how many polytopes per h11
-python scan_chi6_h0.py
-# Output: results/scan_chi6_h0_v2.log
+# Fast scan (Tier 0.25 — pass/fail classification, 2.4× faster)
+python scan_fast.py --h11 19 --workers 4
+
+# Full scan (exact h⁰ counts for every bundle)
+python scan_parallel.py --h11 19 --workers 4
+
+# Legacy serial scan
+python scan_chi6_h0.py  # edit limit= in script
 ```
 
 ### 2. Tier 1 (fast, ~1s/polytope)
