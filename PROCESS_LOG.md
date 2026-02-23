@@ -5,9 +5,9 @@
 
 ---
 
-## 2026-02-25 — Merge fix: early T2 (20) + batch T2 (157) → 177 total
+## 2026-02-22 18:36 — Merge fix: early T2 (20) + batch T2 (157) → 177 total
 
-**Issue discovered**: The 20 polytopes screened in the early T2 run (2026-02-22) were stored in `tier2_screen_results.csv` but never merged into `tier2_full_results.csv` when the 157-polytope batch ran. This caused 20 real results — including several top candidates — to be missing from the "full" CSV and all downstream documentation. Zero overlap between the two sets.
+**Issue discovered**: The 20 polytopes screened in the early T2 run (15:15) were stored in `tier2_screen_results.csv` but never merged into `tier2_full_results.csv` when the 157-polytope batch ran. This caused 20 real results — including several top candidates — to be missing from the "full" CSV and all downstream documentation. Zero overlap between the two sets.
 
 **Fix**: Merged both CSVs. Reran all 7 top early-T2 candidates to confirm reproducibility — all matched exactly. Backup of early results: `tier2_screen_results_early20_backup.csv`.
 
@@ -15,7 +15,7 @@
 
 ---
 
-## 2026-02-24 — T2 batch complete: 157/157, new leaders discovered
+## 2026-02-22 17:24 — T2 batch complete: 157/157, new leaders discovered
 
 **Work done**: All 4 Codespace T2 pipes finished (33–41 min each). Pulled results locally, saved to `results/tier2_full_results.csv`. Updated CATALOGUE.md, README.md, FINDINGS.md.
 
@@ -39,7 +39,7 @@
 
 ---
 
-## 2026-02-24 — Repo restructured for open-source
+## 2026-02-22 17:16 — Repo restructured for open-source
 
 **Work done**: Rewrote README.md, created CATALOGUE.md and CONTRIBUTING.md, updated FINDINGS.md and BACKLOG.md. Archived old README and FINDINGS. Pushed to GitHub.
 
@@ -49,7 +49,7 @@
 
 ---
 
-## 2026-02-22 — Tier 1.5 sweep complete: 157 T2-worthy candidates
+## 2026-02-22 15:46 — Tier 1.5 sweep complete: 157 T2-worthy candidates
 
 **Work done**: Ran `tier15_screen.py` on all 317 remaining Tier 1 candidates (excluding 20 already T2-screened). Phase A (fibrations) + Phase B (300-bundle capped probe). Total runtime: 26.8 min locally.
 
@@ -79,7 +79,7 @@
 
 ---
 
-## 2026-02-22 — Tier 2 deep screening: top 20 from Tier 1
+## 2026-02-22 15:15 — Tier 2 deep screening: top 20 from Tier 1
 
 **Work done**: Built `tier2_screen.py`. Four expensive checks per polytope: (1) exact h⁰=3 bundle count with full Koszul computation, (2) h³=h⁰(-D)=0 verification for all h⁰≥3 bundles, (3) D³ intersection statistics, (4) K3/elliptic fibration count from dual-polytope geometry.
 
@@ -98,7 +98,7 @@
 | 12 | h16/poly11 [NF] | 41 | **255** | 840 | 13 | 3 | 1 |
 | — | h13-P1 (bench) | 45 | 25 | 76 | 6 | 3 | 3 |
 
-> **Note (2026-02-25)**: These 20 results were originally stored only in `tier2_screen_results.csv` and not merged into `tier2_full_results.csv` when the 157-polytope batch ran later. All 7 top entries above were rerun and confirmed exactly. Now merged into the full CSV (177 total).
+> **Note (18:36)**: These 20 results were originally stored only in `tier2_screen_results.csv` and not merged into `tier2_full_results.csv` when the 157-polytope batch ran later. All 7 top entries above were rerun and confirmed exactly. Now merged into the full CSV (177 total).
 
 **Scoring breakdown** (T2 out of 55): clean h⁰=3 count (0-15), h⁰≥3 abundance (0-10), K3 fibrations (0-6), elliptic fibrations (0-6), D³ diversity (0-5), simplicity bonus for h11_eff≤14 (0-3).
 
@@ -108,7 +108,7 @@
 
 ---
 
-## 2026-02-22 — Tier 1 screening: 337 candidates from scan v2 (partial)
+## 2026-02-22 15:15 — Tier 1 screening: 337 candidates from scan v2 (partial)
 
 **Work done**: Built `tier1_screen.py`. Fast screener (~1s/polytope) that reads scan log, then runs 3 cheap checks per polytope: (1) del Pezzo divisor classification, (2) Swiss cheese structure via Kähler cone tip + 10× hierarchy scaling, (3) GL(Z,4) toric symmetry order. Uses scan's max h⁰ rather than recomputing (fast path).
 
@@ -122,7 +122,7 @@
 
 ---
 
-## 2026-02-22 — Scan v2: non-favorable polytopes revealed (in progress)
+## 2026-02-22 15:15 — Scan v2: non-favorable polytopes revealed (in progress)
 
 **Work done**: Re-launched `scan_chi6_h0.py` with the B-11 fix (`h11_eff = len(div_basis)`). All 1025 polytopes now processable.
 
@@ -132,7 +132,7 @@
 
 ---
 
-## 2026-02-22 — B-11: c2 mismatch fix + B-02: pipeline cleanup
+## 2026-02-22 15:15 — B-11: c2 mismatch fix + B-02: pipeline cleanup
 
 **B-11 Root cause**: Non-favorable polytopes have `len(divisor_basis()) < h11`. CYTools' `second_chern_class(in_basis=True)` returns a vector sized to the toric divisor basis, not the full $h^{1,1}$. The scan was comparing `len(c2) != h11` and rejecting 705/1025 polytopes.
 
@@ -146,7 +146,7 @@
 
 ---
 
-## 2026-02-23 — h13-P1 Full Pipeline: 18/20, New Best Candidate
+## 2026-02-22 10:28 — h13-P1 Full Pipeline: 18/20, New Best Candidate
 
 **Work done**: Built pipeline_h13_P1.py. Full Stages 1-4 of FRAMEWORK.md on h11=13, polytope 1.
 
@@ -163,7 +163,7 @@
 
 **Decision**: h13-P1 is now the primary candidate. Polytope 40 demoted.
 
-## 2026-02-23 — Repo Cleanup + FRAMEWORK.md
+## 2026-02-22 10:04 — Repo Cleanup + FRAMEWORK.md
 
 **Work done**: 
 - Created FRAMEWORK.md: 7-stage theoretical pipeline from CY geometry to phenomenology
@@ -174,7 +174,7 @@
 
 ---
 
-## 2026-02-22 — B-01: χ=-6 landscape scan — h⁰=3 EXISTS
+## 2026-02-22 09:54 — B-01: χ=-6 landscape scan — h⁰=3 EXISTS
 
 **Work done**: Built scan_chi6_h0.py. Scanned 1025 polytopes across h11=13..24 (all h21 = h11+3, giving χ=-6). Used verified Koszul pipeline.
 
@@ -193,7 +193,7 @@
 
 ---
 
-## 2026-02-22 — Verification complete, h⁰=2 confirmed
+## 2026-02-22 07:43 — Verification complete, h⁰=2 confirmed
 
 **Work done**: Built 7-test verification suite (dragon_slayer_40i.py). Discovered Bug #7 (GLSM linrels ≠ character translations). Confirmed h⁰=2 via 8 character translations. Cross-checked Koszul method against known quintic values (n=-3..7, all match). Updated MATH_SPEC.md.
 
@@ -207,7 +207,7 @@
 
 ---
 
-## 2026-02-22 — MATH_SPEC.md created
+## 2026-02-22 02:03 — MATH_SPEC.md created
 
 **Work done**: Audited all 8 dragon_slayer scripts (40, 40b-40h) plus the original pipeline. Cataloged every formula, sign convention, index convention, CYTools API contract, and the 6 bugs encountered. Created MATH_SPEC.md as the single source of truth.
 
@@ -217,7 +217,7 @@
 
 ---
 
-## 2026-02-22 — h⁰=3 definitively disproven
+## 2026-02-22 01:54 — h⁰=3 definitively disproven
 
 **Work done**: dragon_slayer_40h.py — Koszul exact sequence + lattice point counting + toric h¹ correction. Scanned all 119 χ=+3 bundles (1-4 divisors, coefficients ±1..3).
 
@@ -231,7 +231,7 @@
 
 ---
 
-## 2026-02-21 — Dragon Slayer: pipeline audit
+## 2026-02-22 01:24 — Dragon Slayer: pipeline audit
 
 **Work done**: Systematic audit of pipeline_40_152.py claims. Built dragon_slayer_40.py through 40g iteratively, each fixing bugs found in the previous version.
 
@@ -249,7 +249,7 @@
 
 ---
 
-## 2026-02-21 — Ample Champion retraction
+## 2026-02-22 01:14 — Ample Champion retraction
 
 **Work done**: Rigorous testing of Z₃×Z₃ action on Ample Champion (h11=2, h21=29, χ=-54). Found pure g₁, g₂ have fixed curves on CY. Full quotient is singular.
 
@@ -261,7 +261,7 @@
 
 ---
 
-## 2026-02-20 — Polytope 40 pipeline run
+## 2026-02-22 00:29 — Polytope 40 pipeline run
 
 **Work done**: Ran full 20-check pipeline on Polytope 40 (h11=15, h21=18, χ=-6). Scored 20/20.
 
@@ -271,7 +271,7 @@
 
 ---
 
-## 2026-02-20 — Ample Champion analysis + fibrations
+## 2026-02-22 00:50 — Ample Champion analysis + fibrations
 
 **Work done**: Analyzed Ample Champion quotient geometry. Computed Polytope 40 fibration structure (3 K3, 3 elliptic).
 
@@ -279,7 +279,7 @@
 
 ---
 
-## 2026-02-18 — Landscape survey
+## 2026-02-21 23:01 — Landscape survey
 
 **Work done**: Surveyed h11=2 polytopes for ample χ=3 bundles. Found they exist only at h11=2.
 
@@ -287,7 +287,7 @@
 
 ---
 
-## 2026-02-17 — Full scan
+## 2026-02-21 22:06 — Full scan
 
 **Work done**: Scanned 1000 χ=-6 polytopes. Identified Polytope 40 and Polytope 152 as top candidates.
 
@@ -301,12 +301,12 @@ Issues that surfaced during the project, for reference.
 
 | # | Date | Issue | Resolution | Bug # |
 |---|------|-------|------------|-------|
-| I-01 | 02-21 | `proven_h0_3` hardcoded True | Disproven; max h⁰=2 | Bug #1 |
-| I-02 | 02-21 | Intersection numbers: toric vs basis coords | Always use `in_basis=True` | Bug #2 |
-| I-03 | 02-21 | Mori pairing: 15-dim D vs 20-dim C | Explicit index mapping via div_basis | Bug #3 |
-| I-04 | 02-22 | Lattice point off-by-one (origin at index 0) | Iterate over ray_indices, not re-indexed array | Bug #4 |
-| I-05 | 02-22 | cohomCalg: 97 SR gens > 64 limit | Check SR count before calling; use Koszul instead | Bug #5 |
-| I-06 | 02-21 | \|χ\|/2=3 conflated with h⁰=3 | Different claims; document clearly | Bug #6 |
-| I-07 | 02-22 | GLSM linrels include origin direction | Filter by origin_component==0 for char translations | Bug #7 |
-| I-08 | 02-20 | Ample Champion Z₃×Z₃ has fixed curves | Full quotient singular; diagonal Z₃ acts freely | — |
-| I-09 | 02-20 | Ample Champion misidentified as P²×P² | Different toric variety; det-3 lattice transform | — |
+| I-01 | 02-22 01:24 | `proven_h0_3` hardcoded True | Disproven; max h⁰=2 | Bug #1 |
+| I-02 | 02-22 01:24 | Intersection numbers: toric vs basis coords | Always use `in_basis=True` | Bug #2 |
+| I-03 | 02-22 01:24 | Mori pairing: 15-dim D vs 20-dim C | Explicit index mapping via div_basis | Bug #3 |
+| I-04 | 02-22 01:54 | Lattice point off-by-one (origin at index 0) | Iterate over ray_indices, not re-indexed array | Bug #4 |
+| I-05 | 02-22 01:54 | cohomCalg: 97 SR gens > 64 limit | Check SR count before calling; use Koszul instead | Bug #5 |
+| I-06 | 02-22 01:24 | \|χ\|/2=3 conflated with h⁰=3 | Different claims; document clearly | Bug #6 |
+| I-07 | 02-22 07:43 | GLSM linrels include origin direction | Filter by origin_component==0 for char translations | Bug #7 |
+| I-08 | 02-22 01:14 | Ample Champion Z₃×Z₃ has fixed curves | Full quotient singular; diagonal Z₃ acts freely | — |
+| I-09 | 02-22 00:50 | Ample Champion misidentified as P²×P² | Different toric variety; det-3 lattice transform | — |
