@@ -207,19 +207,25 @@ def build_gkz_a_matrix():
 def orbit_compressed_kernel():
     """6 independent orbit-compressed lattice relations (6x8 matrix).
 
-    The 8 columns correspond to the 8 D6-orbits on Delta* lattice points.
+    The 8 columns correspond to the 8 D6-orbits on Delta* lattice points
+    (sizes 1, 3, 2, 3, 1, 6, 6, 1).
     These define the 6 Mori-type algebraic coordinates z_i on the
     D6-invariant complex structure moduli space.
 
     Key: rank(A_bar) = 2, so dim(ker) = 8 - 2 = 6 invariant moduli.
+
+    A_bar = [[1, 3, 2, 3, 1, 6, 6, 1],   (orbit sizes)
+             [0, 0, 1,-3, 1,-6, 0,-1]]   (Euler row via contragredient)
+
+    Verified: A_bar . L^T = 0 for all 6 rows.
     """
     return np.array([
-        [-3,  3,  0,  0,  0,  0,  0,  0],
-        [-2, -1,  2,  1,  0,  0,  0,  0],
-        [ 1,  0, -2,  0,  1,  0,  0,  0],
-        [ 0, -3,  0,  0,  0,  0,  3,  0],
-        [-6, -3,  6,  0,  0,  3,  0,  0],
-        [-3,  0,  2,  0,  0,  0,  0,  1],
+        [ -3,  1,  0,  0,  0,  0,  0,  0],   # z1 = psi_1^3 / psi_0^3
+        [ -9,  0,  3,  1,  0,  0,  0,  0],   # z2 = psi_2^6 psi_3^3 / psi_0^9
+        [  1,  0, -1,  0,  1,  0,  0,  0],   # z3 = psi_0 psi_4 / psi_2^2
+        [-18,  0,  6,  0,  0,  1,  0,  0],   # z4 = psi_2^12 psi_5^6 / psi_0^18
+        [ -6,  0,  0,  0,  0,  0,  1,  0],   # z5 = psi_6^6 / psi_0^6
+        [ -3,  0,  1,  0,  0,  0,  0,  1],   # z6 = psi_2^2 psi_7 / psi_0^3
     ], dtype=int)
 
 
@@ -324,11 +330,17 @@ def main():
     print(f"  dim(ker_Z(A)) = {A.shape[1] - np.linalg.matrix_rank(A)}")
     L = orbit_compressed_kernel()
     print(f"  D6-invariant moduli: {L.shape[0]}")
-    print(f"  Mori coordinates:")
+    print(f"  Mori coordinates (orbit-compressed kernel rows):")
+    coord_labels = [
+        "z_1 = psi_1^3 / psi_0^3",
+        "z_2 = psi_2^6 psi_3^3 / psi_0^9",
+        "z_3 = psi_0 psi_4 / psi_2^2",
+        "z_4 = psi_2^12 psi_5^6 / psi_0^18",
+        "z_5 = psi_6^6 / psi_0^6",
+        "z_6 = psi_2^2 psi_7 / psi_0^3",
+    ]
     for i in range(L.shape[0]):
-        nz = [(j, L[i, j]) for j in range(8) if L[i, j] != 0]
-        terms = " * ".join(f"psi_{j}^{{{e}}}" for j, e in nz)
-        print(f"    z_{i+1} = {terms}")
+        print(f"    l_{i+1} = {L[i].tolist():>40s}   {coord_labels[i]}")
 
     print("\n  Note: PF in z=1/psi has poly degree ~72 (= Vol).")
     print("        Use Mori coordinates z_i for tractable PF system.")

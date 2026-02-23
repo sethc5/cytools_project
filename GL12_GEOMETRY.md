@@ -287,13 +287,16 @@ This is **h²¹_inv = 6** (consistent with 8 orbits − rank 2 = 6).
 Six independent integer relations among the 8 orbit parameters:
 
 ```
-[-3,  3,  0,  0,  0,  0,  0,  0]   z₁ = ψ₁³/ψ₀³
-[-2, -1,  2,  1,  0,  0,  0,  0]   z₂ = ψ₂²ψ₃/(ψ₀²ψ₁)
-[ 1,  0, -2,  0,  1,  0,  0,  0]   z₃ = ψ₀ψ₄/ψ₂²
-[ 0, -3,  0,  0,  0,  0,  3,  0]   z₄ = ψ₆³/ψ₁³
-[-6, -3,  6,  0,  0,  3,  0,  0]   z₅ = ψ₂⁶ψ₅³/(ψ₀⁶ψ₁³)
-[-3,  0,  2,  0,  0,  0,  0,  1]   z₆ = ψ₂²ψ₇/ψ₀³
+[ -3,  1,  0,  0,  0,  0,  0,  0]   z₁ = ψ₁³/ψ₀³
+[ -9,  0,  3,  1,  0,  0,  0,  0]   z₂ = ψ₂⁶ψ₃³/ψ₀⁹
+[  1,  0, -1,  0,  1,  0,  0,  0]   z₃ = ψ₀ψ₄/ψ₂²
+[-18,  0,  6,  0,  0,  1,  0,  0]   z₄ = ψ₂¹²ψ₅⁶/ψ₀¹⁸
+[ -6,  0,  0,  0,  0,  0,  1,  0]   z₅ = ψ₆⁶/ψ₀⁶
+[ -3,  0,  1,  0,  0,  0,  0,  1]   z₆ = ψ₂²ψ₇/ψ₀³
 ```
+
+Computed from Ā via contragredient action (w → w @ M⁻ᵀ) on dual lattice
+points, verified: Ā · L^T = 0 for all 6 rows.
 
 ### Closed-Form Fundamental Period
 
