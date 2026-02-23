@@ -234,6 +234,8 @@ def main():
                         help='Number of worker processes (0 = all cores)')
     parser.add_argument('--resume', type=str, default=None,
                         help='Path to existing T0.25 CSV to resume from')
+    parser.add_argument('--offset', type=int, default=0,
+                        help='Skip polytopes with index < offset (for batched runs)')
     parser.add_argument('--validate', type=str, default=None,
                         help='Path to full-scan CSV for recall validation')
     args = parser.parse_args()
@@ -241,9 +243,12 @@ def main():
     n_workers = args.workers if args.workers > 0 else mp.cpu_count()
     h11_list = sorted(args.h11)
     limit = args.limit if args.limit > 0 else 100_000
+    offset = args.offset
 
     h_min, h_max = min(h11_list), max(h11_list)
     tag = f"h{h_min}" if h_min == h_max else f"h{h_min}-h{h_max}"
+    if offset > 0:
+        tag += f"_off{offset}"
     csv_path = f"results/tier025_{tag}.csv"
 
     # Resume support
@@ -260,7 +265,8 @@ def main():
 
     print("=" * 72)
     print(f"  TIER 0.25 FAST PRE-FILTER (early termination + min_h0 bound)")
-    print(f"  h¹¹ = {h11_list}, limit={args.limit or 'all'}, workers={n_workers}")
+    offset_msg = f", offset={offset}" if offset > 0 else ""
+    print(f"  h¹¹ = {h11_list}, limit={args.limit or 'all'}{offset_msg}, workers={n_workers}")
     print("=" * 72)
 
     csv_mode = 'a' if done_set else 'w'
@@ -302,6 +308,8 @@ def main():
 
         work = []
         for idx, p in enumerate(polys):
+            if idx < offset:
+                continue
             if (h11_val, idx) in done_set:
                 continue
             verts = np.array(p.points(), dtype=int).tolist()
