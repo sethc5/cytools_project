@@ -126,38 +126,70 @@ Needs full pipeline run (Stages 1–4 deep analysis + scorecard).
 
 ---
 
-## 2b′. h15/poly61 — New Discovery from Expanded Scan (T2: 103 clean)
+## 2b′. h15/poly61 — LVS Champion (Pipeline Score: 25/26, 110 clean, τ=14,300)
 
-**Date**: 2026-02-22. **Discovered by**: `scan_parallel.py` expanded h15 scan (polytope index 61, invisible to original limit=100 scan).
+**Date**: 2026-02-22 (discovered), 2026-02-23 (full pipeline). **Script**: `python pipeline.py --h11 15 --poly 61`. **Output**: [results/pipeline_h15_P61_output.txt](results/pipeline_h15_P61_output.txt).
 
-Previously invisible because the original scan only covered the first 100 of 553 h15 polytopes. The expanded parallel scan found it and fast-tracked it through T1 → T1.5 → T2. Ranks **#5 overall** in the T2 clean bundle leaderboard.
+Discovered in the expanded h15 scan (polytope index 61, invisible to original limit=100 scan). Now fully analyzed. **Best Large Volume Scenario candidate by a factor of 6.5×** — Swiss cheese τ = 14,300 vs previous best 2,208 (h17/poly8).
 
-### Key Data (T2 screen)
+### Geometry
 - h¹¹ = 15, h²¹ = 18, χ = −6, non-favorable
-- **103 clean h⁰ = 3 line bundles**
-- max h⁰ = 4 (modest — practical but not exotic)
-- 3 K3 fibrations, 3 elliptic fibrations
-- T2 score = 45 (maximum)
+- SHA-256 fingerprint: 7ffc1e727a82fac4
 
-### T2 Leaderboard Context
+### Divisor Structure
+- **0 del Pezzo** (only weakness — loses 1 scorecard point)
+- **1 K3-like**
+- **6 rigid**
+- 2 Swiss cheese directions, best: **τ = 14,300.0**, ratio = 0.04822
 
-| Rank | Polytope | Clean | Status |
-|------|----------|-------|--------|
-| 1 | h16/poly11 | 255 | Pipeline 26/26 |
-| 2 | h17/poly63 | 198 | Pipeline 26/26 |
-| 3 | h18/poly34 | 189 | Pipeline 26/26 |
-| 4 | h17/poly90 | 148 | T2 |
-| **5** | **h15/poly61** | **103** | **NEW** |
-| 6 | h14/poly5 | 74 | T2 |
+### Line Bundles
+- **13,256 total χ = ±3 bundles**
+- **110 completely clean**: h⁰ = 3, h¹ = h² = h³ = 0
+- 338 with h⁰ ≥ 3, max h⁰ = 4 (modest but practical)
+- 40 distinct D³ values among clean bundles (range [−52, 52])
 
-### Why It Matters
-1. **Discovered only through scan expansion** — validates the decision to go beyond limit=100
-2. **h¹¹ = 15** — lower than most top candidates → simpler moduli stabilization
-3. **103 clean bundles** — substantial target space for rank-4/5 bundle constructions
-4. **Balanced fibration structure** (3 K3 + 3 ell) — viable for both heterotic and F-theory
+### Fibrations
+- **3 K3 fibrations**
+- **3 elliptic fibrations**
+
+### Scorecard: 25/26
+- χ = −6: 3/3 ✓
+- |χ|/2 = 3 generations: 3/3 ✓
+- h⁰ ≥ 3 exists: 3/3 ✓
+- Clean bundles: 5/5 ✓ (110)
+- Max h⁰: 2/2 ✓ (4)
+- Swiss cheese: 3/3 ✓ (τ = 14,300.0!)
+- K3 fibrations: 2/2 ✓ (3)
+- Elliptic fibrations: 2/2 ✓ (3)
+- del Pezzo divisors: **0/1 ✗** (0 candidates)
+- D³ diversity: 1/1 ✓ (40 distinct)
+- h¹¹ tractable: 1/1 ✓ (15)
+
+### Why It's the LVS Champion
+1. **τ = 14,300** — 6.5× the previous best (h17/poly8 at τ = 2,208). The strongest LVS hierarchy of any candidate.
+2. **Discovered only through scan expansion** — validates the decision to go beyond limit=100
+3. **h¹¹ = 15** — lower than most top candidates → simpler moduli stabilization
+4. **110 clean bundles → 7 more than T2 predicted** (103 → 110, 7% uplift from full enumeration)
+5. **Balanced fibration structure** (3 K3 + 3 ell) — viable for both heterotic and F-theory
+
+### Comparison with Other Top Candidates
+
+| Metric | h15/poly61 | h17/poly8 | h14/poly2 |
+|--------|-----------|-----------|----------|
+| Score | 25/26 | 26/26 | 26/26 |
+| Clean bundles | 110 | 180 | **320** |
+| Swiss τ | **14,300** | 2,208 | 58.5 |
+| dP divisors | 0 | 4 | 3 |
+| K3 / Ell | 3/3 | 3/3 | 3/3 |
+| h¹¹ | **15** | 17 | 14 |
+
+### Open Questions
+- Can the absence of dP divisors be compensated by other instanton sources?
+- Does the extreme τ translate to viable moduli stabilization in a concrete flux model?
+- Are rank-4/5 monad bundles available despite 0 dP divisors?
 
 ### Status
-Needs full pipeline run (`python pipeline.py --h11 15 --poly 61`).
+✅ Full pipeline complete. 25/26 score.
 
 ---
 
@@ -345,9 +377,25 @@ New candidates discovered beyond original limit=100:
 - **h15/poly 94**: 36 clean bundles, 4 K3 + 4 elliptic fibrations
 - 257 total new hits (poly index ≥ 100)
 
-### h16 — in progress
+### h16 — 5,180/5,180 complete
 
-5,180 polytopes total, running at 1.4 poly/s. ETA ~1 hour from start. At 35% completion with ~51% hit rate. Results will expand the T1→T2 pipeline further.
+| Metric | Value |
+|--------|-------|
+| Polytopes scanned | 5,180 (100%) |
+| Hits (h⁰≥3) | 1,811 (35%) |
+| Runtime | 52.9 min |
+| Throughput | 1.6 poly/s |
+
+T1→T1.5→T2 screening on top 30 hits:
+- **T1**: 30 screened → 17/30 Swiss cheese. Best: h16/poly329 (score=41, max h⁰=15)
+- **T1.5**: 20 screened → 19/20 T2-worthy (17s)
+- **T2**: 20 screened → all 20 ★★★, 5 scored T2=45 (maximum). Best overall: h15/poly61 (T2=45, 103 clean)
+
+New T2-notable from expanded scan:
+- **h19/poly16**: T2=45, 69 clean, max h⁰=27, 5 K3 + 6 elliptic fibrations
+- **h18/poly32**: T2=45, 49 clean, max h⁰=30, 4 K3 + 4 ell
+- **h17/poly53**: T2=45, 45 clean, 3 K3 + 3 ell
+- **h15/poly94**: T2=45, 36 clean, 4 K3 + 4 ell
 
 ### h17 — deferred
 
@@ -355,4 +403,4 @@ New candidates discovered beyond original limit=100:
 
 ### Impact on the Screening Pipeline
 
-The expanded scan has already changed the T2 leaderboard — h15/poly61 enters at #5 with 103 clean bundles. 16 new h15 polytopes qualified for T1 screening (all with Swiss cheese), and 19/20 passed T1.5. This validates expanding the scan coverage as a productive strategy.
+The expanded scan has fundamentally changed the leaderboard — h15/poly61 was discovered, fast-tracked through all tiers, and scored **25/26 on full pipeline** with τ=14,300. 36 total T2 entries now span h13–h19. The expanded h16 scan added 20 new T2 candidates, all quality-rated ★★★. This validates expanding the scan coverage as the most productive strategy for finding new physics candidates.

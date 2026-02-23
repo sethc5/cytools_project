@@ -5,6 +5,71 @@
 
 ---
 
+## 2026-02-23 00:30 — h15/poly61 full pipeline (25/26, τ=14,300) + h16 complete
+
+**Work done (B-23, B-19)**: Full pipeline on h15/poly61. h16 scan complete (5180/5180). h16 screened through T1→T1.5→T2.
+
+### h15/poly61 full pipeline → 25/26, LVS champion
+
+`python pipeline.py --h11 15 --poly 61` → 13s runtime.
+
+| Metric | T2 (probe) | Full Pipeline | Δ |
+|--------|-----------|---------------|---|
+| Clean h⁰=3 | 103 | **110** | +7% |
+| h⁰≥3 | (probe) | **338** | — |
+| Max h⁰ | 4 | **4** | same |
+| χ=±3 bundles | — | **13,256** | — |
+
+Key result: **Swiss cheese τ = 14,300.0** — 6.5× the previous best (h17/poly8 at τ=2,208). Only loses the dP point (0 del Pezzo divisors → 0/1). Score: **25/26**.
+
+### Updated full pipeline leaderboard
+
+| Polytope | Score | Clean | K3 | Ell | dP | Swiss τ | Title |
+|----------|-------|-------|----|-----|----|---------|-------|
+| h14/poly2 | 26/26 | **320** | 3 | 3 | 3 | 58.5 | Heterotic champion |
+| h16/poly11 | 26/26 | **298** | 3 | 3 | 5 | 150.0 | |
+| h17/poly96 | 25/26 | **252** | 2 | 1 | 0 | 252.0 | |
+| h17/poly63 | 26/26 | **218** | 5 | 10 | 6 | 84.0 | F-theory champion |
+| h17/poly9 | 23/26 | **192** | 1 | 0 | 0 | 72.0 | |
+| h18/poly34 | 26/26 | **184** | 4 | 6 | 5 | 0.0 | |
+| h17/poly8 | 26/26 | **180** | 3 | 3 | 4 | 2,208 | |
+| **h15/poly61** | **25/26** | **110** | 3 | 3 | 0 | **14,300** | **LVS champion** |
+
+### h16 full scan → 5,180/5,180 complete ✅
+
+| Metric | Value |
+|--------|-------|
+| Polytopes scanned | 5,180 (100%) |
+| Hits (h⁰≥3) | 1,811 (35%) |
+| Runtime | 52.9 min |
+| Throughput | 1.6 poly/s |
+
+### h16 T1 → T1.5 → T2 screening
+
+- **T1**: 30 screened, 17/30 Swiss cheese. Best: h16/poly329 (score=41, max h⁰=15). 374 total T1 entries.
+- **T1.5**: 20 screened, 19/20 T2-worthy (17s). 338 total T1.5 entries.
+- **T2**: 20 screened, all 20 ★★★ (56s). 36 total T2 entries.
+
+T2 top new performers:
+- h19/poly16: T2=45, 69 clean, max h⁰=27, 5 K3 + 6 ell
+- h18/poly32: T2=45, 49 clean, max h⁰=30
+- h17/poly53: T2=45, 45 clean
+- h15/poly94: T2=45, 36 clean, 4 K3 + 4 ell
+
+### Scan coverage
+
+| h11 | Polytopes | Scanned | Coverage |
+|-----|-----------|---------|----------|
+| 13 | 3 | 3 | 100% |
+| 14 | 22 | 22 | 100% |
+| 15 | 553 | 553 | 100% |
+| 16 | 5,180 | 5,180 | 100% |
+| 17 | 38,735 | 100 | 0.26% |
+
+h13–h16 fully covered. h17 (38,735 polytopes, ~3.7 hrs) deferred to Codespace.
+
+---
+
 ## 2026-02-22 23:30 — Expanded scan: h15 complete, h16 running, new T2 discovery
 
 **Work done (B-19)**: Built `scan_parallel.py` multiprocessing scanner and expanded the scan beyond the original `limit=100` cap.

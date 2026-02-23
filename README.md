@@ -4,7 +4,7 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-> **Status**: 1,478 polytopes scanned · 36 Tier-2 screened · **7 full pipeline runs** (5× 26/26) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: 6,658 polytopes scanned · 36 Tier-2 screened · **8 full pipeline runs** (5× 26/26) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -21,22 +21,22 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 | 13 | 3 | 3 | 100% |
 | 14 | 22 | 22 | 100% |
 | 15 | 553 | **553** | **100%** |
-| 16 | 5,180 | ~1,800 | ~35% |
+| 16 | 5,180 | **5,180** | **100%** |
 | 17 | 38,735 | 100 | 0.26% |
 | 18–24 | ~millions | 100 ea. | ~0% |
 | 25–128 | huge | 0 | 0% |
 
-**We have scanned ~1,478 polytopes out of potentially millions.** h¹¹ = 15 is now fully covered. h¹¹ = 16 scan is running (ETA ~1hr). The expanded h15 scan discovered **h15/poly61** (103 clean h⁰=3 bundles, new #5 overall). See [PROCESS_LOG.md](PROCESS_LOG.md).
+**We have scanned ~6,658 polytopes out of potentially millions.** h¹¹ = 13–16 are now fully covered. h¹¹ = 17 scan deferred to Codespace (~3.7 hrs). The expanded scans discovered **h15/poly61** (25/26, τ=14,300 — LVS champion). See [PROCESS_LOG.md](PROCESS_LOG.md).
 
 ## Current Results
 
 ### Screening Funnel
 
 ```
-1,478 polytopes scanned (h11=13..24, h15 complete, h16 in progress)
-  └─ 967+ have h⁰ ≥ 3 line bundles (~65%)
-      └─ 356 pass Tier 1 (dP divisors + Swiss cheese + symmetry)
-          └─ 337 pass Tier 1.5 (fibrations + 300-bundle probe, ≥3 clean)
+6,658 polytopes scanned (h11=13..24, h15+h16 complete)
+  └─ 2,779+ have h⁰ ≥ 3 line bundles (~42%)
+      └─ 374 pass Tier 1 (dP divisors + Swiss cheese + symmetry)
+          └─ 338 pass Tier 1.5 (fibrations + 300-bundle probe, ≥3 clean)
               └─ 36 Tier 2 complete ✅ (full bundle search + h³ verification)
                   └─ 14 scored T2=45 (max), 30 scored T2≥41
 ```
@@ -51,10 +51,13 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 | **★ h17/poly63** [NF] | **26/26** | **218** | 922 | 40 | 5 | **10** | F-theory champion |
 | **★ h17/poly9** [NF] | **23/26** | **192** | 876 | 15 | 1 | 0 | |
 | **★ h18/poly34** [NF] | **26/26** | **184** | 730 | 16 | 4 | 6 | 5 dP, h¹¹=18 |
-| **★ h17/poly8** [NF] | **26/26** | **180** | 558 | 13 | 3 | 3 | τ=2208 (best LVS) |
+| **★ h17/poly8** [NF] | **26/26** | **180** | 558 | 13 | 3 | 3 | τ=2208 |
+| **★ h15/poly61** [NF] | **25/26** | **110** | 338 | 4 | 3 | 3 | **τ=14,300 (LVS champ)** |
 | h13/poly1 (bench) | 18/20 | 25 | 76 | 6 | 3 | 3 | Benchmark |
 
 ★ = Full pipeline complete (Stages 1–4 + scorecard). [NF] = non-favorable.
+
+**h15/poly61** has the best Large Volume Scenario hierarchy of any candidate: Swiss cheese τ = 14,300 (6.5× the runner-up h17/poly8 at τ = 2,208). Loses only the single dP point (0 del Pezzo divisors).
 
 Full results in [results/](results/). All top candidates are **non-favorable** polytopes — these were invisible until we fixed [Bug B-11](PROCESS_LOG.md).
 

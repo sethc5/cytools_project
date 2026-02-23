@@ -1,6 +1,6 @@
 # BACKLOG — χ = −6 CY Landscape Scanner
 
-> Ordered by priority. Top = do next. Updated: 2026-02-22.
+> Ordered by priority. Top = do next. Updated: 2026-02-23.
 >
 > **Project direction**: Open-source pipeline + catalogue. Build the sieve,
 > record what passes and what doesn't, make it contributor-friendly.
@@ -15,16 +15,15 @@
 - **What**: Run `scan_parallel.py` (multiprocessing, 4 workers) at h15–17. Update T1 → T1.5 → T2 pipeline on new hits.
 - **Acceptance**: ≥500 polytopes scanned per h¹¹ value.
 - **Status**:
-  - ✅ h15: **553/553 complete** (333 hits, 60%). T1→T1.5→T2 done. New #5 candidate: h15/poly61 (103 clean).
-  - 🔶 h16: **~1800/5180 in progress** (35%, 913 hits, ETA ~40 min). Running locally via `scan_parallel.py`.
+  - ✅ h15: **553/553 complete** (333 hits, 60%). T1→T1.5→T2 done. h15/poly61 → full pipeline 25/26.
+  - ✅ h16: **5,180/5,180 complete** (1,811 hits, 35%). T1→T1.5→T2 done. 20 new T2 entries.
   - ❌ h17: 38,735 polytopes, ~3.7 hrs. Deferred to Codespace.
-- **Estimate**: h16 ~1hr local, h17 ~4hrs Codespace.
+- **Estimate**: h17 ~4hrs Codespace.
 
-### B-23: Full pipeline on h15/poly61 (new #5 discovery)
-- **Why**: 103 clean h⁰=3 bundles — discovered in expanded h15 scan. Ranks #5 in T2 leaderboard.
-- **What**: `python pipeline.py --h11 15 --poly 61`
-- **Acceptance**: Scorecard + full divisor/fibration/bundle analysis.
-- **Estimate**: Small (~30s).
+### B-23: Full pipeline on h15/poly61 (new #5 discovery) ✅ DONE
+- **Why**: 103 clean h⁰=3 bundles — discovered in expanded h15 scan.
+- **Result**: 25/26 score, 110 clean bundles, τ=14,300 (LVS champion). See FINDINGS.md.
+- **Completed**: 2026-02-23.
 
 ---
 
@@ -69,6 +68,8 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-23 | B-23: Full pipeline h15/poly61 → 25/26, 110 clean, τ=14,300 (LVS champ) | 2026-02-23 |
+| D-22b | B-19 partial: h16 full scan (5180/5180, 1811 hits) + T1→T2 | 2026-02-23 |
 | D-22 | B-19 partial: h15 full scan (553/553, 333 hits) + scan_parallel.py | 2026-02-22 |
 | D-21 | B-22: Full pipeline on all 7 top candidates (5× 26/26) | 2026-02-22 |\n| D-20 | B-18c: Generic `pipeline.py` (replaces per-candidate scripts) | 2026-02-22 |
 | D-19 | B-18b: `cy_compute.py` shared core — 19× pipeline speedup | 2026-02-22 |
