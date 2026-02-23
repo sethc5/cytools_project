@@ -4,7 +4,7 @@ Detailed write-ups of key results. For the quick summary, see [README.md](README
 
 ---
 
-## 1. h13/poly1 — Best Candidate (Pipeline Score: 18/20)
+## 1. h13/poly1 — Benchmark Candidate (Pipeline Score: 18/20)
 
 **Date**: 2026-02-23. **Script**: [pipeline_h13_P1.py](pipeline_h13_P1.py).
 
@@ -46,27 +46,61 @@ e₁₂ (toric idx 17): τ = 10.0, V = 308,352, τ/V²ᐟ³ = 0.0022. Excellent 
 
 ---
 
-## 2. h17/poly63 — Top T2=45 Scorer (198 clean, 5 K3 + 6 elliptic)
+## 2. h17/poly63 — F-Theory Champion (Pipeline Score: 26/26, 218 clean)
 
-**Date**: 2026-02-22 (early T2 batch). **Script**: [tier2_screen.py](tier2_screen.py).
+**Date**: 2026-02-22. **Script**: `python pipeline.py --h11 17 --poly 63`. **Output**: [results/pipeline_h17_P63_output.txt](results/pipeline_h17_P63_output.txt).
 
-Highest clean h⁰ = 3 count among all T2=45 scorers. Richest fibration structure of any candidate — 5 K3 + 6 elliptic fibrations. Also has the highest max h⁰ (40) of any polytope in the scan.
+The richest fibration structure of any candidate — 5 K3 + 10 elliptic fibrations. Max h⁰ = 40, the highest of any polytope scoring T2=45. Prime target for F-theory model building.
 
-### Key Data
-- h¹¹ = 17, h²¹ = 20, χ = −6, non-favorable (h¹¹_eff = 13)
-- 198 clean h⁰ = 3 line bundles
+### Geometry
+- h¹¹ = 17, h²¹ = 20, χ = −6 (native 3-generation, no quotient needed)
+- 18 toric coordinates, 17 rays, non-favorable (h¹¹_eff = 13)
+- c₂ = [36, 18, 2, 16, 18, 10, −4, 2, 6, 8, 8, −18, −6]
+- 97 intersection entries, 65 Mori cone generators, 80 SR ideal generators
+- SHA-256 fingerprint: 3cc2448f341e6e9a
+
+### Divisor Structure
+- **6 del Pezzo**: e₂ (dP₄), e₅ (dP₈), e₇ (dP₄), e₈ (dP₆), e₉ (dP₇), e₁₀ (dP₇)
+- **1 K3-like**: e₀ (D³=0, c₂·D=36)
+- **6 rigid**: e₁, e₃, e₄, e₆, e₁₁, e₁₂
+
+### Swiss Cheese
+e₁₂ (toric idx 17): τ = 84.0, V = 853,536, τ/V²ᐟ³ = 0.0093. Good LVS hierarchy.
+
+### Line Bundles
+- **14,458 total χ = ±3 bundles** (7,229 each sign)
+- **218 completely clean**: h⁰ = 3, h¹ = h² = h³ = 0
 - 922 with h⁰ ≥ 3, max h⁰ = 40
-- 14,458 total χ = ±3 bundles
-- 5 K3 fibrations, 6 elliptic fibrations
-- D³ range: [−91, 119], 196 distinct values
+- **1 nef bundle** (the rarest finding — almost all χ=−6 bundles are non-nef)
+- 61 distinct D³ values among clean bundles (range [−59, 59])
 
-### Why It Matters
-Among the 30 polytopes scoring T2=45, h17/poly63 has the most clean bundles (198) and the richest fibration structure (5 K3 + 6 elliptic — tied for most elliptic with h15/poly23). Its max h⁰ = 40 is remarkably high, suggesting deep bundle structure. Prime candidate for both heterotic and F-theory model building.
+### Fibrations
+- **5 K3 fibrations** — base P¹ directions: [0,1,1,0], [0,0,0,1], [0,0,1,1], [0,1,0,−1], [0,1,0,0]
+- **10 elliptic fibrations** — the most of any fully-analyzed candidate. Rich 2D reflexive subpolytope structure in the dual.
 
-### Status
-Needs full pipeline run (Stages 1–4 deep analysis + scorecard). Priority for B-18.
+### Why It's the F-Theory Champion
+1. **10 elliptic fibrations** — more than any other analyzed polytope. Each is a distinct F-theory compactification pathway.
+2. **6 del Pezzo divisors** — twice as many as h14/poly2. Each dP divisor supports non-perturbative E-type effects.
+3. **Max h⁰ = 40** — extremely large global sections suggest deep bundle structure for rank-4/5 constructions.
+4. **218 clean bundles with zero higher cohomology** — broad target space for heterotic embedding.
 
-> **Note (2026-02-25)**: This polytope was in the early T2 batch (20 candidates, 2026-02-22) which was stored only in `tier2_screen_results.csv`. Temporarily removed from documentation when the early results were not found in `tier2_full_results.csv`. All stats confirmed on rerun. Now merged into the full CSV (177 total).
+### Comparison with Heterotic Champion
+
+| Metric | h14/poly2 | h17/poly63 | Winner |
+|--------|-----------|------------|--------|
+| Score | 26/26 | 26/26 | Tie |
+| Clean bundles | **320** | 218 | h14/poly2 |
+| Max h⁰ | 13 | **40** | h17/poly63 |
+| K3 fibrations | 3 | **5** | h17/poly63 |
+| Elliptic fib. | 3 | **10** | h17/poly63 |
+| dP divisors | 3 | **6** | h17/poly63 |
+| Swiss cheese | **3 dirs** | 1 dir | h14/poly2 |
+| h¹¹ | **14** | 17 | h14/poly2 |
+
+### Open Questions
+- Which of the 10 elliptic fibrations gives the richest gauge algebra from singular fibers?
+- Can rank-4/5 bundles be built leveraging the 6 dP divisors?
+- Does the single nef bundle have special significance?
 
 ---
 
@@ -92,25 +126,34 @@ Needs full pipeline run (Stages 1–4 deep analysis + scorecard).
 
 ---
 
-## 2b. h14/poly2 — New Clean-Bundle Leader (268 clean, T2=41)
+## 2b. h14/poly2 — Heterotic Champion (Pipeline Score: 26/26, 320 clean)
 
-**Date**: 2026-02-24. Discovered in Codespace T2 batch.
+**Date**: 2026-02-22. **Script**: `python pipeline.py --h11 14 --poly 2`. **Output**: [results/pipeline_h14_P2_output.txt](results/pipeline_h14_P2_output.txt).
 
-Most clean h⁰ = 3 bundles of any polytope scanned, at the lowest h¹¹ (14) among top candidates. Low h¹¹ implies simpler moduli stabilization — this may be the strongest candidate for a practical SM embedding.
+Most clean h⁰ = 3 bundles of any polytope analyzed. Lowest h¹¹ (14) among top candidates. The strongest candidate for heterotic string compactification.
 
-### Key Data
+### Geometry
 - h¹¹ = 14, h²¹ = 17, χ = −6, non-favorable (h¹¹_eff = 13)
-- **268 clean h⁰ = 3 line bundles** (most of any candidate)
+- SHA-256 fingerprint: f6c14152f6f3b812
+
+### Key Data (full pipeline)
+- **320 clean h⁰ = 3 line bundles** (most of any candidate)
 - 828 with h⁰ ≥ 3, max h⁰ = 13
 - 14,608 total χ = ±3 bundles
-- 3 K3 fibrations, 1 elliptic fibration
-- D³ range: [−71, 109], 176 distinct values
+- 3 K3 fibrations, 3 elliptic fibrations
+- 61 distinct D³ values (range [−63, 63])
+- 3 del Pezzo (dP₄, dP₄, dP₇), 2 K3-like, 6 rigid
+- 3 Swiss cheese directions (best: e₉ τ=58.5, ratio=0.001)
+- 1 nef bundle
 
-### Why It Matters
-Combines the most clean bundles with the second-lowest h¹¹ in the landscape. Fewer Kähler moduli = more tractable vacuum stabilization. The large clean bundle count gives the widest possible target space for Stage 5 higher-rank bundle construction.
+### Why It's the Heterotic Champion
+1. **320 clean bundles** — 12.8× more than h13/poly1, 1.5× more than h17/poly63
+2. **h¹¹ = 14** — lowest among top candidates → simplest moduli stabilization
+3. **3 Swiss cheese directions** — strongest LVS structure of any candidate
+4. **L = O(±e₀)** — simplest clean bundle is a single-divisor 3-generation model
 
 ### Status
-Needs full pipeline run. Top priority alongside h17/poly8.
+✅ Full pipeline complete. 26/26 score.
 
 ---
 

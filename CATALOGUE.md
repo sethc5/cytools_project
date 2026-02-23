@@ -3,7 +3,7 @@
 > **Purpose**: Record what's been checked, what passed, and what's ruled out.
 > If a polytope or approach appears here, you don't need to redo the work.
 >
-> **Last updated**: 2026-02-24. Scan v2 complete (1,025 polytopes). T2 complete (157/157).
+> **Last updated**: 2026-02-22. Scan v2 complete (1,025 polytopes). T2 complete (177/177). **2 full pipeline runs** (h14/poly2 + h17/poly63 — both 26/26).
 
 ---
 
@@ -69,15 +69,15 @@
 
 Ranked by clean h⁰=3 bundle count. All non-favorable. T2 score out of 55.
 
-| Rank | Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell |
-|------|----------|----|------------|-------|--------|-----|-----|
-| 1 | **h14/poly2** | 41 | **268** | 828 | 13 | 3 | 1 |
-| 2 | **h16/poly11** | 41 | **255** | 840 | 13 | 3 | 1 |
-| 3 | h17/poly96 | 39 | 227 | 930 | **65** | 2 | 1 |
-| 4 | **h17/poly63** | 45 | **198** | 922 | 40 | 5 | 6 |
-| 5 | h18/poly34 | 45 | 189 | 730 | 16 | 4 | 4 |
-| 6 | h17/poly9 | 35 | 181 | 876 | 15 | 1 | 0 |
-| 7 | h17/poly8 | 45 | 159 | 558 | 13 | 3 | 3 |
+| Rank | Polytope | Score | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell | Notes |
+|------|----------|-------|------------|-------|--------|-----|-----|-------|
+| 1 | **★ h14/poly2** | **26/26** | **320** | 828 | 13 | 3 | 3 | Heterotic champion |
+| 2 | **h16/poly11** | T2=41 | 255 | 840 | 13 | 3 | 1 | |
+| 3 | h17/poly96 | T2=39 | 227 | 930 | **65** | 2 | 1 | Highest max h⁰ |
+| 4 | **★ h17/poly63** | **26/26** | **218** | 922 | 40 | 5 | **10** | F-theory champion |
+| 5 | h18/poly34 | T2=45 | 189 | 730 | 16 | 4 | 4 | |
+| 6 | h17/poly9 | T2=35 | 181 | 876 | 15 | 1 | 0 | |
+| 7 | h17/poly8 | T2=45 | 159 | 558 | 13 | 3 | 3 | |
 | 8 | h17/poly90 | 45 | 148 | 542 | 16 | 3 | 3 |
 | 9 | h15/poly23 | 45 | 119 | 524 | 20 | 4 | 6 |
 | 10 | h17/poly21 | 45 | 118 | 532 | 13 | 4 | 6 |
@@ -109,10 +109,12 @@ Full merged CSV: [results/tier2_full_results.csv](results/tier2_full_results.csv
 | ≤37 | 56 |
 
 **Observations**:
-- **h14/poly2 is the new clean-bundle leader** (268 clean) at the lowest h¹¹ (14) in the batch. Low h¹¹ = simpler moduli stabilization. Strong full-pipeline candidate.
+- **★ h14/poly2 (Heterotic Champion)**: Full pipeline score 26/26, **320 clean bundles** (up from 268 in T2), 3 Swiss cheese directions, lowest h¹¹ (14) = simplest moduli stabilization.
+- **★ h17/poly63 (F-Theory Champion)**: Full pipeline score 26/26, **218 clean bundles** (up from 198 in T2), **10 elliptic fibrations** (up from 6 in T2), 6 dP divisors, richest fibration structure.
 - **h17/poly96 has max h⁰ = 65** — the highest of any polytope scanned. 227 clean bundles despite only T2=39.
 - Every top candidate is non-favorable. These were invisible before Bug B-11 fix.
-- 23 polytopes hit the T2 score cap of 45 — the scoring saturates. Clean bundle count is the better discriminator.
+- 23 polytopes hit the T2 score cap of 45 — the scoring saturates. Full pipeline 26-point scorecard is the better discriminator.
+- **Full pipeline finds more**: T2→pipeline upgrades: h14/poly2 clean 268→320, h17/poly63 clean 198→218, elliptic 6→10. The more thorough methodology in Stages 1-4 catches bundles/fibrations missed by the faster T2 screen.
 - h16/poly74 has **10 elliptic fibrations** (most of any candidate) — exceptional for F-theory.
 
 ---

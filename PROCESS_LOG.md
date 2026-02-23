@@ -5,6 +5,75 @@
 
 ---
 
+## 2026-02-22 21:00 — Generic pipeline.py + h17/poly63 Full Pipeline: 26/26, 218 clean
+
+**Work done**: Refactored all pipeline code into a single generic `pipeline.py` that takes `--h11` and `--poly` arguments. No more per-candidate custom scripts. All heavy computation imported from `cy_compute.py`. Ran full Stages 1-4 on h17/poly63.
+
+**Architecture change**: `cy_compute.py` is the shared computational core (vectorized lattice points, batch χ, precomputed vertex data). `pipeline.py` is the single entry point:
+```
+python pipeline.py --h11 14 --poly 2    # champion
+python pipeline.py --h11 17 --poly 63   # F-theory champion
+python pipeline.py --h11 18 --poly 34   # next candidate
+```
+Old per-candidate scripts (`pipeline_h14_P2.py`, `pipeline_h13_P1.py`) still work but are superseded.
+
+**h17/poly63 Full Pipeline Results**:
+- **26/26 score** — perfect (same as h14/poly2)
+- **218 clean bundles**: h⁰=3, h¹=h²=h³=0 (up from 198 in T2 screen)
+- 14,458 total χ=±3 bundles searched (max_nonzero=4, max_coeff=3)
+- 922 bundles with h⁰≥3 (6.4% of total)
+- Max h⁰ = 40
+- 1 nef bundle out of 14,458
+- 61 distinct D³ values among clean bundles (range [-59, 59])
+- Non-favorable: h11=17, h11_eff=13
+- SHA-256 fingerprint: 3cc2448f341e6e9a
+- Runtime: 25s
+
+**Divisor structure**:
+- 6 del Pezzo candidates (e2: dP₄, e5: dP₈, e7: dP₄, e8: dP₆, e9: dP₇, e10: dP₇)
+- 1 K3-like divisor (e0: D³=0, c₂·D=36)
+- 6 rigid divisors
+
+**Swiss cheese structure**: 1 direction
+- e12: τ=84.0, V=853536, τ/V^(2/3)=0.00934
+
+**Fibrations**: 5 K3 + 10 elliptic (up from 6 elliptic in T2 — full pipeline methodology finds more)
+
+**Comparison of the two champions**:
+
+| Metric | h14/poly2 | h17/poly63 | Winner |
+|--------|-----------|------------|--------|
+| Score | 26/26 | 26/26 | Tie |
+| Clean bundles | **320** | 218 | h14/poly2 |
+| Max h⁰ | 13 | **40** | h17/poly63 |
+| K3 fibrations | 3 | **5** | h17/poly63 |
+| Elliptic fibrations | 3 | **10** | h17/poly63 |
+| dP divisors | 3 | **6** | h17/poly63 |
+| Swiss cheese dirs | **3** | 1 | h14/poly2 |
+| h¹¹ (lower=simpler) | **14** | 17 | h14/poly2 |
+
+h14/poly2 = **heterotic champion** (most clean bundles, simplest moduli). h17/poly63 = **F-theory champion** (most fibrations, richest divisor structure).
+
+**Performance**: All screening scripts + pipeline now import from `cy_compute.py`. Speedups:
+- pipeline: 271s → 25-30s (10-19×)
+- tier2 per polytope: 87s → 7.4s (12×)
+- scan per polytope: 8s → 0.6s (13×)
+- ~700 lines of duplicated code removed across 5 scripts
+
+**Commits**: `9bc4145` (pipeline_h14_P2 refactor), `6e3da48` (generic pipeline.py + h17/poly63)
+
+---
+
+## 2026-02-22 20:15 — cy_compute refactoring: all scripts accelerated
+
+**Work done**: Created `cy_compute.py` shared computational module. Refactored all 4 screening scripts (`scan_chi6_h0.py`, `tier1_screen.py`, `tier15_screen.py`, `tier2_screen.py`) and `pipeline_h14_P2.py` to import from it.
+
+**Bug found and fixed**: `build_intnum_tensor()` was symmetrizing intersection numbers to all 6 permutations of (i,j,k). CYTools stores sorted-index entries only (i≤j≤k), so the scalar `compute_chi()` sums correctly, but the symmetrized tensor caused 3-6× D³ overcounting. Fixed by removing symmetrization. Verified: all test bundles match scalar vs batch.
+
+**Commits**: `d37e1e1` (cy_compute creation), `761fd34` (screening refactoring + tensor fix)
+
+---
+
 ## 2026-02-22 19:30 — h14/poly2 Full Pipeline: 26/26, 320 clean bundles — new champion
 
 **Work done**: Built `pipeline_h14_P2.py`. Full Stages 1-4 of FRAMEWORK.md on h11=14, polytope 2 — the #1 ranked candidate from 177 T2-screened polytopes.

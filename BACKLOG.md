@@ -1,6 +1,6 @@
 # BACKLOG — χ = −6 CY Landscape Scanner
 
-> Ordered by priority. Top = do next. Updated: 2026-02-24.
+> Ordered by priority. Top = do next. Updated: 2026-02-22.
 >
 > **Project direction**: Open-source pipeline + catalogue. Build the sieve,
 > record what passes and what doesn't, make it contributor-friendly.
@@ -10,59 +10,52 @@
 
 ## NOW — Active Sprint
 
-### B-17: Repo restructuring for open-source ✅ DONE
-- Rewrote README.md for public contributors. Created CATALOGUE.md (ruled-out list), CONTRIBUTING.md, updated FINDINGS.md + BACKLOG.md. Archived old docs in archive/.
-
-### B-16: Full T2 on 157 T1.5 survivors (batch) ✅ DONE
-- All 4 pipes finished on Codespace (33–41 min each). 157/157 complete.
-- Merged CSV: `results/tier2_full_results.csv`
-- New leaders: h14/poly2 (268 clean), h17/poly96 (max h⁰=65).
+### B-19: Expand scan — remove limit=100 cap at h¹¹ = 15–17
+- **Why**: We've only scanned 100/553 at h15, 100/5180 at h16, 100/38735 at h17. The strongest candidates are all in this range.
+- **What**: Run `scan_chi6_h0.py` with `limit=1000` (or unlimited) at h15–17. Update T1 → T1.5 → T2 pipeline on new hits.
+- **Acceptance**: ≥500 polytopes scanned per h¹¹ value.
+- **Status**: h¹¹=19 batch running on Codespace.
+- **Estimate**: Large (compute-heavy, hours per h¹¹ value).
 
 ---
 
 ## NEXT — Ready to Start
 
-### B-18: Full pipeline on top T2 candidate
-- **Why**: h14/poly2 (T2=41, 268 clean bundles, lowest h¹¹=14) and h17/poly63 (T2=45, 198 clean, 5 K3 + 6 elliptic, max h⁰=40) are the two strongest candidates. Needs full Stages 1–4 treatment like h13/poly1 got.
-- **What**: Build `pipeline_h17_P63.py` and/or `pipeline_h14_P2.py`. Full divisor analysis, cohomology table, net chirality.
-- **Acceptance**: Complete 20-check scorecard. Document in FINDINGS.md.
-- **Estimate**: Medium.
-
-### B-19: Expand scan — remove limit=100 cap at h¹¹ = 15–17
-- **Why**: We've only scanned 100/553 at h15, 100/5180 at h16, 100/38735 at h17. The strongest candidates are all in this range.
-- **What**: Run `scan_chi6_h0.py` with `limit=1000` (or unlimited) at h15–17. Update T1 → T1.5 → T2 pipeline on new hits.
-- **Acceptance**: ≥500 polytopes scanned per h¹¹ value.
-- **Estimate**: Large (compute-heavy, hours per h¹¹ value).
-
 ### B-20: Stage 5 — Higher-rank vector bundles
 - **Why**: Line bundles only give U(1). Standard Model needs SU(3)×SU(2)×U(1), which requires rank 4 or 5 vector bundles. This is the critical gap.
-- **What**: Implement monad/extension bundle construction on top candidates (h13/poly1 or h17/poly63). Check stability, compute chiral index.
+- **What**: Implement monad/extension bundle construction on top candidates (h14/poly2 or h17/poly63). Check stability, compute chiral index.
 - **Acceptance**: At least one stable rank-n bundle with net chirality = 3 on any candidate.
 - **Estimate**: Large (research + implementation). External contributions especially welcome.
 
 ### B-21: F-theory discriminant locus classification
-- **Why**: All top candidates have elliptic fibrations. Discriminant locus determines gauge groups directly from geometry.
-- **What**: For h16/poly74 (10 elliptic fibs) or h17/poly45 (8 elliptic fibs), classify singular fibers, determine gauge algebra.
+- **Why**: h17/poly63 has **10 elliptic fibrations** — the most of any analyzed candidate. Each is a potential F-theory compactification with non-abelian gauge symmetry.
+- **What**: For h17/poly63 (10 elliptic fibs), classify singular fibers (Kodaira types), determine gauge algebra.
 - **Acceptance**: Documented gauge groups for at least one fibration.
 - **Estimate**: Medium-Large.
+
+### B-22: Run full pipeline on remaining top candidates
+- **Why**: h16/poly11 (255 clean), h17/poly96 (max h⁰=65), h18/poly34 (189 clean, 4 ell) are all untouched by full pipeline.
+- **What**: `python pipeline.py --h11 16 --poly 11` etc. Compare scores against champions.
+- **Acceptance**: Scorecard for each.
+- **Estimate**: Small (25-30s each, just needs running).
 
 ---
 
 ## LATER — Backlog
 
+### B-07: Paper draft
+- **Why**: Publishable as a methodology/survey paper even without SM discovery. The pipeline, catalogue of negative results, and CYTools gotchas are useful to the community.
+- **Status**: Deferred until B-22 (more full pipeline runs) completes.
+
 ### B-06: Ample Champion orbifold resolution
 - **Why**: The full Z₃×Z₃ quotient is singular. Could resolve and check if χ changes to −6.
 - **What**: Compute resolved Hodge numbers for the Z₃×Z₃ orbifold.
-- **Status**: Parked. Native χ = −6 candidates (h13/poly1, h17/poly63) are cleaner paths.
+- **Status**: Parked. Native χ = −6 candidates (h14/poly2, h17/poly63) are stronger paths.
 
 ### B-09: Self-mirror polytope (h11=20, h21=20) deep analysis
 - **Why**: Novel self-mirror CY with χ = 0. Rich fibration structure. Undocumented.
 - **What**: Full pipeline analysis. Check for freely-acting symmetries. F-theory applications.
 - **Status**: Parked. Math curiosity, not a 3-generation candidate.
-
-### B-07: Paper draft
-- **Why**: Publishable as a methodology/survey paper even without SM discovery. The pipeline, catalogue of negative results, and CYTools gotchas are useful to the community.
-- **Status**: Deferred until T2 batch completes and full pipeline on top candidate is done.
 
 ---
 
@@ -70,6 +63,10 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-20 | B-18c: Generic `pipeline.py` (replaces per-candidate scripts) | 2026-02-22 |
+| D-19 | B-18b: `cy_compute.py` shared core — 19× pipeline speedup | 2026-02-22 |
+| D-18b | B-18: Full pipeline h17/poly63 → 26/26, 218 clean (F-theory champ) | 2026-02-22 |
+| D-18a | B-18: Full pipeline h14/poly2 → 26/26, 320 clean (heterotic champ) | 2026-02-22 |
 | D-18 | B-17: Repo restructuring (README, CATALOGUE, CONTRIBUTING) | 2026-02-24 |
 | D-17 | B-13: Tier 1.5 screening (157 survivors) | 2026-02-23 |
 | D-16 | B-11: Fix c2 mismatch (non-favorable polytopes) | 2026-02-22 |

@@ -4,7 +4,7 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-> **Status**: 1,025 polytopes scanned · 157 deep-screened · Pipeline operational · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: 1,025 polytopes scanned · 177 Tier-2 screened · **2 full pipeline runs** (26/26 each) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -43,16 +43,18 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 
 ### Top Candidates (by clean h⁰=3 bundle count)
 
-| Polytope | T2 | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 fib | Ell fib |
-|----------|-----|------------|-------|--------|--------|--------|
-| **h14/poly2** [NF] | 41 | **268** | 828 | 13 | 3 | 1 |
-| **h16/poly11** [NF] | 41 | **255** | 840 | 13 | 3 | 1 |
-| h17/poly96 [NF] | 39 | 227 | 930 | **65** | 2 | 1 |
-| **h17/poly63** [NF] | 45 | **198** | 922 | 40 | 5 | 6 |
-| h18/poly34 [NF] | 45 | 189 | 730 | 16 | 4 | 4 |
-| h17/poly9 [NF] | 35 | 181 | 876 | 15 | 1 | 0 |
-| h17/poly8 [NF] | 45 | 159 | 558 | 13 | 3 | 3 |
-| h13/poly1 (bench) | 45 | 25 | 76 | 6 | 3 | 3 |
+| Polytope | Score | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 fib | Ell fib | Notes |
+|----------|-------|------------|-------|--------|--------|---------|-------|
+| **★ h14/poly2** [NF] | **26/26** | **320** | 828 | 13 | 3 | 3 | Heterotic champion |
+| **h16/poly11** [NF] | T2=41 | 255 | 840 | 13 | 3 | 1 | |
+| h17/poly96 [NF] | T2=39 | 227 | 930 | **65** | 2 | 1 | Highest max h⁰ |
+| **★ h17/poly63** [NF] | **26/26** | **218** | 922 | 40 | 5 | **10** | F-theory champion |
+| h18/poly34 [NF] | T2=45 | 189 | 730 | 16 | 4 | 4 | |
+| h17/poly9 [NF] | T2=35 | 181 | 876 | 15 | 1 | 0 | |
+| h17/poly8 [NF] | T2=45 | 159 | 558 | 13 | 3 | 3 | |
+| h13/poly1 (bench) | 18/20 | 25 | 76 | 6 | 3 | 3 | Benchmark |
+
+★ = Full pipeline complete (Stages 1–4 + scorecard). [NF] = non-favorable.
 
 Full results in [results/](results/). All top candidates are **non-favorable** polytopes — these were invisible until we fixed [Bug B-11](PROCESS_LOG.md).
 
@@ -63,7 +65,7 @@ Full results in [results/](results/). All top candidates are **non-favorable** p
 | 1. CY Geometry | Enumerate χ = −6 polytopes, triangulate | ✅ Done |
 | 2. Divisor Analysis | Classify divisors, Swiss cheese, intersection numbers | ✅ Done |
 | 3. Line Bundle Cohomology | h⁰ via Koszul, scan for h⁰ ≥ 3 | ✅ Done |
-| 4. Net Chirality | h¹ − h², Serre duality cross-check | 🔶 Partial |
+| 4. Net Chirality | h¹ − h², Serre duality cross-check | ✅ Done |
 | 5. Vector Bundles (rank 4/5) | Monad construction, stability, chiral spectrum | ❌ Not started |
 | 6. Moduli Stabilization | LVS/KKLT, flux superpotential | 🔶 Swiss cheese only |
 | 7. Phenomenology | Yukawas, proton decay, gauge unification | ❌ Not started |
@@ -104,10 +106,12 @@ python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# Screen a single polytope (deep analysis, ~30s)
-python tier2_screen.py --h11 13 --poly 1
+# Full pipeline on any candidate (~25-30s)
+python pipeline.py --h11 14 --poly 2      # Heterotic champion
+python pipeline.py --h11 17 --poly 63     # F-theory champion
+python pipeline.py --h11 18 --poly 34     # Next candidate
 
-# Full pipeline run
+# Screening pipeline (to find new candidates)
 python scan_chi6_h0.py                          # Stage 1+3: landscape scan
 python tier1_screen.py                           # Fast screen
 python tier15_screen.py --csv results/tier1_screen_results.csv   # Intermediate
@@ -128,12 +132,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contributions:
 
 ```
 # Pipeline scripts
+pipeline.py          — Full Stages 1–4 pipeline for any candidate (--h11, --poly)
+cy_compute.py        — Shared computational core (vectorized lattice points, batch χ)
 scan_chi6_h0.py      — Landscape scanner (Stages 1+3)
 tier1_screen.py      — Fast screener: dP divisors, Swiss cheese, symmetry
 tier15_screen.py     — Intermediate: fibrations + 300-bundle probe
 tier2_screen.py      — Deep: exact bundle count, h³, D³, fibrations
 verify_results.py    — Spot-check contributed T2 CSVs
-pipeline_h13_P1.py   — Full Stages 1–4 benchmark on best candidate
 run_t2_batch.sh      — Parallel batch runner (4 pipes)
 
 # Documentation
