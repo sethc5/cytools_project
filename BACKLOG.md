@@ -17,8 +17,8 @@
 - **Status**:
   - ✅ h15: **553/553 complete** (333 hits, 60%). T1→T1.5→T2 done. h15/poly61 → full pipeline 25/26.
   - ✅ h16: **5,180/5,180 complete** (1,811 hits, 35%). T1→T1.5→T2 done. 20 new T2 entries.
-  - 🔶 h17: **running on Codespace** (tmux `h17scan`, 4 workers). ~27,000/38,735 (70%). ETA ~3 hrs remaining.
-  - 🔶 h18: **running on Hetzner** (tmux `h18scan`, 14 workers). ~98,000/100,000 (98%). **Nearly done.**
+  - 🔶 h17: **running on Codespace** (tmux `h17scan`, 4 workers). ~34,000/38,735 (~87%). Nearly done.
+  - 🔶 h18: **running on Hetzner** (Docker, 14 workers). ~4,087/21,115 T1 (19%). ETA ~33 hrs.
 - **Estimate**: h17 ~6hrs Codespace, h18 minutes remaining.
 
 ### B-26: GL=12/D₆ Picard-Fuchs study ✅ DONE (core)
@@ -63,11 +63,23 @@
 - **Acceptance**: At least one stable rank-n bundle with net chirality = 3 on any candidate.
 - **Estimate**: Large (research + implementation). External contributions especially welcome.
 
-### B-21: F-theory discriminant locus classification
-- **Why**: h17/poly25 has **15 elliptic fibrations** (record) and h17/poly63 has 10. Each is a potential F-theory compactification with non-abelian gauge symmetry.
-- **What**: For h17/poly25 (15 elliptic fibs) and h17/poly63 (10 elliptic fibs), classify singular fibers (Kodaira types), determine gauge algebra.
-- **Acceptance**: Documented gauge groups for at least one fibration.
-- **Estimate**: Medium-Large.
+### B-21: F-theory Kodaira fiber classification ✅ DONE (core)
+- **Why**: Elliptic fibrations → F-theory gauge symmetry. Each Kodaira type maps to a gauge factor.
+- **What**: Built `fiber_analysis.py` — reflexive 2D polygon classifier (15/16 GL₂(ℤ)-classified), Kodaira type determination from toric tops, gauge algebra assembly with SM/GUT detection.
+- **Result**: **39/39 fibrations across all 8 top candidates contain SU(3)×SU(2)×U(1). 17/39 are SU(5) GUT candidates.**
+  - h17/poly25: 8 fibs (6 SU(5) GUT), max rank 10
+  - h17/poly63: 6 fibs (6 SU(5) GUT), max rank 10
+  - h16/poly74: 10 fibs (2 SU(5) GUT), max rank 10
+  - h15/poly94: 4 fibs (2 SU(5) GUT), max rank 10
+  - h16/poly63: 4 fibs (2 SU(5) GUT), max rank 10
+  - h14/poly2: 1 fib (1 SU(5) GUT), rank 10
+  - h15/poly61: 3 fibs (0 SU(5) GUT), max rank 9
+  - h17/poly53: 3 fibs (0 SU(5) GUT), max rank 8
+- **Pipeline fix**: Fibration counting deduplication in pipeline.py (frozenset).
+- **Open extensions** (not blocking acceptance):
+  - ❌ Kodaira classifier is heuristic (excess→I_n assumed, no D/E type branching detection)
+  - ❌ Integration into main pipeline scoring
+- **Acceptance**: ✅ Documented gauge groups for **all** fibrations of all 8 top candidates.
 
 ### B-24: Run full pipeline on remaining T2 candidates ✅ DONE
 - **Result**: All 24 remaining T2=45 candidates analyzed. **37 total pipeline runs** (13 prior + 24 new).
@@ -101,6 +113,7 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-28 | B-21: F-theory Kodaira fiber classification — 39/39 SM, 17/39 SU(5) GUT (`fiber_analysis.py`) | 2026-02-25 |
 | D-26a | B-26: GL12/D₆ closed-form period + Yukawa couplings + picard_fuchs.py | 2026-02-23 |
 | D-27 | B-24: Full pipeline on all 37 T2=45 candidates (19× 26/26) | 2026-02-23 |
 | D-26c | B-26: PF operators in θ-coordinates + 1-param ODE + AESZ #1 (mori_pf.py + GL12_GEOMETRY.md) | 2026-02-23 |

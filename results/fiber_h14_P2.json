@@ -1,0 +1,45 @@
+{
+  "n_fibrations": 1,
+  "h11": 14,
+  "fibrations": [
+    {
+      "fiber_pts": 10,
+      "fiber_type": "F15",
+      "fiber_surface": "dP3_max",
+      "base_pts": 4,
+      "base_hull_vertices": 3,
+      "fiber_at_origin": 5,
+      "total_excess": 10,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            0
+          ],
+          "type": "I_6",
+          "algebra": "su(6)",
+          "rank": 5,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            1
+          ],
+          "type": "I_6",
+          "algebra": "su(6)",
+          "rank": 5,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(6) \u00d7 su(6) \u00d7 U(1)^2",
+      "gauge_rank": 10,
+      "contains_SM": true,
+      "has_SU5_GUT": true,
+      "MW_rank_bound": 2
+    }
+  ],
+  "elapsed": 0.00678706169128418,
+  "best_sm_score": 2,
+  "poly_idx": 2
+}

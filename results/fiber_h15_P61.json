@@ -1,0 +1,197 @@
+{
+  "n_fibrations": 3,
+  "h11": 15,
+  "fibrations": [
+    {
+      "fiber_pts": 6,
+      "fiber_type": "F5",
+      "fiber_surface": "",
+      "base_pts": 8,
+      "base_hull_vertices": 5,
+      "fiber_at_origin": 4,
+      "total_excess": 7,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            -1
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            -1,
+            0
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            0,
+            1
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            0
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            1
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(2) \u00d7 su(2) \u00d7 su(3) \u00d7 su(2) \u00d7 su(3) \u00d7 U(1)^2",
+      "gauge_rank": 7,
+      "contains_SM": true,
+      "has_SU5_GUT": false,
+      "MW_rank_bound": 2
+    },
+    {
+      "fiber_pts": 6,
+      "fiber_type": "F5",
+      "fiber_surface": "",
+      "base_pts": 8,
+      "base_hull_vertices": 5,
+      "fiber_at_origin": 4,
+      "total_excess": 7,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            0
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            0,
+            -1
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            0,
+            1
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            0
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            1
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(3) \u00d7 su(2) \u00d7 su(2) \u00d7 su(3) \u00d7 su(2) \u00d7 U(1)^2",
+      "gauge_rank": 7,
+      "contains_SM": true,
+      "has_SU5_GUT": false,
+      "MW_rank_bound": 2
+    },
+    {
+      "fiber_pts": 8,
+      "fiber_type": "F10",
+      "fiber_surface": "",
+      "base_pts": 6,
+      "base_hull_vertices": 4,
+      "fiber_at_origin": 4,
+      "total_excess": 9,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            0
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            0,
+            1
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            -1
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            0
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(4) \u00d7 su(4) \u00d7 su(3) \u00d7 su(2) \u00d7 U(1)^2",
+      "gauge_rank": 9,
+      "contains_SM": true,
+      "has_SU5_GUT": false,
+      "MW_rank_bound": 2
+    }
+  ],
+  "elapsed": 0.0065915584564208984,
+  "best_sm_score": 1,
+  "poly_idx": 61
+}

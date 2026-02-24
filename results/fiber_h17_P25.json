@@ -1,0 +1,407 @@
+{
+  "n_fibrations": 8,
+  "h11": 17,
+  "fibrations": [
+    {
+      "fiber_pts": 9,
+      "fiber_type": "F13",
+      "fiber_surface": "",
+      "base_pts": 5,
+      "base_hull_vertices": 4,
+      "fiber_at_origin": 7,
+      "total_excess": 8,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            -1
+          ],
+          "type": "I_6",
+          "algebra": "su(6)",
+          "rank": 5,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            1
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(6) \u00d7 su(4) \u00d7 U(1)^6",
+      "gauge_rank": 8,
+      "contains_SM": true,
+      "has_SU5_GUT": true,
+      "MW_rank_bound": 6
+    },
+    {
+      "fiber_pts": 6,
+      "fiber_type": "F5",
+      "fiber_surface": "",
+      "base_pts": 8,
+      "base_hull_vertices": 5,
+      "fiber_at_origin": 3,
+      "total_excess": 9,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            0
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            -1,
+            1
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            0,
+            1
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            0
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(4) \u00d7 su(4) \u00d7 U(1)^2",
+      "gauge_rank": 9,
+      "contains_SM": true,
+      "has_SU5_GUT": false,
+      "MW_rank_bound": 2
+    },
+    {
+      "fiber_pts": 6,
+      "fiber_type": "F5",
+      "fiber_surface": "",
+      "base_pts": 7,
+      "base_hull_vertices": 5,
+      "fiber_at_origin": 3,
+      "total_excess": 10,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            0
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            -1,
+            1
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            0,
+            1
+          ],
+          "type": "I_5",
+          "algebra": "su(5)",
+          "rank": 4,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            0
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(5) \u00d7 su(4) \u00d7 U(1)^2",
+      "gauge_rank": 10,
+      "contains_SM": true,
+      "has_SU5_GUT": true,
+      "MW_rank_bound": 2
+    },
+    {
+      "fiber_pts": 8,
+      "fiber_type": "F10",
+      "fiber_surface": "",
+      "base_pts": 6,
+      "base_hull_vertices": 4,
+      "fiber_at_origin": 4,
+      "total_excess": 10,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            0
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            -1,
+            1
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            0,
+            1
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            0
+          ],
+          "type": "I_5",
+          "algebra": "su(5)",
+          "rank": 4,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(4) \u00d7 su(5) \u00d7 U(1)^3",
+      "gauge_rank": 10,
+      "contains_SM": true,
+      "has_SU5_GUT": true,
+      "MW_rank_bound": 3
+    },
+    {
+      "fiber_pts": 6,
+      "fiber_type": "F5",
+      "fiber_surface": "",
+      "base_pts": 7,
+      "base_hull_vertices": 5,
+      "fiber_at_origin": 3,
+      "total_excess": 10,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            0
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            -1,
+            1
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            0,
+            1
+          ],
+          "type": "I_5",
+          "algebra": "su(5)",
+          "rank": 4,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            0
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(5) \u00d7 su(4) \u00d7 U(1)^2",
+      "gauge_rank": 10,
+      "contains_SM": true,
+      "has_SU5_GUT": true,
+      "MW_rank_bound": 2
+    },
+    {
+      "fiber_pts": 6,
+      "fiber_type": "F5",
+      "fiber_surface": "",
+      "base_pts": 8,
+      "base_hull_vertices": 5,
+      "fiber_at_origin": 3,
+      "total_excess": 9,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            0
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            -1,
+            1
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            0,
+            1
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            0
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(4) \u00d7 su(4) \u00d7 U(1)^2",
+      "gauge_rank": 9,
+      "contains_SM": true,
+      "has_SU5_GUT": false,
+      "MW_rank_bound": 2
+    },
+    {
+      "fiber_pts": 8,
+      "fiber_type": "F10",
+      "fiber_surface": "",
+      "base_pts": 6,
+      "base_hull_vertices": 4,
+      "fiber_at_origin": 4,
+      "total_excess": 10,
+      "kodaira_types": [
+        {
+          "base": [
+            -1,
+            0
+          ],
+          "type": "I_2",
+          "algebra": "su(2)",
+          "rank": 1,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            -1,
+            1
+          ],
+          "type": "I_3",
+          "algebra": "su(3)",
+          "rank": 2,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            0,
+            1
+          ],
+          "type": "I_4",
+          "algebra": "su(4)",
+          "rank": 3,
+          "confidence": "medium"
+        },
+        {
+          "base": [
+            1,
+            0
+          ],
+          "type": "I_5",
+          "algebra": "su(5)",
+          "rank": 4,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(4) \u00d7 su(5) \u00d7 U(1)^3",
+      "gauge_rank": 10,
+      "contains_SM": true,
+      "has_SU5_GUT": true,
+      "MW_rank_bound": 3
+    },
+    {
+      "fiber_pts": 9,
+      "fiber_type": "F14",
+      "fiber_surface": "",
+      "base_pts": 5,
+      "base_hull_vertices": 4,
+      "fiber_at_origin": 9,
+      "total_excess": 6,
+      "kodaira_types": [
+        {
+          "base": [
+            1,
+            1
+          ],
+          "type": "I_7",
+          "algebra": "su(7)",
+          "rank": 6,
+          "confidence": "medium"
+        }
+      ],
+      "gauge_algebra": "su(7) \u00d7 U(1)^8",
+      "gauge_rank": 6,
+      "contains_SM": true,
+      "has_SU5_GUT": true,
+      "MW_rank_bound": 8
+    }
+  ],
+  "elapsed": 0.03563499450683594,
+  "best_sm_score": 2,
+  "poly_idx": 25
+}

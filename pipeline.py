@@ -250,8 +250,9 @@ def run_stage2(cyobj, pts, ray_indices, polytope):
     for f in k3_fibs:
         print(f"      Base P¹ direction: {f}")
 
-    # Elliptic fibrations: 2D reflexive subpolytopes in M
+    # Elliptic fibrations: 2D reflexive subpolytopes in M (deduplicated)
     ell_fibs = []
+    seen_subspaces = set()
     for i in range(len(k3_fibs)):
         for j in range(i + 1, len(k3_fibs)):
             v1, v2 = k3_fibs[i], k3_fibs[j]
@@ -262,9 +263,12 @@ def run_stage2(cyobj, pts, ray_indices, polytope):
             for pt in dual_pts:
                 mat = np.vstack([v1, v2, pt])
                 if np.linalg.matrix_rank(mat) == 2:
-                    subspace_pts.append(pt)
+                    subspace_pts.append(tuple(int(x) for x in pt))
             if 4 <= len(subspace_pts) <= 10:
-                ell_fibs.append((v1, v2, len(subspace_pts)))
+                key = frozenset(subspace_pts)
+                if key not in seen_subspaces:
+                    seen_subspaces.add(key)
+                    ell_fibs.append((v1, v2, len(subspace_pts)))
 
     print(f"    Elliptic fibrations: {len(ell_fibs)}")
     for v1, v2, npts in ell_fibs:
