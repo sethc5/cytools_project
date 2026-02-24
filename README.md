@@ -4,7 +4,7 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-> **Status**: ~50,000 polytopes scanned · h13–h16 **complete** · h17 scan 42% · h18 scan 98% · **12 full pipeline runs** (7× 26/26) · GL=12/D₆ Picard-Fuchs study in progress · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: ~112,000 polytopes scanned · h13–h16 **complete** · h17 **complete** (200 ranked) · h18 T1 batch running (Hetzner, ~8K/105K processed) · **13 findings** documented · GL=12/D₆ Picard-Fuchs study complete · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -23,12 +23,12 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 | 14 | 22 | 22 | 100% |
 | 15 | 553 | **553** | **100%** |
 | 16 | 5,180 | **5,180** | **100%** |
-| 17 | 38,735 | 🔶 ~16,200 | Codespace (42%) |
-| 18 | ~195,000 | 🔶 ~98,000 | Hetzner (50%) |
+| 17 | 38,735 | **200 ranked** | T0.25 complete, top 200 deep-scanned |
+| 18 | ~195,000 | 🔶 ~105,000 | T0.25 done; T1 batch running (Hetzner, 14 workers) |
 | 19–24 | ~millions | 100 ea. | ~0% |
 | 25–128 | huge | 0 | 0% |
 
-**We have scanned ~50,000+ polytopes out of potentially millions.** h¹¹ = 13–16 are fully covered. h¹¹ = 17 running on Codespace (4 workers, ~6 hrs total). h¹¹ = 18 running on Hetzner dedicated server (14 workers, ~3 hrs total). See [PROCESS_LOG.md](PROCESS_LOG.md).
+**We have scanned ~112,000 polytopes out of potentially millions.** h¹¹ = 13–16 are fully covered. h¹¹ = 17 T0.25 complete with top 200 candidates ranked. h¹¹ = 18 T0.25 complete (~105K polytopes), T1 batch running on Hetzner (14 workers, ~8K processed). See [PROCESS_LOG.md](PROCESS_LOG.md).
 
 ## Current Results
 
@@ -93,6 +93,8 @@ These save you time. Don't re-check them:
 - **Ample Champion Z₃×Z₃ quotient is singular.** Pure g₁, g₂ have fixed curves on the CY hypersurface. Diagonal Z₃ gives χ = −18 (9 generations), not −6.
 - **705/1025 polytopes were invisible** in scan v1 due to a CYTools `second_chern_class` bug for non-favorable polytopes. Fixed. But the strongest candidates are all non-favorable.
 - **cohomCalg fails** when the SR ideal has >64 generators. Most high-h¹¹ polytopes hit this. Our Koszul pipeline bypasses it.
+- **Z₂ acts trivially on generations** (Finding 12). On h16/P329, the Z₂ automorphism (coord swap) fixes 11/220 clean bundles, but acts as the identity on H⁰(X,L) for all of them → 3+0 representation, no 2+1 texture zeros.
+- **AGLP line bundle sums fail at high Picard rank** (Finding 13). Searched V=L₁⊕···⊕L₅ with c₁=0, c₃=±6 on h14/P2 (268 clean bundles) and h16/P329 (220 clean). Zero 5-element subsets sum to zero. The h⁰=3 pre-filter is too restrictive at h¹¹_eff≥13.
 
 See [CATALOGUE.md](CATALOGUE.md) for the full ruled-out list.
 
@@ -146,6 +148,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contributions:
 # Pipeline scripts
 pipeline.py          — Full Stages 1–4 pipeline for any candidate (--h11, --poly)
 cy_compute.py        — Shared computational core (vectorized lattice points, batch χ)
+auto_scan.py         — Automated scan + ranking with checkpoint/resume
 scan_chi6_h0.py      — Landscape scanner (Stages 1+3, serial)
 scan_parallel.py     — Multiprocessing scanner (4× faster, resume support)
 scan_fast.py         — Tier 0.25 fast pre-filter (early termination, 100% recall)
@@ -153,11 +156,18 @@ tier1_screen.py      — Fast screener: dP divisors, Swiss cheese, symmetry
 tier15_screen.py     — Intermediate: fibrations + 300-bundle probe
 tier2_screen.py      — Deep: exact bundle count, h³, D³, fibrations
 verify_results.py    — Spot-check contributed T2 CSVs
-run_t2_batch.sh      — Parallel batch runner (4 pipes)
+batch_t1_h18.py      — Hetzner batch T1 runner for h18 (14 workers)
+batch_t2_h18.py      — Hetzner batch T2 runner for h18
 
 # Stage 5+ scripts
 rank_n_bundles.py    — SU(4)/SU(5) bundle scanner (direct sum + monad, meet-in-middle)
+aglp_bundle_sum.py   — AGLP rank-5 line bundle sum search (meet-in-the-middle)
+z2_bundle_analysis.py — Z₂ automorphism action on bundle cohomology
+aut_bundle_analysis.py — General automorphism-bundle analysis
+fiber_analysis.py    — Fibration structure analysis
 picard_fuchs.py      — GKZ periods, D₆-invariant Yukawa couplings, closed-form CT formula
+get_glsm.py          — GLSM charge matrix helper
+scan_automorphisms.py — Polytope automorphism scanner
 
 # Geometry studies
 GL12_GEOMETRY.md     — GL=12 / D₆ polytope: complete geometry, Yukawas, GKZ, periods
@@ -166,7 +176,7 @@ GL12_GEOMETRY.md     — GL=12 / D₆ polytope: complete geometry, Yukawas, GKZ,
 FRAMEWORK.md         — 7-stage theoretical pipeline map
 MATH_SPEC.md         — Formulas, CYTools API contracts, 9 documented bugs
 CATALOGUE.md         — What's been checked, what's ruled out
-FINDINGS.md          — Detailed write-ups of key results
+FINDINGS.md          — Detailed write-ups of key results (13 findings)
 PROCESS_LOG.md       — Chronological investigation diary
 HETZNER.md           — Dedicated server setup & reconnection guide
 BACKLOG.md           — Prioritized task list + sprint tracking
