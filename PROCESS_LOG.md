@@ -5,6 +5,103 @@
 
 ---
 
+## 2026-02-25 — B-19/B-28: h15 auto_scan complete (553 → 200 → 192)
+
+**Work done**: Ran `auto_scan.py --h11 15 --skip-t025 --top 200 -w 3` on Codespace.
+Loaded existing scan_h15.csv (553 polytopes, 333 T0.25 passes).
+Deep-analyzed 200, fiber-classified 192. Total time: **1.9 minutes**.
+
+### Results summary
+
+| Metric | Value |
+|--------|-------|
+| Polytopes (T0.25) | 553 |
+| T0.25 passes | 333 (60%) |
+| Deep-analyzed | 200 |
+| Fiber-analyzed | 192 |
+| Score 26/26 | **28** |
+| Score 25/26 | 67 |
+| SM gauge group | **191/192 (99%)** |
+| SU(5) GUT | **120/192 (62%)** |
+| Max clean | 45 (P147) |
+| Max elliptic | 13 (P215) |
+| Max τ | 14,436 (P41) |
+
+### Top 10 candidates
+
+| Rank | Poly | Score | Clean | Ell | K3 | τ | Gauge |
+|------|------|-------|-------|-----|-----|---|-------|
+| 1 | P147 | 26/26 | 45 | 1 | 2 | 15 | su(2)⁴×su(3)² |
+| 2 | P256 | 26/26 | 38 | 1 | 3 | 2,025 | su(7)×su(5) |
+| 3 | P183 | 26/26 | 37 | 1 | 2 | 1,154 | su(6)×su(5) |
+| 4 | P94 | 26/26 | 36 | 4 | 4 | 241 | su(6)² |
+| 5 | P249 | 26/26 | 36 | 1 | 2 | 735 | su(3)² |
+| 6 | P101 | 26/26 | 35 | 1 | 2 | 130 | su(3)² |
+| 7 | P500 | 26/26 | 34 | 1 | 2 | 124 | su(6)×su(5) |
+| 8 | P214 | 26/26 | 34 | 1 | 3 | 252 | su(6)×su(5) |
+| 9 | P387 | 26/26 | 33 | 3 | 3 | 11,400 | su(5)×su(4) |
+| 10 | P67 | 26/26 | 31 | 4 | 4 | 128 | su(4)×su(5) |
+
+### Notable findings
+
+- **28 perfect-score polytopes** at h11=15 — 9 new discoveries beyond existing pipeline coverage
+- **99% SM rate** (191/192), **62% GUT** (120/192)
+- **P387**: τ = 11,400 — second highest LVS parameter after P61 (τ=14,300)
+- **P147**: 45 clean bundles, richest at h15, but no SU(5) GUT
+- **P256**: 38 clean + τ=2,025, strong GUT candidate with su(7)×su(5)
+- Known cross-refs: P94 rank=4 (was 380 clean in old pipeline), P61 rank=29 (was 110 clean, τ=14,300)
+
+---
+
+## 2026-02-25 — B-19/B-28: h16 auto_scan complete (5,180 → 200 → 190)
+
+**Work done**: Ran `auto_scan.py --h11 16 --skip-t025 --top 200 -w 3` on Codespace.
+Loaded existing scan_h16.csv (5,180 polytopes, 1,811 T0.25 passes).
+Deep-analyzed 200, fiber-classified 190. Total time: **1.7 minutes**.
+
+### Results summary
+
+| Metric | Value |
+|--------|-------|
+| Polytopes (T0.25) | 5,180 |
+| T0.25 passes | 1,811 (35%) |
+| Deep-analyzed | 200 |
+| Fiber-analyzed | 190 |
+| Score 26/26 | **58** |
+| Score 25/26 | 39 |
+| SM gauge group | **190/190 (100%)** |
+| SU(5) GUT | **169/190 (89%)** |
+| Max clean | 50 (P278) |
+| Max elliptic | 15 (P1245) |
+| Max τ | 6,468 (P425) |
+
+### Top 10 candidates
+
+| Rank | Poly | Score | Clean | Ell | K3 | τ | Gauge |
+|------|------|-------|-------|-----|-----|---|-------|
+| 1 | P212 | 26/26 | 42 | 3 | 3 | 50 | su(8)/e7×su(4) |
+| 2 | P239 | 26/26 | 38 | 1 | 3 | 0 | su(7)×su(5) |
+| 3 | P329 | 26/26 | 34 | 7 | 6 | 109 | su(5)×su(4)×su(3) |
+| 4 | P313 | 26/26 | 33 | 3 | 3 | 689 | su(4)²×su(3)² |
+| 5 | P169 | 26/26 | 31 | 4 | 4 | 110 | su(4)²×su(3)² |
+| 6 | P83 | 26/26 | 31 | 1 | 3 | 1,640 | su(8)/e7×su(5) |
+| 7 | P1998 | 26/26 | 30 | 7 | 6 | 2 | su(6)² |
+| 8 | P376 | 26/26 | 30 | 4 | 4 | 162 | su(5)²×su(3) |
+| 9 | P125 | 26/26 | 29 | 4 | 4 | 564 | su(8)/e7×su(4) |
+| 10 | P800 | 26/26 | 28 | 6 | 5 | 359 | su(8)/e7×su(5) |
+
+### Notable findings
+
+- **58 perfect-score polytopes** at h16 — dramatic jump from h15's 28
+- **100% SM rate** (190/190), **89% GUT** (169/190) — GUT rate up from 62% at h15
+- **P278**: 50 clean bundles but only 23/26 (no Swiss cheese → score penalty)
+- **P1245**: 15 elliptic fibrations — highest ell count observed so far
+- **P425**: τ=6,468 — 3rd highest LVS parameter (behind P41/h15 and P61/h15)
+- **P212**: Overall best — 42 clean, score 26/26, su(8)/e7 gauge, SM+GUT
+- Known: P86 rank=16 (score 26, 24 clean, τ=1536), P11 rank=39, P53 rank=113
+
+---
+
 ## 2026-02-25 — B-19/B-28: h17 auto_scan complete (38,735 → 200 → 193)
 
 **Work done**: Ran `auto_scan.py --h11 17 --skip-t025 --top 200 -w 3` on Codespace
