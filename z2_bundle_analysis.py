@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-z2_bundle_analysis.py -- Compute Z_2 action on clean h^0=3 bundles of h16/P329.
+z2_bundle_analysis.py -- Compute Z_2 action on clean h^0=3 bundles.
 
 Core question: Does the Z_2 involution split 3 generations as 2+1?
 
@@ -22,9 +22,12 @@ Key formula (Koszul + Z_2 trace):
   or equivalently  dim(+1)=1, dim(-1)=2  (Tr=-1)
 
 Usage:
-    python z2_bundle_analysis.py
+    python z2_bundle_analysis.py --h11 16 --poly 329
+    python z2_bundle_analysis.py --h11 17 --poly 27751
+    python z2_bundle_analysis.py --h11 15 --poly 31
 """
 
+import argparse
 import numpy as np
 import sys
 import time
@@ -39,10 +42,9 @@ from cy_compute import (
     precompute_vertex_data,
 )
 
-# ── Configuration ──
-TARGET_H11 = 16
-TARGET_H21 = 19
-TARGET_POLY = 329
+# ── Default configuration (overridden by CLI args) ──
+DEFAULT_H11 = 16
+DEFAULT_POLY = 329
 MAX_COEFF = 3
 MAX_NONZERO = 4
 
@@ -91,11 +93,36 @@ def find_section_lattice_points(pts, ray_indices, D_toric):
     return grid_flat[feasible].astype(int)
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Z_2 bundle analysis: does the involution split 3 generations as 2+1?")
+    parser.add_argument("--h11", type=int, default=DEFAULT_H11,
+                        help="h^{1,1} of the polytope family (default: %d)" % DEFAULT_H11)
+    parser.add_argument("--poly", type=int, default=DEFAULT_POLY,
+                        help="Polytope index within the h11/h21 family (default: %d)" % DEFAULT_POLY)
+    parser.add_argument("--h21", type=int, default=None,
+                        help="h^{2,1} (default: h11 + 3 for chi=-6)")
+    parser.add_argument("--max-coeff", type=int, default=MAX_COEFF,
+                        help="Max coefficient in bundle search (default: %d)" % MAX_COEFF)
+    parser.add_argument("--max-nonzero", type=int, default=MAX_NONZERO,
+                        help="Max nonzero entries in bundle search (default: %d)" % MAX_NONZERO)
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+    TARGET_H11 = args.h11
+    TARGET_H21 = args.h21 if args.h21 is not None else TARGET_H11 + 3
+    TARGET_POLY = args.poly
+    max_coeff = args.max_coeff
+    max_nonzero = args.max_nonzero
+
+    label = "h%d/P%d" % (TARGET_H11, TARGET_POLY)
+
     t0 = time.time()
 
     print("=" * 72)
-    print("  Z_2 BUNDLE ANALYSIS: h16/P329")
+    print("  Z_2 BUNDLE ANALYSIS: %s" % label)
     print("  Does the Z_2 involution split 3 generations as 2+1?")
     print("=" * 72)
 
@@ -266,7 +293,7 @@ def main():
     print("  Using cy_compute.find_chi3_bundles (vectorized)...", flush=True)
     t1 = time.time()
     bundles = find_chi3_bundles(intnums, c2, h11_eff,
-                                max_coeff=MAX_COEFF, max_nonzero=MAX_NONZERO)
+                                max_coeff=max_coeff, max_nonzero=max_nonzero)
     print("  Found %d chi=+-3 bundles in %.1fs" % (len(bundles), time.time()-t1))
 
     # ── Compute cohomology ──
@@ -490,7 +517,7 @@ def main():
     print("\n" + "=" * 72)
     print("  FINAL SUMMARY")
     print("=" * 72)
-    print("  Polytope: h16/P329 (h11=%d, h21=%d, chi=-6)" % (TARGET_H11, TARGET_H21))
+    print("  Polytope: %s (h11=%d, h21=%d, chi=-6)" % (label, TARGET_H11, TARGET_H21))
     print("  Z_2 generator: det(sigma) = %d" % det_sigma)
     print("  Basis divisors permuted cleanly: %s" % perm_clean)
     print()
@@ -534,16 +561,17 @@ def main():
     print("=" * 72)
 
     # Write results to file
-    outfile = "results/z2_h16_P329_analysis.txt"
+    outfile = "results/z2_%s_analysis.txt" % label.replace("/", "_")
     print("\n  Writing results to %s..." % outfile)
     with open(outfile, "w") as f:
-        f.write("Z_2 Bundle Analysis: h16/P329\n")
+        f.write("Z_2 Bundle Analysis: %s\n" % label)
         f.write("=" * 60 + "\n")
+        f.write("h11=%d, h21=%d, chi=-6\n" % (TARGET_H11, TARGET_H21))
         f.write("Clean h0=3 bundles: %d\n" % len(clean_bundles))
         f.write("Z_2-fixed: %d\n" % len(fixed_bundles))
-        f.wn_sigma_outside > 0:
-            f.write("Sigma-image outside enumeration: %d\n" % n_sigma_outside
-            f.write("Unclassified (sigma image not clean): %d\n" % unclassified)
+        f.write("Z_2-paired: %d pairs\n" % len(paired_bundles))
+        if n_sigma_outside > 0:
+            f.write("Sigma-image outside enumeration: %d\n" % n_sigma_outside)
         f.write("\n2+1 split bundles: %d\n" % len(split_21))
         f.write("3+0 trivial: %d\n" % len(split_30))
         f.write("Other: %d\n" % len(split_other))
@@ -551,10 +579,11 @@ def main():
         for q, _ in fixed_bundles:
             nz = [(j, q[j]) for j in range(h11_eff) if q[j] != 0]
             f.write("  %s\n" % nz)
-        f.write("\n2+1 split bundles:\n")
-        for q in split_21:
-            nz = [(j, q[j]) for j in range(h11_eff) if q[j] != 0]
-            f.write("  %s\n" % nz)
+        if split_21:
+            f.write("\n2+1 split bundles:\n")
+            for q in split_21:
+                nz = [(j, q[j]) for j in range(h11_eff) if q[j] != 0]
+                f.write("  %s\n" % nz)
     print("  Done.")
 
 
