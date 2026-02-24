@@ -32,7 +32,7 @@
 - **Status**:
   - ✅ h15: **553/553 complete** (333 hits, 60%). T1→T1.5→T2 done. h15/poly61 → full pipeline 25/26.
   - ✅ h16: **5,180/5,180 complete** (1,811 hits, 35%). T1→T1.5→T2 done. 20 new T2 entries.
-  - ✅ h17: **38,735/38,735 complete** (10,624 hits, 27.4%). Codespace scan finished. auto_scan Stage 1+2 next.
+  - ✅ h17: **38,735/38,735 complete** (10,624 hits, 27.4%). auto_scan done: 87× 26/26, 193/193 SM (100%), 166/193 GUT (86%), max clean=59 (P767), max τ=8,608 (P860). 3 min.
   - 🔶 h18: **running on Hetzner** (Docker, 14 workers). T0.25 done (100K→29,984 passes, 30%). T1 5,514/29,984 (18%). ETA ~44 hrs.
 - **Estimate**: h17 ~6hrs Codespace, h18 minutes remaining.
 
@@ -128,6 +128,7 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-30 | B-19/B-28: h17 auto_scan (38,735→200→193): 87× 26/26, 100% SM, 86% GUT, max clean=59, τ=8,608 | 2026-02-25 |
 | D-29 | B-28: Automated scan pipeline (`auto_scan.py`) — unified 6-script replacement, h14 validated, checkpoint/resume | 2026-02-25 |
 | D-28 | B-21: F-theory Kodaira fiber classification — 39/39 SM, 17/39 SU(5) GUT (`fiber_analysis.py`) | 2026-02-25 |
 | D-26a | B-26: GL12/D₆ closed-form period + Yukawa couplings + picard_fuchs.py | 2026-02-23 |

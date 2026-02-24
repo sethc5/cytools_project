@@ -5,6 +5,56 @@
 
 ---
 
+## 2026-02-25 — B-19/B-28: h17 auto_scan complete (38,735 → 200 → 193)
+
+**Work done**: Ran `auto_scan.py --h11 17 --skip-t025 --top 200 -w 3` on Codespace
+(4 CPUs, 15GB RAM). Loaded existing scan_h17.csv (38,735 polytopes, 10,624 T0.25 passes).
+Selected top 200 by max_h0 (cutoff: h0≥10). Deep-analyzed 200, fiber-classified 193.
+Total time: **3.0 minutes**.
+
+### Results summary
+
+| Metric | Value |
+|--------|-------|
+| Polytopes scanned (T0.25) | 38,735 |
+| T0.25 passes | 10,624 (27.4%) |
+| Deep-analyzed (Stage 1) | 200 |
+| Fiber-analyzed (Stage 2) | 193 |
+| Score 26/26 (perfect) | **87** |
+| Score 25/26 | 26 |
+| SM gauge group (SU3×SU2×U1) | **193/193 (100%)** |
+| SU(5) GUT candidates | **166/193 (86%)** |
+| Max clean bundles | 59 (P767) |
+| Max elliptic fibrations | 15 (P695) |
+| Max Swiss cheese τ | 8,608 (P860) |
+
+### Top 10 candidates
+
+| Rank | Poly | Score | Clean | h0 | dP | SC | τ | K3 | Ell | Gauge |
+|------|------|-------|-------|----|----|----|---|-----|-----|-------|
+| 1 | P767 | 26/26 | 59 | 17 | 3 | ✓ | 1 | 5 | 10 | su(2)×su(4)×su(2)×su(3) |
+| 2 | P389 | 26/26 | 41 | 10 | 3 | ✓ | 185 | 2 | 1 | su(2)×su(3)×su(4)×su(2) |
+| 3 | P251 | 26/26 | 38 | 10 | 6 | ✓ | 539 | 4 | 4 | su(4)×su(9)/e8 |
+| 4 | P1033 | 26/26 | 35 | 15 | 5 | ✓ | 64 | 6 | 11 | su(2)×su(4)×su(4)×su(2) |
+| 5 | P1096 | 26/26 | 35 | 12 | 6 | ✓ | 344 | 4 | 4 | su(4)×su(8)/e7 |
+| 6 | P996 | 26/26 | 35 | 32 | 3 | ✓ | 30 | 3 | 3 | su(4)×su(4)×su(2)×su(4) |
+| 7 | P4126 | 26/26 | 35 | 11 | 5 | ✓ | 74 | 3 | 3 | su(6)×su(6)×su(3) |
+| 8 | P1180 | 26/26 | 34 | 10 | 6 | ✓ | 564 | 5 | 6 | su(5)×su(8)/e7 |
+| 9 | P2297 | 26/26 | 33 | 23 | 6 | ✓ | 28 | 5 | 8 | su(2)×su(6)×su(6) |
+| 10 | P894 | 26/26 | 33 | 10 | 5 | ✓ | 110 | 4 | 6 | su(2)×su(2)×su(4)×su(5) |
+
+### Notable findings
+
+- **87 perfect-score polytopes** at h11=17 vs. 19 at h11≤16 combined — dramatic scaling
+- **100% SM rate** across all 193 fiber-analyzed polytopes (every single one has SU3×SU2×U1)
+- **86% GUT rate** (166/193 have SU(5) subgroup) — up from 67% at h15
+- **P767** has 59 clean bundles and 10 elliptic fibrations — richest structure seen
+- **P860** has τ=8,608 (LVS candidate, though h15/poly61 still holds record at τ=14,300)
+- **P1033** has 11 elliptic fibrations (second only to h16/poly74's 10 in old pipeline)
+- **P996** has max_h0=32 (highest h⁰ value among top-ranked)
+
+---
+
 ## 2026-02-25 — B-28: Automated scan pipeline (`auto_scan.py`)
 
 **Work done**: Built `auto_scan.py` (925 lines) — a single-command pipeline that
