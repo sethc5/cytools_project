@@ -157,7 +157,9 @@ def main():
     cy = tri.get_cy()
     div_basis = list(cy.divisor_basis())
     h11_eff = len(div_basis)
-    ray_indices = np.array(tri.points_to_indices(), dtype=int)
+    # ray_indices: all lattice points except the origin (index 0)
+    ray_indices = list(range(1, n_pts))
+    assert np.all(pts[0] == 0), "Origin check failed"
     print("  h11_eff = %d" % h11_eff)
     print("  Basis (toric indices): %s" % div_basis)
 
