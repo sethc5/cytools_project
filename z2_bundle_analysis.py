@@ -187,6 +187,74 @@ def main():
             print("    e%d (toric %d) -> toric %d *** NON-BASIS ***" % (
                 i, int(b), target_toric))
 
+    # ── Compute sigma action matrix on Picard lattice via GLSM ──
+    print("\n" + "-" * 72)
+    print("  SIGMA ACTION ON PICARD LATTICE (via GLSM linear relations)")
+    print("-" * 72)
+
+    # Linear relations from toric geometry:
+    # For each m in M = Z^4: sum_rho <m, v_rho> D_rho ~ 0
+    rays_all = pts[1:]  # (18, 4), skip origin
+    n_rays = rays_all.shape[0]
+    L = rays_all.T  # (4, 18) relation matrix
+
+    # Basis vs non-basis ray indices (0-based within 18 rays)
+    basis_ray = [int(b) - 1 for b in div_basis]
+    nonbasis_toric = sorted(set(range(1, n_pts)) - basis_set)
+    nonbasis_ray = [t - 1 for t in nonbasis_toric]
+    print("  Non-basis toric indices: %s" % nonbasis_toric)
+
+    L_B = L[:, basis_ray]  # (4, 14)
+    L_N = L[:, nonbasis_ray]  # (4, 4)
+    det_LN = np.linalg.det(L_N)
+    print("  det(L_N) = %.1f" % det_LN)
+    assert abs(det_LN) > 0.5, "L_N is singular!"
+
+    # D_nonbasis = M_NB @ D_basis (express non-basis in terms of basis)
+    inv_L_N = np.linalg.inv(L_N)
+    M_NB = np.round(-inv_L_N @ L_B).astype(int)  # (4, 14)
+
+    nonbasis_inv = {t: i for i, t in enumerate(nonbasis_toric)}
+    for k, nb_toric in enumerate(nonbasis_toric):
+        terms = [("(%+d)*D_%d" % (M_NB[k, a], div_basis[a]))
+                 for a in range(h11_eff) if M_NB[k, a] != 0]
+        print("  D_%d ~ %s" % (nb_toric, " + ".join(terms)))
+
+    # Build sigma action matrix S on Pic(X):
+    # sigma(E_a) = sum_b S[a,b] E_b
+    sigma_matrix = np.zeros((h11_eff, h11_eff), dtype=int)
+    for a, b in enumerate(div_basis):
+        target = ray_perm[int(b)]
+        if int(target) in basis_inv:
+            j = basis_inv[int(target)]
+            sigma_matrix[a, j] = 1
+        elif int(target) in nonbasis_inv:
+            k = nonbasis_inv[int(target)]
+            sigma_matrix[a, :] = M_NB[k, :]
+        else:
+            print("  ERROR: target %d not in basis or non-basis!" % target)
+
+    print("\n  Sigma action matrix S on Pic(X) (14x14):")
+    print("  sigma(E_a) = sum_b S[a,b] E_b")
+    for i in range(h11_eff):
+        print("    [%s]" % " ".join("%3d" % sigma_matrix[i, j]
+                                     for j in range(h11_eff)))
+
+    # Verify S^2 = I
+    s2_pic = sigma_matrix @ sigma_matrix
+    assert np.allclose(s2_pic, np.eye(h11_eff)), "S^2 != I on Pic!"
+    print("  S^2 = I on Pic(X): CONFIRMED")
+
+    # The action on bundle basis coordinates: sigma(q) = S^T @ q
+    S_T = sigma_matrix.T
+
+    # Trace of S = #(+1 eigenvalues) - #(-1 eigenvalues)
+    tr_S = int(np.trace(sigma_matrix))
+    n_plus = (h11_eff + tr_S) // 2
+    n_minus = (h11_eff - tr_S) // 2
+    print("  Tr(S) = %d => Pic splits as %d(+1) + %d(-1)" % (
+        tr_S, n_plus, n_minus))
+
     # ── Enumerate chi=+/-3 bundles ──
     print("\n" + "-" * 72)
     print("  ENUMERATING CHI=+-3 BUNDLES")
@@ -238,69 +306,48 @@ def main():
     print("  Clean (h0=3, h3=0): %d" % len(clean_bundles))
 
     # ══════════════════════════════════════════════════════════════
-    #  Z_2 ORBIT DECOMPOSITION
+    #  Z_2 ORBIT DECOMPOSITION (using S^T on basis coordinates)
     # ══════════════════════════════════════════════════════════════
     print("\n" + "=" * 72)
     print("  Z_2 ORBIT DECOMPOSITION OF CLEAN BUNDLES")
+    print("  (using full sigma action on Picard lattice)")
     print("=" * 72)
 
-    # sigma acts on divisors: D_rho -> D_{sigma(rho)}
-    # For a divisor D = sum a_rho D_rho:
-    #   sigma(D)_rho = D_{sigma(rho)}  (sigma^{-1} = sigma since order 2)
-
-    def apply_sigma_toric(D_full):
-        """Apply sigma to a full toric divisor vector."""
-        return D_full[ray_perm]
-
-    def apply_sigma_to_bundle(q_basis, D_full):
-        """Apply sigma; return (sigma_basis, has_nonbasis, D_sigma_full)."""
-        D_sigma = apply_sigma_toric(D_full)
-
-        # Project back to basis coords
-        q_sigma = np.zeros(h11_eff, dtype=int)
-        has_nonbasis = False
-        for a_idx in range(h11_eff):
-            q_sigma[a_idx] = D_sigma[int(div_basis[a_idx])]
-
-        # Check non-basis residual
-        for rho in range(n_toric):
-            if int(rho) not in basis_set and D_sigma[rho] != 0:
-                has_nonbasis = True
-                break
-
-        return list(q_sigma), has_nonbasis, D_sigma
-
+    # sigma acts on basis coords: sigma(q) = S^T @ q
     fixed_bundles = []       # (q_basis, D_toric)
     paired_bundles = []      # ((q1, D1), (q2, D2))
-    nonbasis_bundles = []    # (q_basis, D_toric)
     visited = set()
 
-    clean_dict = {}  # tuple(D_toric) -> (q_basis, D_toric)
-    for q, D in clean_bundles:
-        clean_dict[tuple(D)] = (q, D)
+    clean_basis_set = set(tuple(q) for q, _ in clean_bundles)
+    clean_basis_dict = {tuple(q): (q, D) for q, D in clean_bundles}
 
     for q, D in clean_bundles:
         tq = tuple(q)
         if tq in visited:
             continue
 
-        sq, has_nb, D_sigma = apply_sigma_to_bundle(q, D)
+        # Apply sigma to basis coordinates
+        q_arr = np.array(q, dtype=int)
+        sq_arr = S_T @ q_arr
+        sq = list(sq_arr.astype(int))
         tsq = tuple(sq)
 
-        if has_nb:
-            nonbasis_bundles.append((q, D))
-            visited.add(tq)
-        elif tq == tsq:
+        if tq == tsq:
             fixed_bundles.append((q, D))
             visited.add(tq)
         else:
-            tD_sigma = tuple(D_sigma)
-            if tD_sigma in clean_dict:
+            if tsq in clean_basis_set:
+                _, D_sigma = clean_basis_dict[tsq]
                 paired_bundles.append(((q, D), (sq, D_sigma)))
             else:
-                nonbasis_bundles.append((q, D))
+                # sigma(D) is not in clean set => sigma doesn't preserve clean
+                # This shouldn't happen if sigma is a CY automorphism
+                print("  WARNING: sigma(q)=%s not in clean set (q=%s)" % (
+                    sq, q))
             visited.add(tq)
             visited.add(tsq)
+
+    unclassified = len(clean_bundles) - len(fixed_bundles) - 2 * len(paired_bundles)
 
     print("\n  Z_2-FIXED bundles (sigma(L) = L): %d" % len(fixed_bundles))
     for q, _ in fixed_bundles[:30]:
@@ -316,9 +363,6 @@ def main():
         print("    %s  <-->  %s" % (nz1, nz2))
     if len(paired_bundles) > 15:
         print("    ... (%d more pairs)" % (len(paired_bundles) - 15))
-
-    if nonbasis_bundles:
-        print("\n  Bundles with non-basis sigma image: %d" % len(nonbasis_bundles))
 
     # ══════════════════════════════════════════════════════════════
     #  Z_2 REPRESENTATION ON H^0 FOR FIXED BUNDLES
@@ -443,12 +487,8 @@ def main():
     print("  Z_2-fixed bundles: %d" % len(fixed_bundles))
     print("  Z_2-paired bundles: %d pairs (%d bundles)" % (
         len(paired_bundles), 2 * len(paired_bundles)))
-    if nonbasis_bundles:
-        print("  Non-basis sigma image: %d" % len(nonbasis_bundles))
-    remainder = (len(clean_bundles) - len(fixed_bundles)
-                 - 2 * len(paired_bundles) - len(nonbasis_bundles))
-    if remainder:
-        print("  Unclassified: %d" % remainder)
+    if unclassified:
+        print("  Unclassified (sigma image not clean): %d" % unclassified)
     print()
     print("  Z_2 REPRESENTATION ON H^0 (fixed bundles):")
     print("    2+1 or 1+2 split (TEXTURE ZEROS): %d" % len(split_21))
