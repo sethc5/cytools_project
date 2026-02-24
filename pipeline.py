@@ -76,8 +76,9 @@ def run_stage1(target_h11, target_h21, target_poly):
     print(f"  {BOLD}STAGE 1: CALABI-YAU GEOMETRY{RESET}")
     print(f"{'─' * 72}")
 
+    fetch_limit = max(1000, target_poly + 100)
     polys = list(cy.fetch_polytopes(h11=target_h11, h21=target_h21,
-                                    lattice='N', limit=1000))
+                                    lattice='N', limit=fetch_limit))
     print(f"  h11={target_h11}, h21={target_h21} polytopes fetched: {len(polys)}")
 
     if target_poly >= len(polys):
