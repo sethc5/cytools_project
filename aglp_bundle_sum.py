@@ -213,105 +213,122 @@ def main():
     print("    Mean |coeff|: %.2f" % float(np.mean(np.abs(clean_arr[clean_arr != 0]))))
     print("    Max nonzero entries: %d" % int(np.max(np.sum(clean_arr != 0, axis=1))))
 
-    # ── AGLP search ──
+    # ── AGLP search (meet-in-the-middle: 3+2 decomposition) ──
     print("\n" + "-" * 72)
     print("  STEP 2: SEARCH FOR RANK-5 SUMS  V = L₁⊕L₂⊕L₃⊕L₄⊕L₅")
     print("  Constraint: L₁+L₂+L₃+L₄+L₅ = 0  (c₁=0)")
     print("  Filter: c₃(V) = ±6  (3 generations)")
     print("-" * 72)
 
-    # Strategy: iterate over 4-tuples (i₁ < i₂ < i₃ < i₄) from clean list.
-    # L₅ = -(L₁+L₂+L₃+L₄). Check if L₅ is in clean_set.
-    # If so, compute c₃ and filter.
+    # Meet-in-the-middle strategy:
+    #   1. Build dict: pair_sums[tuple(L_i + L_j)] = list of (i,j) for all i<j
+    #   2. For each triple (a,b,c) with a<b<c:
+    #        remainder = -(L_a + L_b + L_c)
+    #        if tuple(remainder) in pair_sums:
+    #          for (d,e) in pair_sums[remainder] where d > c:
+    #            → 5-set {a,b,c,d,e} with sum = 0
+    #
+    # Complexity: O(N²) for pair dict + O(N³) for triple scan
+    # For N=268: C(268,2)=35,778 + C(268,3)=3,196,776 lookups
+    # vs the naive C(268,4)=210,165,935 — 65× speedup
 
-    n_4tuples = 0
-    n_L5_valid = 0
-    n_L5_clean = 0
+    print("\n  Building pair-sum index (C(%d,2) = %d pairs)..." % (
+        N, N * (N-1) // 2), flush=True)
+    t3 = time.time()
+
+    pair_sums = {}  # tuple(sum) -> list of (i,j) with i<j
+    for i in range(N):
+        for j in range(i+1, N):
+            s = tuple((clean_arr[i] + clean_arr[j]).tolist())
+            if s not in pair_sums:
+                pair_sums[s] = []
+            pair_sums[s].append((i, j))
+
+    print("  Pair-sum index: %d distinct sums from %d pairs (%.1fs)" % (
+        len(pair_sums), N * (N-1) // 2, time.time() - t3))
+
+    # Scan triples
+    n_triples = N * (N-1) * (N-2) // 6
+    print("\n  Scanning triples: C(%d,3) = %d..." % (N, n_triples), flush=True)
+
+    n_scanned = 0
+    n_5sets = 0
     n_c3_pass = 0
     solutions = []
+    seen_5sets = set()  # avoid duplicates
 
-    print("\n  Total 4-tuples to scan: C(%d, 4) = %d" % (
-        N, N * (N-1) * (N-2) * (N-3) // 24))
-    print("  Scanning...", flush=True)
+    report_interval = max(1, n_triples // 20)
 
-    t3 = time.time()
-    report_interval = max(1, N * (N-1) * (N-2) * (N-3) // 24 // 20)
+    for a in range(N):
+        La = clean_arr[a]
+        for b in range(a+1, N):
+            Lab = La + clean_arr[b]
+            for c in range(b+1, N):
+                n_scanned += 1
 
-    for idx_tuple in combinations(range(N), 4):
-        n_4tuples += 1
+                remainder = -(Lab + clean_arr[c])
+                t_rem = tuple(remainder.tolist())
 
-        L1 = clean_arr[idx_tuple[0]]
-        L2 = clean_arr[idx_tuple[1]]
-        L3 = clean_arr[idx_tuple[2]]
-        L4 = clean_arr[idx_tuple[3]]
+                if t_rem not in pair_sums:
+                    continue
 
-        # L₅ = -(L₁ + L₂ + L₃ + L₄)
-        L5 = -(L1 + L2 + L3 + L4)
+                # Found matching pairs — check d > c to avoid double-counting
+                for (d, e) in pair_sums[t_rem]:
+                    if d <= c:
+                        continue
 
-        # Quick rejection: coefficient too large
-        if np.max(np.abs(L5)) > max_L5_coeff:
-            continue
+                    # 5-set: {a, b, c, d, e} all distinct, sum = 0
+                    five = tuple(sorted([a, b, c, d, e]))
+                    if len(set(five)) != 5:
+                        continue  # some index repeated
+                    if five in seen_5sets:
+                        continue
+                    seen_5sets.add(five)
 
-        # Check if L₅ is in clean set
-        tL5 = tuple(L5)
-        if tL5 not in clean_set:
-            # L₅ not among our clean bundles — skip
-            # (Could relax this to check h⁰ on-the-fly, but expensive)
-            continue
+                    n_5sets += 1
 
-        n_L5_clean += 1
+                    # Compute c₃(V) = Σ_{i<j<k} Lᵢ·Lⱼ·Lₖ
+                    Ls = [clean_arr[idx].astype(np.float64) for idx in five]
+                    c3 = compute_c3_V(Ls, T)
+                    c3_int = int(round(c3))
 
-        # L₅ is also clean! Now compute c₃(V).
-        Ls = [L1.astype(np.float64), L2.astype(np.float64),
-              L3.astype(np.float64), L4.astype(np.float64),
-              L5.astype(np.float64)]
+                    if abs(c3_int) != 6:
+                        continue
 
-        c3 = compute_c3_V(Ls, T)
-        c3_int = int(round(c3))
+                    n_c3_pass += 1
 
-        if abs(c3_int) != 6:
-            continue
+                    # Compute c₂(V) and anomaly cancellation remainder
+                    c2_V = compute_c2_V_class(Ls, T, h11_eff)
+                    c2_V_int = np.round(c2_V).astype(int)
+                    diff = c2_TX - c2_V_int
 
-        n_c3_pass += 1
+                    sol = {
+                        'L': [list(clean_arr[idx].astype(int)) for idx in five],
+                        'c3': c3_int,
+                        'ind': c3_int // 2,
+                        'c2_V': list(c2_V_int),
+                        'c2_diff': list(diff.astype(int)),
+                        'idx': five,
+                    }
+                    solutions.append(sol)
 
-        # Compute c₂(V) and check anomaly cancellation
-        c2_V = compute_c2_V_class(Ls, T, h11_eff)
-        c2_V_int = np.round(c2_V).astype(int)
+                    if n_c3_pass <= 20:
+                        nz_strs = []
+                        for k, idx in enumerate(five):
+                            Lk = clean_arr[idx]
+                            nz = [(j, int(Lk[j])) for j in range(h11_eff) if Lk[j] != 0]
+                            nz_strs.append("L%d=%s" % (k+1, nz))
+                        print("\n  *** SOLUTION %d ***" % n_c3_pass)
+                        for s in nz_strs:
+                            print("    %s" % s)
+                        print("    c₃(V) = %d  →  %d generations" % (c3_int, abs(c3_int) // 2))
+                        print("    c₂(V) = %s" % list(c2_V_int))
+                        print("    c₂(TX) - c₂(V) = %s" % list(diff.astype(int)))
 
-        # Anomaly cancellation: c₂(TX) - c₂(V) = [W] (effective class)
-        # In practice, c₂(TX)·Dₐ - c₂(V)·Dₐ ≥ 0 for all ample Dₐ
-        # (the remainder is the M5-brane class, which must be effective).
-        # For a first pass, we just check that the difference makes sense.
-        diff = c2_TX - c2_V_int
-        # NOTE: effectivity check requires Mori cone, which we don't have here.
-        # For now, record the difference and flag manifest violations later.
-
-        sol = {
-            'L': [list(L.astype(int)) for L in [L1, L2, L3, L4, L5]],
-            'c3': c3_int,
-            'ind': c3_int // 2,
-            'c2_V': list(c2_V_int),
-            'c2_diff': list(diff.astype(int)),
-            'idx': idx_tuple,
-        }
-        solutions.append(sol)
-
-        if n_c3_pass <= 20:
-            nz_strs = []
-            for k, Lk in enumerate([L1, L2, L3, L4, L5]):
-                nz = [(j, int(Lk[j])) for j in range(h11_eff) if Lk[j] != 0]
-                nz_strs.append("L%d=%s" % (k+1, nz))
-            print("\n  *** SOLUTION %d ***" % n_c3_pass)
-            for s in nz_strs:
-                print("    %s" % s)
-            print("    c₃(V) = %d  →  %d generations" % (c3_int, abs(c3_int) // 2))
-            print("    c₂(V) = %s" % list(c2_V_int))
-            print("    c₂(TX) - c₂(V) = %s" % list(diff.astype(int)))
-
-        if n_4tuples % report_interval == 0:
-            elapsed = time.time() - t3
-            print("    [%d 4-tuples, %.0fs, %d L₅-clean, %d c₃-pass]" % (
-                n_4tuples, elapsed, n_L5_clean, n_c3_pass), flush=True)
+                if n_scanned % report_interval == 0:
+                    elapsed = time.time() - t3
+                    print("    [%d/%d triples, %.0fs, %d 5-sets, %d c₃-pass]" % (
+                        n_scanned, n_triples, elapsed, n_5sets, n_c3_pass), flush=True)
 
     dt_search = time.time() - t3
 
@@ -323,6 +340,8 @@ def main():
     print("\n" + "-" * 72)
     print("  STEP 3: ANOMALY CANCELLATION CHECK")
     print("-" * 72)
+    print("  5-element sets with c₁=0: %d" % n_5sets)
+    print("  Of those with c₃=±6: %d" % n_c3_pass)
 
     try:
         mori_gens = np.array(cy.toric_mori_cone().rays(), dtype=int)
@@ -413,10 +432,10 @@ def main():
     print("  Polytope: %s (h11=%d, h21=%d, h11_eff=%d, chi=-6)" % (
         label, h11, h21, h11_eff))
     print("  Clean h⁰=3 bundles: %d" % N)
-    print("  4-tuples scanned: %d (%.1fs)" % (n_4tuples, dt_search))
+    print("  Triples scanned: %d (%.1fs)" % (n_scanned, dt_search))
+    print("  5-sets with c₁=0: %d" % n_5sets)
     print()
     print("  Results:")
-    print("    L₅ in clean set: %d" % n_L5_clean)
     print("    c₃(V) = ±6 (3 gen): %d" % n_c3_pass)
     if have_mori:
         print("    Anomaly cancellation (naive): %d" % n_anomaly_pass)
@@ -471,8 +490,8 @@ def main():
         f.write("=" * 60 + "\n")
         f.write("h11=%d, h21=%d, h11_eff=%d, chi=-6\n" % (h11, h21, h11_eff))
         f.write("Clean h0=3 bundles: %d\n" % N)
-        f.write("4-tuples scanned: %d\n" % n_4tuples)
-        f.write("L5 in clean set: %d\n" % n_L5_clean)
+        f.write("Triples scanned: %d\n" % n_scanned)
+        f.write("5-sets with c1=0: %d\n" % n_5sets)
         f.write("c3=+-6 solutions: %d\n" % n_c3_pass)
         if have_tip:
             f.write("Slope-stable: %d\n" % n_stable)
