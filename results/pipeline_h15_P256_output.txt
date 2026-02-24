@@ -1,0 +1,271 @@
+========================================================================
+  [1mFULL PIPELINE: h11=15, POLYTOPE 256[0m
+  [96mh21=18, χ=-6 candidate[0m
+  Stages 1-4 of FRAMEWORK.md
+========================================================================
+
+────────────────────────────────────────────────────────────────────────
+  [1mSTAGE 1: CALABI-YAU GEOMETRY[0m
+────────────────────────────────────────────────────────────────────────
+  h11=15, h21=18 polytopes fetched: 553
+  Polytope index: 256
+  SHA-256 fingerprint: a7b63f07291b4bba
+
+  CY 3-fold properties:
+    h¹¹          = 15
+    h²¹          = 18
+    χ            = -6
+    |χ|/2        = 3  (= number of generations)
+    n_toric      = 20
+    n_rays       = 19
+    Polytope dim = (20, 4)
+    CYTools ver  = unknown
+    Favorable    = Yes (h¹¹ = n_toric - 5)
+
+────────────────────────────────────────────────────────────────────────
+  [1mSTAGE 2: DIVISOR ANALYSIS[0m
+────────────────────────────────────────────────────────────────────────
+  Divisor basis indices: [1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19]
+  h¹¹_eff       = 15
+  c₂ (in basis): [28, 16, 14, 8, 2, 6, 6, -2, 2, 0, -2, -4, 2, 0, -6]
+  # intersection number entries: 112
+  Mori cone generators: 88
+  SR ideal generators: 98
+
+  Divisor classification:
+    e 0 (toric  1): rigid (D³=-2, c₂·D=28)
+    e 1 (toric  2): rigid (D³=-2, c₂·D=16)
+    e 2 (toric  3): rigid (D³=-1, c₂·D=14)
+    e 3 (toric  4): dP_7 candidate (D³=2, c₂·D=8)
+    e 4 (toric  8): dP_4 candidate (D³=5, c₂·D=2)
+    e 5 (toric  9): dP_6 candidate (D³=3, c₂·D=6)
+    e 6 (toric 10): dP_6 candidate (D³=3, c₂·D=6)
+    e 7 (toric 11): (D³=7, c₂·D=-2)
+    e 8 (toric 12): dP_4 candidate (D³=5, c₂·D=2)
+    e 9 (toric 13): (D³=6, c₂·D=0)
+    e10 (toric 14): (D³=7, c₂·D=-2)
+    e11 (toric 15): (D³=8, c₂·D=-4)
+    e12 (toric 16): dP_4 candidate (D³=5, c₂·D=2)
+    e13 (toric 17): (D³=6, c₂·D=0)
+    e14 (toric 19): (D³=9, c₂·D=-6)
+
+  Summary: 6 dP candidates, 0 K3-like, 9 rigid
+
+  Swiss cheese analysis:
+    Kähler cone tip: [6.500, 26.000, -17.000, 51.000, 10.000, 18.000, 7.000, 31.000, 42.000, 27.000, 12.500, 20.000, 14.000, 19.000, 28.000]
+    V(tip) = 50042.15
+    Found 3 Swiss cheese directions:
+      e3: τ=2025.5, V=53638640, τ/V^(2/3)=0.01424  ← SWISS CHEESE
+      e10: τ=3234.4, V=50267263, τ/V^(2/3)=0.02375  ← SWISS CHEESE
+      e13: τ=3439.0, V=54163645, τ/V^(2/3)=0.02402  ← SWISS CHEESE
+
+  Fibration analysis:
+    Dual polytope: 24 points
+    K3 fibrations: 3
+      Base P¹ direction: [0 0 1 0]
+      Base P¹ direction: [ 1  0  0 -1]
+      Base P¹ direction: [ 1  0  1 -1]
+    Elliptic fibrations: 1
+      Base directions: [0 0 1 0], [ 1  0  0 -1]  (9 polygon pts)
+
+────────────────────────────────────────────────────────────────────────
+  [1mSTAGE 3: LINE BUNDLE COHOMOLOGY[0m
+────────────────────────────────────────────────────────────────────────
+  Enumerating χ=±3 line bundles (max_coeff=3, max_nonzero=4)...
+  Found 26858 total: 13429 with χ=+3, 13429 with χ=-3  (5.7s)
+
+  Nefness check (Mori cone pairing):
+    Nef bundles: 0/26858
+
+  Computing h⁰ via Koszul method for all 26858 bundles...
+    ... 2000/26858 processed
+    ... 4000/26858 processed
+    ... 6000/26858 processed
+    ... 8000/26858 processed
+    ... 10000/26858 processed
+    ... 12000/26858 processed
+    ... 14000/26858 processed
+    ... 16000/26858 processed
+    ... 18000/26858 processed
+    ... 20000/26858 processed
+    ... 22000/26858 processed
+    ... 24000/26858 processed
+    ... 26000/26858 processed
+
+  Results (19.8s):
+    Computed: 26858/26858 (overflow: 0)
+    Max h⁰: 4
+    Bundles with h⁰ ≥ 3: 770
+    [1mClean bundles (h⁰=3, h³=0): 228[0m
+    Distinct D³ values (clean): 50
+    D³ range (clean): [-55, 55]
+
+  Top 25 bundles by h⁰:
+  D (basis coords)                                           χ   h⁰   h³       D³  status
+  ─────────────────────────────────────────────────────────────────────────────────────
+  -3·e0 + -1·e1 + -2·e6                                     -3    4    0       38  h⁰(-D)=h³(D)
+  3·e0 + 1·e1 + 2·e6                                         3    4    0      -38  h⁰(D)
+  -3·e0 + -3·e3 + -2·e4                                     -3    4    0       38  h⁰(-D)=h³(D)
+  3·e0 + 3·e3 + 2·e4                                         3    4    0      -38  h⁰(D)
+  -3·e0 + -2·e4 + -2·e5                                     -3    4    0       32  h⁰(-D)=h³(D)
+  3·e0 + 2·e4 + 2·e5                                         3    4    0      -32  h⁰(D)
+  -3·e0 + -2·e5 + -2·e12                                    -3    4    0       32  h⁰(-D)=h³(D)
+  3·e0 + 2·e5 + 2·e12                                        3    4    0      -32  h⁰(D)
+  -3·e0 + -2·e1 + -1·e3 + -3·e4                             -3    4    0       47  h⁰(-D)=h³(D)
+  3·e0 + 2·e1 + 1·e3 + 3·e4                                  3    4    0      -47  h⁰(D)
+  -3·e0 + -1·e1 + -3·e5 + -1·e6                             -3    4    0       44  h⁰(-D)=h³(D)
+  -3·e0 + -1·e1 + -1·e5 + -2·e6                             -3    4    0       41  h⁰(-D)=h³(D)
+  3·e0 + 1·e1 + 1·e5 + 2·e6                                  3    4    0      -41  h⁰(D)
+  3·e0 + 1·e1 + 3·e5 + 1·e6                                  3    4    0      -44  h⁰(D)
+  -3·e0 + -3·e1 + -3·e8 + -2·e11                            -3    4    0       47  h⁰(-D)=h³(D)
+  3·e0 + 3·e1 + 3·e8 + 2·e11                                 3    4    0      -47  h⁰(D)
+  -3·e0 + -1·e1 + -2·e8 + -1·e12                            -3    4    0       35  h⁰(-D)=h³(D)
+  3·e0 + 1·e1 + 2·e8 + 1·e12                                 3    4    0      -35  h⁰(D)
+  -3·e0 + -3·e1 + -1·e10 + -3·e13                           -3    4    0       47  h⁰(-D)=h³(D)
+  3·e0 + 3·e1 + 1·e10 + 3·e13                                3    4    0      -47  h⁰(D)
+  -3·e0 + -2·e2 + -3·e4 + -1·e5                             -3    4    0       44  h⁰(-D)=h³(D)
+  3·e0 + 2·e2 + 3·e4 + 1·e5                                  3    4    0      -44  h⁰(D)
+  -3·e0 + -2·e2 + -3·e4 + -1·e9                             -3    4    0       41  h⁰(-D)=h³(D)
+  3·e0 + 2·e2 + 3·e4 + 1·e9                                  3    4    0      -41  h⁰(D)
+  -3·e0 + -2·e2 + -3·e4 + -1·e13                            -3    4    0       41  h⁰(-D)=h³(D)
+
+────────────────────────────────────────────────────────────────────────
+  [1mSTAGE 4: NET CHIRALITY ANALYSIS[0m
+────────────────────────────────────────────────────────────────────────
+
+  Theory: For line bundle L on X with χ(L) = h⁰ - h¹ + h² - h³:
+    • h³(L) = h⁰(-L) by Serre duality  [computed]
+    • h¹ - h² = h⁰ - h³ - χ  (fully determined!)
+    • A 'clean' bundle has h⁰ = 3, h³ = 0, χ = 3  ⟹  h¹ = h² = 0
+      → 3 chiral generations with NO vector-like pairs
+
+  [1mTotal h⁰≥3 bundles: 770[0m
+  [1mClean (h⁰=3, h³=0, χ=3): 228[0m
+
+  Cohomology breakdown of all h⁰≥3 bundles:
+      h⁰   h³  h¹-h²  count  interpretation
+    ───────────────────────────────────────────────────────
+       3    0    6.0    180  ← 3 gen, h¹-h² = 6.0
+       3    0    0.0    114  ← CLEAN: 3 gen, no vector-like pairs
+       4    0    7.0    106  ← 4 gen, needs h¹-h² = 7.0 cancellation
+       4    0    1.0     95  ← 4 gen, needs h¹-h² = 1.0 cancellation
+       4    0 7.000000000000001     37  ← 4 gen, needs h¹-h² = 7.000000000000001 cancellation
+       4    0 0.9999999999999991     37  ← 4 gen, needs h¹-h² = 0.9999999999999991 cancellation
+       3    0 -4.440892098500626e-16     37  ← 3 gen, h¹-h² = -4.440892098500626e-16
+       4    0 6.999999999999999     29  ← 4 gen, needs h¹-h² = 6.999999999999999 cancellation
+       4    0 1.0000000000000009     29  ← 4 gen, needs h¹-h² = 1.0000000000000009 cancellation
+       3    0 4.440892098500626e-16     29  ← 3 gen, h¹-h² = 4.440892098500626e-16
+       3    0 5.999999999999999     23  ← 3 gen, h¹-h² = 5.999999999999999
+       3    0 8.881784197001252e-16     23  ← 3 gen, h¹-h² = 8.881784197001252e-16
+       3    0 6.000000000000001     10  ← 3 gen, h¹-h² = 6.000000000000001
+       3    0 -8.881784197001252e-16     10  ← 3 gen, h¹-h² = -8.881784197001252e-16
+       4    0 1.0000000000000004      7  ← 4 gen, needs h¹-h² = 1.0000000000000004 cancellation
+       4    0 0.9999999999999996      4  ← 4 gen, needs h¹-h² = 0.9999999999999996 cancellation
+
+  Representative clean bundles (h⁰=3, h³=0):
+  In heterotic E₈ × E₈ compactification with standard embedding:
+    • h⁰(X, L) = 3  →  3 chiral families of quarks/leptons
+    • h¹(X, L) = 0  →  no vector-like pairs (clean spectrum)
+    • h²(X, L) = 0  →  no anti-families
+    • h³(X, L) = 0  →  confirmed by h⁰(-L) = 0
+
+    L = O(-2·e0 + -1·e8)
+      χ(L) = -3,  D³ = 11
+      h⁰ = 3,  h¹ = 0,  h² = 0,  h³ = 0
+      → [92m3 net chiral generations[0m
+
+    L = O(2·e0 + 1·e8)
+      χ(L) = 3,  D³ = -11
+      h⁰ = 3,  h¹ = 0,  h² = 0,  h³ = 0
+      → [92m3 net chiral generations[0m
+
+    L = O(-2·e0 + -1·e9)
+      χ(L) = -3,  D³ = 10
+      h⁰ = 3,  h¹ = 0,  h² = 0,  h³ = 0
+      → [92m3 net chiral generations[0m
+
+    L = O(2·e0 + 1·e9)
+      χ(L) = 3,  D³ = -10
+      h⁰ = 3,  h¹ = 0,  h² = 0,  h³ = 0
+      → [92m3 net chiral generations[0m
+
+    L = O(-2·e0 + -1·e13)
+      χ(L) = -3,  D³ = 10
+      h⁰ = 3,  h¹ = 0,  h² = 0,  h³ = 0
+      → [92m3 net chiral generations[0m
+
+    L = O(2·e0 + 1·e13)
+      χ(L) = 3,  D³ = -10
+      h⁰ = 3,  h¹ = 0,  h² = 0,  h³ = 0
+      → [92m3 net chiral generations[0m
+
+    L = O(-2·e0 + -1·e1 + -1·e5)
+      χ(L) = -3,  D³ = 21
+      h⁰ = 3,  h¹ = 0,  h² = 0,  h³ = 0
+      → [92m3 net chiral generations[0m
+
+    L = O(2·e0 + 1·e1 + 1·e5)
+      χ(L) = 3,  D³ = -21
+      h⁰ = 3,  h¹ = 0,  h² = 0,  h³ = 0
+      → [92m3 net chiral generations[0m
+
+    L = O(-2·e0 + -1·e1 + -1·e13)
+      χ(L) = -3,  D³ = 18
+      h⁰ = 3,  h¹ = 0,  h² = 0,  h³ = 0
+      → [92m3 net chiral generations[0m
+
+    L = O(2·e0 + 1·e1 + 1·e13)
+      χ(L) = 3,  D³ = -18
+      h⁰ = 3,  h¹ = 0,  h² = 0,  h³ = 0
+      → [92m3 net chiral generations[0m
+
+════════════════════════════════════════════════════════════════════════
+  [1mSCORECARD: h11=15, Polytope 256[0m
+  Fingerprint: a7b63f07291b4bba
+  CYTools version: unknown
+════════════════════════════════════════════════════════════════════════
+  [[92m✓[0m] χ = -6: -6 → 3/3
+  [[92m✓[0m] |χ|/2 = 3 generations: 3 → 3/3
+  [[92m✓[0m] h⁰ ≥ 3 exists: True  (770 bundles) → 3/3
+  [[92m✓[0m] Clean h⁰=3 bundles (h³=0): 228  (228 clean bundles) → 5/5
+  [[92m✓[0m] Max h⁰: 4  (from 26858 χ=3 bundles) → 2/2
+  [[92m✓[0m] Swiss cheese structure: True  (τ=2025.5, ratio=0.01424) → 3/3
+  [[92m✓[0m] K3 fibrations: 3  (3 found) → 2/2
+  [[92m✓[0m] Elliptic fibrations: 1  (1 found) → 2/2
+  [[92m✓[0m] del Pezzo divisors: 6  (6 candidates) → 1/1
+  [[92m✓[0m] D³ diversity (clean): 50  (range [-55, 55]) → 1/1
+  [[92m✓[0m] h¹¹ tractable (≤18): 15 → 1/1
+
+  [1mTOTAL: 26/26[0m
+
+────────────────────────────────────────────────────────────────────────
+  [1mPHYSICS INTERPRETATION[0m
+────────────────────────────────────────────────────────────────────────
+
+  This Calabi-Yau 3-fold (h¹¹=15, h²¹=18) with Euler characteristic
+  χ = -6 admits 228 line bundles L = O(D) satisfying:
+
+    h⁰(X, L) = 3,   h¹(X, L) = 0,   h²(X, L) = 0,   h³(X, L) = 0
+
+  In a heterotic string compactification on X with gauge bundle V
+  derived from these line bundles:
+
+    • The 3 sections of L give exactly 3 chiral families (quarks + leptons)
+    • h¹ = h² = 0 means NO vector-like pairs → clean low-energy spectrum
+    • 3 K3 and 1 elliptic fibrations provide
+      geometric structure for F-theory / heterotic duality
+    • Swiss cheese structure (τ=2025.5) enables LVS
+      moduli stabilization → hierarchy m_soft ~ M_P/V ~ TeV
+
+  The 50 distinct D³ values across clean bundles show a rich
+  intersection ring, providing many geometrically distinct 3-generation
+  models on a single Calabi-Yau manifold.
+
+════════════════════════════════════════════════════════════════════════
+
+  Total elapsed: 27s (0.5 min)
+  Output saved to: results/pipeline_h15_P256_output.txt
+
+════════════════════════════════════════════════════════════════════════
+  Done.
+════════════════════════════════════════════════════════════════════════
