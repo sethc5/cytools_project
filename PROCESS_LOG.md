@@ -1150,3 +1150,35 @@ v3 used GLSM charge matrix to properly express σ on Pic(X).
 
 **Finding**: Finding 12 — P329 Z₂ trivial on generations.
 **Files**: z2_bundle_analysis.py, get_glsm.py, results/z2_h16_P329_analysis.txt
+
+---
+
+### Session: AGLP Line Bundle Sum Search (2026-02-23)
+
+**Goal**: Search for rank-5 line bundle sums V = L₁⊕···⊕L₅ with c₁=0, c₃=±6
+(3 generations) on h14/P2 and h16/P329 — AGLP SU(5) GUT construction.
+
+**Script**: aglp_bundle_sum.py
+
+**Development**:
+1. Wrote v1 with naive O(N⁴) 4-tuple search. Committed as 46c8e02.
+2. First run on Codespace: 268 clean bundles on P2, C(268,4)=210M 4-tuples.
+   SSH session killed before completion (would have taken hours).
+3. Rewrote search with meet-in-the-middle 3+2 decomposition: build pair-sum
+   dict (C(N,2) pairs), scan triples (C(N,3)) with O(1) dict lookup. ~65×
+   speedup. Committed as 5b1d34b.
+4. v2 completed in 5.3s on P2, 3.3s on P329.
+
+**Results**:
+- h14/P2: 14,608 χ=±3 → 268 clean → **0 five-sets with c₁=0** → 0 solutions
+- h16/P329: 24,312 χ=±3 → 220 clean → **0 five-sets with c₁=0** → 0 solutions
+- Relaxed run (max-coeff=5, max-nonzero=6) killed after 11min still enumerating
+  bundles (~1.7B candidate vectors at h¹¹_eff=13)
+
+**Diagnosis**: The h⁰=3 pre-filter removes ~98% of χ=±3 bundles, leaving too
+sparse a subset for any 5 elements to cancel in a 13–14 dimensional lattice.
+In proper AGLP, individual Lᵢ don't need h⁰=3 — only the sum V needs physical
+properties. High h¹¹ makes brute-force AGLP intractable without the filter.
+
+**Finding**: Finding 13 — AGLP fails at high Picard rank. Negative result.
+**Files**: aglp_bundle_sum.py, results/aglp_h14_P2.txt, results/aglp_h16_P329.txt

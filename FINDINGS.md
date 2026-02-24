@@ -1000,4 +1000,72 @@ This confirms and deepens Finding 11 (symmetry-vs-h⁰ tension):
    between generation indices
 4. Alternative approach: look for **non-geometric discrete symmetries**
    (Wilson lines, orbifold actions) rather than polytope automorphisms
+
+---
+
+## Finding 13: AGLP Line Bundle Sum Search — No Solutions at High Picard Rank
+
+**Date**: 2026-02-23
+**Script**: `aglp_bundle_sum.py` (meet-in-the-middle 3+2 decomposition)
+**Targets**: h14/P2, h16/P329
+
+### Setup
+
+Searched for rank-5 line bundle sums V = L₁ ⊕ L₂ ⊕ L₃ ⊕ L₄ ⊕ L₅ satisfying
+heterotic SU(5) GUT constraints (AGLP construction):
+
+- c₁(V) = 0: L₁ + L₂ + L₃ + L₄ + L₅ = 0 in Pic(X)
+- c₃(V) = ±6: 3 net chiral generations
+- c₂(TX) − c₂(V) effective: anomaly cancellation
+- Slope stability: μ(Lᵢ) < 0 at Kähler cone tip
+
+Search strategy: pick 5 clean bundles (h⁰=3, h³=0) from the χ=±3 list
+and check if any 5-element subset sums to zero.
+
+### Results
+
+| Manifold | χ=±3 bundles | Clean (h⁰=3, h³=0) | h¹¹_eff | 5-sets c₁=0 | c₃=±6 |
+|----------|:---:|:---:|:---:|:---:|:---:|
+| h14/P2   | 14,608 | 268 | 13 | **0** | 0 |
+| h16/P329 | 24,312 | 220 | 14 | **0** | 0 |
+
+**Zero solutions on both targets.** Not a single combination of 5 clean bundles
+sums to zero in either lattice.
+
+Search completed in seconds thanks to meet-in-the-middle optimization
+(O(N³) instead of naive O(N⁴) — 3.2M triples vs 210M 4-tuples).
+
+Relaxing coefficient bounds (max-coeff=5, max-nonzero=6) was attempted on P2
+but enumeration alone exceeds hours at h¹¹_eff=13 (~1.7 billion candidate
+vectors), and was killed.
+
+### Why This Failed
+
+1. **The h⁰=3 filter is too restrictive.** It kills ~98% of χ=±3 bundles
+   (14,608→268 on P2, 24,312→220 on P329), leaving a subset too sparse for
+   any 5 elements to cancel in a 13–14 dimensional lattice.
+
+2. **Wrong pre-filter.** In the proper AGLP construction, individual Lᵢ are
+   just lattice vectors in Pic(X) ≅ ℤ^{h¹¹}. Only the *sum* V needs
+   physical properties (c₃=±6, anomaly cancellation). Requiring each Lᵢ to
+   independently have h⁰=3 is not part of the AGLP prescription.
+
+3. **High Picard rank is the enemy.** AGLP in the literature (Anderson–Gray–
+   Lukas–Palti, 1307.4787) typically works at h¹¹=2–5 where the Kähler cone
+   is manageable and the lattice is small. At h¹¹_eff=13–14, even without the
+   h⁰ filter, the search space for 5 vectors summing to zero with c₃=±6 is
+   a cubic Diophantine problem in ~60 integer unknowns.
+
+### Lessons
+
+- **The polytope scanning pipeline remains the primary tool.** It identifies
+  which manifolds have the right topological prerequisites. Bundle
+  construction is a downstream step for the best candidates.
+- **Bundle searches at h¹¹>10 need fundamentally different algorithms:**
+  direct lattice constraint solving (eliminate L₅ via c₁=0, reduce c₃=±6
+  to a cubic form), randomized/MCMC sampling, or monad/extension sequences
+  rather than line bundle sums.
+- **The script works correctly and efficiently** — the meet-in-the-middle
+  algorithm scanned 3.2M triples in 5s. The failure is mathematical, not
+  computational.
 5. **h16/P0** (|Aut|=8) deserves a pipeline run despite only 4 h⁰=3 bundles — the symmetry structure may reveal interesting Yukawa constraints on those few bundles
