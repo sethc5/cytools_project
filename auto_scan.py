@@ -509,19 +509,24 @@ def run_pipeline(h11, workers=4, top_n=200, skip_t025=False, resume=False,
         print(f"  {GREEN}Resumed{RESET}: {len(t025_results):,} T0.25 results from checkpoint.")
 
     elif skip_t025 and t025_csv:
-        # Load from existing CSV
+        # Load from existing CSV (scan_h*.csv or tier025_h*.csv)
         print(f"  Loading T0.25 from {t025_csv}...")
         with open(t025_csv) as f:
             reader = csv.DictReader(f)
             for row in reader:
                 idx = int(row.get('poly_idx', row.get('index', -1)))
                 if idx >= 0:
+                    mh = int(row.get('max_h0', 0))
+                    # Normalize status: scan_h*.csv uses 'ok', we use 'pass'
+                    raw_status = row.get('status', 'pass')
+                    status = 'pass' if (raw_status in ('ok', 'pass') and mh >= 3) else 'skip'
                     t025_results[idx] = {
                         'poly_idx': idx,
-                        'status': row.get('status', 'pass'),
-                        'max_h0': int(row.get('max_h0', 0)),
+                        'status': status,
+                        'max_h0': mh,
                     }
-        print(f"  Loaded {len(t025_results):,} entries.")
+        n_pass = sum(1 for r in t025_results.values() if r['status'] == 'pass')
+        print(f"  Loaded {len(t025_results):,} entries, {n_pass:,} passes.")
 
     elif skip_t025:
         # Skip T0.25, send everything to Stage 1 (not recommended for large h11)

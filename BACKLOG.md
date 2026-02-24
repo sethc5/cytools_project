@@ -32,8 +32,8 @@
 - **Status**:
   - ✅ h15: **553/553 complete** (333 hits, 60%). T1→T1.5→T2 done. h15/poly61 → full pipeline 25/26.
   - ✅ h16: **5,180/5,180 complete** (1,811 hits, 35%). T1→T1.5→T2 done. 20 new T2 entries.
-  - 🔶 h17: **running on Codespace** (tmux `h17scan`, 4 workers). ~34,000/38,735 (~87%). Nearly done.
-  - 🔶 h18: **running on Hetzner** (Docker, 14 workers). ~4,087/21,115 T1 (19%). ETA ~33 hrs.
+  - ✅ h17: **38,735/38,735 complete** (10,624 hits, 27.4%). Codespace scan finished. auto_scan Stage 1+2 next.
+  - 🔶 h18: **running on Hetzner** (Docker, 14 workers). T0.25 done (100K→29,984 passes, 30%). T1 5,514/29,984 (18%). ETA ~44 hrs.
 - **Estimate**: h17 ~6hrs Codespace, h18 minutes remaining.
 
 ### B-26: GL=12/D₆ Picard-Fuchs study ✅ DONE (core)
