@@ -842,3 +842,82 @@ h17 is the **richest single Hodge number** in the χ=−6 landscape:
 - **86% SU(5) GUT** candidates
 - Multiple new record-holders: P767 (clean+ell combined), P2338 (LVS+F-theory), P860 (balanced)
 - The previous manual pipeline found ~19 perfect-score candidates at h11≤16; h17 alone has 4.6× that
+---
+
+## 11. Automorphism Group Scan — Symmetry vs. Three-Generation Tension (B-21)
+
+**Date**: 2026-02-26. **Script**: [scan_automorphisms.py](scan_automorphisms.py). **Data**: [results/aut_scan.log](results/aut_scan.log).
+
+### Motivation
+
+An external analysis proposed that the GL=12 polytope's D₆ (dihedral-6) symmetry group could constrain Yukawa textures via a 2+1 generation splitting (E₁⊕A₁ irrep). This required testing whether **any** 3-generation polytopes have nontrivial discrete symmetries — a "binary gate" test before investing in representation-theoretic analysis.
+
+Additionally, the GL=12 polytope (h17/P37) was conclusively falsified for line bundle phenomenology: across all 1,720 χ=−6 bundles, **max h⁰ = 1** — zero clean h⁰=3 bundles exist. The D₆ line bundle Yukawa program is dead.
+
+### Method
+
+Computed `p.automorphisms()` (polytope automorphism group) for:
+1. All **592 top-200 candidates** across h15/h16/h17 (those appearing in auto_scan results)
+2. All polytopes at each h-value with |Aut|>1, cross-referenced with scan CSVs for max_h0 and h0_3_count
+
+### Key Results
+
+**Among 592 top candidates:**
+- 539 (91%) have trivial |Aut| = 1
+- 49 (8%) have |Aut| = 2 (Z₂)
+- 4 (1%) have |Aut| = 4 (Z₂×Z₂ or Z₄)
+- **Maximum |Aut| = 4** — no D₆, A₄, or larger flavor symmetries
+
+**Across ALL polytopes (h15+h16+h17) with |Aut|>1 AND h⁰≥3:**
+- **532 polytopes total** (46 at h15, 112 at h16, 374 at h17)
+- |Aut| distribution: 511× Z₂, 19× Z₄-class, 2× |Aut|=8
+
+**Highest-symmetry polytopes with 3-generation bundles:**
+
+| Polytope | h¹¹ | |Aut| | max_h⁰ | h⁰=3 count | Notes |
+|----------|------|-------|---------|-------------|-------|
+| P0 | 16 | **8** | 3 | 4 | Highest symmetry with h⁰≥3 |
+| P2997 | 17 | **8** | 3 | 2 | Z₂³ or Z₈ |
+| P18 | 15 | 4 | 13 | 40 | Best |Aut|=4 candidate |
+| P468 | 17 | 4 | 4 | 32 | |
+| P633 | 17 | 4 | 4 | 18 | |
+
+**Top Z₂ candidates (|Aut|=2, h⁰=3 count ≥ 100):**
+
+| Polytope | h¹¹ | max_h⁰ | h⁰=3 count | Notes |
+|----------|------|---------|-------------|-------|
+| P27751 | 17 | 6 | 192 | Highest h⁰=3 count with symmetry |
+| P31 | 15 | 10 | 190 | |
+| P329 | 16 | 15 | 164 | **Already pipeline'd: 26/26, 228 clean** |
+| P164 | 15 | 10 | 162 | |
+| P8 | 15 | 4 | 146 | |
+| P9 | 17 | 10 | 142 | |
+| P92 | 15 | 4 | 136 | |
+| P1821 | 16 | 9 | 134 | |
+| P2001 | 17 | 7 | 126 | |
+| P937 | 17 | 5 | 124 | |
+| P1545 | 17 | 7 | 120 | |
+| P427 | 17 | 4 | 116 | |
+| P1403 | 17 | 4 | 108 | |
+| P15531 | 17 | 10 | 108 | |
+| P1629 | 17 | 9 | 106 | |
+| P383 | 16 | 10 | 102 | |
+
+### The Symmetry-vs-h⁰ Tension
+
+**Confirmed**: Higher polytope symmetry anti-correlates with h⁰ diversity.
+- GL=12 (|Aut|=12): max_h⁰ = 1, zero h⁰=3 bundles
+- |Aut|=8: max_h⁰ = 3, only 2-4 h⁰=3 bundles
+- |Aut|=4: max_h⁰ up to 13, up to 40 h⁰=3 bundles
+- |Aut|=2: max_h⁰ up to 17, up to 192 h⁰=3 bundles
+- |Aut|=1: max_h⁰ up to 26+, up to 524+ h⁰=3 bundles
+
+**Physical interpretation**: Polytope symmetries constrain the lattice of effective divisors, reducing the degrees of freedom available for line bundle charges. The same rigidity that produces beautiful group theory kills the combinatorial room needed for χ=−6 with h⁰=3. This is a fundamental tension: **flavor symmetry from geometry competes with phenomenological viability from line bundles**.
+
+### Implications
+
+1. **D₆/A₄-level flavor symmetries do not exist** among viable 3-generation candidates
+2. **Z₂ is the realistic maximum** for combining symmetry with rich bundle structure
+3. The 2+1 generation splitting idea is **transplantable** to Z₂ polytopes (Z₂ acts as parity, splitting generations into even+odd)
+4. **h16/P329** is the standout: already scored 26/26 with 228 clean bundles, |Aut|=2, 7 elliptic fibrations, AND 164 h⁰=3 bundles from ALL line bundles
+5. **h16/P0** (|Aut|=8) deserves a pipeline run despite only 4 h⁰=3 bundles — the symmetry structure may reveal interesting Yukawa constraints on those few bundles

@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-02-26 — B-21: Automorphism group scan (592 candidates + full h15/h16/h17)
+
+**Work done**: Created `scan_automorphisms.py` to compute `p.automorphisms()` for all 592 top-200 candidates and all polytopes with nontrivial symmetry at each h-value. Cross-referenced with scan CSVs for max_h0 and h0_3_count.
+
+**GL=12 falsification**: h17/P37 (GL=12, |Aut|=12, D₆ symmetry) has max_h⁰=1 across all 1,720 χ=−6 bundles. Zero h⁰=3 bundles. D₆ Yukawa texture program via line bundles is dead.
+
+**Key findings**:
+- 53/592 candidates (9%) have nontrivial |Aut|>1. Max is |Aut|=4.
+- 532 polytopes across all h15-h17 have BOTH |Aut|>1 AND h⁰≥3
+- Symmetry-vs-h⁰ tension confirmed: higher |Aut| → fewer h⁰=3 bundles
+- |Aut|=8 exists (h16/P0, h17/P2997) but only 2-4 h⁰=3 bundles each
+- Best combination: **h16/P329** — |Aut|=2, 26/26 score, 228 clean, 164 h⁰=3 bundles, 7 ell
+
+**Committed**: `scan_automorphisms.py` as `14ee18b`. Results in `results/aut_scan.log`.
+
+---
+
 ## 2026-02-25 — B-19/B-28: h15 auto_scan complete (553 → 200 → 192)
 
 **Work done**: Ran `auto_scan.py --h11 15 --skip-t025 --top 200 -w 3` on Codespace.
