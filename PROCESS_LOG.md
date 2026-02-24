@@ -5,6 +5,58 @@
 
 ---
 
+## 2026-02-25 — B-28: Automated scan pipeline (`auto_scan.py`)
+
+**Work done**: Built `auto_scan.py` (925 lines) — a single-command pipeline that
+replaces the 6-script manual workflow (scan_fast → tier1_screen → tier15_screen →
+tier2_screen → pipeline → fiber_analysis) with one automated run.
+
+### Architecture
+
+Three pipeline stages per polytope:
+
+| Stage | Name | Per-poly time | What it does |
+|-------|------|---------------|--------------|
+| 0 (T0.25) | Pre-filter | ~0.08s | Early-termination h⁰≥3 check. Parallel. |
+| 1 (deep)  | Full analysis | ~2-30s | Bundle count + clean bundles + dP/K3 divisors + Swiss cheese + K3/elliptic fibrations. Parallel. 26-point scoring. |
+| 2 (fiber) | Kodaira | ~1-5s | Fiber polygon classification + gauge algebra + SM/GUT detection. Sequential. |
+
+### Validation
+
+**h14 test** (22 polytopes, 23s):
+- P2 ranked #1 at 26/26 with τ=58, SM★, GUT★ — matches pipeline.py exactly
+- 14/14 fiber-analyzed polytopes have SM gauge factors
+- 10/14 have SU(5) GUT
+
+**h15 scale test** (553 polytopes, 8 minutes):
+- T0.25: 333/553 pass (60.2%) in 6.8m — matches known figure exactly
+- Stage 1: top 50 deep-analyzed in 1.1m
+- Stage 2: 48/50 fiber-classified (48 have elliptic fibrations)
+- **6× 26/26 perfect**, 12× 25/26, 6× 23/26
+- **47/48 contain SM gauge factors** (98%) — only P7 is U(1)^10
+- **32/48 have SU(5) GUT** (67%)
+- Max τ = 11,400 (P387, new h15 LVS champion)
+- Max clean = 38 (P256)
+
+**Resume test**: Checkpoint loads all completed polytopes, skips to results in 1s.
+
+### Swiss cheese bug fix
+
+`cy_compute.check_swiss_cheese()` uses `cyobj.compute_divisor_volumes()` which can
+return negative volumess (not physical). The pipeline.py approach — manual intersection
+tensor contraction with `tau2 > 0` guard and `V2 > 100` check — gives correct results.
+
+Before fix: P2 τ=-8789 (wrong). After fix: P2 τ=58 (matches pipeline's 58.5).
+
+### Usage
+```bash
+python auto_scan.py --h11 19 --workers 8 --top 100
+python auto_scan.py --h11 15 --top 0 -w 3          # all passes
+python auto_scan.py --h11 18 --resume               # resume from checkpoint
+```
+
+---
+
 ## 2026-02-25 — B-21 complete: F-theory Kodaira fiber classification
 
 **Work done**: Built `fiber_analysis.py` (890 lines) — a comprehensive F-theory

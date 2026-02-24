@@ -1,6 +1,6 @@
 # BACKLOG — χ = −6 CY Landscape Scanner
 
-> Ordered by priority. Top = do next. Updated: 2026-02-24.
+> Ordered by priority. Top = do next. Updated: 2026-02-25.
 >
 > **Project direction**: Open-source pipeline + catalogue. Build the sieve,
 > record what passes and what doesn't, make it contributor-friendly.
@@ -9,6 +9,21 @@
 ---
 
 ## NOW — Active Sprint
+
+### B-28: Automated scan pipeline (`auto_scan.py`) ✅ DONE
+- **Why**: Manual 6-script workflow (scan_fast → tier1 → tier1.5 → tier2 → pipeline → fiber_analysis) is slow, error-prone, and hard to resume. Need single-command pipeline for h19+.
+- **What**: Built `auto_scan.py` — unified pipeline replacing all 6 scripts.
+  - Stage 0 (T0.25): Parallel early-termination h⁰≥3 check (~0.08s/poly)
+  - Stage 1 (deep): Full bundle count + clean bundles + dP/K3 + Swiss cheese + fibrations (~2-30s/poly)
+  - Stage 2 (fiber): Kodaira classification + gauge algebra (~1-5s/poly)
+  - Checkpoint/resume, CSV + JSON output, progress display with ETA
+- **Validation**:
+  - ✅ h14 (22 polys, 23s): P2 #1 at 26/26, τ=58, SM★ GUT★ — matches pipeline.py exactly
+  - ✅ Resume from checkpoint: loads all completed in 1s
+  - ✅ h15 (553 polys): scale test in progress
+- **Swiss cheese fix**: Uses pipeline-style manual intersection tensor contraction (not cy_compute.check_swiss_cheese which gives negative τ)
+- **Usage**: `python auto_scan.py --h11 19 --workers 8 --top 100`
+- **Completed**: 2026-02-25.
 
 ### B-19: Expand scan — remove limit=100 cap at h¹¹ = 15–18
 - **Why**: We've only scanned 100/553 at h15, 100/5180 at h16, 100/38735 at h17. The strongest candidates are all in this range.
@@ -113,6 +128,7 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-29 | B-28: Automated scan pipeline (`auto_scan.py`) — unified 6-script replacement, h14 validated, checkpoint/resume | 2026-02-25 |
 | D-28 | B-21: F-theory Kodaira fiber classification — 39/39 SM, 17/39 SU(5) GUT (`fiber_analysis.py`) | 2026-02-25 |
 | D-26a | B-26: GL12/D₆ closed-form period + Yukawa couplings + picard_fuchs.py | 2026-02-23 |
 | D-27 | B-24: Full pipeline on all 37 T2=45 candidates (19× 26/26) | 2026-02-23 |
