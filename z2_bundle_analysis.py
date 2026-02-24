@@ -541,8 +541,8 @@ def main():
         f.write("=" * 60 + "\n")
         f.write("Clean h0=3 bundles: %d\n" % len(clean_bundles))
         f.write("Z_2-fixed: %d\n" % len(fixed_bundles))
-        f.write("Z_2-paired: %d pairs\n" % len(paired_bundles))
-        if unclassified:
+        f.wn_sigma_outside > 0:
+            f.write("Sigma-image outside enumeration: %d\n" % n_sigma_outside
             f.write("Unclassified (sigma image not clean): %d\n" % unclassified)
         f.write("\n2+1 split bundles: %d\n" % len(split_21))
         f.write("3+0 trivial: %d\n" % len(split_30))

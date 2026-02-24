@@ -1,0 +1,48 @@
+Z_2 Bundle Analysis: h16/P329
+============================================================
+Polytope: h16/P329 (h11=16, h21=19, chi=-6)
+Z_2 generator: det(sigma) = -1
+sigma = [[1,0,0,0],[0,0,1,0],[0,1,0,0],[0,0,0,1]] (swap N-lattice coords 2,3)
+
+Basis divisors (toric indices): [1,2,3,4,5,7,8,9,10,11,12,16,17,18]
+h11_eff = 14, non-favorable
+
+GLSM linear relation: D_15 ~ D_1 - D_3 - D_5 - D_7 - D_16
+Sigma action on Pic: S^2 = I, Tr(S) = 2
+Picard splits as: 8(+1) + 6(-1) under Z_2
+
+Clean h0=3.h3=0 bundles: 220 unique
+Z_2-fixed: 11
+Z_2-paired: 24 pairs (48 bundles)
+Sigma-image outside enumeration (max_nonzero>4): 161
+
+REPRESENTATION ANALYSIS (fixed bundles):
+  2+1 split bundles: 0
+  3+0 trivial: 11
+  Other: 0
+
+ALL fixed bundles have |S_D|=3, all 3 lattice points sigma^T-fixed.
+Trace(sigma*|H^0) = 3 for every fixed bundle => 3+0, NO texture zeros.
+
+Physical interpretation: sigma swaps M-lattice coords m_1 and m_2.
+All section lattice points of fixed bundles satisfy m_1 = m_2,
+so sigma* acts as identity on H^0. The Z_2 is geometrically
+a coordinate-plane reflection that does not separate generations.
+
+CONCLUSION: P329's Z_2 does NOT produce 2+1 generation texture zeros.
+The symmetry-cohomology tension (Finding 11) is confirmed:
+even in the "Z_2 suburbs" with large h0_3 counts, the available
+symmetry acts trivially on the generation space.
+
+Fixed bundles (basis coords, nonzero entries):
+  L0:  [(0, 2)]
+  L1:  [(0, 2), (5, 1)]
+  L2:  [(0, 1), (10, 1)]
+  L3:  [(5, 2), (10, 3)]
+  L4:  [(0, 2), (5, -1), (10, 1)]
+  L5:  [(0, 1), (1, 2), (3, 2), (10, 2)]
+  L6:  [(0, 2), (2, 1), (4, 1), (5, 3)]
+  L7:  [(1, 3), (3, 3), (5, 2), (10, 3)]
+  L8:  [(1, 1), (3, 1), (5, 2), (10, 3)]
+  L9:  [(2, 3), (4, 3), (5, 3), (10, 2)]
+  L10: [(2, 2), (4, 2), (5, 2), (10, 2)]

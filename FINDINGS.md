@@ -920,4 +920,84 @@ Computed `p.automorphisms()` (polytope automorphism group) for:
 2. **Z₂ is the realistic maximum** for combining symmetry with rich bundle structure
 3. The 2+1 generation splitting idea is **transplantable** to Z₂ polytopes (Z₂ acts as parity, splitting generations into even+odd)
 4. **h16/P329** is the standout: already scored 26/26 with 228 clean bundles, |Aut|=2, 7 elliptic fibrations, AND 164 h⁰=3 bundles from ALL line bundles
+
+---
+
+## Finding 12: Z₂ Acts Trivially on Generations (P329)
+
+**Date**: 2025-02-23
+**Commit**: (z2_bundle_analysis v3)
+
+### Question
+
+Does the Z₂ involution of h16/P329 split 3 generations as 2+1, providing
+texture zeros in the Yukawa matrix?
+
+### Method
+
+1. Computed the Z₂ generator σ on the N-lattice:
+   σ = [[1,0,0,0],[0,0,1,0],[0,1,0,0],[0,0,0,1]] (swap coords 2↔3), det = −1
+2. Determined σ's action on all 18 toric divisors via ray permutation:
+   - 5 fixed rays, 7 swapped pairs
+   - **Critical**: e₁₁ (toric 16) → toric 15, which is NOT in the divisor basis
+3. Used GLSM linear relations to express D₁₅ ~ D₁ − D₃ − D₅ − D₇ − D₁₆,
+   giving the full σ action matrix S on Pic(X) ≅ Z¹⁴
+4. Verified S² = Id, Tr(S) = 2 → Picard splits as **8(+1) ⊕ 6(−1)**
+5. Enumerated 220 unique clean (h⁰=3, h³=0) line bundles
+6. Applied S^T to classify bundles as Z₂-fixed vs Z₂-paired
+7. For each fixed bundle: found section lattice points S_D, computed
+   Tr(σ*|H⁰(X,D)) = #{m ∈ S_D : σ^T m = m} − #{m ∈ S_{D+K} : σ^T m = m}
+8. Computed eigenspace dimensions: dim(±1) = (h⁰ ± Tr)/2
+
+### Results
+
+| Category | Count | Notes |
+|----------|-------|-------|
+| Clean bundles | 220 | unique, h⁰=3, h³=0 |
+| Z₂-fixed | 11 | σ(L) = L |
+| Z₂-paired | 24 pairs | σ(L) ≠ L, both clean |
+| σ-image outside enumeration | 161 | NOT fixed, don't affect 2+1 |
+
+**Z₂ representation on H⁰ for all 11 fixed bundles**:
+
+| Bundle | |S_D| | f_D | |S_{D+K}| | f_{D+K} | Tr | dim(+1) | dim(−1) | Split |
+|--------|-------|-----|---------|---------|-----|---------|---------|-------|
+| L0–L10 | 3 | 3 | 0 | 0 | 3 | 3 | 0 | 3+0 |
+
+**Every single fixed bundle has Tr(σ*) = 3, giving a trivial 3+0 split.**
+
+### Why It's Trivial
+
+The dual action σ* on the M-lattice swaps m₁ ↔ m₂ (since σ swaps N-lattice
+coords 2↔3, and σ^T = σ for this symmetric matrix). All section lattice
+points of the 11 fixed bundles satisfy m₁ = m₂, lying entirely in the
+fixed hyperplane. This is not coincidental — these bundles have charges
+only on the Z₂-invariant part of Pic(X), so their section polytopes
+inherit the full σ symmetry.
+
+### Physical Interpretation
+
+**P329's Z₂ does NOT produce a 2+1 generation split.** The symmetry that
+looked promising for Yukawa texture zeros acts as the identity on H⁰(X,L)
+for every Z₂-invariant line bundle. The Z₂ is too "mild" — a single
+coordinate swap that commutes with the section monomial structure.
+
+This confirms and deepens Finding 11 (symmetry-vs-h⁰ tension):
+
+- The subset of clean bundles preserved by symmetry is small (11/220 = 5%)
+- Even within that subset, the symmetry acts trivially on generations
+- **The SM's three generations are not explained by polytope automorphisms**
+
+### Implications for Next Steps
+
+1. **Z₂ at single-bundle level is dead** for texture zeros on P329
+2. The 2+1 split could still arise at the **rank-5 sum level**: five bundles
+   L₁+...+L₅ could carry a combined Z₂ representation that distinguishes
+   generations, even if individual bundles don't
+3. More promising: the **paired bundles** (24 pairs) where σ swaps
+   H⁰(X,L) ↔ H⁰(X,σ*L), giving a 3+3 combined representation.
+   Choosing paired Li in the rank-5 sum creates mandatory correlations
+   between generation indices
+4. Alternative approach: look for **non-geometric discrete symmetries**
+   (Wilson lines, orbifold actions) rather than polytope automorphisms
 5. **h16/P0** (|Aut|=8) deserves a pipeline run despite only 4 h⁰=3 bundles — the symmetry structure may reveal interesting Yukawa constraints on those few bundles

@@ -1124,3 +1124,29 @@ Issues that surfaced during the project, for reference.
 **Bug fixed**: Previous code/docs stated (θ+1)³ instead of the correct θ³ for the signed PF ODE.
 
 **Files modified**: mori_pf.py (log periods, mirror map, j-invariant, ODE factorization), GL12_GEOMETRY.md (comprehensive update), BACKLOG.md
+
+---
+
+### 2025-02-23: Z₂ Bundle Analysis — h16/P329 (B-22)
+
+**Goal**: Test whether P329's Z₂ involution splits 3 generations as 2+1,
+providing Yukawa texture zeros.
+
+**Method**:
+- Computed σ action on N-lattice (swap coords 2↔3)
+- Determined ray permutation: 5 fixed, 7 swapped pairs
+- Used GLSM linear relations to handle non-basis divisor mapping (e₁₁→D₁₅)
+- Built full 14×14 sigma matrix S on Pic(X), verified S²=Id
+- Enumerated 220 unique clean bundles, classified as Z₂-fixed (11) or paired (24)
+- For each fixed bundle: computed section lattice points, traced σ* action
+
+**Result**: All 11 Z₂-fixed bundles have Tr(σ*)=3 → 3+0 split (trivial).
+Zero 2+1 texture-zero bundles. σ* = Id on H⁰ for all fixed bundles because
+section monomials live entirely in the σ-fixed hyperplane (m₁=m₂).
+
+**Key code issue fixed**: v1 script hung (brute force 7^14 loop). v2 used
+cy_compute.find_chi3_bundles but failed on non-basis divisor mapping (e₁₁→toric 15).
+v3 used GLSM charge matrix to properly express σ on Pic(X).
+
+**Finding**: Finding 12 — P329 Z₂ trivial on generations.
+**Files**: z2_bundle_analysis.py, get_glsm.py, results/z2_h16_P329_analysis.txt
