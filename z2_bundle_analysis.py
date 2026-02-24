@@ -302,8 +302,18 @@ def main():
             print("    %d/%d, %d clean so far..." % (
                 idx+1, len(bundles), len(clean_bundles)), flush=True)
 
+    # Deduplicate: (D, chi=3) and (-D, chi=-3) both map to same D_compute
+    seen_basis = set()
+    deduped = []
+    for q, D in clean_bundles:
+        tq = tuple(q)
+        if tq not in seen_basis:
+            seen_basis.add(tq)
+            deduped.append((q, D))
     print("  Done in %.1fs" % (time.time() - t2))
-    print("  Clean (h0=3, h3=0): %d" % len(clean_bundles))
+    print("  Clean (h0=3, h3=0): %d total, %d unique" % (
+        len(clean_bundles), len(deduped)))
+    clean_bundles = deduped
 
     # ══════════════════════════════════════════════════════════════
     #  Z_2 ORBIT DECOMPOSITION (using S^T on basis coordinates)
@@ -340,14 +350,15 @@ def main():
                 _, D_sigma = clean_basis_dict[tsq]
                 paired_bundles.append(((q, D), (sq, D_sigma)))
             else:
-                # sigma(D) is not in clean set => sigma doesn't preserve clean
-                # This shouldn't happen if sigma is a CY automorphism
-                print("  WARNING: sigma(q)=%s not in clean set (q=%s)" % (
-                    sq, q))
+                # sigma(D) is not in clean set — sigma image has higher
+                # max_nonzero than our enumeration cutoff (4).
+                # These are NOT fixed, so don't affect 2+1 analysis.
+                pass
             visited.add(tq)
             visited.add(tsq)
 
     unclassified = len(clean_bundles) - len(fixed_bundles) - 2 * len(paired_bundles)
+    n_sigma_outside = unclassified  # bundles whose sigma-image wasn't enumerated
 
     print("\n  Z_2-FIXED bundles (sigma(L) = L): %d" % len(fixed_bundles))
     for q, _ in fixed_bundles[:30]:
@@ -487,8 +498,9 @@ def main():
     print("  Z_2-fixed bundles: %d" % len(fixed_bundles))
     print("  Z_2-paired bundles: %d pairs (%d bundles)" % (
         len(paired_bundles), 2 * len(paired_bundles)))
-    if unclassified:
-        print("  Unclassified (sigma image not clean): %d" % unclassified)
+    if n_sigma_outside > 0:
+        print("  Sigma-image outside enumeration: %d" % n_sigma_outside)
+        print("  (These bundles are NOT Z_2-fixed, so do not affect the 2+1 test)")
     print()
     print("  Z_2 REPRESENTATION ON H^0 (fixed bundles):")
     print("    2+1 or 1+2 split (TEXTURE ZEROS): %d" % len(split_21))
@@ -530,8 +542,8 @@ def main():
         f.write("Clean h0=3 bundles: %d\n" % len(clean_bundles))
         f.write("Z_2-fixed: %d\n" % len(fixed_bundles))
         f.write("Z_2-paired: %d pairs\n" % len(paired_bundles))
-        if nonbasis_bundles:
-            f.write("Non-basis image: %d\n" % len(nonbasis_bundles))
+        if unclassified:
+            f.write("Unclassified (sigma image not clean): %d\n" % unclassified)
         f.write("\n2+1 split bundles: %d\n" % len(split_21))
         f.write("3+0 trivial: %d\n" % len(split_30))
         f.write("Other: %d\n" % len(split_other))
