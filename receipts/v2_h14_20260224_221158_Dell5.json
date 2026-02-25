@@ -1,4 +1,32 @@
 {
+  "version": 2,
+  "receipt_name": "v2_h14_20260224_221158_Dell5.json",
+  "h11": 14,
+  "machine": "Dell5",
+  "git_hash": "1d977b5",
+  "started": "2026-02-24T22:11:47.240910",
+  "finished": "2026-02-24T22:11:58.182949",
+  "elapsed_seconds": 10.9,
+  "thresholds": {
+    "EFF_MAX": 15,
+    "GAP_MIN": 0,
+    "H0_MIN_T025": 5,
+    "AUT_MAX": 3,
+    "top_n": 0,
+    "workers": 4
+  },
+  "counts": {
+    "fetched": 22,
+    "t0_total": 22,
+    "t0_pass": 22,
+    "t025_pass": 7,
+    "t1_analyzed": 7,
+    "t2_analyzed": 7,
+    "with_clean": 6,
+    "with_SM": 7,
+    "with_GUT": 6,
+    "max_clean": 24
+  },
   "t0": [
     {
       "poly_idx": 0,
@@ -8,8 +36,8 @@
       "gap": 0,
       "favorable": true,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 1,
@@ -19,8 +47,8 @@
       "gap": 1,
       "favorable": false,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 3,
@@ -30,8 +58,8 @@
       "gap": 2,
       "favorable": false,
       "aut_order": 2,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 4,
@@ -41,8 +69,8 @@
       "gap": 2,
       "favorable": false,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 2,
@@ -52,8 +80,8 @@
       "gap": 1,
       "favorable": false,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 5,
@@ -63,8 +91,8 @@
       "gap": 1,
       "favorable": false,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 7,
@@ -74,8 +102,8 @@
       "gap": 0,
       "favorable": true,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 6,
@@ -85,8 +113,8 @@
       "gap": 0,
       "favorable": true,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 10,
@@ -96,8 +124,8 @@
       "gap": 1,
       "favorable": false,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 9,
@@ -107,8 +135,8 @@
       "gap": 1,
       "favorable": false,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 8,
@@ -118,8 +146,8 @@
       "gap": 1,
       "favorable": false,
       "aut_order": 2,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 14,
@@ -129,8 +157,8 @@
       "gap": 0,
       "favorable": true,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 13,
@@ -140,8 +168,8 @@
       "gap": 0,
       "favorable": true,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 12,
@@ -151,8 +179,8 @@
       "gap": 2,
       "favorable": false,
       "aut_order": 2,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 11,
@@ -162,8 +190,8 @@
       "gap": 0,
       "favorable": true,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 15,
@@ -173,8 +201,8 @@
       "gap": 0,
       "favorable": true,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 16,
@@ -184,8 +212,8 @@
       "gap": 0,
       "favorable": true,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 18,
@@ -195,8 +223,8 @@
       "gap": 1,
       "favorable": false,
       "aut_order": 2,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 17,
@@ -206,8 +234,8 @@
       "gap": 1,
       "favorable": false,
       "aut_order": 2,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 19,
@@ -217,8 +245,8 @@
       "gap": 2,
       "favorable": false,
       "aut_order": 2,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 20,
@@ -228,8 +256,8 @@
       "gap": 0,
       "favorable": true,
       "aut_order": 2,
-      "skip_reason": null,
-      "status": "pass"
+      "status": "pass",
+      "skip_reason": null
     },
     {
       "poly_idx": 21,
@@ -239,156 +267,8 @@
       "gap": 0,
       "favorable": true,
       "aut_order": 1,
-      "skip_reason": null,
-      "status": "pass"
-    }
-  ],
-  "t025": [
-    {
-      "poly_idx": 12,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 870
-    },
-    {
-      "poly_idx": 4,
       "status": "pass",
-      "max_h0": 13,
-      "n_chi3": 1508,
-      "gap": 2,
-      "h11_eff": 12
-    },
-    {
-      "poly_idx": 3,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1400
-    },
-    {
-      "poly_idx": 19,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1352
-    },
-    {
-      "poly_idx": 2,
-      "status": "pass",
-      "max_h0": 10,
-      "n_chi3": 1416,
-      "gap": 1,
-      "h11_eff": 13
-    },
-    {
-      "poly_idx": 1,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1514
-    },
-    {
-      "poly_idx": 5,
-      "status": "pass",
-      "max_h0": 13,
-      "n_chi3": 1354,
-      "gap": 1,
-      "h11_eff": 13
-    },
-    {
-      "poly_idx": 8,
-      "status": "pass",
-      "max_h0": 7,
-      "n_chi3": 1276,
-      "gap": 1,
-      "h11_eff": 13
-    },
-    {
-      "poly_idx": 9,
-      "status": "pass",
-      "max_h0": 7,
-      "n_chi3": 1388,
-      "gap": 1,
-      "h11_eff": 13
-    },
-    {
-      "poly_idx": 10,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1470
-    },
-    {
-      "poly_idx": 17,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1502
-    },
-    {
-      "poly_idx": 18,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1384
-    },
-    {
-      "poly_idx": 0,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1808
-    },
-    {
-      "poly_idx": 6,
-      "status": "pass",
-      "max_h0": 5,
-      "n_chi3": 2112,
-      "gap": 0,
-      "h11_eff": 14
-    },
-    {
-      "poly_idx": 7,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1762
-    },
-    {
-      "poly_idx": 14,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1980
-    },
-    {
-      "poly_idx": 13,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1546
-    },
-    {
-      "poly_idx": 11,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 2024
-    },
-    {
-      "poly_idx": 15,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1774
-    },
-    {
-      "poly_idx": 20,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1858
-    },
-    {
-      "poly_idx": 16,
-      "status": "skip",
-      "max_h0": 0,
-      "n_chi3": 1842
-    },
-    {
-      "poly_idx": 21,
-      "status": "pass",
-      "max_h0": 6,
-      "n_chi3": 1766,
-      "gap": 0,
-      "h11_eff": 14
+      "skip_reason": null
     }
   ],
   "t1": [
@@ -727,8 +607,10 @@
   ],
   "t2": [
     {
+      "poly_idx": 4,
       "n_fibrations": 6,
-      "h11": 14,
+      "has_SM": true,
+      "has_GUT": true,
       "fibrations": [
         {
           "fiber_pts": 7,
@@ -1007,13 +889,13 @@
           "MW_rank_bound": 3
         }
       ],
-      "elapsed": 0.017020702362060547,
-      "best_sm_score": 2,
-      "poly_idx": 4
+      "best_gauge": "su(3) \u00d7 su(5) \u00d7 su(4) \u00d7 U(1)^3"
     },
     {
+      "poly_idx": 2,
       "n_fibrations": 1,
-      "h11": 14,
+      "has_SM": true,
+      "has_GUT": true,
       "fibrations": [
         {
           "fiber_pts": 10,
@@ -1052,13 +934,13 @@
           "MW_rank_bound": 2
         }
       ],
-      "elapsed": 0.0069599151611328125,
-      "best_sm_score": 2,
-      "poly_idx": 2
+      "best_gauge": "su(6) \u00d7 su(6) \u00d7 U(1)^2"
     },
     {
+      "poly_idx": 5,
       "n_fibrations": 1,
-      "h11": 14,
+      "has_SM": true,
+      "has_GUT": true,
       "fibrations": [
         {
           "fiber_pts": 10,
@@ -1097,13 +979,13 @@
           "MW_rank_bound": 2
         }
       ],
-      "elapsed": 0.005453348159790039,
-      "best_sm_score": 2,
-      "poly_idx": 5
+      "best_gauge": "su(6) \u00d7 su(6) \u00d7 U(1)^2"
     },
     {
+      "poly_idx": 8,
       "n_fibrations": 4,
-      "h11": 14,
+      "has_SM": true,
+      "has_GUT": true,
       "fibrations": [
         {
           "fiber_pts": 6,
@@ -1290,13 +1172,13 @@
           "MW_rank_bound": 2
         }
       ],
-      "elapsed": 0.009447336196899414,
-      "best_sm_score": 2,
-      "poly_idx": 8
+      "best_gauge": "su(3) \u00d7 su(3) \u00d7 su(7) \u00d7 U(1)^2"
     },
     {
+      "poly_idx": 9,
       "n_fibrations": 4,
-      "h11": 14,
+      "has_SM": true,
+      "has_GUT": true,
       "fibrations": [
         {
           "fiber_pts": 6,
@@ -1503,13 +1385,13 @@
           "MW_rank_bound": 2
         }
       ],
-      "elapsed": 0.013802766799926758,
-      "best_sm_score": 2,
-      "poly_idx": 9
+      "best_gauge": "su(3) \u00d7 su(4) \u00d7 su(6) \u00d7 U(1)^2"
     },
     {
+      "poly_idx": 21,
       "n_fibrations": 10,
-      "h11": 14,
+      "has_SM": true,
+      "has_GUT": true,
       "fibrations": [
         {
           "fiber_pts": 6,
@@ -2102,13 +1984,13 @@
           "MW_rank_bound": 0
         }
       ],
-      "elapsed": 0.014619112014770508,
-      "best_sm_score": 2,
-      "poly_idx": 21
+      "best_gauge": "su(3) \u00d7 su(5) \u00d7 su(2) \u00d7 su(5)"
     },
     {
+      "poly_idx": 6,
       "n_fibrations": 1,
-      "h11": 14,
+      "has_SM": true,
+      "has_GUT": false,
       "fibrations": [
         {
           "fiber_pts": 6,
@@ -2137,11 +2019,7 @@
           "MW_rank_bound": 6
         }
       ],
-      "elapsed": 0.0031049251556396484,
-      "best_sm_score": 1,
-      "poly_idx": 6
+      "best_gauge": "su(3) \u00d7 U(1)^6"
     }
-  ],
-  "stage": "t2_done",
-  "timestamp": "2026-02-24T22:11:58.176043"
+  ]
 }

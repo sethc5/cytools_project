@@ -1,0 +1,314 @@
+{
+  "t0": [
+    {
+      "poly_idx": 0,
+      "h11": 13,
+      "h21": 16,
+      "h11_eff": 13,
+      "gap": 0,
+      "favorable": true,
+      "aut_order": 1,
+      "skip_reason": null,
+      "status": "pass"
+    },
+    {
+      "poly_idx": 2,
+      "h11": 13,
+      "h21": 16,
+      "h11_eff": 13,
+      "gap": 0,
+      "favorable": true,
+      "aut_order": 1,
+      "skip_reason": null,
+      "status": "pass"
+    },
+    {
+      "poly_idx": 1,
+      "h11": 13,
+      "h21": 16,
+      "h11_eff": 13,
+      "gap": 0,
+      "favorable": true,
+      "aut_order": 1,
+      "skip_reason": null,
+      "status": "pass"
+    }
+  ],
+  "t025": [
+    {
+      "poly_idx": 0,
+      "status": "pass",
+      "max_h0": 6,
+      "n_chi3": 1102,
+      "gap": 0,
+      "h11_eff": 13
+    },
+    {
+      "poly_idx": 1,
+      "status": "pass",
+      "max_h0": 5,
+      "n_chi3": 946,
+      "gap": 0,
+      "h11_eff": 13
+    },
+    {
+      "poly_idx": 2,
+      "status": "skip",
+      "max_h0": 0,
+      "n_chi3": 1428
+    }
+  ],
+  "t1": [
+    {
+      "poly_idx": 1,
+      "status": "ok",
+      "h11": 13,
+      "h21": 16,
+      "h11_eff": 13,
+      "favorable": true,
+      "gap": 0,
+      "n_chi3": 946,
+      "max_h0": 5,
+      "h0_ge3": 2,
+      "n_clean": 0,
+      "d3_unique": 0,
+      "d3_values": [],
+      "n_dp": 3,
+      "dp_types": [
+        4,
+        6,
+        4
+      ],
+      "n_k3_div": 1,
+      "n_rigid": 6,
+      "has_swiss": true,
+      "n_swiss": 1,
+      "best_tau": 10.000000000000018,
+      "best_ratio": 0.002190967605624591,
+      "n_k3": 3,
+      "n_ell": 3,
+      "score": 20,
+      "h0_dist": {
+        "1": 222,
+        "0": 710,
+        "2": 12,
+        "5": 2
+      },
+      "elapsed": 0.8157808780670166
+    },
+    {
+      "poly_idx": 0,
+      "status": "ok",
+      "h11": 13,
+      "h21": 16,
+      "h11_eff": 13,
+      "favorable": true,
+      "gap": 0,
+      "n_chi3": 1102,
+      "max_h0": 6,
+      "h0_ge3": 52,
+      "n_clean": 12,
+      "d3_unique": 5,
+      "d3_values": [
+        -26.0,
+        -23.0,
+        -8.0,
+        -7.0,
+        -6.0
+      ],
+      "n_dp": 1,
+      "dp_types": [
+        4
+      ],
+      "n_k3_div": 0,
+      "n_rigid": 5,
+      "has_swiss": true,
+      "n_swiss": 1,
+      "best_tau": 575.9999999999025,
+      "best_ratio": 0.04438547825624633,
+      "n_k3": 1,
+      "n_ell": 0,
+      "score": 23,
+      "h0_dist": {
+        "2": 44,
+        "1": 190,
+        "0": 816,
+        "4": 22,
+        "6": 6,
+        "3": 24
+      },
+      "elapsed": 0.9063763618469238
+    }
+  ],
+  "t2": [
+    {
+      "n_fibrations": 3,
+      "h11": 13,
+      "fibrations": [
+        {
+          "fiber_pts": 6,
+          "fiber_type": "F5",
+          "fiber_surface": "",
+          "base_pts": 8,
+          "base_hull_vertices": 5,
+          "fiber_at_origin": 3,
+          "total_excess": 8,
+          "kodaira_types": [
+            {
+              "base": [
+                -1,
+                -1
+              ],
+              "type": "I_2",
+              "algebra": "su(2)",
+              "rank": 1,
+              "confidence": "medium"
+            },
+            {
+              "base": [
+                -1,
+                0
+              ],
+              "type": "I_2",
+              "algebra": "su(2)",
+              "rank": 1,
+              "confidence": "medium"
+            },
+            {
+              "base": [
+                0,
+                1
+              ],
+              "type": "I_3",
+              "algebra": "su(3)",
+              "rank": 2,
+              "confidence": "medium"
+            },
+            {
+              "base": [
+                1,
+                0
+              ],
+              "type": "I_2",
+              "algebra": "su(2)",
+              "rank": 1,
+              "confidence": "medium"
+            },
+            {
+              "base": [
+                1,
+                1
+              ],
+              "type": "I_4",
+              "algebra": "su(4)",
+              "rank": 3,
+              "confidence": "medium"
+            }
+          ],
+          "gauge_algebra": "su(2) \u00d7 su(2) \u00d7 su(3) \u00d7 su(2) \u00d7 su(4)",
+          "gauge_rank": 8,
+          "contains_SM": true,
+          "has_SU5_GUT": false,
+          "MW_rank_bound": null
+        },
+        {
+          "fiber_pts": 6,
+          "fiber_type": "F5",
+          "fiber_surface": "",
+          "base_pts": 8,
+          "base_hull_vertices": 5,
+          "fiber_at_origin": 5,
+          "total_excess": 6,
+          "kodaira_types": [
+            {
+              "base": [
+                -1,
+                0
+              ],
+              "type": "I_2",
+              "algebra": "su(2)",
+              "rank": 1,
+              "confidence": "medium"
+            },
+            {
+              "base": [
+                1,
+                0
+              ],
+              "type": "I_4",
+              "algebra": "su(4)",
+              "rank": 3,
+              "confidence": "medium"
+            },
+            {
+              "base": [
+                1,
+                1
+              ],
+              "type": "I_3",
+              "algebra": "su(3)",
+              "rank": 2,
+              "confidence": "medium"
+            }
+          ],
+          "gauge_algebra": "su(2) \u00d7 su(4) \u00d7 su(3) \u00d7 U(1)^1",
+          "gauge_rank": 6,
+          "contains_SM": true,
+          "has_SU5_GUT": false,
+          "MW_rank_bound": 1
+        },
+        {
+          "fiber_pts": 6,
+          "fiber_type": "F5",
+          "fiber_surface": "",
+          "base_pts": 7,
+          "base_hull_vertices": 5,
+          "fiber_at_origin": 3,
+          "total_excess": 9,
+          "kodaira_types": [
+            {
+              "base": [
+                -1,
+                0
+              ],
+              "type": "I_2",
+              "algebra": "su(2)",
+              "rank": 1,
+              "confidence": "medium"
+            },
+            {
+              "base": [
+                0,
+                1
+              ],
+              "type": "I_4",
+              "algebra": "su(4)",
+              "rank": 3,
+              "confidence": "medium"
+            },
+            {
+              "base": [
+                1,
+                0
+              ],
+              "type": "I_6",
+              "algebra": "su(6)",
+              "rank": 5,
+              "confidence": "medium"
+            }
+          ],
+          "gauge_algebra": "su(2) \u00d7 su(4) \u00d7 su(6)",
+          "gauge_rank": 9,
+          "contains_SM": true,
+          "has_SU5_GUT": true,
+          "MW_rank_bound": null
+        }
+      ],
+      "elapsed": 0.0106658935546875,
+      "best_sm_score": 2,
+      "poly_idx": 1
+    }
+  ],
+  "stage": "t2_done",
+  "timestamp": "2026-02-24T22:11:35.238251"
+}
