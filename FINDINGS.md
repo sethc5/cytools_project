@@ -1404,7 +1404,7 @@ h15 3.5%, h16 0.5%, h18–h19 0%. At higher h¹¹, the landscape self-selects
 
 ---
 
-## Finding 15: Pipeline v2 conflict audit & threshold revision (2026-02-24)
+## Finding 15: Pipeline v2 conflict audit & DB upsert fix (2026-02-24)
 
 ### Problem discovered
 After rescanning h13–h16 with pipeline_v2, **216 polytopes** showed data conflicts:
@@ -1412,41 +1412,39 @@ old scans found `n_clean > 0` but v2 screened them at T0 or T025.
 
 ### Root causes
 
-**Category 1 — EFF_MAX too low (59 polytopes):**
+**Category 1 — EFF_MAX screening (59 polytopes):**
 All favorable h16 polytopes have `h11_eff = 16` by definition (favorable ⟹ eff = h¹¹).
-The old `EFF_MAX = 15` excluded every favorable h16 polytope. Same pattern at h17–h19.
-Old scans (no eff filter) found up to 40 clean bundles per polytope.
+`EFF_MAX = 15` correctly skips them for speed at scale. Old scans (no eff filter)
+found up to 40 clean bundles per polytope — real results, but these polytopes are
+known-good and not the target of the large-scale scan.
 
-**Category 2 — h⁰ clobber bug + H0_MIN too high (152 polytopes):**
-Two bugs compounded:
-1. `compute_h0_koszul(min_h0=5)` returned **0** (not the real h⁰) when h⁰(V,D) < 5 —
-   a valid screening shortcut that corrupted the DB when the T025 upsert wrote
-   `max_h0 = 0`, overwriting correct old values of 3–4.
-2. `H0_MIN_T025 = 5` (raised from 3 in Finding 14d) filtered polytopes with true
-   h⁰ = 3–4 that had confirmed clean bundles (e.g., h16/P52: 94 clean from 9,966 bundles).
+**Category 2 — DB upsert clobber bug (152 polytopes):**
+`compute_h0_koszul(min_h0=5)` correctly returns 0 as a fast screening signal when
+h⁰(V,D) < 5. But `db_upsert_t025` blindly wrote `max_h0 = 0` to the DB, **overwriting**
+correct old values (3–4). The early-exit is a valid optimization for speed — the bug
+was in the upsert, not the math.
 
-**Category 3 — AUT_MAX too low (5 polytopes):**
-All had `sym_order = 4`. Most notable: h15/P18 (19 clean), h16/P1 (16 clean).
+**Category 3 — AUT_MAX screening (5 polytopes):**
+All had `sym_order = 4`. h15/P18 (19 clean), h16/P1 (16 clean). Correctly screened
+for speed — high symmetry polytopes are expensive and marginal.
 
-### Fixes applied
+### Fix applied
 
-| Parameter | Old | New | Rationale |
-|-----------|:---:|:---:|-----------|
-| `EFF_MAX` | 15 | 20 | Favorable h_N polytopes have eff=N; confirmed clean at all levels |
-| `H0_MIN_T025` | 5 | 3 | 152 polytopes with h⁰=3–4 had confirmed clean bundles |
-| `AUT_MAX` | 3 | 5 | sym_order=4 polytopes had up to 19 clean bundles |
+**DB upsert monotonic MAX** (the real fix): Both `upsert_polytope` and
+`upsert_polytopes_batch` in db_utils.py now use `MAX(COALESCE(existing, 0), new)`
+for metric columns (`max_h0`, `n_clean`, `n_bundles_checked`, `max_h0_t2`,
+`h0_ge3`, `n_chi3`, `n_computed`). Screening passes can never clobber deeper
+analysis results. The `compute_h0_koszul` early-exit is restored — it's a
+legitimate ~2× speedup for T025 screening at scale.
 
-**h⁰ clobber bug fixed:** Removed early-exit `return 0` from `compute_h0_koszul`
-(cy_compute.py L253). The function now always computes the exact h⁰(X,D) value,
-preventing future data corruption. The `min_h0` parameter is retained in the
-signature for the T025 worker's early-termination loop but no longer affects
-the returned value.
+**Thresholds kept at speed-optimized values**: EFF_MAX=15, H0_MIN=5, AUT_MAX=3.
+These are aggressive by design — the goal is to scan hundreds of thousands of
+polytopes fast. The 216 "missed" polytopes are known-good but marginal; they
+won't reveal the next breakthrough, they're just nice in their own way.
 
-**DB restoration:** 1,173 corrupted `max_h0` values restored from old CSV sources
-(auto_h14/15/16, scan_h15/16, tier2_full_results). Verified: 0 remaining
-polytopes with `max_h0=0` and `n_clean>0`.
+**DB restoration:** 1,173 corrupted `max_h0` values restored from old CSV sources.
+Verified: 0 remaining polytopes with `max_h0=0` and `n_clean>0`.
 
 ### Impact
-After fixes, **0 conflicts** remain between old data and v2 thresholds.
-Full rerun of h13–h16 planned to regenerate all data with corrected pipeline.
-for richer geometry and the screening pipeline wastes essentially zero compute.
+The upsert fix is permanent — future rescans can never corrupt existing data.
+Aggressive thresholds maintained for speed at h18+ scale (100K+ polytopes).

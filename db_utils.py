@@ -244,9 +244,19 @@ class LandscapeDB:
         cols = list(data.keys())
         placeholders = ", ".join("?" for _ in cols)
         col_names = ", ".join(cols)
-        # ON CONFLICT: update all columns except the primary key
-        updates = ", ".join(f"{c} = excluded.{c}" for c in cols
-                           if c not in ('h11', 'poly_idx'))
+        # ON CONFLICT: update columns, using MAX for monotonic metrics
+        monotonic_max = {'max_h0', 'n_clean', 'n_bundles_checked',
+                        'max_h0_t2', 'h0_ge3', 'n_chi3', 'n_computed'}
+        update_parts = []
+        for c in cols:
+            if c in ('h11', 'poly_idx'):
+                continue
+            if c in monotonic_max:
+                update_parts.append(
+                    f"{c} = MAX(COALESCE(polytopes.{c}, 0), excluded.{c})")
+            else:
+                update_parts.append(f"{c} = excluded.{c}")
+        updates = ", ".join(update_parts)
 
         sql = (f"INSERT INTO polytopes ({col_names}) VALUES ({placeholders}) "
                f"ON CONFLICT(h11, poly_idx) DO UPDATE SET {updates}")
@@ -287,8 +297,19 @@ class LandscapeDB:
             cols = list(data.keys())
             placeholders = ", ".join("?" for _ in cols)
             col_names = ", ".join(cols)
-            updates = ", ".join(f"{c} = excluded.{c}" for c in cols
-                               if c not in ('h11', 'poly_idx'))
+            # Use MAX for metrics that should never decrease on re-scan
+            monotonic_max = {'max_h0', 'n_clean', 'n_bundles_checked',
+                            'max_h0_t2', 'h0_ge3', 'n_chi3', 'n_computed'}
+            update_parts = []
+            for c in cols:
+                if c in ('h11', 'poly_idx'):
+                    continue
+                if c in monotonic_max:
+                    update_parts.append(
+                        f"{c} = MAX(COALESCE(polytopes.{c}, 0), excluded.{c})")
+                else:
+                    update_parts.append(f"{c} = excluded.{c}")
+            updates = ", ".join(update_parts)
 
             sql = (f"INSERT INTO polytopes ({col_names}) VALUES ({placeholders}) "
                    f"ON CONFLICT(h11, poly_idx) DO UPDATE SET {updates}")
