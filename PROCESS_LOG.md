@@ -1273,3 +1273,82 @@ properties. High h¹¹ makes brute-force AGLP intractable without the filter.
 
 **Finding**: Finding 13 — AGLP fails at high Picard rank. Negative result.
 **Files**: aglp_bundle_sum.py, results/aglp_h14_P2.txt, results/aglp_h16_P329.txt
+
+---
+
+### Session: Database & Pipeline v2 (2026-02-23 → 2026-02-24)
+
+**Goal**: Build centralized SQLite database (cy_landscape.db) and a production
+gap-aware scanning pipeline (pipeline_v2.py) to replace the scattered CSV/JSON
+workflow.
+
+**Key deliverables**:
+- `db_utils.py` — SQLite layer (polytopes, fibrations, scan_log tables)
+- `consolidate_db.py` — One-time ingestion of all old CSVs into the DB
+- `pipeline_v2.py` — 4-tier gap-aware scanner (T0→T025→T1→T2+)
+- `merge_receipts.py` — Ingest receipt JSONs from remote runs
+- Receipt system for DB-free remote (Codespace) runs
+
+**Commit**: bc12d8a (Finding 14: database + pipeline_v2)
+
+---
+
+### Session: h17 Full Scan on Codespace (2026-02-24)
+
+**Goal**: Scan all 76,863 h¹¹=17 polytopes through pipeline_v2.
+
+**Execution**: Ran on GitHub Codespace (16-core), completed in ~25 min.
+- T0: 76,863 → T025: 4,010 → T1: 519 → T2+: 519
+- 509 SM fibrations, 2,770 total fibrations
+- Receipt: `v2_h17_20260225_033412_codespaces-8b9ac8.json`
+
+**Commit**: 4d8e3fc
+
+---
+
+### Session: h13–h16 Rescan & Loser Analysis (2026-02-24)
+
+**Goal**: Rescan h13–h16 with pipeline_v2 (`--gap-min 0`) for uniform methodology.
+Profile "loser" polytopes (zero clean bundles).
+
+**Results**:
+- h13: 3 polytopes, 1 winner, 1 loser (P1: 946 bundles, 0 clean). 2s.
+- h14: 22 polytopes, 6 winners, 1 loser (P9: 1,388 bundles, 0 clean). 11s.
+- h15: 553 polytopes, **all 71 deep-analyzed have clean bundles**. +22 new winners. 6.4 min.
+- h16: 5,180 polytopes, **all 154 deep-analyzed clean**. +3 new winners. 10.7 min.
+- Old 7 h15 "losers" all killed at T025 (h⁰<5). h16/P1230 killed at T0 (eff=16>EFF_MAX).
+
+**Commit**: 2b389a4
+
+---
+
+### Session: Conflict Audit & Threshold Fix (2026-02-24)
+
+**Goal**: Investigate 216 data conflicts — polytopes where old scans found
+n_clean>0 but pipeline_v2 screened them at T0 or T025.
+
+**Root causes found**:
+
+1. **Cat 1 — EFF_MAX=15 too low (59 polytopes)**: All favorable h¹¹=N polytopes
+   have eff=N by definition. Old EFF_MAX=15 excluded all favorable h16+ polytopes.
+   Old scans found up to 40 clean per polytope.
+
+2. **Cat 2 — h⁰ clobber bug + H0_MIN=5 too high (152 polytopes)**:
+   `compute_h0_koszul(min_h0=5)` returned 0 (not real h⁰) when h⁰(V,D)<5.
+   T025 upsert then overwrote correct old values (3–4) with 0.
+   Additionally, H0_MIN=5 filtered polytopes with true h⁰=3–4 that had confirmed
+   clean bundles (e.g., h16/P52: 94 clean from 9,966 bundles).
+
+3. **Cat 3 — AUT_MAX=3 too low (5 polytopes)**: All sym_order=4.
+   h15/P18 had 19 clean, h16/P1 had 16 clean.
+
+**Fixes applied**:
+- EFF_MAX: 15 → 20 (covers all favorable polytopes through h20)
+- H0_MIN_T025: 5 → 3 (stops filtering confirmed winners)
+- AUT_MAX: 3 → 5 (includes sym_order=4 polytopes)
+- Removed early-exit `return 0` from `compute_h0_koszul` (cy_compute.py)
+- Restored 1,173 corrupted max_h0 values in DB from old CSV sources
+- Result: 216 conflicts → 0
+
+**Finding**: Finding 15 — pipeline threshold revision.
+**Commit**: 7dce177
