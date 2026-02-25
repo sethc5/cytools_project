@@ -1401,4 +1401,52 @@ Only **9 out of 1,284** deep-analyzed polytopes (0.7%) have zero clean bundles:
 Losers are favorable (3.5× overrepresented), low-gap, borderline-h⁰ polytopes.
 They are marginal by every metric. The loser rate drops with h¹¹: h14 14.3%,
 h15 3.5%, h16 0.5%, h18–h19 0%. At higher h¹¹, the landscape self-selects
+
+---
+
+## Finding 15: Pipeline v2 conflict audit & threshold revision (2026-02-24)
+
+### Problem discovered
+After rescanning h13–h16 with pipeline_v2, **216 polytopes** showed data conflicts:
+old scans found `n_clean > 0` but v2 screened them at T0 or T025.
+
+### Root causes
+
+**Category 1 — EFF_MAX too low (59 polytopes):**
+All favorable h16 polytopes have `h11_eff = 16` by definition (favorable ⟹ eff = h¹¹).
+The old `EFF_MAX = 15` excluded every favorable h16 polytope. Same pattern at h17–h19.
+Old scans (no eff filter) found up to 40 clean bundles per polytope.
+
+**Category 2 — h⁰ clobber bug + H0_MIN too high (152 polytopes):**
+Two bugs compounded:
+1. `compute_h0_koszul(min_h0=5)` returned **0** (not the real h⁰) when h⁰(V,D) < 5 —
+   a valid screening shortcut that corrupted the DB when the T025 upsert wrote
+   `max_h0 = 0`, overwriting correct old values of 3–4.
+2. `H0_MIN_T025 = 5` (raised from 3 in Finding 14d) filtered polytopes with true
+   h⁰ = 3–4 that had confirmed clean bundles (e.g., h16/P52: 94 clean from 9,966 bundles).
+
+**Category 3 — AUT_MAX too low (5 polytopes):**
+All had `sym_order = 4`. Most notable: h15/P18 (19 clean), h16/P1 (16 clean).
+
+### Fixes applied
+
+| Parameter | Old | New | Rationale |
+|-----------|:---:|:---:|-----------|
+| `EFF_MAX` | 15 | 20 | Favorable h_N polytopes have eff=N; confirmed clean at all levels |
+| `H0_MIN_T025` | 5 | 3 | 152 polytopes with h⁰=3–4 had confirmed clean bundles |
+| `AUT_MAX` | 3 | 5 | sym_order=4 polytopes had up to 19 clean bundles |
+
+**h⁰ clobber bug fixed:** Removed early-exit `return 0` from `compute_h0_koszul`
+(cy_compute.py L253). The function now always computes the exact h⁰(X,D) value,
+preventing future data corruption. The `min_h0` parameter is retained in the
+signature for the T025 worker's early-termination loop but no longer affects
+the returned value.
+
+**DB restoration:** 1,173 corrupted `max_h0` values restored from old CSV sources
+(auto_h14/15/16, scan_h15/16, tier2_full_results). Verified: 0 remaining
+polytopes with `max_h0=0` and `n_clean>0`.
+
+### Impact
+After fixes, **0 conflicts** remain between old data and v2 thresholds.
+Full rerun of h13–h16 planned to regenerate all data with corrected pipeline.
 for richer geometry and the screening pipeline wastes essentially zero compute.

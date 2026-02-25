@@ -68,11 +68,11 @@ PASS = f"{GREEN}✓{RESET}"
 FAIL = f"{RED}✗{RESET}"
 STAR = f"{YELLOW}★{RESET}"
 
-# ── T0 pre-filter thresholds (from Finding 14) ──
-EFF_MAX = 15       # Skip polytopes with h11_eff > EFF_MAX (clean rate ~0 above 16)
+# ── T0 pre-filter thresholds (revised after conflict audit) ──
+EFF_MAX = 20       # Raised high: favorable h_N polytopes have eff=N, confirmed clean at all levels
 GAP_MIN = 2        # Minimum gap = h11 - h11_eff for priority track
-H0_MIN_T025 = 5    # Raised from 3 (Finding 14d)
-AUT_MAX = 3        # Skip |Aut| >= 4 (Finding 14f: avg clean ≈ 0)
+H0_MIN_T025 = 3    # Lowered from 5→3: 152 polytopes with h⁰=3-4 had confirmed clean bundles
+AUT_MAX = 5        # Raised from 3: sym_order=4 polytopes had up to 19 clean bundles
 
 # Scoring weights (26-point scale, same as auto_scan.py)
 SCORE_WEIGHTS = {
