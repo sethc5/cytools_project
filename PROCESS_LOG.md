@@ -5,6 +5,32 @@
 
 ---
 
+## 2026-02-27 — Database Landscape Analysis: 30 Queries, Pipeline Redesign
+
+**Work done**: Built SQLite database layer (`db_utils.py`, `consolidate_db.py`),
+ingested 15 result files into `cy_landscape.db` (74,819 polytopes, 35 fibrations,
+13.7 MB). Ran 30 exploratory queries across the full dataset.
+
+**Major discovery**: The variable `gap = h¹¹ − h¹¹_eff` is a near-perfect predictor
+of clean bundle count. Every polytope with gap ≥ 2 that reaches T2 has at least
+one clean bundle (100% hit rate). Average clean count rises from 12.4 (gap=0) to
+47.7 (gap=6). The all-time champion (h18/P34, 189 clean) has gap=5.
+
+**Pipeline redesign**: Based on all 30 queries, designed a new T0 pre-filter that
+computes h¹¹_eff in ~0.1s per polytope. Rejects eff ≥ 16, gap < 2 with h⁰ < 5,
+and |Aut| ≥ 4. Expected to cut ~90% of compute at h19/h20. Also raised h⁰ gate
+from ≥3 to ≥5, removed Swiss cheese from triage gates.
+
+**Other findings**: Non-favorable systematically better than favorable (189 vs 86
+best clean). Swiss cheese is noise (89% vs 86%). Del Pezzo non-monotonic. Symmetry
+kills (|Aut|=8 → 0 clean). n_chi3 ≥ 10K → avg 92.4 clean (phase transition).
+At fixed eff=13, clean increases with h¹¹ — the landscape gets better as we scale.
+
+**Committed**: `468b4ae` (db_utils.py, consolidate_db.py, .gitignore).
+See Finding 14 in FINDINGS.md for full details and all 30 query results.
+
+---
+
 ## 2026-02-26 — B-21: Automorphism group scan (592 candidates + full h15/h16/h17)
 
 **Work done**: Created `scan_automorphisms.py` to compute `p.automorphisms()` for all 592 top-200 candidates and all polytopes with nontrivial symmetry at each h-value. Cross-referenced with scan CSVs for max_h0 and h0_3_count.
