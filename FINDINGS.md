@@ -1074,10 +1074,10 @@ vectors), and was killed.
 
 ## Finding 14: Database Landscape Analysis — The Gap Variable and Data-Driven Pipeline Redesign
 
-**Date**: 2026-02-27.
-**Scripts**: [db_utils.py](db_utils.py), [consolidate_db.py](consolidate_db.py).
-**Database**: `cy_landscape.db` (74,819 polytopes, 35 fibrations, 13.7 MB).
-**Commit**: `468b4ae` (db_utils.py, consolidate_db.py, .gitignore).
+**Date**: 2026-02-27 (initial), 2026-02-28 (circularity audit + loser analysis).
+**Scripts**: [db_utils.py](db_utils.py), [consolidate_db.py](consolidate_db.py), [pipeline_v2.py](pipeline_v2.py).
+**Database**: `cy_landscape.db` (74,823 polytopes, 4,387 fibrations).
+**Commits**: `468b4ae` (initial), `4d8e3fc` (h17 receipt merge).
 
 ### Motivation
 
@@ -1122,24 +1122,24 @@ with the deepest tier data retained for each.
 #### 14a. The Gap Variable: gap = h¹¹ − h¹¹_eff (Query 17, **strongest predictor found**)
 
 The "gap" — the difference between total Picard number and effective Picard number —
-is a near-perfect predictor of clean bundle count. This measures how many divisors
+is a useful predictor of clean bundle yield. This measures how many divisors
 become linearly dependent in the effective (intersection-constrained) description.
 
-| gap | N (at T2/T2+) | avg clean | Hit rate | max clean |
-|:---:|:-------------:|:---------:|:--------:|:---------:|
-| 0 | 240 | 12.4 | 97% | 86 |
-| 1 | 106 | 15.8 | 99% | 53 |
-| 2 | 222 | 21.7 | **100%** | 59 |
-| 3 | 84 | 21.2 | **100%** | 69 |
-| 4 | 62 | 23.9 | **100%** | 102 |
-| 5 | 6 | **43.5** | **100%** | 189 |
-| 6 | 6 | **47.7** | **100%** | 114 |
-| 7 | 1 | 69.0 | **100%** | 69 |
-| 8 | 4 | 24.0 | **100%** | 42 |
+**Unbiased data only** (pre-pipeline_v2, N=496, excl h17):
 
-Every polytope with gap ≥ 2 that reaches T2 has at least one clean bundle. The
-average clean count nearly quadruples from gap=0 (12.4) to gap=5 (43.5). The
-all-time best polytope (h18/P34, 189 clean) has gap=5.
+| gap | N (at T1+) | avg clean | Hit rate | max clean |
+|:---:|:----------:|:---------:|:--------:|:---------:|
+| 0 | 231 | 12.6 | 97.0% | 86 |
+| 1 | 95 | 15.2 | 97.9% | 53 |
+| 2 | 99 | 20.4 | **100%** | 59 |
+| 3 | 36 | 20.7 | **100%** | 69 |
+| 4 | 24 | 27.0 | **100%** | 94 |
+| 5+ | 11 | 65.2 | **100%** | 189 |
+
+**Note**: The prior version of this table mixed biased and unbiased data. After
+running pipeline_v2 on h17 (which filters gap≥2 before T1), the h17 contribution
+is circular and cannot validate the gap finding. The numbers above are from
+pre-pipeline_v2 scans only.
 
 **Physical interpretation**: Higher gap means more redundant divisors in the toric
 ambient, providing extra geometric flexibility for line bundles to satisfy anomaly
@@ -1338,10 +1338,67 @@ T2 (30s): Full bundles + fibrations → database.
 
 ### Conclusions
 
-1. **gap = h¹¹ − h¹¹_eff is the single most powerful predictor** of clean bundle
-   abundance, with 100% hit rate at gap ≥ 2 and avg clean nearly 4x higher at gap ≥ 5.
+1. **gap = h¹¹ − h¹¹_eff is a useful yield predictor** — avg clean 23.8 at gap≥2
+   vs 13.7 at gap<2 (1.7× multiplier). Hit rate difference is only 2.8pp (100% vs
+   97.2% in unbiased data, N=496).
 2. **Non-favorable polytopes dominate the leaderboard** — 9 of top 10, all NF.
 3. **Swiss cheese and del Pezzo count are not predictive** for clean bundles.
 4. **The landscape gets BETTER at higher h¹¹** for fixed eff — more embedding room.
 5. **The T0 pre-filter will cut ~90% of compute** at h19/h20 with minimal false negatives.
 6. **Thousands of high-gap polytopes sit untouched** at T0.25 — priority targets.
+
+### Circularity Audit (2026-02-28)
+
+**The h17 pipeline_v2 run (N=519) cannot independently validate the gap finding**
+because pipeline_v2 filters on gap≥2 before T1. The 100% hit rate at gap≥2 in h17
+is a tautology — we only looked at what we expected to succeed.
+
+**Honest numbers** (pre-pipeline_v2 only, N=496 at T1+, excl h17):
+
+| Gap | N | Hits | Hit% | Avg clean (when hit) |
+|:---:|:-:|:----:|:----:|:-------------------:|
+| 0 | 231 | 224 | 97.0% | 13.0 |
+| 1 | 95 | 93 | 97.9% | 15.5 |
+| 2 | 99 | 99 | 100% | 20.4 |
+| 3 | 36 | 36 | 100% | 20.7 |
+| 4 | 24 | 24 | 100% | 27.0 |
+| 5+ | 11 | 11 | 100% | 65.2 |
+
+Gap≥2: 170/170 = 100% hit. Gap<2: 317/326 = 97.2% hit. Difference: 2.8pp.
+Gap is an **efficiency knob** (prioritize richer targets), not a **quality gate**
+(almost nothing fails regardless).
+
+For h17 specifically, all gap<2 polytopes were killed at T0 by the eff≤15 + |Aut|≤3
+constraints. The gap filter was redundant — it didn't actually exclude anything that
+other filters wouldn't have caught.
+
+### Loser Analysis (2026-02-28)
+
+Only **9 out of 1,284** deep-analyzed polytopes (0.7%) have zero clean bundles:
+
+| Polytope | eff | gap | h⁰ | Favorable | Swiss |
+|----------|:---:|:---:|:---:|:---------:|:-----:|
+| h14/P9 | 13 | 1 | 7 | NF | no |
+| h15/P83 | 15 | 0 | 4 | F | yes |
+| h15/P340 | 14 | 1 | 4 | NF | no |
+| h15/P424 | 15 | 0 | 4 | F | no |
+| h15/P457 | 15 | 0 | 4 | F | no |
+| h15/P505 | 15 | 0 | 4 | F | yes |
+| h15/P542 | 15 | 0 | 4 | F | no |
+| h15/P544 | 15 | 0 | 4 | F | yes |
+| h16/P1230 | 16 | 0 | 7 | F | no |
+
+**Loser profile vs winners**:
+
+| Metric | Losers (N=9) | Winners (N=1,275) |
+|--------|:------------:|:-----------------:|
+| avg h⁰ | 4.7 | 8.3 |
+| avg gap | 0.2 | 1.8 |
+| % favorable | 77.8% | 22.3% |
+| % swiss cheese | 33.3% | 52.3% |
+| avg n_dp | 6.2 | 5.4 |
+
+Losers are favorable (3.5× overrepresented), low-gap, borderline-h⁰ polytopes.
+They are marginal by every metric. The loser rate drops with h¹¹: h14 14.3%,
+h15 3.5%, h16 0.5%, h18–h19 0%. At higher h¹¹, the landscape self-selects
+for richer geometry and the screening pipeline wastes essentially zero compute.

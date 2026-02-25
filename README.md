@@ -4,72 +4,96 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-> **Status**: ~112,000 polytopes scanned · h13–h16 **complete** · h17 **complete** (200 ranked) · h18 T1 batch running (Hetzner, ~8K/105K processed) · **13 findings** documented · GL=12/D₆ Picard-Fuchs study complete · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: ~75,000 polytopes catalogued · 1,284 deep-analyzed · h13–h17 **complete** · h18 partial (45 deep / ~105K T0) · **14 findings** documented · Receipt-based remote pipeline operational · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
-- **A screening pipeline** — scans polytopes for the right topology, then filters through 3 tiers of increasingly expensive geometric checks (divisor structure → fibrations → full cohomology)
-- **A catalogue of results** — what passed, what didn't, and why ([CATALOGUE.md](CATALOGUE.md)) — so nobody has to repeat the work
-- **A Picard-Fuchs / Yukawa study** — deep geometry of the most symmetric χ = −6 polytope (GL=12, D₆ symmetry). Closed-form period formula, 26 D₆-invariant Yukawa couplings, GKZ system analysis. See [GL12_GEOMETRY.md](GL12_GEOMETRY.md).
+- **A data-driven screening pipeline** — `pipeline_v2.py` scans polytopes through 4 tiers of increasingly expensive geometric checks (T0: h¹¹_eff → T0.25: probe → T1: deep bundles → T2: fibrations + gauge groups). Receipt system enables remote runs on Codespaces.
+- **A SQLite database** — `cy_landscape.db` (74,823 polytopes, 4,387 fibrations) with programmatic access via `db_utils.py`
+- **Documented findings** — 14 findings including the gap variable discovery, loser analysis, and circularity audit ([FINDINGS.md](FINDINGS.md))
 - **Documented pitfalls** — 9 CYTools API bugs discovered and worked around ([MATH_SPEC.md](MATH_SPEC.md))
 
 ## The Landscape
 
 There are **104 distinct Hodge number pairs** with χ = −6 in the KS database, spanning h¹¹ = 13 to 128. The number of polytopes per Hodge pair grows explosively:
 
-| h¹¹ | Polytopes | Scanned | Coverage |
-|-----|----------|---------|----------|
-| 13 | 3 | 3 | 100% |
-| 14 | 22 | 22 | 100% |
-| 15 | 553 | **553** | **100%** |
-| 16 | 5,180 | **5,180** | **100%** |
-| 17 | 38,735 | **200 ranked** | T0.25 complete, top 200 deep-scanned |
-| 18 | ~195,000 | 🔶 ~105,000 | T0.25 done; T1 batch running (Hetzner, 14 workers) |
-| 19–24 | ~millions | 100 ea. | ~0% |
-| 25–128 | huge | 0 | 0% |
+| h¹¹ | Polytopes | In DB | Deep (T1+) | Coverage |
+|-----|----------|-------|:----------:|:--------:|
+| 13 | 3 | 3 | 1 | 100% |
+| 14 | 24 | 24 | 9 | 100% |
+| 15 | 553 | 553 | 467 | 100% |
+| 16 | 5,180 | 5,180 | 216 | 100% |
+| 17 | 38,735 | 38,735 | **519** | **100%** |
+| 18 | ~105,000 | 30,293 | 45 | ~29% |
+| 19 | ~244,000 | 35 | 27 | <0.1% |
+| 20+ | millions | 0 | 0 | 0% |
 
-**We have scanned ~112,000 polytopes out of potentially millions.** h¹¹ = 13–16 are fully covered. h¹¹ = 17 T0.25 complete with top 200 candidates ranked. h¹¹ = 18 T0.25 complete (~105K polytopes), T1 batch running on Hetzner (14 workers, ~8K processed). See [PROCESS_LOG.md](PROCESS_LOG.md).
+**Database**: 74,823 polytopes, 1,284 deep-analyzed, 4,387 fibrations. h¹¹ = 13–17 have 100% T0 coverage. See [PROCESS_LOG.md](PROCESS_LOG.md).
 
 ## Current Results
 
-### Screening Funnel
+### Screening Funnel (all h¹¹ combined)
 
 ```
-6,658 polytopes scanned (h11=13..24, h15+h16 complete)
-  └─ 2,779+ have h⁰ ≥ 3 line bundles (~42%)
-      └─ 374 pass Tier 1 (dP divisors + Swiss cheese + symmetry)
-          └─ 338 pass Tier 1.5 (fibrations + 300-bundle probe, ≥3 clean)
-              └─ 36 Tier 2 complete ✅ (full bundle search + h³ verification)
-                  └─ 14 scored T2=45 (max), 30 scored T2≥41
+74,823 polytopes catalogued
+  └─ 1,284 deep-analyzed (T1+)
+      └─ 1,275 have clean bundles (99.3%)
+          └─ 924 at T2+ with fibration analysis
+              └─ 898 with SM-compatible gauge groups (97.2%)
+                  └─ 4,387 total fibrations catalogued
 ```
 
 ### Top Candidates (by clean h⁰=3 bundle count)
 
-| Polytope | Score | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 fib | Ell fib | Notes |
-|----------|-------|------------|-------|--------|--------|---------|-------|
-| **★ h14/poly2** [NF] | **26/26** | **320** | 828 | 13 | 3 | 3 | Heterotic champion |
-| **★ h16/poly53** [NF] | 23/26 | **300** | 1100 | 16 | 5 | 10 | 2nd most clean, no Swiss cheese |
-| **★ h16/poly11** [NF] | **26/26** | **298** | 840 | 13 | 3 | 3 | 5 dP divisors |
-| **★ h17/poly96** [NF] | **25/26** | **252** | 930 | **65** | 2 | 1 | Highest max h⁰ |
-| **★ h17/poly63** [NF] | **26/26** | **218** | 922 | 40 | 5 | 10 | Former F-theory champ |
-| **★ h17/poly9** [NF] | **23/26** | **192** | 876 | 15 | 1 | 0 | |
-| **★ h18/poly34** [NF] | **26/26** | **184** | 730 | 16 | 4 | 6 | 5 dP, h¹¹=18 |
-| **★ h17/poly8** [NF] | **26/26** | **180** | 558 | 13 | 3 | 3 | τ=2208 |
-| **★ h17/poly25** [NF] | **26/26** | **170** | 490 | 8 | **6** | **15** | **F-theory + triple-threat champ** |
-| **★ h15/poly61** [NF] | **25/26** | **110** | 338 | 4 | 3 | 3 | **τ=14,300 (LVS champ)** |
-| **★ h19/poly16** [NF] | 22/26 | 86 | 564 | 27 | 5 | 10 | h¹¹=19 |
-| **★ h16/poly63** [NF] | **26/26** | 78 | 584 | 37 | 4 | 6 | τ=836, triple-threat |
-| h13/poly1 (bench) | 18/20 | 25 | 76 | 6 | 3 | 3 | Benchmark |
+| # | Polytope | eff | gap | Clean | h⁰ | Score | SM | Fibs | Notes |
+|---|----------|:---:|:---:|:-----:|:---:|:-----:|:--:|:----:|-------|
+| 1 | **h18/P34** [NF] | 13 | 5 | **189** | 16 | 40/26 | — | — | All-time champion, needs T2 fiber |
+| 2 | **h19/P7** [NF] | 13 | 6 | **114** | 6 | 27/26 | — | — | Highest gap in top 5 |
+| 3 | **h16/P52** [NF] | 12 | 4 | **94** | 4 | 14/26 | — | — | |
+| 4 | **h13/P0** [F] | 13 | 0 | **86** | 10 | 27/26 | — | — | Only favorable in top 10 |
+| 5 | **h16/P40** [NF] | 13 | 3 | **69** | 7 | 23/26 | — | — | |
+| 6 | **h19/P16** [NF] | 12 | 7 | **69** | 27 | 31/26 | — | — | Highest h⁰ in top 10 |
+| 7 | **h18/P57** [NF] | 12 | 6 | **60** | 17 | 32/26 | — | — | |
+| 8 | **h18/P68** [NF] | 16 | 2 | **59** | 10 | 20/26 | — | — | |
+| 9 | **h17/P767** [NF] | 15 | 2 | **59** | 17 | 26/26 | SM | 10 | Best h17, SM confirmed |
+| 10 | **h16/P55** [NF] | 12 | 4 | **57** | 7 | 13/26 | — | — | |
 
-★ = Full pipeline complete (Stages 1–4 + scorecard). [NF] = non-favorable.
+[NF] = non-favorable, [F] = favorable. Top 10 are 9/10 non-favorable, all gap ≥ 2 except h13/P0.
 
-**h17/poly25** is the new F-theory champion: **15 elliptic fibrations** (record) + 6 K3 fibrations + Swiss cheese τ=56. The only candidate that excels at heterotic, F-theory, AND LVS simultaneously — a "triple-threat."
+### The 9 Losers (T1+ with zero clean bundles)
 
-**h15/poly61** has the best Large Volume Scenario hierarchy: Swiss cheese τ = 14,300 (6.5× runner-up h17/poly8 at τ = 2,208).
+Only 9 out of 1,284 deep-analyzed polytopes failed to produce any clean bundles:
 
-Full results in [results/](results/). All top candidates are **non-favorable** polytopes — these were invisible until we fixed [Bug B-11](PROCESS_LOG.md).
+| Polytope | eff | gap | h⁰ | Favorable |
+|----------|:---:|:---:|:---:|:---------:|
+| h14/P9 | 13 | 1 | 7 | NF |
+| h15/P83 | 15 | 0 | 4 | F |
+| h15/P340 | 14 | 1 | 4 | NF |
+| h15/P424–P544 (5) | 15 | 0 | 4 | F |
+| h16/P1230 | 16 | 0 | 7 | F |
 
-## Pipeline Stages
+**Pattern**: 7/9 favorable, 7/9 gap=0, 7/9 max_h⁰=4. Losers are marginal polytopes that barely qualified. Zero losses at gap ≥ 2 (N=170 unbiased). The loser rate drops toward zero at higher h¹¹.
+
+## Pipeline Architecture
+
+### pipeline_v2.py — Data-Driven 4-Tier Scanner
+
+```
+T0 (0.1s/poly): Compute h¹¹_eff, gap, |Aut|
+  SKIP if eff ≥ 16 or |Aut| > 3
+  SKIP if gap < 2 AND h⁰ < 5
+
+T0.25 (0.5s): Bundle probe, h⁰ screening
+  PROMOTE if h⁰ ≥ 5
+
+T1 (3s): Full divisor analysis, complete bundle search
+  Score by gap + eff, not Swiss cheese
+
+T2 (30s): Fibrations, gauge groups, SM check
+  Priority: gap DESC, n_chi3 DESC
+```
+
+Receipt system for remote runs: pipeline writes JSON to `receipts/`, `merge_receipts.py` ingests into local DB.
 
 | Stage | Description | Status |
 |-------|-------------|--------|
@@ -81,20 +105,18 @@ Full results in [results/](results/). All top candidates are **non-favorable** p
 | 6. Moduli Stabilization | LVS/KKLT, flux superpotential | 🔶 Swiss cheese + PF periods |
 | 7. Phenomenology | Yukawas, proton decay, gauge unification | 🔶 D₆-invariant Yukawas computed |
 
-Stage 5 has initial results: `rank_n_bundles.py` finds SU(4) and SU(5) direct sums and monads with |χ|=3, with Hoppe stability checks. Stage 7 now includes D₆-invariant Yukawa couplings for the GL=12 polytope (see [GL12_GEOMETRY.md](GL12_GEOMETRY.md)). See [FRAMEWORK.md](FRAMEWORK.md) for the full theoretical map.
-
 ## Key Negative Results
 
 These save you time. Don't re-check them:
 
+- **Gap is an efficiency knob, not a quality gate.** In unbiased data (N=496, excl pipeline_v2), gap<2 hits 97.2% vs gap≥2 at 100%. The 2.8pp difference is real but small. Gap predicts *yield* (avg 23.8 vs 13.7 clean) not pass/fail. Finding 14 originally overclaimed this — see circularity audit in [PROCESS_LOG.md](PROCESS_LOG.md).
+- **Only 9 losers exist** out of 1,284 deep-analyzed. All are favorable + gap≤1 + borderline h⁰. The pipeline almost never wastes compute.
 - **No nef h⁰=3 bundles exist** on any scanned χ = −6 polytope. Kodaira vanishing never applies.
-- **All χ = −6 polytopes have K3 + elliptic fibrations.** This is universal, not selective — don't use it as a discriminator.
-- **Polytope 40 (h11=15) has max h⁰ = 2.** Definitively proven via Koszul + lattice point counting. 7-script audit trail. Don't try to find h⁰ = 3 on this specific polytope.
-- **Ample Champion Z₃×Z₃ quotient is singular.** Pure g₁, g₂ have fixed curves on the CY hypersurface. Diagonal Z₃ gives χ = −18 (9 generations), not −6.
-- **705/1025 polytopes were invisible** in scan v1 due to a CYTools `second_chern_class` bug for non-favorable polytopes. Fixed. But the strongest candidates are all non-favorable.
-- **cohomCalg fails** when the SR ideal has >64 generators. Most high-h¹¹ polytopes hit this. Our Koszul pipeline bypasses it.
-- **Z₂ acts trivially on generations** (Finding 12). On h16/P329, the Z₂ automorphism (coord swap) fixes 11/220 clean bundles, but acts as the identity on H⁰(X,L) for all of them → 3+0 representation, no 2+1 texture zeros.
-- **AGLP line bundle sums fail at high Picard rank** (Finding 13). Searched V=L₁⊕···⊕L₅ with c₁=0, c₃=±6 on h14/P2 (268 clean bundles) and h16/P329 (220 clean). Zero 5-element subsets sum to zero. The h⁰=3 pre-filter is too restrictive at h¹¹_eff≥13.
+- **All χ = −6 polytopes have K3 + elliptic fibrations.** Universal, not selective — don't use it as a discriminator.
+- **Ample Champion Z₃×Z₃ quotient is singular.** Fixed curves on the CY hypersurface. Diagonal Z₃ gives χ = −18 (9 generations), not −6.
+- **705/1025 polytopes were invisible** in scan v1 due to a CYTools `second_chern_class` bug for non-favorable polytopes. Fixed.
+- **Z₂ acts trivially on generations** (Finding 12). On h16/P329, σ* = Id on H⁰(X,L) for all Z₂-fixed bundles → 3+0, no texture zeros.
+- **AGLP line bundle sums fail at high Picard rank** (Finding 13). Zero 5-element subsets summing to zero among clean bundles at h¹¹_eff≥13.
 
 See [CATALOGUE.md](CATALOGUE.md) for the full ruled-out list.
 
@@ -119,17 +141,17 @@ python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# Full pipeline on any candidate (~25-30s)
-python pipeline.py --h11 14 --poly 2      # Heterotic champion
-python pipeline.py --h11 17 --poly 63     # F-theory champion
-python pipeline.py --h11 18 --poly 34     # Next candidate
+# Data-driven pipeline (recommended)
+python pipeline_v2.py --h11 17 -w 3 --top 20    # Scan all h17, show top 20
+python pipeline_v2.py --h11 18 -w 3 --top 0     # Full h18 scan, no limit
 
-# Screening pipeline (to find new candidates)
-python scan_parallel.py --h11 15 16 --workers 4       # Parallel scan (4× faster)
-python scan_chi6_h0.py                                # Serial scan (legacy)
-python tier1_screen.py --log results/scan_h15.log      # Fast screen
-python tier15_screen.py --csv results/tier1_screen_results.csv   # Intermediate
-python tier2_screen.py --csv15 results/tier15_screen_results.csv # Deep
+# Merge receipts from remote runs
+python merge_receipts.py --list                   # Show pending receipts
+python merge_receipts.py                          # Merge all into cy_landscape.db
+
+# Legacy pipeline on specific candidates
+python pipeline.py --h11 14 --poly 2              # Heterotic champion
+python pipeline.py --h11 17 --poly 767            # Best h17 (SM confirmed)
 ```
 
 ## Contributing
@@ -145,9 +167,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contributions:
 ## File Structure
 
 ```
-# Pipeline scripts
-pipeline.py          — Full Stages 1–4 pipeline for any candidate (--h11, --poly)
+# Pipeline scripts (v2 — data-driven)
+pipeline_v2.py       — Gap-aware 4-tier pipeline (T0→T0.25→T1→T2), optional DB, receipt output
+merge_receipts.py    — Ingest JSON receipts from remote runs into cy_landscape.db
+db_utils.py          — SQLite database layer (LandscapeDB class, upsert, query)
 cy_compute.py        — Shared computational core (vectorized lattice points, batch χ)
+fiber_analysis.py    — Fibration structure analysis + gauge group classification
+
+# Legacy pipeline scripts
+pipeline.py          — Original Stages 1–4 pipeline (--h11, --poly)
 auto_scan.py         — Automated scan + ranking with checkpoint/resume
 scan_chi6_h0.py      — Landscape scanner (Stages 1+3, serial)
 scan_parallel.py     — Multiprocessing scanner (4× faster, resume support)

@@ -5,6 +5,71 @@
 
 ---
 
+## 2026-02-28 — h17 Full Scan (pipeline_v2), Receipt System, Circularity Audit
+
+**Work done**: Built `pipeline_v2.py` (gap-aware 4-tier pipeline with optional DB),
+`merge_receipts.py` (receipt-based remote data transport), and ran h17 full scan on
+GitHub Codespace (4-core, 15GB). Then audited whether findings hold honestly.
+
+### Pipeline v2 + Receipt System
+- `pipeline_v2.py`: T0→T0.25→T1→T2, optional DB via `HAS_DB` flag. Always writes
+  self-contained JSON receipts to `receipts/` for remote runs.
+- `merge_receipts.py`: CLI tool ingests receipt JSONs into local `cy_landscape.db`.
+  Supports `--dry-run`, `--list`, `--force`. Tracks merged status in `receipts/.merged`.
+- Workflow: run on Codespace → download receipt via SSH → merge locally → commit.
+
+### h17 Full Scan Results
+- **38,735 polytopes** scanned in **25.1 minutes** on 4-core Codespace
+- T0: 38,735 → 1,803 pass (4.7%), 83 poly/s
+- T0.25: 1,803 → 519 pass
+- T1: **519/519 had clean bundles** (100% hit rate)
+- T2: 509 with SM gauge groups, 2,770 fibrations
+- Receipt: 12.8 MB JSON, merged into DB. Committed as `4d8e3fc`.
+
+### Circularity Audit (IMPORTANT)
+Realized h17 data **cannot independently validate** Finding 14's gap prediction
+because pipeline_v2 filters on gap≥2 before T1. The 100% hit rate is circular.
+
+**Honest unbiased evidence** (only pre-pipeline_v2 data, N=496, excl h17):
+- gap<2: **97.2% hit rate** (317/326), avg clean when hit: 13.7
+- gap≥2: **100.0% hit rate** (170/170), avg clean when hit: 23.8
+- Difference: 2.8 percentage points
+
+**Verdict**: Gap is a **weak quality filter** (97.2% vs 100%) but a **meaningful
+yield predictor** (13.7 vs 23.8 avg clean — 1.7× multiplier). It's an efficiency
+knob, not a quality gate. For h17 specifically, gap<2 polytopes were all killed
+by eff/aut constraints at T0 anyway — the gap filter was redundant.
+
+### Loser Analysis (9 polytopes with n_clean=0 at T1+)
+Profile of the 9 failures (all from unbiased pre-pipeline_v2 data):
+- **7/9 gap=0, 2/9 gap=1** (0/9 gap≥2)
+- **7/9 favorable** (vs 22% of winners — 3.5× overrepresentation)
+- **7/9 max_h⁰=4** (borderline lowest qualifying h⁰)
+- **8/9 lack deep analysis data** (NULL bundles_checked, d3, rigid)
+- Losers: avg h⁰=4.7 vs winners avg 8.3
+- Losers: 78% favorable vs winners 22%
+- Losers: avg gap=0.2 vs winners 1.8
+- Loser rate by h¹¹: h14 14.3%, h15 3.5%, h16 0.5%, h18–h19 0%
+
+**Pattern**: Losers are favorable, gap=0, barely-qualifying polytopes. They're
+marginal by every metric — the pipeline's early gates just aren't tight enough
+to catch them. At higher h¹¹ the loser rate drops toward zero.
+
+### Updated Leaderboard
+Top 5 by n_clean:
+1. h18/P34: 189 clean, gap=5, eff=13
+2. h19/P7: 114 clean, gap=6, eff=13
+3. h16/P52: 94 clean, gap=4, eff=12
+4. h13/P0: 86 clean, gap=0, eff=13 (the only favorable in top 10)
+5. h16/P40: 69 clean, gap=3, eff=13
+
+Best h17 entry: P767 at #9 (59 clean, 26/26, SM, 10 fibrations).
+Database: 74,823 polytopes, 1,284 deep-analyzed, 4,387 fibrations.
+
+**Committed**: pipeline_v2.py, merge_receipts.py, receipts/, .gitignore update.
+
+---
+
 ## 2026-02-27 — Database Landscape Analysis: 30 Queries, Pipeline Redesign
 
 **Work done**: Built SQLite database layer (`db_utils.py`, `consolidate_db.py`),
