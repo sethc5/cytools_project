@@ -32,6 +32,8 @@ import argparse
 import csv
 import json
 import multiprocessing as mp
+import socket
+import subprocess
 import time
 from collections import Counter
 from datetime import datetime
@@ -39,7 +41,11 @@ from pathlib import Path
 
 import numpy as np
 
-from db_utils import LandscapeDB
+try:
+    from db_utils import LandscapeDB
+    HAS_DB = True
+except ImportError:
+    HAS_DB = False
 
 # ══════════════════════════════════════════════════════════════════
 #  Constants
@@ -47,6 +53,9 @@ from db_utils import LandscapeDB
 
 RESULTS_DIR = Path("results")
 RESULTS_DIR.mkdir(exist_ok=True)
+
+RECEIPTS_DIR = Path("receipts")
+RECEIPTS_DIR.mkdir(exist_ok=True)
 
 BOLD = "\033[1m"
 DIM = "\033[2m"
@@ -577,6 +586,134 @@ def save_results_csv(h11, results):
     return path
 
 
+def _git_hash():
+    """Return short git hash or 'unknown'."""
+    try:
+        return subprocess.check_output(
+            ['git', 'rev-parse', '--short', 'HEAD'],
+            stderr=subprocess.DEVNULL, text=True
+        ).strip()
+    except Exception:
+        return 'unknown'
+
+
+def write_receipt(h11, t_start, elapsed_total,
+                  n_polys, t0_results, t025_results,
+                  t1_results, t2_results, final,
+                  thresholds):
+    """Write a self-contained JSON receipt to receipts/.
+
+    This is the primary data transport mechanism — works without a DB.
+    merge_receipts.py ingests these into cy_landscape.db on the local machine.
+    """
+    hostname = socket.gethostname()
+    ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+    receipt_name = f"v2_h{h11}_{ts}_{hostname}.json"
+    receipt_path = RECEIPTS_DIR / receipt_name
+
+    # ── Tier counts ──
+    n_t0_pass = sum(1 for r in t0_results.values() if r['status'] == 'pass')
+    n_t025_pass = sum(1 for r in t025_results.values()
+                      if r.get('status') == 'pass')
+
+    # ── Collect T1 results (the heavy payload) ──
+    t1_rows = []
+    for r in t1_results.values():
+        if r.get('status') != 'ok':
+            continue
+        # Serializable copy — strip numpy, keep only JSON-safe types
+        row = {}
+        for k, v in r.items():
+            if isinstance(v, (np.integer, np.int64)):
+                row[k] = int(v)
+            elif isinstance(v, (np.floating, np.float64)):
+                row[k] = float(v)
+            elif isinstance(v, np.ndarray):
+                row[k] = v.tolist()
+            elif isinstance(v, dict):
+                row[k] = {str(kk): int(vv) if isinstance(vv, (np.integer,)) else vv
+                          for kk, vv in v.items()}
+            else:
+                row[k] = v
+        t1_rows.append(row)
+
+    # ── Collect T2 results ──
+    t2_rows = []
+    for idx, r in t2_results.items():
+        entry = {'poly_idx': idx}
+        fibs = r.get('fibrations', [])
+        entry['n_fibrations'] = len(fibs)
+        entry['has_SM'] = any(f.get('contains_SM') for f in fibs)
+        entry['has_GUT'] = any(f.get('has_SU5_GUT') for f in fibs)
+        # Keep fibration details for merge
+        safe_fibs = []
+        for f in fibs:
+            sf = {}
+            for k, v in f.items():
+                if isinstance(v, (np.integer,)):
+                    sf[k] = int(v)
+                elif isinstance(v, (np.floating,)):
+                    sf[k] = float(v)
+                elif isinstance(v, np.ndarray):
+                    sf[k] = v.tolist()
+                else:
+                    sf[k] = v
+            safe_fibs.append(sf)
+        entry['fibrations'] = safe_fibs
+        if fibs:
+            best = max(fibs, key=lambda f: f.get('gauge_rank', 0), default={})
+            entry['best_gauge'] = best.get('gauge_algebra', '')
+        t2_rows.append(entry)
+
+    # ── T0 pass list (compact: just idx + key fields) ──
+    t0_compact = []
+    for r in t0_results.values():
+        t0_compact.append({
+            'poly_idx': r['poly_idx'],
+            'h11': int(r.get('h11', h11)),
+            'h21': int(r.get('h21', h11 + 3)),
+            'h11_eff': int(r['h11_eff']) if r.get('h11_eff') is not None else None,
+            'gap': int(r['gap']) if r.get('gap') is not None else None,
+            'favorable': bool(r['favorable']) if r.get('favorable') is not None else None,
+            'aut_order': int(r['aut_order']) if r.get('aut_order') is not None else None,
+            'status': r['status'],
+            'skip_reason': r.get('skip_reason'),
+        })
+
+    # ── Build receipt ──
+    receipt = {
+        'version': 2,
+        'receipt_name': receipt_name,
+        'h11': h11,
+        'machine': hostname,
+        'git_hash': _git_hash(),
+        'started': datetime.fromtimestamp(t_start).isoformat(),
+        'finished': datetime.now().isoformat(),
+        'elapsed_seconds': round(elapsed_total, 1),
+        'thresholds': thresholds,
+        'counts': {
+            'fetched': n_polys,
+            't0_total': len(t0_results),
+            't0_pass': n_t0_pass,
+            't025_pass': n_t025_pass,
+            't1_analyzed': len(t1_rows),
+            't2_analyzed': len(t2_rows),
+            'with_clean': sum(1 for r in t1_rows if r.get('n_clean', 0) > 0),
+            'with_SM': sum(1 for r in t2_rows if r.get('has_SM')),
+            'with_GUT': sum(1 for r in t2_rows if r.get('has_GUT')),
+            'max_clean': max((r.get('n_clean', 0) for r in t1_rows), default=0),
+        },
+        't0': t0_compact,
+        't1': t1_rows,
+        't2': t2_rows,
+    }
+
+    with open(receipt_path, 'w') as f:
+        json.dump(receipt, f, indent=2, default=str)
+
+    return receipt_path
+
+
 # ══════════════════════════════════════════════════════════════════
 #  Progress display
 # ══════════════════════════════════════════════════════════════════
@@ -656,8 +793,13 @@ def run_pipeline(h11, workers=4, top_n=500, skip_t0=False, resume=False,
     h21 = h11 + 3
     t_start = time.time()
 
-    # ── Open database ──
-    db = LandscapeDB()
+    # ── Open database (optional — works without it) ──
+    db = None
+    if HAS_DB:
+        try:
+            db = LandscapeDB()
+        except Exception as e:
+            print(f"  {YELLOW}DB unavailable ({e}) — receipt-only mode{RESET}")
 
     # ── Load checkpoint ──
     ckpt = load_checkpoint(h11) if resume else None
@@ -671,7 +813,8 @@ def run_pipeline(h11, workers=4, top_n=500, skip_t0=False, resume=False,
 
     if n_polys == 0:
         print(f"  No polytopes found for h11={h11}. Skipping.")
-        db.close()
+        if db:
+            db.close()
         return
 
     print_header(h11, n_polys, workers)
@@ -686,7 +829,7 @@ def run_pipeline(h11, workers=4, top_n=500, skip_t0=False, resume=False,
         t0_results = {r['poly_idx']: r for r in ckpt['t0']}
         print(f"  {GREEN}Resumed{RESET}: {len(t0_results):,} T0 results from checkpoint.")
 
-    elif skip_t0:
+    elif skip_t0 and db:
         # Load from database for existing data
         existing = db.query("""
             SELECT poly_idx, h11_eff, favorable, sym_order
@@ -774,7 +917,8 @@ def run_pipeline(h11, workers=4, top_n=500, skip_t0=False, resume=False,
             print(f"      gap={gap:>2}  {gap_dist[gap]:>6}  {bar}")
 
         # ── Write T0 to database ──
-        db_upsert_t0(db, h11, t0_results.values())
+        if db:
+            db_upsert_t0(db, h11, t0_results.values())
 
         # ── Save checkpoint ──
         save_checkpoint(h11, {
@@ -834,7 +978,8 @@ def run_pipeline(h11, workers=4, top_n=500, skip_t0=False, resume=False,
               f"({100*total_pass/len(t0_passes):.1f}%) in {fmt_time(elapsed_t025)}")
 
         # ── Write T0.25 results to database ──
-        db_upsert_t025(db, h11, t025_results.values())
+        if db:
+            db_upsert_t025(db, h11, t025_results.values())
 
         # ── Save checkpoint ──
         save_checkpoint(h11, {
@@ -903,7 +1048,7 @@ def run_pipeline(h11, workers=4, top_n=500, skip_t0=False, resume=False,
                 n_done += 1
 
                 # Write to DB immediately
-                if result.get('status') == 'ok':
+                if result.get('status') == 'ok' and db:
                     db_upsert_t1(db, result)
 
                 # Progress
@@ -980,7 +1125,8 @@ def run_pipeline(h11, workers=4, top_n=500, skip_t0=False, resume=False,
             t2_results[idx] = result
 
             # Write to DB immediately
-            db_upsert_t2(db, h11, idx, result)
+            if db:
+                db_upsert_t2(db, h11, idx, result)
 
             nf = result.get('n_fibrations', 0)
             fibs = result.get('fibrations', [])
@@ -1126,31 +1272,52 @@ def run_pipeline(h11, workers=4, top_n=500, skip_t0=False, resume=False,
     elapsed_total = time.time() - t_start
     csv_path = save_results_csv(h11, final)
 
-    # Log scan in DB
-    import socket
-    hostname = socket.gethostname()
-    db.log_scan(
-        h11=h11,
-        tier='T2+',
-        machine=hostname,
-        script='pipeline_v2.py',
-        n_polytopes=n_polys,
-        n_screened=len(final),
-        n_passed=n_with_clean,
-        notes=(f"v2 gap-aware: T0={n_t0_pass}/{n_polys}, "
-               f"T025={n_t025_pass}/{n_t0_pass}, T1={len(final)}, "
-               f"T2={len(t2_results)}, max_clean={max_clean}, "
-               f"elapsed={fmt_time(elapsed_total)}"),
+    # ── Write receipt (always — this is the primary data transport) ──
+    thresholds = {
+        'EFF_MAX': EFF_MAX,
+        'GAP_MIN': GAP_MIN,
+        'H0_MIN_T025': H0_MIN_T025,
+        'AUT_MAX': AUT_MAX,
+        'top_n': top_n,
+        'workers': workers,
+    }
+    receipt_path = write_receipt(
+        h11, t_start, elapsed_total,
+        n_polys, t0_results, t025_results,
+        t1_results, t2_results, final,
+        thresholds,
     )
 
+    # Log scan in DB (if available)
+    hostname = socket.gethostname()
+    if db:
+        db.log_scan(
+            h11=h11,
+            tier='T2+',
+            machine=hostname,
+            script='pipeline_v2.py',
+            n_polytopes=n_polys,
+            n_screened=len(final),
+            n_passed=n_with_clean,
+            notes=(f"v2 gap-aware: T0={n_t0_pass}/{n_polys}, "
+                   f"T025={n_t025_pass}/{n_t0_pass}, T1={len(final)}, "
+                   f"T2={len(t2_results)}, max_clean={max_clean}, "
+                   f"elapsed={fmt_time(elapsed_total)}"),
+        )
+
     print(f"\n  {GREEN}Saved:{RESET}")
-    print(f"    CSV:  {csv_path}")
-    print(f"    DB:   cy_landscape.db ({len(final)} rows updated)")
+    print(f"    Receipt: {receipt_path}")
+    print(f"    CSV:     {csv_path}")
+    if db:
+        print(f"    DB:      cy_landscape.db ({len(final)} rows updated)")
+    else:
+        print(f"    DB:      {YELLOW}skipped (not available){RESET}")
     print(f"    Checkpoint: {checkpoint_path(h11)}")
     print(f"\n  Total time: {fmt_time(elapsed_total)}")
     print(f"{'═'*72}\n")
 
-    db.close()
+    if db:
+        db.close()
     return final
 
 
