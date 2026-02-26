@@ -267,9 +267,14 @@ def _t1_worker(args):
                 h0_ge3 += 1
 
             # Clean check: h⁰ = 3 AND h³ = 0
-            if h0 == 3 and abs(chi_val - 3.0) < 0.01:
-                D_neg_toric = basis_to_toric(-D_basis, div_basis, n_toric)
-                h3 = compute_h0_koszul(pts, ray_indices, D_neg_toric,
+            if h0 == 3 and abs(abs(chi_val) - 3.0) < 0.01:
+                # For chi > 0: h0(D)=3, need h3(D)=h0(-D)=0
+                # For chi < 0: h0(-D)=3, need h3(-D)=h0(D)=0
+                if chi_val > 0:
+                    D_dual = basis_to_toric(-D_basis, div_basis, n_toric)
+                else:
+                    D_dual = D_toric
+                h3 = compute_h0_koszul(pts, ray_indices, D_dual,
                                        _precomp=_precomp)
                 if h3 == 0:
                     n_clean_est += 1
@@ -367,9 +372,14 @@ def _t2_worker(args):
             if h0 >= 3:
                 h0_ge3 += 1
 
-            if h0 == 3 and abs(chi_val - 3.0) < 0.01:
-                D_neg_toric = basis_to_toric(-D_basis, div_basis, n_toric)
-                h3 = compute_h0_koszul(pts, ray_indices, D_neg_toric,
+            if h0 == 3 and abs(abs(chi_val) - 3.0) < 0.01:
+                # For chi > 0: h0(D)=3, need h3(D)=h0(-D)=0
+                # For chi < 0: h0(-D)=3, need h3(-D)=h0(D)=0
+                if chi_val > 0:
+                    D_dual = basis_to_toric(-D_basis, div_basis, n_toric)
+                else:
+                    D_dual = D_toric
+                h3 = compute_h0_koszul(pts, ray_indices, D_dual,
                                        _precomp=_precomp)
                 if h3 == 0:
                     n_clean += 1
@@ -783,7 +793,7 @@ def run_ladder(h11_start, h11_end, workers=4, db=None):
             db.log_scan(h11, 'T05', mode='ladder',
                        machine=socket.gethostname(),
                        script='pipeline_v3.py',
-                       n_polytopes=n_polys,
+                       n_polytopes=len(t0_pass),
                        n_pass=len(t05_pass),
                        elapsed_s=total_elapsed,
                        thresholds={'EFF_MAX': EFF_MAX, 'GAP_MIN': GAP_MIN,

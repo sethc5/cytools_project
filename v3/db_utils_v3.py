@@ -257,12 +257,13 @@ class LandscapeDB:
         'contains_SM', 'has_SU5_GUT', 'MW_rank_bound', 'source_file',
     }
 
-    # Columns that must never decrease on re-scan
+    # Columns that must never decrease on re-scan.
+    # NOTE: sm_score is intentionally excluded — --rescore must be
+    # able to lower scores when weights change.
     MONOTONIC_MAX = {
         'max_h0', 'n_clean', 'n_bundles_checked',
         'max_h0_t2', 'h0_ge3', 'n_chi3', 'n_computed',
         'n_clean_est', 'yukawa_rank', 'n_kappa_entries',
-        'sm_score',
     }
 
     def __init__(self, db_path=None):
@@ -355,6 +356,9 @@ class LandscapeDB:
             h21 = row.get('h21')
             if h21 is not None and 'chi' not in row:
                 row['chi'] = 2 * (h11 - h21)
+            chi = row.get('chi')
+            if chi is not None and 'chi_over_24' not in row:
+                row['chi_over_24'] = chi / 24.0
             h11_eff = row.get('h11_eff')
             if h11_eff is not None and 'gap' not in row:
                 row['gap'] = h11 - h11_eff
