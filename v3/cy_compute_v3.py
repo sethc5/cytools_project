@@ -456,14 +456,15 @@ SM_SCORE_WEIGHTS = {
     'chi_match':        10,  # χ = ±6
     'clean_bundles':    15,  # n_clean > 0, scaled by log₂(n_clean)
     'yukawa_rank':      15,  # Yukawa texture rank ≥ 3
-    'yukawa_hierarchy': 10,  # eigenvalue spread ≥ 10³
-    'lvs_compatible':   15,  # τ/V^{2/3} < 0.01
-    'fibration_sm':     10,  # contains SU(3)×SU(2)×U(1) or GUT
-    'c2_positive':       5,  # c₂·D ≥ 0 for all effective D
+    'yukawa_hierarchy': 10,  # eigenvalue spread ≥ 10² (was 10⁵ — too strict)
+    'lvs_compatible':   15,  # τ/V^{2/3} < 0.01  — best discriminant
+    'fibration_sm':      5,  # SM gauge group (deferred to T3; 91% pass)
     'dp_divisors':       5,  # has del Pezzo divisors (instanton effects)
     'tadpole_ok':        5,  # |χ/24| ≤ 20
     'mori_blowdown':     5,  # has del Pezzo contracting curves
     'h0_diversity':      5,  # many distinct h⁰ values
+    'd3_diversity':      5,  # many distinct D³ values (new: replaces dead c2+)
+    'clean_depth':       5,  # clean bundles found early in search (new)
 }
 
 SM_SCORE_MAX = sum(SM_SCORE_WEIGHTS.values())  # 100
@@ -474,6 +475,14 @@ def compute_sm_score(data):
 
     Accepts a dict with the relevant fields (from DB row or live computation).
     Missing fields score 0.
+
+    Weight changes vs v3.0 (evidence from h11=13-18 scans):
+      - c2_positive removed (0/427 earn it — structurally dead)
+      - fibration_sm 10→5 (91% earn it — poor discriminant; deferred to T3)
+      - yukawa_hierarchy thresholds lowered (max observed=3259, old full=100K)
+      - d3_diversity added (new discriminant: # distinct D³ values)
+      - clean_depth added (new: rewards polytopes where clean bundles appear
+        early in the enumeration, hinting at structural SM-friendliness)
 
     Args:
         data: dict with keys matching polytope columns
@@ -504,16 +513,16 @@ def compute_sm_score(data):
     elif yuk_rank is not None and yuk_rank >= 1:
         score += w['yukawa_rank'] * yuk_rank // 3
 
-    # Yukawa hierarchy (eigenvalue spread)
+    # Yukawa hierarchy (eigenvalue spread) — thresholds lowered per scan data
     yuk_hier = data.get('yukawa_hierarchy', 0.0) or 0.0
-    if yuk_hier >= 1e5:
+    if yuk_hier >= 1e3:
         score += w['yukawa_hierarchy']
-    elif yuk_hier >= 1e3:
+    elif yuk_hier >= 1e2:
         score += w['yukawa_hierarchy'] * 2 // 3
     elif yuk_hier >= 10:
         score += w['yukawa_hierarchy'] // 3
 
-    # LVS compatible (τ/V^{2/3} < 0.01)
+    # LVS compatible (τ/V^{2/3} < 0.01) — best discriminant (7% full credit)
     lvs = data.get('lvs_score')
     if lvs is not None:
         if lvs < 0.01:
@@ -523,15 +532,11 @@ def compute_sm_score(data):
         elif lvs < 0.1:
             score += w['lvs_compatible'] // 3
 
-    # Fibration SM gauge group
+    # Fibration SM gauge group (earned in T3 only after fiber analysis)
     if data.get('has_SM'):
         score += w['fibration_sm']
     elif data.get('has_GUT'):
         score += w['fibration_sm'] * 2 // 3
-
-    # c₂ positivity
-    if data.get('c2_all_positive'):
-        score += w['c2_positive']
 
     # del Pezzo divisors
     n_dp = data.get('n_dp', 0) or 0
@@ -557,6 +562,28 @@ def compute_sm_score(data):
             h0_dist = None
     if isinstance(h0_dist, dict) and len(h0_dist) >= 5:
         score += w['h0_diversity']
+
+    # D³ diversity (new: replaces dead c2_positive)
+    d3_n = data.get('d3_n_distinct', 0) or 0
+    if d3_n >= 10:
+        score += w['d3_diversity']
+    elif d3_n >= 5:
+        score += w['d3_diversity'] * 2 // 3
+    elif d3_n >= 2:
+        score += w['d3_diversity'] // 3
+
+    # Clean depth (new: clean bundles found early → structurally SM-like)
+    first_clean = data.get('first_clean_at', -1)
+    n_chi3 = data.get('n_chi3', 0) or 0
+    if first_clean is not None and first_clean >= 0 and n_chi3 > 0:
+        # first_clean_at as fraction of total bundles
+        frac = first_clean / max(1, n_chi3)
+        if frac < 0.05:   # top 5% → full credit
+            score += w['clean_depth']
+        elif frac < 0.2:   # top 20%
+            score += w['clean_depth'] * 2 // 3
+        elif frac < 0.5:   # top 50%
+            score += w['clean_depth'] // 3
 
     return min(score, SM_SCORE_MAX)
 

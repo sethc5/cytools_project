@@ -2,17 +2,21 @@
 """
 pipeline_v3.py — Physics-driven scan pipeline.
 
-5-tier architecture with continuous scoring:
-  T0   (0.05s)  Geometry fingerprint       kills ~85%
-  T05  (0.1s)   Intersection algebra        kills ~50%     [NEW]
-  T1   (0.5s)   Bundle screening            kills ~70%
-  T2   (3-30s)  Deep physics + scoring      top ~1K
-  T3   (30s+)   Full phenomenology          top ~50        [NEW]
+4-tier architecture with continuous scoring:
+  T0   (0.1s)   Geometry + intersection algebra    kills ~85%
+  T1   (0.5s)   Bundle screening                   kills ~70%
+  T2   (3-30s)  Deep physics + scoring             top ~1K
+  T3   (30s+)   Full phenomenology + fibers        top ~50
+
+T05 was merged into T0 (intersection algebra data collected but its
+Yukawa-density filter never killed a single polytope in h11=13-18 scans).
+Fiber analysis moved from T2 to T3 (91% of polytopes have SM gauge
+groups, so it wastes compute during scan — verify on T3 shortlist only).
 
 Execution modes:
-  --ladder --h11 13 30     T0+T05 only, fast landscape mapping
+  --ladder --h11 13 30     T0 only, fast landscape mapping
   --scan   --h11 19        Full T0→T2 for one h11
-  --deep   --top 50        T3 on top candidates
+  --deep   --top 50        T3 on top candidates (includes fiber analysis)
   --rescore                Recompute SM scores from existing data
 
 All results written to cy_landscape_v3.db in real time.
@@ -82,13 +86,15 @@ T1_BUDGET_SEC = 2.0   # Time budget for adaptive T1 clean counting
 
 
 # ══════════════════════════════════════════════════════════════════
-#  T0: Geometry Fingerprint (~0.05s/poly)
+#  T0: Geometry + Intersection Algebra (~0.1s/poly)
+#  Merged from T0+T05: intersection data is collected but the
+#  Yukawa-density filter was removed (killed 0% in h11=13-18).
 # ══════════════════════════════════════════════════════════════════
 
 def _t0_worker(args):
-    """Compute geometry fingerprint: h11_eff, gap, |Aut|, chi.
+    """Compute geometry fingerprint + intersection algebra.
 
-    Returns dict with identity + geometry fields + skip_reason.
+    Returns dict with identity + geometry + intersection fields + skip_reason.
     """
     vert, poly_idx, h11_val = args
     try:
@@ -113,7 +119,7 @@ def _t0_worker(args):
         except Exception:
             aut_order = 1
 
-        # Pre-filter
+        # Pre-filter (geometry)
         skip_reason = None
         if abs(chi) != 6:
             skip_reason = f'chi={chi}!=±6'
@@ -124,7 +130,7 @@ def _t0_worker(args):
         elif aut_order > AUT_MAX:
             skip_reason = f'|Aut|={aut_order}>{AUT_MAX}'
 
-        return {
+        result = {
             'poly_idx': poly_idx,
             'h11': h11, 'h21': h21, 'chi': chi,
             'h11_eff': h11_eff, 'gap': gap,
@@ -133,6 +139,16 @@ def _t0_worker(args):
             'skip_reason': skip_reason,
             'status': 'skip' if skip_reason else 'pass',
         }
+
+        # Collect intersection algebra data for passing polytopes
+        # (cheap: ~0.05s extra, eliminates entire T05 pass)
+        if skip_reason is None:
+            intnums = dict(cy.intersection_numbers(in_basis=True))
+            c2 = np.array(cy.second_chern_class(in_basis=True), dtype=float)
+            t05_data = analyze_intersection_algebra(cy, h11_eff, intnums, c2)
+            result.update(t05_data)
+
+        return result
     except Exception as e:
         return {
             'poly_idx': poly_idx, 'h11': h11_val,
@@ -141,52 +157,9 @@ def _t0_worker(args):
         }
 
 
-# ══════════════════════════════════════════════════════════════════
-#  T05: Intersection Algebra (~0.1s/poly)
-# ══════════════════════════════════════════════════════════════════
-
-def _t05_worker(args):
-    """Analyze intersection algebra: Yukawa rank, c₂, volume form.
-
-    Returns dict with T05 fields + skip_reason.
-    """
-    vert, poly_idx, h11_val = args
-    try:
-        from cytools import Polytope
-        from cytools.config import enable_experimental_features
-        enable_experimental_features()
-
-        p = Polytope(vert)
-        tri = p.triangulate()
-        cy = tri.get_cy()
-
-        div_basis = [int(x) for x in cy.divisor_basis()]
-        h11_eff = len(div_basis)
-        intnums = dict(cy.intersection_numbers(in_basis=True))
-        c2 = np.array(cy.second_chern_class(in_basis=True), dtype=float)
-
-        # Run T05 analysis
-        t05 = analyze_intersection_algebra(cy, h11_eff, intnums, c2)
-
-        # Filter: Yukawa too sparse
-        skip_reason = None
-        if t05['yukawa_rank'] < h11_eff * YUK_MIN_FRAC:
-            skip_reason = (f"yuk_rank={t05['yukawa_rank']}"
-                          f"<{int(h11_eff * YUK_MIN_FRAC)}")
-
-        return {
-            'poly_idx': poly_idx,
-            'h11': h11_val,
-            'status': 'skip' if skip_reason else 'pass',
-            'skip_reason': skip_reason,
-            **t05,
-        }
-    except Exception as e:
-        return {
-            'poly_idx': poly_idx, 'h11': h11_val,
-            'status': 'error',
-            'skip_reason': f'error: {str(e)[:80]}',
-        }
+# T05 worker removed — intersection algebra merged into T0.
+# The T05 Yukawa-density filter killed 0% of polytopes across h11=13-18
+# (yukawa_rank/h11_eff ratio always ≥ 2.0), so it was pure overhead.
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -499,10 +472,10 @@ def _run_fiber_analysis(polytope, poly_idx, h11_val):
 # ══════════════════════════════════════════════════════════════════
 
 def db_upsert_t0(db, h11, results):
-    """Batch upsert T0 results."""
+    """Batch upsert T0 results (includes intersection algebra data)."""
     rows = []
     for r in results:
-        rows.append({
+        row = {
             'h11': h11,
             'poly_idx': r['poly_idx'],
             'h21': r.get('h21'),
@@ -515,29 +488,18 @@ def db_upsert_t0(db, h11, results):
             'source_file': 'pipeline_v3.py',
             'status': r.get('status'),
             'error': r.get('skip_reason'),
-        })
-    db.upsert_polytopes_batch(rows)
-
-
-def db_upsert_t05(db, h11, results):
-    """Batch upsert T05 results."""
-    rows = []
-    for r in results:
-        row = {
-            'h11': h11,
-            'poly_idx': r['poly_idx'],
-            'yukawa_rank': r.get('yukawa_rank'),
-            'yukawa_density': r.get('yukawa_density'),
-            'c2_all_positive': r.get('c2_all_positive'),
-            'c2_vector': r.get('c2_vector'),
-            'kappa_signature': r.get('kappa_signature'),
-            'volume_form_type': r.get('volume_form_type'),
-            'n_kappa_entries': r.get('n_kappa_entries'),
-            'tier_reached': 'T05',
-            'source_file': 'pipeline_v3.py',
-            'status': r.get('status'),
-            'error': r.get('skip_reason'),
         }
+        # Intersection algebra data (merged from T05)
+        if r.get('yukawa_rank') is not None:
+            row.update({
+                'yukawa_rank': r.get('yukawa_rank'),
+                'yukawa_density': r.get('yukawa_density'),
+                'c2_all_positive': r.get('c2_all_positive'),
+                'c2_vector': r.get('c2_vector'),
+                'kappa_signature': r.get('kappa_signature'),
+                'volume_form_type': r.get('volume_form_type'),
+                'n_kappa_entries': r.get('n_kappa_entries'),
+            })
         rows.append(row)
     db.upsert_polytopes_batch(rows)
 
@@ -666,8 +628,7 @@ def print_header(mode, h11_range, n_polys, n_workers):
           f"mode={mode}  |  h¹¹={h11_range}  |  {n_workers} workers")
     print(f"  {DIM}Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}{RESET}")
     print(f"  {DIM}EFF_MAX={EFF_MAX}  GAP_MIN={GAP_MIN}  "
-          f"H0_MIN={H0_MIN_T1}  AUT_MAX={AUT_MAX}  "
-          f"YUK_MIN={YUK_MIN_FRAC}{RESET}")
+          f"H0_MIN={H0_MIN_T1}  AUT_MAX={AUT_MAX}{RESET}")
     if n_polys:
         print(f"  {DIM}{n_polys:,} polytopes{RESET}")
     print(f"{'═'*72}\n")
@@ -737,7 +698,7 @@ def run_ladder(h11_start, h11_end, workers=4, db=None):
         print(f"  {n_polys:,} polytopes")
 
         # ── T0 ──
-        print(f"\n    T0: geometry fingerprint...")
+        print(f"\n    T0: geometry + intersection algebra...")
         t0_start = time.time()
         t0_args = [(np.array(p.points(), dtype=int).tolist(), idx, h11)
                    for idx, p in enumerate(polys)]
@@ -761,35 +722,15 @@ def run_ladder(h11_start, h11_end, workers=4, db=None):
         if not t0_pass:
             continue
 
-        # ── T05 ──
-        print(f"    T05: intersection algebra...")
-        t05_start = time.time()
-        t05_args = [(np.array(polys[r['poly_idx']].points(), dtype=int).tolist(),
-                     r['poly_idx'], h11)
-                    for r in t0_pass]
-
-        with mp.Pool(workers) as pool:
-            t05_results = pool.map(_t05_worker, t05_args, chunksize=50)
-
-        t05_pass = [r for r in t05_results if r['status'] == 'pass']
-        t05_elapsed = time.time() - t05_start
-        print(f"    T05: {len(t05_pass):,}/{len(t0_pass):,} pass "
-              f"({100*len(t05_pass)/len(t0_pass):.1f}%), {t05_elapsed:.1f}s")
-
-        if db:
-            db_upsert_t05(db, h11, t05_results)
-
-        # Summary
+        # Summary (intersection algebra data already in T0 results)
         total_elapsed = time.time() - t_h11_start
-        # Volume form type distribution
         vf_counts = Counter(r.get('volume_form_type', 'unknown')
-                          for r in t05_results if r['status'] == 'pass')
+                          for r in t0_pass)
         vf_str = ", ".join(f"{k}={v}" for k, v in vf_counts.most_common())
         print(f"    Volume forms: {vf_str}")
 
-        # Yukawa stats
-        yuk_ranks = [r['yukawa_rank'] for r in t05_results
-                    if r.get('yukawa_rank') is not None and r['status'] == 'pass']
+        yuk_ranks = [r['yukawa_rank'] for r in t0_pass
+                    if r.get('yukawa_rank') is not None]
         if yuk_ranks:
             print(f"    Yukawa rank: "
                   f"mean={np.mean(yuk_ranks):.1f}, "
@@ -797,18 +738,6 @@ def run_ladder(h11_start, h11_end, workers=4, db=None):
                   f"min={min(yuk_ranks)}")
 
         print(f"    Total: {total_elapsed:.1f}s")
-
-        if db:
-            db.log_scan(h11, 'T05', mode='ladder',
-                       machine=socket.gethostname(),
-                       script='pipeline_v3.py',
-                       n_polytopes=len(t0_pass),
-                       n_pass=len(t05_pass),
-                       elapsed_s=total_elapsed,
-                       thresholds={'EFF_MAX': EFF_MAX, 'GAP_MIN': GAP_MIN,
-                                  'AUT_MAX': AUT_MAX,
-                                  'YUK_MIN_FRAC': YUK_MIN_FRAC},
-                       notes=f"ladder T0→T05. vf: {vf_str}")
 
         clear_poly_cache()
 
@@ -861,8 +790,8 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
             clear_poly_cache()
             return
 
-    # ── T0 ──
-    print(f"  T0: geometry fingerprint ({n_polys:,} polytopes)")
+    # ── T0 (geometry + intersection algebra, merged from T0+T05) ──
+    print(f"  T0: geometry + intersection algebra ({n_polys:,} polytopes)")
     t0_start = time.time()
     t0_args = [(np.array(p.points(), dtype=int).tolist(), idx, h11)
                for idx, p in enumerate(polys)]
@@ -889,49 +818,20 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
         print(f"  No polytopes passed T0.")
         return
 
-    # ── T05 ──
-    print(f"\n  T05: intersection algebra ({len(t0_pass_list):,} polytopes)")
-    t05_start = time.time()
-    t05_args = [(np.array(polys[r['poly_idx']].points(), dtype=int).tolist(),
-                 r['poly_idx'], h11)
-                for r in t0_pass_list]
-
-    with mp.Pool(workers) as pool:
-        t05_results = pool.map(_t05_worker, t05_args, chunksize=50)
-
-    t05_pass_list = [r for r in t05_results if r['status'] == 'pass']
-    t05_elapsed = time.time() - t05_start
-    print(f"    {len(t05_pass_list):,}/{len(t0_pass_list):,} pass "
-          f"({100*len(t05_pass_list)/max(1,len(t0_pass_list)):.1f}%), "
-          f"{t05_elapsed:.1f}s")
-
-    if db:
-        db_upsert_t05(db, h11, t05_results)
-        db.log_scan(h11, 'T05', mode='scan',
-                   machine=socket.gethostname(),
-                   script='pipeline_v3.py',
-                   n_polytopes=len(t0_pass_list),
-                   n_pass=len(t05_pass_list),
-                   elapsed_s=t05_elapsed)
-
-    if not t05_pass_list:
-        print(f"  No polytopes passed T05.")
-        return
-
-    # ── T1 ──
-    print(f"\n  T1: bundle screening ({len(t05_pass_list):,} polytopes)")
+    # ── T1 (T05 merged into T0 — no separate pass needed) ──
+    print(f"\n  T1: bundle screening ({len(t0_pass_list):,} polytopes)")
     t1_start = time.time()
     t1_args = [(np.array(polys[r['poly_idx']].points(), dtype=int).tolist(),
                 r['poly_idx'], h11)
-               for r in t05_pass_list]
+               for r in t0_pass_list]
 
     with mp.Pool(workers) as pool:
         t1_results = pool.map(_t1_worker, t1_args, chunksize=10)
 
     t1_pass_list = [r for r in t1_results if r['status'] == 'pass']
     t1_elapsed = time.time() - t1_start
-    print(f"    {len(t1_pass_list):,}/{len(t05_pass_list):,} pass "
-          f"({100*len(t1_pass_list)/max(1,len(t05_pass_list)):.1f}%), "
+    print(f"    {len(t1_pass_list):,}/{len(t0_pass_list):,} pass "
+          f"({100*len(t1_pass_list)/max(1,len(t0_pass_list)):.1f}%), "
           f"{t1_elapsed:.1f}s")
 
     if db:
@@ -939,7 +839,7 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
         db.log_scan(h11, 'T1', mode='scan',
                    machine=socket.gethostname(),
                    script='pipeline_v3.py',
-                   n_polytopes=len(t05_pass_list),
+                   n_polytopes=len(t0_pass_list),
                    n_pass=len(t1_pass_list),
                    elapsed_s=t1_elapsed)
 
@@ -1031,32 +931,17 @@ def _run_t2_parallel(polys, ranked_list, h11, workers, db):
                               'YUK_MIN_FRAC': YUK_MIN_FRAC},
                    notes=f"scan T2. top_score={scores[0] if scores else 0}")
 
-    # ── Fiber analysis on top candidates (parallel) ──
-    if t2_results:
-        top_by_score = sorted(t2_results.values(),
-                             key=lambda r: r.get('sm_score', 0),
-                             reverse=True)[:50]
-        print(f"\n  T2+: fiber analysis on top {len(top_by_score)} candidates...")
-        t2p_start = time.time()
-        fiber_args = [
-            (np.array(polys[r['poly_idx']].points(), dtype=int).tolist(),
-             r['poly_idx'], h11)
-            for r in top_by_score
-        ]
-        with mp.Pool(min(workers, len(fiber_args))) as fpool:
-            for fiber_r in fpool.imap_unordered(_fiber_worker, fiber_args):
-                idx = fiber_r['poly_idx']
-                if db:
-                    db_upsert_fiber(db, h11, idx, fiber_r)
-        print(f"    Done in {time.time() - t2p_start:.1f}s")
+    # Fiber analysis deferred to T3 (--deep).
+    # 91% of polytopes have SM gauge groups, so running fibers during scan
+    # wastes compute on confirming the obvious. Verify on T3 shortlist only.
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Deep mode: T3 on top candidates
+#  Deep mode: T3 on top candidates (includes fiber analysis)
 # ══════════════════════════════════════════════════════════════════
 
 def run_deep(top_n=50, db=None):
-    """Run T3 (full phenomenology) on top candidates by sm_score."""
+    """Run T3 (full phenomenology + fiber analysis) on top candidates."""
     candidates = db.leaderboard(limit=top_n, min_score=1)
     if not candidates:
         print("  No candidates with SM score > 0")
@@ -1080,6 +965,21 @@ def run_deep(top_n=50, db=None):
             polys = list(ct.fetch_polytopes(h11=h11, h21=h11+3))
             p = polys[idx]
 
+            # Fiber analysis (moved here from T2 scan — saves compute)
+            fiber_result = _run_fiber_analysis(p, idx, h11)
+            fibs = fiber_result.get('fibrations', [])
+            has_sm = any(f.get('contains_SM') for f in fibs)
+            has_gut = any(f.get('has_SU5_GUT') for f in fibs)
+            best_gauge = ''
+            if fibs:
+                best = max(fibs, key=lambda f: f.get('gauge_rank', 0), default={})
+                best_gauge = best.get('gauge_algebra', '')
+            print(f"      Fibers: {len(fibs)} found, "
+                  f"SM={'yes' if has_sm else 'no'}, "
+                  f"GUT={'yes' if has_gut else 'no'}")
+            if best_gauge:
+                print(f"      Best gauge: {best_gauge}")
+
             # Triangulation stability
             tri_info = check_triangulation_stability(p, n_samples=50)
             print(f"      Triangulations: {tri_info['n_triangulations']} tested, "
@@ -1094,13 +994,29 @@ def run_deep(top_n=50, db=None):
             has_inst = check_instanton_divisor(intnums, c2, h11_eff)
             print(f"      Instanton divisor: {'yes' if has_inst else 'no'}")
 
-            # Update DB
+            # Update DB (fiber + T3 data)
             db.upsert_polytope(h11, idx,
+                n_fibers=len(fibs),
+                has_SM=has_sm,
+                has_GUT=has_gut,
+                best_gauge=best_gauge,
                 n_triangulations=tri_info['n_triangulations'],
                 props_stable=tri_info['props_stable'],
                 has_instanton_div=has_inst,
                 tier_reached='T3',
             )
+
+            # Rescore with fiber data now available
+            row = db.query("SELECT * FROM polytopes WHERE h11=? AND poly_idx=?",
+                          (h11, idx))
+            if row:
+                new_score = compute_sm_score(row[0])
+                if new_score != old_score:
+                    db.upsert_polytope(h11, idx, sm_score=new_score)
+                    print(f"      Score: {old_score} → {new_score}")
+
+            for fib in fibs:
+                db.add_fibration(h11, idx, **fib)
 
         except Exception as e:
             print(f"      Error: {e}")
@@ -1118,11 +1034,11 @@ def main():
 
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument('--ladder', action='store_true',
-                     help='T0+T05 only, fast landscape mapping')
+                     help='T0 only, fast landscape mapping')
     mode.add_argument('--scan', action='store_true',
                      help='Full T0→T2 for specified h11 values')
     mode.add_argument('--deep', action='store_true',
-                     help='T3 on top candidates from DB')
+                     help='T3 on top candidates (fiber + stability + rescore)')
     mode.add_argument('--rescore', action='store_true',
                      help='Recompute SM scores from existing T2 data')
 
