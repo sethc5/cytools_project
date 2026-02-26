@@ -22,7 +22,6 @@ import argparse
 import json
 import multiprocessing as mp
 import socket
-import subprocess
 import time
 from collections import Counter
 from datetime import datetime
@@ -84,7 +83,6 @@ YUK_MIN_FRAC = 0.5  # Skip if yukawa_rank < h11_eff * this
 
 # ── Worker timeout ──
 T1_BUDGET_SEC = 2.0   # Time budget for adaptive T1 clean counting
-T2_TIMEOUT_SEC = 60.0 # Max time per polytope in T2
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -670,16 +668,6 @@ def print_progress(done, total, n_pass, elapsed, label="pass"):
           f"{rate:.1f}/s  ETA {fmt_time(eta)}  ", end='', flush=True)
 
 
-def _git_hash():
-    try:
-        return subprocess.check_output(
-            ['git', 'rev-parse', '--short', 'HEAD'],
-            stderr=subprocess.DEVNULL, text=True
-        ).strip()
-    except Exception:
-        return 'unknown'
-
-
 # ══════════════════════════════════════════════════════════════════
 #  Rescore mode
 # ══════════════════════════════════════════════════════════════════
@@ -747,14 +735,13 @@ def run_ladder(h11_start, h11_end, workers=4, db=None):
 
         if db:
             db_upsert_t0(db, h11, t0_results)
+            db.log_scan(h11, 'T0', mode='ladder',
+                       machine=socket.gethostname(),
+                       script='pipeline_v3.py',
+                       n_polytopes=n_polys, n_pass=len(t0_pass),
+                       elapsed_s=t0_elapsed)
 
         if not t0_pass:
-            if db:
-                db.log_scan(h11, 'T0', mode='ladder',
-                           machine=socket.gethostname(),
-                           script='pipeline_v3.py',
-                           n_polytopes=n_polys, n_pass=0,
-                           elapsed_s=t0_elapsed)
             continue
 
         # ── T05 ──

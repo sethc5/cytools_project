@@ -17,6 +17,7 @@ bundle search, fibration counting, Swiss cheese). Adds new v3 routines:
 All functions take CYTools objects or dicts — no raw SQL.
 """
 
+import json
 import sys
 import os
 import numpy as np
@@ -139,25 +140,25 @@ def _classify_volume_form(cyobj, h11_eff, intnums_basis):
     if tip is None or len(tip) < h11_eff:
         return ("unknown", "generic")
 
-    # Build Hessian: H_ij = Σ_k κ_{ijk} t_k
+    # Build Hessian: H_{ab} = Σ_c κ_{abc} t_c
+    # κ stored with sorted indices (i≤j≤k). For each stored triple,
+    # contract each distinct index with tip and assign to remaining pair.
+    # Mirrors the Yukawa texture approach to avoid degenerate overcounting.
     H = np.zeros((h11_eff, h11_eff), dtype=float)
     for (i, j, k), val in intnums_basis.items():
         ii, jj, kk = int(i), int(j), int(k)
-        if ii < h11_eff and jj < h11_eff and kk < h11_eff:
-            # κ is stored with sorted indices; symmetrize the Hessian contribution
+        if ii >= h11_eff or jj >= h11_eff or kk >= h11_eff:
+            continue
+        # Contract first index with tip → H[jj, kk]
+        H[jj, kk] += val * tip[ii]
+        # Contract second index (if distinct from first) → H[ii, kk]
+        if ii != jj:
+            H[ii, kk] += val * tip[jj]
+        # Contract third index (if distinct from both) → H[ii, jj]
+        if ii != kk and jj != kk:
             H[ii, jj] += val * tip[kk]
-            if kk != jj:
-                H[ii, kk] += val * tip[jj]
-            if ii != jj:
-                H[jj, ii] += val * tip[kk]
-                if kk != ii:
-                    H[jj, kk] += val * tip[ii]
-            if ii != kk:
-                H[kk, ii] += val * tip[jj]
-                if jj != kk:
-                    H[kk, jj] += val * tip[ii]
 
-    # Symmetrize (should already be, but numerical safety)
+    # Symmetrize: loop only fills upper triangle for off-diagonal
     H = (H + H.T) / 2.0
 
     eigenvalues = np.linalg.eigvalsh(H)
@@ -669,7 +670,4 @@ def check_instanton_divisor(intnums_basis, c2_basis, h11_eff):
     return 0
 
 
-# ══════════════════════════════════════════════════════════════════
-#  Re-export json for scoring function
-# ══════════════════════════════════════════════════════════════════
-import json  # noqa: E402 — needed by compute_sm_score
+
