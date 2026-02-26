@@ -4,6 +4,68 @@ Detailed write-ups of key results. For the quick summary, see [README.md](README
 
 ---
 
+## 0. v4 Landscape Trends — h22-30 (9,000 polytopes, 1,134 T2-scored)
+
+**Date**: 2026-02-26. **Database**: `v4/cy_landscape_v4.db` (3.1 MB).
+
+### New Champion: h30/P289 (SM Score: 82)
+
+| Property | h30/P289 | Population avg |
+|----------|----------|---------------|
+| SM score | **82** | 57.4 |
+| h11_eff | 20 | 18.1 |
+| gap | 10 | 6.2 |
+| n_clean | 12 | 25.3 |
+| yukawa_hierarchy | **34,318** | 311 |
+| lvs_score | **0.00178** | 0.0172 |
+| yukawa_rank | 147 | 130 |
+| volume_form | swiss_cheese | — |
+| n_k3_fib | 3 | 2.9 |
+| n_ell_fib | 1 | 1.8 |
+
+h30/P289 has **110× the population-average yukawa hierarchy** and elite-tier
+LVS quality. It achieves the highest SM score in the database despite having
+only 12 clean bundles — demonstrating that **quality of Yukawa texture
+dominates quantity of clean bundles** as a predictor of SM-like physics.
+
+### Top 10 Polytopes (v4 scoring)
+
+| Rank | ID | Score | clean | yuk_h | lvs | eff | gap |
+|------|-----------|-------|-------|--------|--------|-----|-----|
+| 1 | h30/P289 | 82 | 12 | 34,318 | 0.0018 | 20 | 10 |
+| 2 | h24/P479 | 79 | 64 | 8,449 | 0.0133 | 19 | 5 |
+| 3 | h23/P283 | 79 | 22 | 2,821 | 0.0031 | 20 | 3 |
+| 4 | h24/P88 | 79 | 46 | 2,256 | 0.0023 | 20 | 4 |
+| 5 | h23/P97 | 79 | 52 | 1,650 | 0.0227 | 18 | 5 |
+| 6 | h25/P411 | 79 | 44 | 1,597 | 0.0043 | 19 | 6 |
+| 7 | h24/P48 | 79 | 24 | 1,345 | 0.0032 | 18 | 6 |
+| 8 | h25/P934 | 78 | 22 | 1,666 | 0.0022 | 20 | 5 |
+| 9 | h24/P247 | 77 | 34 | 2,054 | 0.0053 | 19 | 5 |
+| 10 | h27/P68 | 76 | 18 | 624 | 0.0002 | 19 | 8 |
+
+### Key Landscape Trends
+
+1. **Yukawa hierarchy and LVS quality are orthogonal** (Pearson r = −0.027).
+   These are independent axes of SM quality — not redundant.
+
+2. **Score achievability drops monotonically**: 31.7% of h22 polytopes
+   have both clean≥10 and yuk_h≥100, but only 2.9% at h29.
+
+3. **n_dp anti-correlates with score**: fewer del Pezzo divisors → higher
+   SM scores. Elite polytopes average n_dp=5.0 vs population 6.5.
+
+4. **Volume hierarchy > 1000 predicts high scores**: avg 59.9 vs 53.4
+   for vol_hierarchy < 100. Currently unscored — v5 candidate.
+
+5. **yukawa_rank sweet spot is 140-159**: optimal intersection ring
+   complexity. Above 160, hierarchy drops back.
+
+6. **h11_eff=19 vs 20 paradox**: eff=19 has higher *average* quality;
+   eff=20 has higher *peak* quality (the champion). Extra degree of
+   freedom enables both excellence and mediocrity.
+
+---
+
 ## 1. h13/poly1 — Benchmark Candidate (Pipeline Score: 18/20)
 
 **Date**: 2026-02-23. **Script**: [pipeline_h13_P1.py](pipeline_h13_P1.py).

@@ -5,6 +5,108 @@
 
 ---
 
+## 2026-02-26 — v4 Full h22-30 Scan Analysis (9,000 polytopes, 1,134 T2-scored)
+
+**Work done**: Completed v4 scan across h11=22–30 (9,000 polytopes, 1,134
+T2-scored). Pulled DB (3.1MB) and performed comprehensive trend analysis
+across score components, correlations, hidden predictors, and ceiling effects.
+
+### Summary Statistics
+
+| h11 | T0 pass | T1 pass (%) | Top score | Avg score | Total time |
+|-----|---------|-------------|-----------|-----------|------------|
+| 22  | 632     | 281 (44.5%) | 75        | 60.4      | 17.3m      |
+| 23  | 453     | 235 (51.9%) | 79        | 59.1      | 13.1m      |
+| 24  | 380     | 184 (48.4%) | 79        | 58.6      | 8.8m       |
+| 25  | 242     | 138 (57.0%) | 79        | 56.6      | 3.9m       |
+| 26  | 142     | 89 (62.7%)  | 76        | 52.7      | 3.1m       |
+| 27  | 106     | 54 (50.9%)  | 76        | 51.8      | 2.3m       |
+| 28  | 92      | 70 (76.1%)  | 75        | 56.2      | 1.3m       |
+| 29  | 49      | 35 (71.4%)  | 68        | 50.7      | 56s        |
+| 30  | 91      | 48 (52.7%)  | 82        | 51.6      | 1.1m       |
+
+Zero T1 timeouts across all h-values — T1 efficiency fix validated at scale.
+
+### Key Findings
+
+**1. Yukawa hierarchy and LVS quality are orthogonal (r = −0.027)**
+
+The two heaviest-weighted score components are *statistically independent*.
+This means high scores require excelling on both—not just one:
+
+- yuk>500 + lvs<0.005: avg 71.4, top 82 (n=29)
+- yuk>500 + lvs≥0.005: avg 68.4, top 79 (n=111)
+- yuk≤500 + lvs<0.005: avg 64.9, top 75 (n=188)
+- yuk≤500 + lvs≥0.005: avg 60.1, top 71 (n=658)
+
+This validates v4's decision to weight both heavily and independently.
+
+**2. EFF_MAX=20 ceiling — detectable but not critical**
+
+- 46% of score-75+ polytopes sit at eff=20 (the ceiling)
+- At h30, 535 polytopes blocked by eff>20 alone (gap OK)
+- Raising EFF_MAX to 22 would unlock ~200 additional polytopes/h-value at h26+
+- Recommendation: test EFF_MAX=22 in v5, but T1 wall-time may need adjustment
+
+**3. Elite polytope profile (score ≥ 75, n=24)**
+
+Compared to population averages:
+- h11_eff: 19.3 (pop: 18.1) — higher effective rank
+- yukawa_hierarchy: 3,594 (pop: 311) — **11.6× population average**
+- lvs_score: 0.011 (pop: 0.017) — 1.6× better
+- n_clean: 31.3 (pop: 25.3) — slightly more clean bundles
+- n_dp: 5.0 (pop: 6.5) — **fewer del Pezzo** (anti-intuitive)
+- n_k3_fib: 2.5 (pop: 2.9) — fewer fibrations
+- volume_hierarchy: 1,962 (pop: 920) — **2.1× population average**
+
+**4. Volume hierarchy > 1000 is a strong (unstudied) predictor**
+
+avg score 59.9 (n=203) vs 53.4 for vol_hierarchy < 100 (n=71).
+Not currently in the scoring formula. Candidate for v5 addition.
+
+**5. yukawa_rank 140-159 is the sweet spot**
+
+Not "more = better". The 140-159 bucket has both the highest avg
+yukawa_hierarchy (444) and the best max (34K). Above 160, hierarchy
+drops to 223. The intersection ring has an optimal complexity.
+
+**6. n_dp anti-correlates with score (confirmed at 9K scale)**
+
+n_dp=0-1: avg 63-64. n_dp=8+: avg 55. Fewer del Pezzo divisors
+correlate with higher SM scores. This is anti-intuitive re: instanton
+contributions but consistent with simpler divisor structure favoring
+clean bundle topology.
+
+**7. Non-discriminating properties at h22+**
+
+These columns carry zero information above h22 and can be dropped:
+- `volume_form_type`: 100% swiss_cheese
+- `has_swiss`: 99.6% = 1
+- `c2_all_positive`: 100% = 0
+- `yukawa_zeros`: 100% have ≥ 5 (or null for unscored)
+
+**8. Score achievability collapses at h29**
+
+Only 2.9% of h29 polytopes have both clean≥10 and yuk_h≥100
+(vs 31.7% at h22). The landscape becomes genuinely sparse.
+
+### Pearson Correlations with SM Score (n_clean > 0 subset)
+
+| Variable          | r     | Direction |
+|-------------------|-------|-----------|
+| n_clean           | +0.39 | moderate  |
+| h11_eff           | +0.35 | moderate  |
+| lvs_score         | −0.34 | moderate (lower = better) |
+| yukawa_hierarchy  | +0.31 | moderate  |
+| yukawa_rank       | +0.26 | weak-mod  |
+| n_k3_fib          | −0.22 | weak (fewer = better!) |
+| n_dp              | −0.19 | weak (fewer = better!) |
+| gap               | −0.19 | weak      |
+| n_ell_fib         | −0.13 | weak      |
+| chi_over_24       | 0.00  | none      |
+
+---
+
 ## 2026-02-26 — v4 Pipeline: Evidence-Based Scoring + T1 Efficiency Fix
 
 **Work done**: Created v4 pipeline with scoring weight redistribution based on
