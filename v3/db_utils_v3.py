@@ -281,12 +281,17 @@ class LandscapeDB:
 
     # ── Core API ──────────────────────────────────────────────
 
-    def upsert_polytope(self, h11, poly_idx, **kwargs):
+    def commit(self):
+        """Explicit commit for batch operations."""
+        self._conn.commit()
+
+    def upsert_polytope(self, h11, poly_idx, auto_commit=True, **kwargs):
         """Insert or update a polytope row.
 
         Only non-None kwargs are written; existing data is preserved.
         Monotonic columns (max_h0, n_clean, etc.) use MAX to prevent clobber.
         Automatically sets last_updated timestamp and computes chi from h21.
+        Set auto_commit=False for batch operations; call commit() manually.
         """
         kwargs['h11'] = h11
         kwargs['poly_idx'] = poly_idx
@@ -334,7 +339,8 @@ class LandscapeDB:
                f"ON CONFLICT(h11, poly_idx) DO UPDATE SET {updates}")
 
         self._conn.execute(sql, [data[c] for c in cols])
-        self._conn.commit()
+        if auto_commit:
+            self._conn.commit()
 
     def upsert_polytopes_batch(self, rows):
         """Batch upsert many polytope rows efficiently.

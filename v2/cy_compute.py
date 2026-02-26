@@ -535,34 +535,36 @@ def count_fibrations(polytope):
 
     for i in range(len(k3_directions)):
         for j in range(i + 1, len(k3_directions)):
-            v1 = np.array(k3_directions[i])
-            v2 = np.array(k3_directions[j])
+            v1 = np.array(k3_directions[i], dtype=np.float64)
+            v2 = np.array(k3_directions[j], dtype=np.float64)
 
-            # Check linear independence via cross product (faster than matrix_rank)
-            if v1.shape[0] == 4:
-                mat_check = np.vstack([v1, v2])
-                if np.linalg.matrix_rank(mat_check) < 2:
-                    continue
-            else:
-                # 3D: use cross product
-                if np.all(np.cross(v1, v2) == 0):
-                    continue
-
-            # Find all dual points in span(v1, v2)
-            # Project: if pt = a*v1 + b*v2, then [v1; v2; pt] has rank ≤ 2
+            # Check linear independence
             V = np.vstack([v1, v2])  # (2, dim)
-            subspace_pts = []
-            for pt in dual_pts:
-                # Use the augmented matrix rank test
-                aug = np.vstack([V, pt])
-                if np.linalg.matrix_rank(aug) <= 2:
-                    subspace_pts.append(tuple(pt))
+            if np.linalg.matrix_rank(V) < 2:
+                continue
 
-            n_sub = len(subspace_pts)
+            # Vectorized projection test: find all dual points in span(v1, v2)
+            # Build projector P = V.T @ inv(V @ V.T) @ V
+            # Points in span have zero residual: ||pt - P @ pt|| < eps
+            VVt = V @ V.T  # (2, 2)
+            try:
+                VVt_inv = np.linalg.inv(VVt)
+            except np.linalg.LinAlgError:
+                continue
+            P = V.T @ VVt_inv @ V  # (dim, dim)
+
+            # Project all dual points at once
+            dual_f = dual_pts.astype(np.float64)  # (n_pts, dim)
+            projected = dual_f @ P.T  # (n_pts, dim)
+            residuals = np.linalg.norm(dual_f - projected, axis=1)
+            in_span = residuals < 1e-8
+
+            n_sub = int(np.sum(in_span))
             if 4 <= n_sub <= 10:
-                key = frozenset(subspace_pts)
-                if key not in seen_subspaces:
-                    seen_subspaces.add(key)
+                subspace_pts = frozenset(
+                    tuple(pt) for pt in dual_pts[in_span])
+                if subspace_pts not in seen_subspaces:
+                    seen_subspaces.add(subspace_pts)
                     n_elliptic += 1
 
     return (n_k3, n_elliptic)

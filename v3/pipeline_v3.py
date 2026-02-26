@@ -447,11 +447,8 @@ def _t2_worker(args):
 
         # ── SM Score ──
         result['chi_over_24'] = chi / 24.0
-        # Intersection algebra (recompute if not passed through)
-        t05 = analyze_intersection_algebra(cy, h11_eff, intnums, c2)
-        result.update({f: t05[f] for f in ['yukawa_rank', 'yukawa_density',
-                                            'c2_all_positive', 'kappa_signature',
-                                            'volume_form_type']})
+        # c2_all_positive needed for scoring; full T05 analysis already in DB
+        result['c2_all_positive'] = int(np.all(c2[:h11_eff] >= 0))
 
         result['sm_score'] = compute_sm_score(result)
 
@@ -465,6 +462,21 @@ def _t2_worker(args):
 # ══════════════════════════════════════════════════════════════════
 #  T2+: Fiber Analysis (gauge algebra)
 # ══════════════════════════════════════════════════════════════════
+
+def _fiber_worker(args):
+    """Multiprocessing-safe fiber analysis worker."""
+    vert, poly_idx, h11_val = args
+    try:
+        from cytools import Polytope
+        from cytools.config import enable_experimental_features
+        enable_experimental_features()
+
+        p = Polytope(vert)
+        return _run_fiber_analysis(p, poly_idx, h11_val)
+    except Exception as e:
+        return {'poly_idx': poly_idx, 'n_fibrations': 0,
+                'error': str(e)[:200]}
+
 
 def _run_fiber_analysis(polytope, poly_idx, h11_val):
     """Kodaira fiber classification → gauge algebra."""
@@ -550,13 +562,14 @@ def db_upsert_t1(db, h11, results):
     db.upsert_polytopes_batch(rows)
 
 
-def db_upsert_t2(db, r):
+def db_upsert_t2(db, r, auto_commit=True):
     """Upsert a single T2 result."""
     dp_str = '|'.join(str(d) for d in r.get('dp_types', []))
     h0_str = json.dumps(r.get('h0_distribution', {}))
     d3_str = json.dumps(r.get('d3_clean_values', []))
 
     db.upsert_polytope(r['h11'], r['poly_idx'],
+        auto_commit=auto_commit,
         h21=r.get('h21'),
         chi=r.get('chi'),
         h11_eff=r.get('h11_eff'),
@@ -588,8 +601,6 @@ def db_upsert_t2(db, r):
         best_small_div=r.get('best_small_div'),
         volume_hierarchy=r.get('volume_hierarchy'),
         # Yukawa
-        yukawa_rank=r.get('yukawa_rank'),
-        yukawa_density=r.get('yukawa_density'),
         yukawa_texture_rank=r.get('yukawa_texture_rank'),
         yukawa_hierarchy=r.get('yukawa_hierarchy'),
         yukawa_zeros=r.get('yukawa_zeros'),
@@ -602,10 +613,8 @@ def db_upsert_t2(db, r):
         # Fibrations
         n_k3_fib=r.get('n_k3_fib'),
         n_ell_fib=r.get('n_ell_fib'),
-        # Intersection algebra
+        # T05 fields (c2_all_positive, chi_over_24 re-asserted; rest preserved from T05)
         c2_all_positive=r.get('c2_all_positive'),
-        kappa_signature=r.get('kappa_signature'),
-        volume_form_type=r.get('volume_form_type'),
         chi_over_24=r.get('chi_over_24'),
         # Score
         sm_score=r.get('sm_score'),
@@ -986,10 +995,12 @@ def _run_t2_parallel(polys, ranked_list, h11, workers, db):
                 if t2r.get('n_clean', 0) > 0:
                     n_with_clean += 1
                 if db:
-                    db_upsert_t2(db, t2r)
+                    db_upsert_t2(db, t2r, auto_commit=False)
 
-            # Progress every 10 or at end
+            # Batch commit + progress every 10 or at end
             if (i + 1) % 10 == 0 or i == n_todo - 1:
+                if db:
+                    db.commit()
                 print_progress(i + 1, n_todo, n_with_clean,
                               time.time() - t2_start, "with clean")
 
@@ -1020,18 +1031,23 @@ def _run_t2_parallel(polys, ranked_list, h11, workers, db):
                               'YUK_MIN_FRAC': YUK_MIN_FRAC},
                    notes=f"scan T2. top_score={scores[0] if scores else 0}")
 
-    # ── Fiber analysis on top candidates ──
+    # ── Fiber analysis on top candidates (parallel) ──
     if t2_results:
         top_by_score = sorted(t2_results.values(),
                              key=lambda r: r.get('sm_score', 0),
                              reverse=True)[:50]
         print(f"\n  T2+: fiber analysis on top {len(top_by_score)} candidates...")
         t2p_start = time.time()
-        for r in top_by_score:
-            idx = r['poly_idx']
-            fiber_r = _run_fiber_analysis(polys[idx], idx, h11)
-            if db:
-                db_upsert_fiber(db, h11, idx, fiber_r)
+        fiber_args = [
+            (np.array(polys[r['poly_idx']].points(), dtype=int).tolist(),
+             r['poly_idx'], h11)
+            for r in top_by_score
+        ]
+        with mp.Pool(min(workers, len(fiber_args))) as fpool:
+            for fiber_r in fpool.imap_unordered(_fiber_worker, fiber_args):
+                idx = fiber_r['poly_idx']
+                if db:
+                    db_upsert_fiber(db, h11, idx, fiber_r)
         print(f"    Done in {time.time() - t2p_start:.1f}s")
 
 

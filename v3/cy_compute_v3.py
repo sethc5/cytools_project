@@ -217,8 +217,9 @@ def compute_lvs_score(cyobj, h11_eff):
     best_div = -1
     swiss_hits = []
 
-    # Test multiple scale factors
-    for scale in [5.0, 10.0, 20.0, 50.0]:
+    # Test two scale factors (ratios are scale-invariant for
+    # the homogeneous part; 2 scales suffice to probe hierarchy)
+    for scale in [10.0, 50.0]:
         t_scaled = tip * scale
         try:
             vol = cyobj.compute_cy_volume(t_scaled)
@@ -238,6 +239,10 @@ def compute_lvs_score(cyobj, h11_eff):
             if ratio < best_ratio:
                 best_ratio = ratio
                 best_div = i
+
+            # Skip Swiss cheese probe if ratio already too large
+            if ratio > 0.5:
+                continue
 
             # Swiss cheese test: can we make this one small while rest are large?
             t_test = t_scaled.copy()
