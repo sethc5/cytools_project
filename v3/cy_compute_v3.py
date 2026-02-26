@@ -386,8 +386,8 @@ def analyze_mori_cone(cyobj, h11_eff, intnums_basis=None, c2_basis=None):
         return result
 
     # Check each Mori ray against each dP divisor
-    # A contraction: D_a · C_m < 0 means the curve C_m shrinks D_a
-    # In basis coordinates, D_a · C_m = Σ_j κ_{a,a,j} C_m,j
+    # Compute D_a² · C_m = Σ_j κ_{a,a,j} C_m[j]  (self-intersection of D_a along C_m)
+    # Negative value → C_m is a contractible curve on the dP surface D_a
     n_contract = 0
     for m_ray in mori_rays:
         for a in dp_indices:

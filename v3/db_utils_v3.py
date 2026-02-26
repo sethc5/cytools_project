@@ -410,9 +410,11 @@ class LandscapeDB:
         data = {k: v for k, v in kwargs.items()
                 if k in self.FIBRATION_COLUMNS and v is not None}
 
+        # Use IS instead of = so NULL values deduplicate correctly
+        # (SQL: NULL = NULL is FALSE, but NULL IS NULL is TRUE)
         existing = self._conn.execute(
             "SELECT id FROM fibrations WHERE h11=? AND poly_idx=? "
-            "AND fiber_type=? AND gauge_algebra=?",
+            "AND fiber_type IS ? AND gauge_algebra IS ?",
             (h11, poly_idx, data.get('fiber_type'), data.get('gauge_algebra'))
         ).fetchone()
         if existing:
