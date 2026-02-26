@@ -5,6 +5,120 @@
 
 ---
 
+## 2026-02-26 — v4 Pipeline: Evidence-Based Scoring + T1 Efficiency Fix
+
+**Work done**: Created v4 pipeline with scoring weight redistribution based on
+analysis of 6,578 v3 polytopes (h11=13–21). Deployed to Hetzner 16-core.
+Diagnosed and fixed critical T1 efficiency bug. Launched h22–30 scan.
+
+### v4 Scoring Rationale
+
+Comprehensive trend analysis of the v3 database revealed scoring waste:
+
+**Removed — zero discrimination:**
+- `chi_match` (was 10 pts): χ = −6 for every candidate by construction.
+  100% of T0-passing polytopes have |χ| = 6. Allocating 10/100 points to a
+  universal property is pure noise.
+- `h0_diversity` (was 5 pts): anti-correlates with SM quality. Polytopes
+  with h⁰ diversity 5–9 average score 76.6; diversity ≥20 averages 70.6.
+  High diversity means many marginal bundles, not physics quality.
+
+**Promoted — dominant discriminator:**
+- `yukawa_hierarchy` (10 → 25 pts): THE key signal. Every score-90 polytope
+  has hierarchy > 1000×. Score-86 polytopes average ~200×. A 6-tier grading
+  (10, 100, 500, 1000, 10000) replaces the binary ≥10³ check.
+
+**Split — graded instead of binary:**
+- `lvs_compatible` (15 → split): was all-or-nothing. Now:
+  - `lvs_binary` (5 pts): has swiss cheese structure at all
+  - `lvs_quality` (10 pts): 5-tier τ/V^{2/3} ratio grading
+    (elite < 0.002, excellent < 0.005, good < 0.01, fair < 0.05)
+
+**Reduced — diminishing returns:**
+- `clean_bundles` (15 → 10 pts): log₂-scaled, saturates above ~50 clean.
+  Going from 50 → 200 clean adds zero physics information.
+
+**Added — structural quality:**
+- `clean_rate` (5 pts): n_clean/n_checked rewards structural SM-friendliness.
+- `clean_depth` (5 pts): depth of first clean hit in bundle search.
+- `d3_diversity` (5 pts): distinct D³ values among clean bundles.
+
+**Net effect**: 0 points on universal properties (was 15), 25 points on the
+proven key discriminator (was 10). Total still 100.
+
+### v2 Hetzner Data Analysis
+
+Pulled 93K T0 rows, 20.6K T1 rows, and 87 T2 rows from the old v2 batch
+(h18, 14-worker, 22% complete after 3 days). Loaded into `v2/v2_hetzner.db`.
+
+Key findings that validate v4 design:
+- `has_swiss` does NOT predict clean bundles: avg 17.8 with vs 17.7 without
+- `n_dp` anti-correlates: fewer del Pezzo → more clean bundles
+- `screen_score` (v2's 26-pt) has zero predictive power for clean count
+- This confirms removing binary swiss/dP/chi gates from scoring
+
+### T1 Efficiency Bug (diagnosed + fixed)
+
+**Symptom**: v4 deployed to Hetzner, h22 scan launched with 14 workers. T0
+completed in 6.7s (632/1000 pass, 148 poly/s). T1 hung indefinitely — 12+
+minutes with zero output, all 14 workers at 99% CPU.
+
+**Root cause**: `find_chi3_bundles()` (uncapped) at h11_eff=17–20 returns
+thousands of bundles. Each `compute_h0_koszul()` call takes 0.5–2s at this
+h11_eff scale. The `T1_BUDGET_SEC = 2.0` timer only starts after the first
+clean hit — polytopes with no clean bundles iterate all ~2000 bundles with
+no escape, taking 15+ minutes each per worker.
+
+**Three-part fix**:
+1. `T1_BUNDLE_CAP = 500` — use `find_chi3_bundles_capped()` at T1 (screen,
+   not census; T2 does exhaustive analysis)
+2. `T1_WALL_SEC = 120` — hard per-polytope wall-time limit, checked every
+   10 bundles. Returns `status='timeout'` with partial data.
+3. Progress reporting — prints status every 20 polytopes with pass/timeout
+   counts, elapsed, ETA.
+
+**Result**: T1 h22 went from ∞ (hung) → **180s** (3 min). 281/632 pass
+(44.5%), zero timeouts. Gap-priority scheduling confirmed: first 300
+polytopes (high gap) processed in ~20s; remaining 332 (low gap) took 160s.
+
+### h22 Scan Results (in progress)
+
+```
+T0: 632/1000 pass (63.2%), 6.7s
+T1: 281/632 pass (44.5%), 0 timeout, 180s
+T2: ~200/281 done, 189 with clean (running at 0.3-0.4 poly/s, ETA ~3 min)
+```
+
+Scan continuing through h23–30 on Hetzner (14 workers).
+
+### Gap-Priority Scheduling (v4 pipeline change)
+
+Polytopes sorted by `gap = h11 - h11_eff` descending before T1 dispatch.
+Combined with `imap_unordered(chunksize=1)`, this ensures:
+- High-gap polytopes (fast, high pass rate) process first
+- Time-to-first-result drops from minutes to seconds
+- Workers stay busy — fast polytopes fill gaps while slow ones grind
+
+Data from v3 DB: gap=2 avg 35s, 30% pass. gap=5 avg 4s, 52% pass.
+gap=7 avg 2s, 79% pass.
+
+### has_swiss Anomaly Investigated
+
+56 polytopes in v3 DB have has_swiss=0 but volume_form_type='swiss_cheese'.
+Investigation showed these are NOT bugs — they genuinely fail the swiss cheese
+test (check_swiss_cheese returns False) but the volume Hessian has swiss cheese
+eigenvalue signature. Average lvs_score 3× worse than true swiss cheese.
+v4 scoring correctly uses the binary check (lvs_binary) and ratio quality
+(lvs_quality) independently.
+
+### Files Created/Modified
+- `v4/pipeline_v4.py` — orchestrator with gap-priority, wall-time, bundle cap
+- `v4/cy_compute_v4.py` — new `compute_sm_score()` with v4 weights
+- `v4/db_utils_v4.py` — DB layer (same schema as v3)
+- `VERSIONS.md` — full v2/v3/v4 lineage documentation
+
+---
+
 ## 2026-03-01 — v3 Pipeline Infrastructure & Workspace Reorganization
 
 **Work done**: Built the complete v3 pipeline infrastructure and reorganized the
