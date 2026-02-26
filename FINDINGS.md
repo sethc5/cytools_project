@@ -66,6 +66,179 @@ dominates quantity of clean bundles** as a predictor of SM-like physics.
 
 ---
 
+## 0.1. v4.1 Landscape Trends — h22-40 (19,000 polytopes, 1,300 T2-scored)
+
+**Date**: 2026-02-26. **Database**: `v4/cy_landscape_v4.db` (5.7 MB).
+**Pipeline version**: v4.1 (EFF_MAX=22, dp_divisors→vol_hierarchy, yukawa_hierarchy 25→27).
+
+### New Champions: h28/P874, h28/P187, h28/P186, h30/P289 (SM Score: 84)
+
+Four polytopes now share the top score of **84** (up from 82 in v4.0). Three
+are a tight cluster at h28 (P186/P187/P874) that were **inaccessible at
+EFF_MAX=20** — they have h11_eff=21-22 and were unlocked by the v4.1 ceiling
+raise. The fourth is the returning champion h30/P289, rescored from 82→84 by
+the weight redistribution.
+
+| Property | h28 cluster (avg) | h30/P289 | Population avg |
+|----------|-------------------|----------|----------------|
+| SM score | **84** | **84** | 56.4 |
+| h11_eff | 21.7 | 20 | 18.4 |
+| gap | 6.3 | 10 | 6.2 |
+| n_clean | 14 | 12 | 25 |
+| yukawa_hierarchy | **1,152** | **34,318** | 650 |
+| volume_hierarchy | **1,716** | **1,737** | 600 |
+| yukawa_rank | 154 | 147 | 130 |
+| kappa_signature | (1,21) | (1,19) | varies |
+| volume_form | swiss_cheese | swiss_cheese | swiss_cheese |
+| blowdown fraction | 0.93 | 0.88 | 0.80 |
+| n_dp | 10 | 7 | 6 |
+
+**Key observation**: The h28 cluster and h30/P289 reach the same score via
+*different mechanisms*. h30/P289 has 30× higher yukawa hierarchy (maxing
+out the 27-point component) but lower blowdown fraction. The h28 trio have
+moderate yukawa hierarchy but near-perfect Mori cone blowdown (93%) and
+higher d3 diversity (10-12 distinct values vs 6).
+
+### Top 15 Polytopes (v4.1 scoring)
+
+| Rank | ID | Score | eff | gap | yuk_h | vol_h | clean | d3_n |
+|------|-----------|----|-----|-----|--------|--------|-------|------|
+| 1 | h28/P874 | 84 | 22 | 6 | 1,150 | 1,657 | 14 | 10 |
+| 2 | h28/P187 | 84 | 22 | 6 | 1,160 | 1,766 | 14 | 12 |
+| 3 | h28/P186 | 84 | 21 | 7 | 1,147 | 1,725 | 14 | 10 |
+| 4 | h30/P289 | 84 | 20 | 10 | 34,318 | 1,737 | 12 | 6 |
+| 5 | h27/P219 | 79 | 21 | 6 | 901 | 1,451 | 12 | 10 |
+| 6 | h25/P411 | 79 | 19 | 6 | 1,597 | 423 | 44 | 14 |
+| 7 | h24/P479 | 79 | 19 | 5 | 8,449 | 300 | 64 | 16 |
+| 8 | h24/P88 | 79 | 20 | 4 | 2,256 | 1,080 | 46 | 23 |
+| 9 | h24/P48 | 79 | 18 | 6 | 1,345 | 830 | 24 | 18 |
+| 10 | h23/P283 | 79 | 20 | 3 | 2,821 | 810 | 22 | 16 |
+| 11 | h23/P97 | 79 | 18 | 5 | 1,650 | 442 | 52 | — |
+| 12 | h25/P934 | 78 | 20 | 5 | 1,666 | 1,831 | 22 | — |
+| 13 | h32/P94 | 77 | 20 | 12 | 2,759 | 877 | 42 | — |
+| 14 | h32/P42 | 77 | 20 | 12 | 1,022 | 794 | 60 | — |
+| 15 | h26/P305 | 76 | 20 | 6 | 2,991 | 3,973 | 10 | — |
+
+### EFF_MAX=22 Impact
+
+91 new polytopes with h11_eff ∈ {21, 22} entered the scoring pipeline:
+- **38 at eff=21**, **53 at eff=22** reached T2
+- 3 of the 4 global champions (the h28 cluster) are in this group
+- avg score at eff=21-22 is 52 (below eff=19-20's 60), but *peak* quality
+  is the highest in the entire dataset
+- Confirms the v4.0 "paradox": extra degrees of freedom enable both
+  excellence and mediocrity — EFF_MAX=22 was the right call
+
+### Updated Correlations (n=1,300)
+
+| Pair | Pearson r | Interpretation |
+|------|-----------|----------------|
+| yukawa_hierarchy ↔ volume_hierarchy | **+0.006** | Still orthogonal (was −0.027) |
+| yukawa_hierarchy → sm_score | **+0.214** | Moderate predictor |
+| volume_hierarchy → sm_score | **+0.003** | Near-zero (surprise!) |
+| gap → sm_score | **−0.336** | Gap anti-correlates — lower gap = higher score |
+| n_dp → sm_score | **−0.089** | Weak anti-correlation (was −0.19) |
+| n_clean → sm_score | **+0.511** | Strongest predictor |
+
+**Surprise**: volume_hierarchy has near-zero correlation with score despite
+being designed as a positive indicator. The 5 points it contributes help at
+the elite level (all score-84 polytopes have vol_h > 1,600) but don't
+discriminate across the broader population. This is the hallmark of a good
+*threshold* feature — only matters at the top.
+
+### Landscape Fertile Window
+
+| h11 | Total | T1+ | T2+ | T2% | Max Score |
+|-----|-------|-----|-----|-----|-----------|
+| 22 | 1,000 | 632 | 281 | 28.1% | 75 |
+| 23 | 1,000 | 453 | 235 | 23.5% | 79 |
+| 24 | 1,000 | 380 | 184 | 18.4% | 79 |
+| 25 | 1,000 | 242 | 138 | 13.8% | 79 |
+| 26 | 1,000 | 282 | 113 | 11.3% | 76 |
+| 27 | 1,000 | 192 | 63 | 6.3% | 79 |
+| 28 | 1,000 | 182 | 95 | 9.5% | **84** |
+| 29 | 1,000 | 91 | 39 | 3.9% | 73 |
+| 30 | 1,000 | 128 | 56 | 5.6% | **84** |
+| 31 | 1,000 | 52 | 27 | 2.7% | 70 |
+| 32 | 1,000 | 54 | 41 | 4.1% | 77 |
+| 33 | 1,000 | 31 | 7 | 0.7% | 65 |
+| 34 | 1,000 | 17 | 15 | 1.5% | 70 |
+| 35 | 1,000 | 11 | 3 | 0.3% | 62 |
+| 36 | 1,000 | 6 | 2 | 0.2% | 30 |
+| 37 | 1,000 | 3 | 0 | 0.0% | — |
+| 38 | 1,000 | 0 | 0 | 0.0% | — |
+| 39 | 1,000 | 1 | 1 | 0.1% | 49 |
+| 40 | 1,000 | 0 | 0 | 0.0% | — |
+
+**Key findings**:
+
+1. **The fertile window is h22-35**, beyond which T2 achievability drops
+   below 0.3%. The landscape is effectively barren at h37+.
+
+2. **h28 is the sweet spot**: exceptional peak quality (score=84) with
+   reasonable T2 yield (9.5%). It outperforms even h22-25 on *peak*
+   despite having 3× lower T2 yield.
+
+3. **h32 and h34 have anomalously high T1→T2 pass rates** (76% and 88%
+   respectively, vs ~50% average). This means the polytopes that survive
+   T0+T1 screening at high h11 are disproportionately good — the filter
+   is working well. h32 also peaks at 77, the highest above h30.
+
+4. **h39/P0 — the lone survivor at gap=18**: a single polytope passes all
+   the way through at h39 (score=49, eff=21, aut=2). Remarkable survival
+   — it has the largest gap (18) in the entire database. Swiss cheese
+   volume form with vol_hierarchy=529.
+
+5. **Monotonic T2 decline is not perfectly smooth**: h28 > h27 in T2 yield,
+   h32 > h31, h34 > h33. Even-h₁₁ values sometimes have structural
+   advantages (symmetry of the polytope lattice).
+
+### What Separates 79 from 84
+
+| Property | Score=84 (n=4) | Score=79 (n=7) | Score=70 (n=28) |
+|----------|----------------|----------------|-----------------|
+| avg eff | 21.2 | 19.3 | 18.8 |
+| avg gap | 7.2 | 5.0 | 7.8 |
+| avg yuk_h | 9,444 | 2,717 | 1,326 |
+| avg vol_h | 1,721 | 762 | 1,575 |
+| avg d3_n | 10 | 17 | 13 |
+| blowdown frac | 0.931 | 0.721 | 0.856 |
+
+The leap from 79→84 requires: higher h11_eff (21+ vs 19), higher yukawa
+hierarchy (9,400+ vs 2,700), and near-perfect Mori blowdown (93% vs 72%).
+Interestingly, score-79 polytopes have *more* d3 diversity (17 vs 10) —
+the 84s trade flux diversity for Yukawa/geometric excellence.
+
+### Chi = −6 Universality
+
+**Every single polytope** in the 19,000-row database has χ = −6. This is by
+construction — the h₁₁ range 22-40 combined with the Kreuzer-Skarke
+database constraint produces only χ = −6 manifolds. All T2-scored polytopes
+are swiss_cheese volume form. These are not tunable parameters — they are
+structural constraints of the landscape at this h₁₁ range.
+
+### Theoretical Ceiling: Score = 84 is Near-Maximum
+
+The current scoring formula has a **hard ceiling near 84-87** for the
+chi = −6 landscape. Why:
+
+- **LVS is blocked**: 0 of 117 score-70+ polytopes have lvs_score > 0.1.
+  The lvs_binary (5 pts) and lvs_quality (10 pts) components are
+  effectively unreachable — 15 points stranded.
+- **Fibration SM is blocked**: 0 polytopes have has_SM=1 or has_GUT=1.
+  The fibration_sm component (3 pts) is unreachable.
+- **Theoretical maximum achievable**: ~82 pts (100 − 15 lvs − 3 fib_sm).
+  The h28 champions already score 84, *above* this estimate, because
+  multiple sub-components each top out at less-than-maximum.
+
+**Implication**: To break 84, we would need either (a) polytopes with
+genuine LVS compatibility (larger strong Swiss cheese hierarchies), or
+(b) a scoring revision that redistributes the stranded 18 points. Option
+(b) risks score inflation without physical insight — the 15 LVS points
+represent *real physics* that these manifolds lack.
+
+---
+
 ## 1. h13/poly1 — Benchmark Candidate (Pipeline Score: 18/20)
 
 **Date**: 2026-02-23. **Script**: [pipeline_h13_P1.py](pipeline_h13_P1.py).
