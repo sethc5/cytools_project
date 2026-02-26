@@ -5,6 +5,55 @@
 
 ---
 
+## 2026-03-01 — v3 Pipeline Infrastructure & Workspace Reorganization
+
+**Work done**: Built the complete v3 pipeline infrastructure and reorganized the
+workspace for clarity.
+
+### Workspace Reorganization
+- Moved all v2 code to `v2/`: pipeline_v2.py, cy_compute.py, db_utils.py,
+  merge_receipts.py, fiber_analysis.py, mori_pf.py, picard_fuchs.py,
+  cy_landscape.db, checkpoints, receipts/
+- Moved old results to `archive/results_v1v2/`
+- Root now contains only docs, LICENSE, activate.sh, requirements.txt
+- Cleaned `__pycache__`
+
+### v3 Pipeline (new `v3/` folder)
+5-tier physics-driven architecture replacing v2's 4 tiers:
+
+| Tier | Time   | Purpose                    | Kill rate |
+|------|--------|----------------------------|-----------|
+| T0   | 0.05s  | Geometry fingerprint       | ~85%      |
+| T05  | 0.1s   | Intersection algebra (NEW) | ~50%      |
+| T1   | 0.5s   | Bundle screening           | ~70%      |
+| T2   | 3-30s  | Deep physics + scoring     | top ~1K   |
+| T3   | 30s+   | Full phenomenology (NEW)   | top ~50   |
+
+Key improvements over v2:
+- **100-point continuous SM_SCORE** replacing 26-point binary score
+- **Yukawa texture analysis**: rank, hierarchy, zeros of κ_{ijk}D^k
+- **Volume form classification** via Hessian eigenvalues (swiss_cheese/fibered/generic)
+- **LVS compatibility score**: τ/V^{2/3} at multiple Kähler scales
+- **c₂ positivity check** (DRS conjecture gate)
+- **Mori cone analysis**: del Pezzo contraction identification
+- **Triangulation stability** (T3): property persistence across random triangulations
+- **Instanton divisor check** (T3): rigid dP surfaces for E3 instantons
+- Chi computed from actual h²¹ (v2 hardcoded χ=−6)
+
+### Files created
+- `v3/PIPELINE_V3_SPEC.md` — complete spec document
+- `v3/db_utils_v3.py` — fresh SQLite database layer with new schema
+- `v3/cy_compute_v3.py` — physics computation (imports v2 functions, adds T05/T2/T3)
+- `v3/pipeline_v3.py` — main orchestrator with --ladder/--scan/--deep/--rescore modes
+
+### Execution modes
+- `--ladder --h11 13 30` — T0+T05 fast landscape mapping
+- `--scan --h11 19` — Full T0→T2 for one h¹¹
+- `--deep --top 50` — T3 on best candidates
+- `--rescore` — Recompute SM scores from existing data
+
+---
+
 ## 2026-02-28 — h17 Full Scan (pipeline_v2), Receipt System, Circularity Audit
 
 **Work done**: Built `pipeline_v2.py` (gap-aware 4-tier pipeline with optional DB),
