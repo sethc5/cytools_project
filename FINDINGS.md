@@ -239,6 +239,143 @@ represent *real physics* that these manifolds lack.
 
 ---
 
+## 0.2. Champion Deep-Dive — CYTools Geometric Review
+
+**Date**: 2026-02-27.
+**Script**: [v4/review_champions.py](v4/review_champions.py).
+**Method**: Fetched polytopes from KS database via `fetch_polytopes(h11=h, h21=h+3)`
+(matching pipeline's chi=−6 filter), then ran CYTools geometric analysis
+on all 4 score-84 champions.
+
+### Discrepancy Resolution: `fetch_polytopes` h21 Filter
+
+An initial review using `fetch_polytopes(h11=28)` (without the h21 filter)
+produced wildly incorrect results: chi=38, h11_eff=28, gap=0 — completely
+contradicting the pipeline DB values. The root cause: the pipeline fetches
+with **both** h11 and h21 (`h21 = h11 + 3`), selecting only the chi=−6
+subset. Without the h21 filter, `fetch_polytopes(h11=28)` returns a
+different superset with different indexing. Polytope index 186 in the
+unfiltered set is a *completely different manifold* than index 186 in the
+chi=−6 filtered set.
+
+After correcting to `fetch_polytopes(h11=28, h21=31)`, all T0 values
+match the DB exactly:
+
+| Champion | h11 | h21 | chi | h11_eff | gap | favorable |
+|----------|-----|-----|-----|---------|-----|-----------|
+| h28/P186 | 28 | 31 | −6 | 21 | 7 | False |
+| h28/P187 | 28 | 31 | −6 | 22 | 6 | False |
+| h28/P874 | 28 | 31 | −6 | 22 | 6 | False |
+| h30/P289 | 30 | 33 | −6 | 20 | 10 | False |
+
+### The h28 Cluster: A Connected Vertex-Mutation Family
+
+The three h28 champions are **genuinely distinct polytopes** (different
+vertex hashes, different kappa hashes) but are closely related through
+single-vertex operations:
+
+| Polytope | Points | Vertices | Vertex hash |
+|----------|--------|----------|-------------|
+| P186 | 29 | 10 | `2bfa85a7` |
+| P187 | 31 | 10 | `50725757` |
+| P874 | 30 | 11 | `678a4b08` |
+
+**Vertex relationships:**
+- **P186 ↔ P187**: Share 9 of 10 vertices. Differ by one vertex
+  substitution: P186 has `[0,−3,−3,−2]`, P187 has `[1,−2,−2,−2]`.
+- **P186 → P874**: P874 contains *all 10* of P186's vertices plus one
+  additional vertex `[1,−1,−1,−1]`. P874 is P186 with a vertex addition.
+- All three share the first 8 vertices (standard coordinate axes and
+  deep negative-coordinate points like `[−3,−6,−6,−2]`).
+
+This means the h28 cluster is a **connected family in the KS polytope
+graph**, related by elementary vertex mutations. The score-84 region is
+not scattered — it's a localized island in polytope space.
+
+### Intersection Ring Fingerprints
+
+| Champion | κ entries | κ sum | κ range | κ hash |
+|----------|-----------|-------|---------|--------|
+| h28/P186 | 271 | −6 | [−179, 57] | `e4457720` |
+| h28/P187 | 296 | −6 | [−161, 51] | `ad6cab0a` |
+| h28/P874 | 291 | −6 | [−170, 54] | `f48a7149` |
+| h30/P289 | 273 | −6 | [−179, 59] | `34dad5b8` |
+
+All have κ_sum = −6 = χ (consistency check). Distinct kappa hashes confirm
+these are genuinely different Calabi-Yau manifolds with different
+intersection rings. The κ value distributions are dominated by small
+integers (κ=±1,±2,±3 account for >70% of entries), with rare large
+outliers up to |κ| ~ 180.
+
+**κ value distributions (top 5 by count):**
+
+| Value | P186 | P187 | P874 | P289 |
+|-------|------|------|------|------|
+| κ=1 | 52 | 55 | 60 | 49 |
+| κ=−3 | 33 | 52 | 48 | 52 |
+| κ=−1 | 35 | 40 | 37 | 22 |
+| κ=3 | 28 | 35 | 34 | 39 |
+| κ=−2 | 35 | 30 | 33 | 25 |
+
+### Divisor Structure
+
+All 4 champions share a common divisor architecture:
+
+| Feature | P186 | P187 | P874 | P289 |
+|---------|------|------|------|------|
+| D0 (c2·D) | −122 | −134 | −128 | −134 |
+| K3-like (c2·D≥24) | 3 | 2 | 2 | 2 |
+| dP candidates (12≤c2·D<24) | 2 | 2 | 4 | 4 |
+| Rigid (c2·D<0) | 7 | 6 | 7 | 8 |
+| div_basis size | 21 | 22 | 22 | 20 |
+
+**Pattern**: D0 is always a large-negative rigid divisor (c2·D ∈ [−134,−122]),
+followed by 2-3 K3-like divisors (c2·D = 24-50) and 2-4 del Pezzo candidates.
+The c2 vectors share the prefix c2[1:3] = [44, 24] for all h28 polytopes,
+reflecting the common vertex core. P289 (h30) breaks this pattern with
+c2[1:3] = [50, 36] — larger K3-like divisors consistent with its higher gap.
+
+### Triangulation Stability (T3 Probe)
+
+20 random triangulations sampled per polytope, checking whether c2 and
+κ are invariant:
+
+| Champion | c2-stable | κ-stable | Assessment |
+|----------|-----------|----------|------------|
+| h28/P186 | 9/20 (45%) | varies | Moderate |
+| h28/P187 | 9/20 (45%) | varies | Moderate |
+| h28/P874 | 9/20 (45%) | varies | Moderate |
+| h30/P289 | 0/20 (0%) | 0/20 | **Unstable** |
+
+**h28 cluster**: 45% c2-stability is moderate — roughly half of random
+triangulations reproduce the same CY. The score-84 assertion depends on
+getting the "right" triangulation. CYTools' default `triangulate()`
+(TOPCOM's placing triangulation) is deterministic, so the pipeline result
+is reproducible, but it's not triangulation-universal.
+
+**h30/P289**: 0% stability across 20 samples is concerning. The score-84
+champion at h30 is a **triangulation-fragile outlier** — its geometry
+depends entirely on the choice of triangulation. This doesn't invalidate
+it (the placing triangulation is a canonical choice) but means the
+physical properties are more contingent than the h28 cluster.
+
+### Implications for v5
+
+1. **Triangulation stability should be scored**: The h28/h30 split
+   (45% vs 0%) is a real discriminator. A stability component would
+   separate genuinely robust geometries from artifacts of triangulation
+   choice.
+
+2. **Vertex-mutation neighborhoods are worth scanning**: The h28 cluster
+   is a connected family — systematic exploration of single-vertex
+   mutations from known high-scorers could map out the score-84+ island.
+
+3. **The chi=−6 filter is mandatory**: `fetch_polytopes(h11=h, h21=h+3)`
+   must always be used. Any analysis without the h21 filter will fetch
+   wrong polytopes and produce garbage results.
+
+---
+
 ## 1. h13/poly1 — Benchmark Candidate (Pipeline Score: 18/20)
 
 **Date**: 2026-02-23. **Script**: [pipeline_h13_P1.py](pipeline_h13_P1.py).
