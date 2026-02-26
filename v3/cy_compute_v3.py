@@ -585,6 +585,16 @@ def check_triangulation_stability(polytope, n_samples=50, key_checks=None):
         except Exception:
             return result
 
+    # Fibrations depend on polytope only (triangulation-independent).
+    # Check once before the loop to avoid redundant dual-polytope computation.
+    has_fib = False
+    if 'has_fib' in key_checks:
+        try:
+            n_k3, n_ell = count_fibrations(polytope)
+            has_fib = (n_k3 > 0 or n_ell > 0)
+        except Exception:
+            pass
+
     n_tested = 0
     props = {k: 0 for k in key_checks}
 
@@ -629,13 +639,8 @@ def check_triangulation_stability(polytope, n_samples=50, key_checks=None):
                 if swiss:
                     props['has_swiss'] += 1
 
-            if 'has_fib' in key_checks:
-                # Fibrations depend on polytope only (triangulation-independent),
-                # so we check once outside the loop. For now, still count
-                # per iteration to track failures, but this is always stable.
-                n_k3, n_ell = count_fibrations(polytope)
-                if n_k3 > 0 or n_ell > 0:
-                    props['has_fib'] += 1
+            if 'has_fib' in key_checks and has_fib:
+                props['has_fib'] += 1
 
             n_tested += 1
         except Exception:

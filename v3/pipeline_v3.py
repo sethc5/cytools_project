@@ -809,7 +809,11 @@ def run_ladder(h11_start, h11_end, workers=4, db=None):
 # ══════════════════════════════════════════════════════════════════
 
 def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
-    """Full T0→T2 scan for a single h¹¹ value."""
+    """Full T0→T2 scan for a single h¹¹ value.
+
+    If resume=True and db is available, skips T0→T1 and picks up T2
+    from polytopes that passed T1 but haven't reached T2 yet.
+    """
     import cytools as ct
     from cytools.config import enable_experimental_features
     enable_experimental_features()
@@ -824,7 +828,29 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
         print(f"  No polytopes at h¹¹={h11}")
         return
 
-    print_header('scan', str(h11), n_polys, workers)
+    print_header('scan' + (' (resume)' if resume else ''),
+                 str(h11), n_polys, workers)
+
+    # ── Resume path: skip straight to T2 using DB state ──
+    if resume and db:
+        # Find polytopes at T1 that haven't reached T2
+        need_t2 = db.query(
+            "SELECT poly_idx, COALESCE(n_clean_est, 0) as n_clean_est, "
+            "COALESCE(max_h0, 0) as max_h0 "
+            "FROM polytopes WHERE h11=? AND tier_reached='T1' "
+            "AND status='pass' ORDER BY n_clean_est DESC, max_h0 DESC",
+            (h11,)
+        )
+        if not need_t2:
+            print(f"  Resume: no T1 polytopes pending T2 at h¹¹={h11}")
+            # Fall through to check if full re-scan needed
+        else:
+            if top_n > 0:
+                need_t2 = need_t2[:top_n]
+            print(f"  Resume: {len(need_t2)} polytopes need T2")
+            _run_t2_parallel(polys, need_t2, h11, workers, db)
+            clear_poly_cache()
+            return
 
     # ── T0 ──
     print(f"  T0: geometry fingerprint ({n_polys:,} polytopes)")
@@ -920,32 +946,55 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
     if top_n > 0:
         t1_ranked = t1_ranked[:top_n]
 
-    # ── T2 ──
-    print(f"\n  T2: deep physics ({len(t1_ranked):,} polytopes)")
+    # ── T2 (parallel) ──
+    _run_t2_parallel(polys, t1_ranked, h11, workers, db)
+
+    total_elapsed = time.time() - t_start
+    print(f"\n  {'═'*56}")
+    print(f"  Total: {fmt_time(total_elapsed)}  ({n_polys:,} polytopes)")
+    print(f"  {'═'*56}")
+
+    clear_poly_cache()
+
+
+def _run_t2_parallel(polys, ranked_list, h11, workers, db):
+    """Run T2 in parallel with progress reporting + fiber analysis.
+
+    Args:
+        polys: full list of CYTools polytope objects for this h11
+        ranked_list: list of dicts with 'poly_idx' key, ordered by priority
+        h11: the h11 value
+        workers: number of parallel workers
+        db: LandscapeDB instance (or None)
+    """
+    n_todo = len(ranked_list)
+    print(f"\n  T2: deep physics ({n_todo:,} polytopes, {workers} workers)")
     t2_start = time.time()
 
+    t2_args = [(np.array(polys[r['poly_idx']].points(), dtype=int).tolist(),
+                r['poly_idx'], h11)
+               for r in ranked_list]
+
     t2_results = {}
-    for i, r in enumerate(t1_ranked):
-        idx = r['poly_idx']
-        t2_args = (np.array(polys[idx].points(), dtype=int).tolist(), idx, h11)
-        t2r = _t2_worker(t2_args)
+    n_with_clean = 0
 
-        if t2r.get('status') == 'ok':
-            t2_results[idx] = t2r
-            if db:
-                db_upsert_t2(db, t2r)
+    with mp.Pool(workers) as pool:
+        for i, t2r in enumerate(pool.imap_unordered(_t2_worker, t2_args)):
+            if t2r.get('status') == 'ok':
+                idx = t2r['poly_idx']
+                t2_results[idx] = t2r
+                if t2r.get('n_clean', 0) > 0:
+                    n_with_clean += 1
+                if db:
+                    db_upsert_t2(db, t2r)
 
-        # Progress
-        if (i + 1) % 10 == 0 or i == len(t1_ranked) - 1:
-            n_with_clean = sum(1 for r in t2_results.values()
-                             if r.get('n_clean', 0) > 0)
-            print_progress(i + 1, len(t1_ranked), n_with_clean,
-                          time.time() - t2_start, "with clean")
+            # Progress every 10 or at end
+            if (i + 1) % 10 == 0 or i == n_todo - 1:
+                print_progress(i + 1, n_todo, n_with_clean,
+                              time.time() - t2_start, "with clean")
 
     print()  # newline after progress bar
     t2_elapsed = time.time() - t2_start
-    n_with_clean = sum(1 for r in t2_results.values()
-                      if r.get('n_clean', 0) > 0)
 
     print(f"    {len(t2_results):,} analyzed, "
           f"{n_with_clean} with clean bundles, "
@@ -963,13 +1012,13 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
         db.log_scan(h11, 'T2', mode='scan',
                    machine=socket.gethostname(),
                    script='pipeline_v3.py',
-                   n_polytopes=len(t1_ranked),
+                   n_polytopes=n_todo,
                    n_pass=n_with_clean,
                    elapsed_s=t2_elapsed,
                    thresholds={'EFF_MAX': EFF_MAX, 'GAP_MIN': GAP_MIN,
                               'H0_MIN_T1': H0_MIN_T1, 'AUT_MAX': AUT_MAX,
                               'YUK_MIN_FRAC': YUK_MIN_FRAC},
-                   notes=f"scan T0→T2. top_score={scores[0] if scores else 0}")
+                   notes=f"scan T2. top_score={scores[0] if scores else 0}")
 
     # ── Fiber analysis on top candidates ──
     if t2_results:
@@ -985,14 +1034,6 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
                 db_upsert_fiber(db, h11, idx, fiber_r)
         print(f"    Done in {time.time() - t2p_start:.1f}s")
 
-    total_elapsed = time.time() - t_start
-    print(f"\n  {'═'*56}")
-    print(f"  Total: {fmt_time(total_elapsed)}  "
-          f"({n_polys:,} polytopes → {n_with_clean} with clean)")
-    print(f"  {'═'*56}")
-
-    clear_poly_cache()
-
 
 # ══════════════════════════════════════════════════════════════════
 #  Deep mode: T3 on top candidates
@@ -1000,10 +1041,6 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
 
 def run_deep(top_n=50, db=None):
     """Run T3 (full phenomenology) on top candidates by sm_score."""
-    if not db:
-        print("  Deep mode requires --db")
-        return
-
     candidates = db.leaderboard(limit=top_n, min_score=1)
     if not candidates:
         print("  No candidates with SM score > 0")
