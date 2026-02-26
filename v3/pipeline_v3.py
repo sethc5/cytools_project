@@ -724,7 +724,7 @@ def run_ladder(h11_start, h11_end, workers=4, db=None):
 
         # Fetch polytopes
         try:
-            polys = list(ct.fetch_polytopes(h11=h11, h21=h21, limit=0))
+            polys = list(ct.fetch_polytopes(h11=h11, h21=h21))
         except Exception as e:
             print(f"    {RED}Fetch failed: {e}{RESET}")
             continue
@@ -831,7 +831,7 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
     t_start = time.time()
 
     # Fetch
-    polys = list(ct.fetch_polytopes(h11=h11, h21=h21, limit=0))
+    polys = list(ct.fetch_polytopes(h11=h11, h21=h21))
     n_polys = len(polys)
     if n_polys == 0:
         print(f"  No polytopes at h¹¹={h11}")
@@ -1077,7 +1077,7 @@ def run_deep(top_n=50, db=None):
               f"(score={old_score})")
 
         try:
-            polys = list(ct.fetch_polytopes(h11=h11, h21=h11+3, limit=0))
+            polys = list(ct.fetch_polytopes(h11=h11, h21=h11+3))
             p = polys[idx]
 
             # Triangulation stability
