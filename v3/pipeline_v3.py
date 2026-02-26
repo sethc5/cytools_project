@@ -39,11 +39,10 @@ if _v3_dir not in sys.path:
 from db_utils_v3 import LandscapeDB
 from cy_compute_v3 import (
     # v2 re-exports
-    find_chi3_bundles, find_chi3_bundles_capped,
+    find_chi3_bundles,
     compute_h0_koszul, precompute_vertex_data,
     basis_to_toric, compute_D3, count_fibrations,
-    extract_cy_data, check_swiss_cheese, poly_hash,
-    fetch_polytopes_cached, clear_poly_cache,
+    clear_poly_cache,
     # v3 new
     analyze_intersection_algebra,
     compute_lvs_score,
@@ -69,10 +68,7 @@ RECEIPTS_DIR.mkdir(exist_ok=True)
 BOLD = "\033[1m"
 DIM = "\033[2m"
 RESET = "\033[0m"
-GREEN = "\033[92m"
 RED = "\033[91m"
-YELLOW = "\033[93m"
-CYAN = "\033[96m"
 
 # ── Thresholds (carried from v2, data-driven) ──
 EFF_MAX = 20        # Skip h11_eff > 20
@@ -587,7 +583,9 @@ def db_upsert_t2(db, r):
         yukawa_texture_rank=r.get('yukawa_texture_rank'),
         yukawa_hierarchy=r.get('yukawa_hierarchy'),
         yukawa_zeros=r.get('yukawa_zeros'),
-        best_yukawa_bundle=json.dumps(r.get('best_yukawa_bundle')),
+        best_yukawa_bundle=(json.dumps(r['best_yukawa_bundle'])
+                            if r.get('best_yukawa_bundle') is not None
+                            else None),
         # Mori
         n_mori_rays=r.get('n_mori_rays'),
         n_dp_contract=r.get('n_dp_contract'),

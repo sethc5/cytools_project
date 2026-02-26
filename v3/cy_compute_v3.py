@@ -21,7 +21,6 @@ import json
 import sys
 import os
 import numpy as np
-from itertools import combinations
 
 # ── Import all v2 functions ──────────────────────────────────────
 # Add v2/ to path so we can import without package gymnastics
@@ -158,8 +157,10 @@ def _classify_volume_form(cyobj, h11_eff, intnums_basis):
         if ii != kk and jj != kk:
             H[ii, jj] += val * tip[kk]
 
-    # Symmetrize: loop only fills upper triangle for off-diagonal
-    H = (H + H.T) / 2.0
+    # Loop fills upper triangle for off-diagonal entries.
+    # Copy upper→lower (H.T adds the transpose), then subtract diagonal
+    # to avoid double-counting the diagonal which was already correct.
+    H = H + H.T - np.diag(np.diag(H))
 
     eigenvalues = np.linalg.eigvalsh(H)
     n_pos = int(np.sum(eigenvalues > 1e-10))
@@ -318,7 +319,8 @@ def compute_yukawa_texture(D_basis, intnums_basis, h11_eff):
             if ii != kk and jj != kk:
                 Y2[ii, jj] += val * D[kk]
 
-    Y2 = (Y2 + Y2.T) / 2.0  # ensure symmetry
+    # Upper triangle was filled; copy to lower without halving.
+    Y2 = Y2 + Y2.T - np.diag(np.diag(Y2))
 
     # Nonzero eigenvalues → Yukawa rank and hierarchy
     eigvals = np.abs(np.linalg.eigvalsh(Y2))
@@ -606,12 +608,17 @@ def check_triangulation_stability(polytope, n_samples=50, key_checks=None):
                 if bundles:
                     _precomp = precompute_vertex_data(pts, ray_indices)
                     for D_basis, chi_val in bundles[:10]:
-                        D_toric = basis_to_toric(D_basis, div_basis, n_toric)
-                        h0 = compute_h0_koszul(pts, ray_indices, D_toric,
+                        # Handle both chi signs (same logic as T1/T2)
+                        if chi_val > 0:
+                            D_check = basis_to_toric(D_basis, div_basis, n_toric)
+                            D_dual = basis_to_toric(-D_basis, div_basis, n_toric)
+                        else:
+                            D_check = basis_to_toric(-D_basis, div_basis, n_toric)
+                            D_dual = basis_to_toric(D_basis, div_basis, n_toric)
+                        h0 = compute_h0_koszul(pts, ray_indices, D_check,
                                                _precomp=_precomp)
                         if h0 == 3:
-                            D_neg = basis_to_toric(-D_basis, div_basis, n_toric)
-                            h3 = compute_h0_koszul(pts, ray_indices, D_neg,
+                            h3 = compute_h0_koszul(pts, ray_indices, D_dual,
                                                    _precomp=_precomp)
                             if h3 == 0:
                                 props['has_clean'] += 1
@@ -623,6 +630,9 @@ def check_triangulation_stability(polytope, n_samples=50, key_checks=None):
                     props['has_swiss'] += 1
 
             if 'has_fib' in key_checks:
+                # Fibrations depend on polytope only (triangulation-independent),
+                # so we check once outside the loop. For now, still count
+                # per iteration to track failures, but this is always stable.
                 n_k3, n_ell = count_fibrations(polytope)
                 if n_k3 > 0 or n_ell > 0:
                     props['has_fib'] += 1
