@@ -5,6 +5,50 @@
 
 ---
 
+## 2026-02-26 — v4.1 Tuning: EFF_MAX=22, Scoring Redistribution, h26-40 Launch
+
+**Work done**: Applied evidence-based tuning from h22-30 analysis. Killed
+running h31-40 scan, updated thresholds and scoring, redeployed, relaunched
+h26-40 with 14 workers.
+
+### Changes Applied
+
+1. **EFF_MAX 20 → 22**: 46% of score-75+ polytopes were at the eff=20
+   ceiling. At h30, 535 polytopes were blocked solely by eff>20 (gap OK).
+   Immediate impact: h26 T0 pass rate **doubled** from 142 → 282.
+
+2. **dp_divisors removed (5 → 0 pts)**: n_dp anti-correlates with score
+   (r=−0.19). Elite polytopes average n_dp=5.0 vs population 6.5. The
+   weight was actively rewarding the wrong thing.
+
+3. **fibration_sm reduced (5 → 3 pts)**: n_k3_fib anti-correlates with
+   score (r=−0.22). Keep SM/GUT gauge group signal but reduce weight.
+   Fibration count doesn't predict SM quality.
+
+4. **vol_hierarchy added (5 pts, new)**: Volume hierarchy > 1000 averages
+   6.5 pts higher than < 100 (n=203 vs n=71). Previously unscored.
+   Graded: ≥1000→5, ≥100→3, ≥10→1.
+
+5. **yukawa_hierarchy boosted (25 → 27 pts)**: Absorbed 2 freed points.
+   Still the dominant discriminator (r=+0.31, elite polytopes have 11.6×
+   population average).
+
+### Validation
+
+- Weights sum to 100 ✓
+- Champion h30/P289 rescores: 82 → 92
+- h26 T0 pass rate: 142 → 282 (2× from EFF_MAX change)
+- Zero T1 timeouts in first h26 batch
+- Full changelog: v4/CHANGELOG.md
+
+### Scan Launched
+
+`--scan --h11 26 40 --workers 14` on Hetzner (16-core).
+Re-scans h26-30 (adds eff=21-22 polytopes + rescores with v4.1),
+then extends through h31-40.
+
+---
+
 ## 2026-02-26 — v4 Full h22-30 Scan Analysis (9,000 polytopes, 1,134 T2-scored)
 
 **Work done**: Completed v4 scan across h11=22–30 (9,000 polytopes, 1,134

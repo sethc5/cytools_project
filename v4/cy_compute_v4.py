@@ -462,16 +462,21 @@ def classify_divisors(intnums_basis, c2_basis, h11_eff):
 # ══════════════════════════════════════════════════════════════════
 
 SM_SCORE_WEIGHTS = {
-    # --- v4 weights (evidence-based from 6578 polytopes, h11=13-21) ---
+    # --- v4.1 weights (updated from h22-30 analysis, 9000 polytopes) ---
     # Removed: chi_match (0 pts) — all candidates χ=-6 by construction
     # Removed: h0_diversity (0 pts) — ANTI-correlates with score
+    # v4.1 changes:
+    #   dp_divisors 5→0: n_dp ANTI-correlates with score (r=-0.19)
+    #   fibration_sm 5→3: n_k3_fib anti-correlates (r=-0.22); keep SM gauge only
+    #   vol_hierarchy added (5): strong predictor, avg 59.9 vs 53.4
+    #   yukawa_hierarchy 25→27: remains THE key discriminator
     'clean_bundles':    10,  # n_clean > 0, log₂ scaled (saturates ~50)
     'yukawa_rank':      15,  # Yukawa texture rank ≥ 3
-    'yukawa_hierarchy': 25,  # eigenvalue spread — THE key discriminator
+    'yukawa_hierarchy': 27,  # eigenvalue spread — THE key discriminator (was 25)
     'lvs_binary':        5,  # has Swiss cheese structure (yes/no)
     'lvs_quality':      10,  # τ/V^{2/3} ratio grading (smaller = better)
-    'fibration_sm':      5,  # SM gauge group (quality, not count)
-    'dp_divisors':       5,  # has del Pezzo divisors (instanton effects)
+    'fibration_sm':      3,  # SM gauge group only (was 5; fibration count anti-correlates)
+    'vol_hierarchy':     5,  # volume hierarchy > 1000 (new — strong unscored predictor)
     'tadpole_ok':        5,  # |χ/24| ≤ 20
     'mori_blowdown':     5,  # has del Pezzo contracting curves
     'd3_diversity':      5,  # many distinct D³ values
@@ -559,16 +564,20 @@ def compute_sm_score(data):
         elif lvs < 0.05:          # marginal
             score += 2
 
-    # ── Fibration SM gauge group (5 pts — quality not count) ──
+    # ── Fibration SM gauge group (3 pts — quality not count) ──
     if data.get('has_SM'):
         score += w['fibration_sm']
     elif data.get('has_GUT'):
         score += w['fibration_sm'] * 2 // 3
 
-    # ── del Pezzo divisors (5 pts) ──
-    n_dp = data.get('n_dp', 0) or 0
-    if n_dp >= 1:
-        score += w['dp_divisors']
+    # ── Volume hierarchy (5 pts — big/small divisor volume ratio) ──
+    vol_h = data.get('volume_hierarchy', 0) or 0
+    if vol_h >= 1000:
+        score += w['vol_hierarchy']
+    elif vol_h >= 100:
+        score += w['vol_hierarchy'] * 2 // 3
+    elif vol_h >= 10:
+        score += w['vol_hierarchy'] // 3
 
     # ── Tadpole bound (5 pts) ──
     chi24 = data.get('chi_over_24')

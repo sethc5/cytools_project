@@ -87,7 +87,7 @@ RESET = "\033[0m"
 RED = "\033[91m"
 
 # ── Thresholds (carried from v2, data-driven) ──
-EFF_MAX = 20        # Skip h11_eff > 20
+EFF_MAX = 22        # Skip h11_eff > 22 (was 20; 46% of top scorers at ceiling)
 GAP_MIN = 2         # Min gap for priority track
 H0_MIN_T1 = 5       # Bundle screening threshold
 AUT_MAX = 4         # Skip |Aut| > 4
