@@ -4,12 +4,12 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are **6.12 million** such polytopes in the Kreuzer-Skarke database of 473 million reflexive polytopes (spanning h¹¹ = 13–119). This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v5.2 · **174K polytopes** scanned (2.8% of 6.12M KS χ=−6 landscape) · **2,012 T2-scored** with 100-point SM composite · Champion: h30/P289 (score 89) · h27 fibration-rich zone discovered · Deployed on Hetzner (16-core) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v5.2 · **502K polytopes** scanned (8.2% of 6.12M KS χ=−6 landscape) · **4,588 T2-scored** with 100-point SM composite · Champion: h30/P289 (score 89), #2: h19/P438 (88) · h13–h19 exhaustive · h27 fibration-rich zone · Deployed on Hetzner (16-core) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
 - **A 7-stage screening pipeline** — `v4/pipeline_v4.py` scans polytopes through tiered geometric checks (T0 → T1 → T2 → T3 deep analysis with triangulation stability). 100-point SM composite scoring with 12 components.
-- **A SQLite database** — `v4/cy_landscape_v4.db` (174K polytopes, 2,012 scored) with programmatic access via `v4/db_utils_v4.py`
+- **A SQLite database** — `v4/cy_landscape_v4.db` (502K polytopes, 4,588 scored) with programmatic access via `v4/db_utils_v4.py`
 - **Documented findings** — Champion cluster analysis, pipeline methodology, negative results ([FINDINGS.md](FINDINGS.md))
 - **Documented pitfalls** — 9+ CYTools API bugs discovered and worked around ([MATH_SPEC.md](MATH_SPEC.md))
 
@@ -19,8 +19,8 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 
 | h¹¹ range | KS total | Scanned | Coverage | Top score | Notes |
 |-----------|----------|---------|----------|-----------|-------|
-| 13–16 | 5,758 | 5,758 | **100%** | — | Exhaustive (legacy v3 scoring) |
-| 17–19 | 327,833 | 400 | 0.1% | — | Legacy scoring only |
+| 13–16 | 5,758 | 5,758 | **100%** | 68 | Exhaustive (v5.2) |
+| **17–19** | **327,833** | **327,833** | **100%** | **88** | **Exhaustive (v5.2) — #2: h19/P438** |
 | 20–26 | 2,736,315 | 7,000 | 0.3% | 81 | 257K–447K per level |
 | **27** | **393,842** | **50,000** | **12.7%** | **86** | **Fibration-rich zone** |
 | **28** | **354,495** | **50,000** | **14.1%** | **87** | h28 stability cluster |
@@ -28,9 +28,9 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 | **30** | **276,639** | **50,000** | **18.1%** | **89** | **#1: h30/P289** |
 | 31–40 | 1,377,373 | 10,000 | 0.7% | 80 | Barren above h37 |
 | 41–119 | 327,131 | 0 | 0% | — | Tail: 49K at h41 → 0 by h120 |
-| **Grand total** | **6,122,441** | **174,158** | **2.8%** | **89** | |
+| **Grand total** | **6,122,441** | **501,591** | **8.2%** | **89** | |
 
-**Database**: `v4/cy_landscape_v4.db` — 174K polytopes, 2,012 T2-scored. h27–h30 dominates (8 of top 10). See [CATALOGUE.md](CATALOGUE.md) for full per-h¹¹ coverage.
+**Database**: `v4/cy_landscape_v4.db` — 502K polytopes, 4,588 T2-scored. h27–h30 dominates (8 of top 15). h19/P438 (88) is #2. See [CATALOGUE.md](CATALOGUE.md) for full per-h¹¹ coverage.
 
 > **Note on scale**: The KS database has 473.8M reflexive 4-polytopes total; filtering to χ = −6 (3 generations) yields 6.12M. Each polytope admits many triangulations (→ distinct CY threefolds), each CY admits many vector bundles, and each (CY, bundle) pair admits many flux configurations. The famous "10^500 string vacua" estimate counts the product of all these choices — we work at the polytope level, the top of this hierarchy.
 
@@ -39,10 +39,11 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 ### Screening Funnel (v5.2)
 
 ```
-168,000 polytopes (h11=20..40, v5.2 pipeline) + 6,158 legacy (h13–h19)
-  └─ 5,344 pass T0 (geometry + EFF_MAX=22) ──── 3.2%
-      └─ 2,012 pass T1 → T2 scored ────────────── 1.2%
-          └─ 22 deep-analyzed (T3) ───────────── 20 FRSTs each
+501,591 polytopes (h13–h40, v5.2 pipeline)
+  └─ h13–h19: 333,591 exhaustive (100% coverage)
+  └─ h20–h40: 168,000 (1K–50K per level)
+      └─ 4,588 T2-scored ────────────────── 0.9%
+          └─ 22 deep-analyzed (T3) ───────── 20 FRSTs each
               ├─ Tier A (paper-ready): 3 (h28 stability cluster)
               └─ Tier C (score+fibrations): 7 (h27+h30, all SM+GUT)
 ```
@@ -52,12 +53,13 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 | Rank | ID | Score | Hierarchy | Clean | c₂ stab | SM+GUT | Tier |
 |------|----|-------|-----------|-------|---------|--------|------|
 | 1 | **h30/P289** | **89** | 34,318 | 12 | 0% | ✅ su(3)×su(17) | C |
-| 2 | h28/P874 | **87** | 1,150 | 14 | 55% | — | A |
-| 3 | h28/P186 | **87** | 1,147 | 14 | 35% | — | A |
-| 4 | **h27/P22835** | **86** | 1,046 | 16 | 0% | ✅ 6 fibrations | C |
-| 5 | **h27/P13954** | **85** | 695 | 16 | 25% | ✅ e7×su(12) | — |
+| 2 | **h19/P438** | **88** | — | 56 | — | — | — |
+| 3 | h28/P874 | **87** | 1,150 | 14 | 55% | — | A |
+| 4 | h28/P186 | **87** | 1,147 | 14 | 35% | — | A |
+| 5 | **h27/P22835** | **86** | 1,046 | 16 | 0% | ✅ 6 fibrations | C |
+| 6 | **h18/P315** | **85** | — | 40 | — | — | — |
 
-**Tier A** = high score + stability. **Tier C** = high score + SM/GUT fibrations. All 6 h27 candidates in the top 10 have SM+GUT gauge groups — h27 is a **fibration-rich zone**. See [FINDINGS.md](FINDINGS.md) for the full top-10 and T3 analysis.
+**Tier A** = high score + stability. **Tier C** = high score + SM/GUT fibrations. h19/P438 (88) and h18/P315 (85) are new from exhaustive low-h¹¹ scans — not yet T3-analyzed. See [FINDINGS.md](FINDINGS.md) for the full top-15 and T3 analysis.
 
 ## Pipeline Architecture
 

@@ -5,6 +5,44 @@
 
 ---
 
+## 2026-02-28 — h13–19 Exhaustive v5.2 Scan + DB Sync
+
+**Work done**: Ran exhaustive v5.2 pipeline scan over all h¹¹ = 13–19
+polytopes on Hetzner (16-core i9, Docker). Fixed two pipeline issues first:
+(1) broken import path in `cy_compute_v4.py` after v2→archive/v2 move,
+(2) default `limit=1000` in `fetch_polytopes` was silently capping results.
+Added `--limit` CLI flag to `pipeline_v4.py`. Then scanned each h¹¹ level
+with limit set above KS total count.
+
+**Scan results** (all 100% coverage of KS ground truth):
+
+| h¹¹ | Polytopes | T2-scored | Best score | Wall time |
+|------|-----------|-----------|------------|-----------|
+| 13   | 3         | 1         | 56         | <1s       |
+| 14   | 22        | 4         | 58         | <1s       |
+| 15   | 553       | 6         | 63         | <1s       |
+| 16   | 5,180     | 78        | 68         | 0.5 min   |
+| 17   | 38,735    | 476       | 73         | 6.1 min   |
+| 18   | 105,811   | 688       | 85         | 16.2 min  |
+| 19   | 183,287   | 1,323     | 88         | 34.5 min  |
+
+**Key findings**:
+- **h19/P438** (score **88**): New **#2** overall. 56 clean bundles,
+  max_h⁰ = 7, gap = 3. Not yet T3 deep-analyzed.
+- **h18/P315** (score **85**): New **#6** overall. 40 clean bundles,
+  max_h⁰ = 6, gap = 2. Not yet T3 deep-analyzed.
+- h13–19 combined: **333,591 polytopes**, **2,576 T2-scored** — all new
+  v5.2 scores replacing legacy v3 data.
+- Score distribution (h13–19): 80+: 2, 70–79: 24, 60–69: 614, 50–59: 1,613
+
+**DB sync**: Downloaded updated `cy_landscape_v4.db` from Hetzner (132 MB).
+Total: **501,591 polytopes**, **4,588 T2-scored**. Coverage: 8.2% of 6.12M.
+
+**Commits**: `2130259` (import fix), `35e7a98` (--limit flag), this commit
+(doc updates + DB sync).
+
+---
+
 ## 2026-02-27 — Full χ=−6 Landscape Mapped (h13–119)
 
 **Work done**: Extended KS ground-truth queries beyond h40 to map the

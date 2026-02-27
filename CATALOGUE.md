@@ -3,7 +3,7 @@
 > **Purpose**: Record what's been checked, what passed, and what's ruled out.
 > If a polytope or approach appears here, you don't need to redo the work.
 >
-> **Last updated**: 2026-02-27. Pipeline v5.2, 100-point SM composite scoring. **174,158 polytopes** scanned (2.8% of 6.12M KS χ=−6 landscape). **2,012 T2-scored**. Champion: h30/P289 (score 89). Database: `v4/cy_landscape_v4.db`. Deployed on Hetzner (16-core).
+> **Last updated**: 2026-02-27. Pipeline v5.2, 100-point SM composite scoring. **501,591 polytopes** scanned (8.2% of 6.12M KS χ=−6 landscape). **4,588 T2-scored**. Champion: h30/P289 (score 89), #2: h19/P438 (88). Database: `v4/cy_landscape_v4.db`. Deployed on Hetzner (16-core).
 
 ---
 
@@ -11,10 +11,11 @@
 
 ### What We Scanned
 
-Two eras of scanning:
+Three eras of scanning:
 
-**Era 1 (v3–v4, h13–h24)**: 6,158 polytopes, 26-point scoring, limit=100/h¹¹ (h13–h16 exhaustive).
+**Era 1 (v3–v4, h13–h24)**: 6,158 polytopes, 26-point scoring, limit=100/h¹¹ (h13–h16 exhaustive). Superseded by v5.2 for h13–h19.
 **Era 2 (v4.1–v5.2, h20–h40)**: 168,000 polytopes, 100-point SM composite, 1K–50K/h¹¹.
+**Era 3 (v5.2, h13–h19)**: 333,591 polytopes, 100-point SM composite, **exhaustive** (100% of KS). Produced new #2 candidate h19/P438 (88).
 
 #### Complete Coverage — KS Ground-Truth Counts (h13–h40)
 
@@ -27,13 +28,13 @@ exist at h¹¹ = 41–119 (5.3% of the total 6,122,441).
 
 | h¹¹ | h²¹ | KS total | Scanned | Coverage | T2-scored | Best | Era |
 |------|------|----------|---------|----------|-----------|------|-----|
-| 13 | 16 | 3 | 3 | **100%** | — | — | v3 |
-| 14 | 17 | 22 | 22 | **100%** | — | — | v3 |
-| 15 | 18 | 553 | 553 | **100%** | — | — | v3 |
-| 16 | 19 | 5,180 | 5,180 | **100%** | — | — | v3 |
-| 17 | 20 | 38,735 | 200 | 0.5% | — | — | v3 |
-| 18 | 21 | 105,811 | 100 | 0.09% | — | — | v3 |
-| 19 | 22 | 183,287 | 100 | 0.05% | — | — | v3 |
+| 13 | 16 | 3 | 3 | **100%** | 1 | 56 | v5 |
+| 14 | 17 | 22 | 22 | **100%** | 4 | 58 | v5 |
+| 15 | 18 | 553 | 553 | **100%** | 6 | 63 | v5 |
+| 16 | 19 | 5,180 | 5,180 | **100%** | 78 | 68 | v5 |
+| **17** | **20** | **38,735** | **38,735** | **100%** | **476** | **73** | v5 |
+| **18** | **21** | **105,811** | **105,811** | **100%** | **688** | **85** | v5 |
+| **19** | **22** | **183,287** | **183,287** | **100%** | **1,323** | **88** | v5 |
 | 20 | 23 | 257,613 | 1,000 | 0.4% | 190 | 81 | v5 |
 | 21 | 24 | 329,227 | 1,000 | 0.3% | 228 | 80 | v5 |
 | 22 | 25 | 407,667 | 1,000 | 0.2% | 281 | 75 | v5 |
@@ -55,29 +56,28 @@ exist at h¹¹ = 41–119 (5.3% of the total 6,122,441).
 | 38 | 41 | 87,038 | 1,000 | 1.1% | 0 | — | v5 |
 | 39 | 42 | 69,757 | 1,000 | 1.4% | 1 | 49 | v5 |
 | 40 | 43 | 60,271 | 1,000 | 1.7% | 0 | — | v5 |
-| **Total (h13–40)** | | **5,795,310** | **174,158** | **3.0%** | **2,012** | **89** | |
+| **Total (h13–40)** | | **5,795,310** | **501,591** | **8.7%** | **4,588** | **89** | |
 | h41–119 | | 327,131 | 0 | 0% | — | — | — |
-| **Grand total** | | **6,122,441** | **174,158** | **2.8%** | **2,012** | **89** | |
+| **Grand total** | | **6,122,441** | **501,591** | **8.2%** | **4,588** | **89** | |
 
 **Key stats**:
 - **6,122,441** χ=−6 polytopes exist in the full KS database (h¹¹ = 13–119)
 - h13–h40 contains **94.7%** of them (5,795,310); h41–119 adds only **327K** (5.3%)
-- The landscape peaks at h24 (447K) and drops to zero by h120
-- We have scanned **174K (2.8%)** of the full landscape
-- h13–h16 are **exhaustively scanned** (100% coverage, 5,758 polytopes)
-- Even our deepest v5 levels (h27/h28/h30 at 50K) are only **12–18% covered**
-- 2,012/168,000 (1.2%) of the v5 scan survive to T2 scoring
-- h27–h30 dominates: 8 of the top 10 candidates
-- **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
+- We have scanned **501,591 (8.2%)** of the full landscape; **4,588** T2-scored
+- **h13–h19 are exhaustively scanned** (100% coverage, 333,591 polytopes) under v5.2
+- h19/P438 (score **88**) is the new **#2** candidate — found by exhaustive h19 scan
+- h18/P315 (score **85**) is the new **#6** — rivals h27/P13954
 - h30/P289 (score 89) remains the overall champion
+- Even our deepest v5 levels (h27/h28/h30 at 50K) are only **12–18% covered**
+- h27–h30 dominates: 8 of the top 15 candidates
+- **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
 - h37+ is barren — the χ=−6 landscape thins rapidly above h¹¹ ≈ 36
 - h41–50 still has ~250K polytopes; h51+ has only ~77K — diminishing returns
-- v3 legacy polytopes (h13–h19) were scored with the old 26-point system; not yet rescored under v5.2
+- The landscape peaks at h24 (447K) and drops to zero by h120
 
 ### What We Haven't Scanned
 
-- **h¹¹ = 13–16**: Exhaustively scanned (100% coverage). Scored under legacy 26-point system only.
-- **h¹¹ = 17–19**: 200/100/100 of 38K/106K/183K scanned (<0.5%). Legacy scoring only.
+- **h¹¹ = 13–19**: **Exhaustively scanned** (100% coverage, 333,591 polytopes) under v5.2. h19/P438 (88) is the new #2 overall. h18/P315 (85) entered top 10.
 - **h¹¹ = 20–26, 29, 31–40**: Only 1K of 100K–450K polytopes scanned (0.2–1.7% coverage). Major unexplored territory, especially h22–h26 which each have 400K+ polytopes.
 - **h27 beyond 50K**: 393,842 total — 50K scanned = 12.7% coverage. 343K polytopes remain in the fibration-rich zone.
 - **h28 beyond 50K**: 354,495 total — 50K scanned = 14.1% coverage. 304K polytopes remain.
@@ -93,21 +93,24 @@ exist at h¹¹ = 41–119 (5.3% of the total 6,122,441).
 ### Current Pipeline (v5.2, h20–h40)
 
 ```
-168,000 polytopes (h11=20..40, v5.2 pipeline)
+501,591 polytopes (h13–h40, v5.2 pipeline)
   │
-  ├─ 5,344 pass T0 (geometry + EFF_MAX=22) ──── 3.2% pass
+  ├─ h13–h19: 333,591 exhaustive (100% coverage)
+  │   └─ 2,576 T2-scored, top=88 (h19/P438)
+  │
+  ├─ h20–h40: 168,000 (1K–50K per level)
+  │   └─ 2,012 T2-scored, top=89 (h30/P289)
+  │
+  ├─ Combined: 4,588 T2-scored
   │   │
-  │   └─ 2,012 pass T1 → T2 scored ─────────── 1.2% of total
-  │       (100-point SM composite: hierarchy, Yukawa, LVS, clean bundles, ...)
-  │       │
-  │       ├─ 22 deep-analyzed (T3) ─────── 20 random FRSTs each
-  │       │   h30/P289: SM+GUT, su(3)×su(17)×U(1)^10
-  │       │   h27 cluster: ALL 6 have SM+GUT fibrations
-  │       │   Tier A (paper-ready): 3 candidates (h28 stability cluster)
-  │       │   Tier C (score+fibrations): 4 candidates (h27+h30)
-  │       │
-  │       └─ Score distribution:
-  │           89: 1,  86–87: 3,  83–85: 7,  80–82: 14,  70–79: 247,  <70: 1,740
+  │   ├─ 22 deep-analyzed (T3) ─────── 20 random FRSTs each
+  │   │   h30/P289: SM+GUT, su(3)×su(17)×U(1)^10
+  │   │   h27 cluster: ALL 6 have SM+GUT fibrations
+  │   │   Tier A (paper-ready): 3 candidates (h28 stability cluster)
+  │   │   Tier C (score+fibrations): 4 candidates (h27+h30)
+  │   │
+  │   └─ Score distribution (all eras):
+  │       89: 1,  88: 1,  85–87: 5,  83–84: 8,  80–82: 16,  70–79: 271,  <70: 4,286
 ```
 
 ### Legacy Pipeline (v3–v4, h13–h24)

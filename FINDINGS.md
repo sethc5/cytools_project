@@ -8,24 +8,27 @@ Standard Model–like compactifications. For the quick summary, see
 
 ## Executive Summary
 
-**Database**: `v4/cy_landscape_v4.db` — 174K polytopes (h13–h40), 2,012 T2-scored.
+**Database**: `v4/cy_landscape_v4.db` — 502K polytopes (h13–h40), 4,588 T2-scored.
 **Pipeline**: v5.2. **Scoring**: 100-point SM composite (12 components).
-**Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total).
+**Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h19 exhaustively scanned (100%).
 
 ### Current Champions
 
 | Rank | ID | Score | Hier | MBD | VolH | Clean | c₂ stab | Tier |
 |------|----|-------|------|------|-------|-------|---------|------|
 | 1 | **h30/P289** | **89** | 34,318 | 0.88 | 1,737 | 12 | 0% | C |
-| 2 | h28/P874 | **87** | 1,150 | 0.95 | 1,656 | 14 | 55% | A |
-| 3 | h28/P186 | **87** | 1,147 | 0.94 | 1,725 | 14 | 35% | A |
-| 4 | **h27/P22835** | **86** | 1,046 | — | 844 | 16 | 0% | C |
-| 5 | **h27/P13954** | **85** | 695 | — | 1,339 | 16 | 25% | — |
-| 6 | h28/P187 | 84 | 1,160 | 0.95 | 1,766 | 14 | 55% | A |
-| 7 | h27/P1085 | 83 | 731 | — | 1,744 | 32 | 0% | — |
-| 8 | h27/P1520 | 83 | 17,287 | — | 362 | 16 | 0% | — |
-| 9 | h27/P11889 | 83 | 5,498 | — | 711 | 62 | 0% | — |
+| 2 | **h19/P438** | **88** | — | — | — | 56 | — | — |
+| 3 | h28/P874 | **87** | 1,150 | 0.95 | 1,656 | 14 | 55% | A |
+| 4 | h28/P186 | **87** | 1,147 | 0.94 | 1,725 | 14 | 35% | A |
+| 5 | **h27/P22835** | **86** | 1,046 | — | 844 | 16 | 0% | C |
+| 6 | **h18/P315** | **85** | — | — | — | 40 | — | — |
+| 7 | **h27/P13954** | **85** | 695 | — | 1,339 | 16 | 25% | — |
+| 8 | h28/P187 | 84 | 1,160 | 0.95 | 1,766 | 14 | 55% | A |
+| 9 | h27/P35919 | 83 | — | — | — | — | — | — |
 | 10 | h27/P22799 | 83 | 1,026 | — | 806 | 16 | 0% | — |
+| 11 | h27/P11889 | 83 | 5,498 | — | 711 | 62 | 0% | — |
+| 12 | h27/P1520 | 83 | 17,287 | — | 362 | 16 | 0% | — |
+| 13 | h27/P1085 | 83 | 731 | — | 1,744 | 32 | 0% | — |
 
 **Tier A** (paper-ready) = high score + triangulation stability.
 **Tier B** = perfect stability but limited triangulation sampling.
@@ -35,10 +38,12 @@ Standard Model–like compactifications. For the quick summary, see
 
 - **6,122,441** χ=−6 polytopes exist in the full KS database (h¹¹ = 13–119)
 - h13–h40 contains **5,795,310** (94.7%); h41–119 adds 327,131 (tapers to zero by h120)
-- **174,158** polytopes scanned = **2.8%** of the full landscape
-- h13–h16 are **exhaustively scanned** (100% of 5,758 polytopes)
-- **2,012** T2-scored with 100-point SM composite (v5 era, h20–h40)
+- **501,591** polytopes scanned = **8.2%** of the full landscape
+- **h13–h19 exhaustively scanned** (100% of 333,591 polytopes) under v5.2
+- **4,588** T2-scored with 100-point SM composite
 - **89** = highest score achieved (h30/P289)
+- **88** = new #2: h19/P438 — 56 clean bundles, found by exhaustive h19 scan
+- **85** = h18/P315 enters top 10 — 40 clean bundles, found by exhaustive h18 scan
 - **55%** = best c₂ triangulation stability among top candidates (h28/P874, h28/P187)
 - Even our deepest v5 levels (h27/h28/h30 at 50K) are only **12–18% covered**
 - The peak is h24 with **447K polytopes** — only 0.2% scanned
