@@ -32,8 +32,8 @@ import os
 import numpy as np
 
 # ── Import all v2 functions ──────────────────────────────────────
-# Add v2/ to path so we can import without package gymnastics
-_v2_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'v2')
+# Add archive/v2/ to path so we can import without package gymnastics
+_v2_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'archive', 'v2')
 if _v2_dir not in sys.path:
     sys.path.insert(0, _v2_dir)
 
