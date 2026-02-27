@@ -19,10 +19,14 @@ v5 pipeline additions:
   - compute_tri_stability() in T3: tests c₂ and κ hash stability
     across 20 random triangulations vs default placing tri.
   - DB migration: adds tri_n_tested, tri_c2_stable_frac, tri_kappa_stable_frac
+  - --limit N: KS fetch limit per (h11,h21) query (default 1000).
+    The KS web API returns polytopes in fixed combinatorial order.
+    Use --limit 5000+ to scan beyond the first 1000.
 
 Execution modes:
   --ladder --h11 13 30     T0 only, fast landscape mapping
   --scan   --h11 19        Full T0→T2 for one h11
+  --scan   --h11 28 --limit 10000   Scan first 10K polytopes at h11=28
   --deep   --top 50        T3 on top candidates (includes fiber + tri stability)
   --rescore                Recompute SM scores from existing data
 
@@ -697,7 +701,7 @@ def run_rescore(db):
 #  Ladder mode: T0 + T05 only
 # ══════════════════════════════════════════════════════════════════
 
-def run_ladder(h11_start, h11_end, workers=4, db=None):
+def run_ladder(h11_start, h11_end, workers=4, db=None, ks_limit=1000):
     """Run T0+T05 across h11 range. Fast landscape mapping."""
     import cytools as ct
     from cytools.config import enable_experimental_features
@@ -712,7 +716,7 @@ def run_ladder(h11_start, h11_end, workers=4, db=None):
 
         # Fetch polytopes
         try:
-            polys = list(ct.fetch_polytopes(h11=h11, h21=h21))
+            polys = list(ct.fetch_polytopes(h11=h11, h21=h21, limit=ks_limit))
         except Exception as e:
             print(f"    {RED}Fetch failed: {e}{RESET}")
             continue
@@ -773,7 +777,7 @@ def run_ladder(h11_start, h11_end, workers=4, db=None):
 #  Scan mode: T0 → T2 for one h11
 # ══════════════════════════════════════════════════════════════════
 
-def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
+def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000):
     """Full T0→T2 scan for a single h11 value.
 
     If resume=True and db is available, skips T0→T1 and picks up T2
@@ -787,7 +791,7 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
     t_start = time.time()
 
     # Fetch
-    polys = list(ct.fetch_polytopes(h11=h11, h21=h21))
+    polys = list(ct.fetch_polytopes(h11=h11, h21=h21, limit=ks_limit))
     n_polys = len(polys)
     if n_polys == 0:
         print(f"  No polytopes at h11={h11}")
@@ -1000,7 +1004,7 @@ def _run_t2_parallel(polys, ranked_list, h11, workers, db):
 #  Deep mode: T3 on top candidates (includes fiber + tri stability)
 # ══════════════════════════════════════════════════════════════════
 
-def run_deep(top_n=50, db=None):
+def run_deep(top_n=50, db=None, ks_limit=1000):
     """Run T3 (full phenomenology + fiber + tri stability) on top candidates.
 
     v5 addition: runs compute_tri_stability() on each candidate to test
@@ -1026,7 +1030,9 @@ def run_deep(top_n=50, db=None):
               f"(score={old_score})")
 
         try:
-            polys = list(ct.fetch_polytopes(h11=h11, h21=h11+3))
+            # Need limit > idx to access this polytope
+            fetch_limit = max(ks_limit, idx + 1)
+            polys = list(ct.fetch_polytopes(h11=h11, h21=h11+3, limit=fetch_limit))
             p = polys[idx]
 
             # Fiber analysis (moved here from T2 scan — saves compute)
@@ -1125,6 +1131,10 @@ def main():
                        help='Database path (default: v4/cy_landscape_v4.db)')
     parser.add_argument('--resume', action='store_true',
                        help='Resume from checkpoint')
+    parser.add_argument('--limit', type=int, default=1000,
+                       help='KS fetch limit per (h11,h21) query (default: 1000). '
+                            'The KS database has 10K-50K+ polytopes per h11 at chi=-6. '
+                            'Use --limit 5000 to scan 5x deeper.')
 
     args = parser.parse_args()
 
@@ -1139,7 +1149,8 @@ def main():
         elif args.ladder:
             if not args.h11 or len(args.h11) < 2:
                 parser.error("--ladder requires --h11 START END")
-            run_ladder(args.h11[0], args.h11[1], workers=args.workers, db=db)
+            run_ladder(args.h11[0], args.h11[1], workers=args.workers,
+                      db=db, ks_limit=args.limit)
 
         elif args.scan:
             if not args.h11:
@@ -1151,10 +1162,10 @@ def main():
                 h11_list = args.h11
             for h11 in h11_list:
                 run_scan(h11, workers=args.workers, top_n=args.top,
-                        db=db, resume=args.resume)
+                        db=db, resume=args.resume, ks_limit=args.limit)
 
         elif args.deep:
-            run_deep(top_n=args.top, db=db)
+            run_deep(top_n=args.top, db=db, ks_limit=args.limit)
 
     finally:
         db.close()

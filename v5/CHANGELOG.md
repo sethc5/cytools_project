@@ -1,5 +1,33 @@
 # v5 Pipeline Changelog
 
+## v5.1 — 2026-02-27: KS Fetch Limit + Coverage Fix
+
+### Critical Bug: 1000-polytope cap
+
+`cytools.fetch_polytopes()` defaults to `limit=1000`, silently capping
+queries to the first 1,000 polytopes per (h11, h21) pair from the KS web
+server. The actual populations at chi=−6 are **10,000–50,000+** per h11
+level. Our entire 21K-polytope database was the first ~2% of each bucket,
+returned in a fixed deterministic order (by lattice point count).
+
+### Fix: --limit CLI argument
+
+Added `--limit N` to all pipeline modes (scan, ladder, deep):
+- `--scan --h11 28 --limit 10000` scans the first 10K polytopes at h28
+- `--deep --top 20 --limit 10000` ensures deep mode can access polytopes
+  with `poly_idx ≥ 1000` (auto-adjusts limit to `max(limit, idx+1)`)
+- Default remains 1000 for backward compatibility
+
+### Impact
+
+The KS server returns polytopes sorted by combinatorial complexity (number
+of lattice points, then vertices). First-1000 polytopes have a slight bias
+toward fewer points (mean 32.9 vs 34.2 for batch 2 at h28). The scoring
+distribution may differ at higher indices. Deeper scans will reveal
+whether our h28 champions are robust or artifacts of positional bias.
+
+---
+
 ## v5.0 — 2026-02-27: Scoring Refinement + Triangulation Stability
 
 Based on comprehensive analysis of 19,000 polytopes (1,300 T2-scored) across
