@@ -41,11 +41,37 @@ h26-40 with 14 workers.
 - Zero T1 timeouts in first h26 batch
 - Full changelog: v4/CHANGELOG.md
 
-### Scan Launched
+### Scan Results (completed 2026-02-26, ~16 min total)
 
 `--scan --h11 26 40 --workers 14` on Hetzner (16-core).
-Re-scans h26-30 (adds eff=21-22 polytopes + rescores with v4.1),
-then extends through h31-40.
+Re-scanned h26-30 with EFF_MAX=22 (added eff=21-22 polytopes + rescored),
+then extended through h31-40. Zero T1 timeouts across all 15 h-values.
+
+| h11 | T0 pass | T1 pass (%) | Top | Time | vs v4.0 |
+|-----|---------|-------------|-----|------|----------|
+| 26  | 282     | 113 (40.1%) | 76  | 5.1m | T0 2× (was 142) |
+| 27  | 192     | 63 (32.8%)  | 79  | 3.3m | T0 +80% (was 106) |
+| 28  | 182     | 95 (52.2%)  | **84** | 2.9m | **New champion** (was 75) |
+| 29  | 91      | 39 (42.9%)  | 73  | 1.5m | +5 vs v4.0 |
+| 30  | 128     | 56 (43.8%)  | **84** | 1.7m | Tied champion (was 82) |
+| 31  | 52      | 27 (51.9%)  | 70  | 49s  | |
+| 32  | 54      | 41 (75.9%)  | 77  | 48s  | Surprise: high T1 pass |
+| 33  | 31      | 7 (22.6%)   | 65  | 14s  | |
+| 34  | 17      | 15 (88.2%)  | 70  | 14s  | Very high T1 pass |
+| 35  | 11      | 3 (27.3%)   | 62  | 11s  | |
+| 36  | 6       | 2 (33.3%)   | 30  | 11s  | Sparse |
+| 37  | 3       | 0 (0%)      | —   | —    | Empty |
+| 38  | 0       | —           | —   | —    | Zero T0 pass |
+| 39  | 1       | 1 (100%)    | 49  | 10s  | Single survivor |
+| 40  | 0       | —           | —   | —    | Zero T0 pass |
+
+**Key observations:**
+- New top score **84** at both h28 and h30 (EFF_MAX=22 unlocked these)
+- EFF_MAX=22 impact massive: h26 T0 doubled (142→282), h27 +80% (106→192),
+  h28 nearly doubled (92→182)
+- **h37+ is effectively barren** — CY landscape exhausted at EFF_MAX=22
+- h32 surprise: 76% T1 pass rate and top=77, outperforming h31 and h33
+- h34 has 88% T1 pass (15/17) — tiny but high-quality sample
 
 ---
 

@@ -53,3 +53,12 @@ nohup.out
 LLM_CONTEXT.md
 cy_landscape.db
 receipts/.merged
+
+# Database files (large, not for git)
+*.db
+
+# Old results archives (backed up elsewhere)
+results/hetzner_old/
+v2/results/
+v2/README.md
+v2/v2_hetzner.db
