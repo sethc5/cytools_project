@@ -1,5 +1,39 @@
 # v5 Pipeline Changelog
 
+## v5.2 — 2026-02-27: MONOTONIC_MAX Score Drift Fix
+
+### Bug: Score regression after rescanning existing polytopes
+
+When the pipeline rescans polytopes already in the DB, `MONOTONIC_MAX`
+columns (`n_clean`, `yukawa_rank`, `n_bundles_checked`, etc.) correctly
+preserve the higher of old vs new values. But `sm_score` was computed
+from the T2 worker's local data (which might have lower values if the
+fresh CYTools run found fewer clean bundles, e.g. different triangulation
+ordering), then unconditionally overwritten in the DB.
+
+**Example:** P874 previously had `n_clean=14 → score=87`. A fresh T2 run
+found `n_clean=6 → score=84`. The DB kept `n_clean=14` (MONOTONIC_MAX)
+but stored `sm_score=84` from the latest T2 worker. The score became
+inconsistent with the preserved metrics.
+
+### Fix
+
+1. **Post-upsert rescore:** After all T2 results are upserted, the
+   pipeline reads each polytope's merged DB row and recomputes
+   `compute_sm_score()` from the MAX-preserved values. This ensures
+   the score always reflects the best-known metrics.
+
+2. **T2 tracks `first_clean_at`:** The T2 worker now records the index
+   of the first clean bundle found in its full census, matching the T1
+   field. This feeds the `clean_depth` scoring component (5 pts).
+
+### Impact
+
+Champions P874/P186 restored from 84→87. All polytopes with prior T2
+data that were rescanned will have consistent scores.
+
+---
+
 ## v5.1 — 2026-02-27: KS Fetch Limit + Coverage Fix
 
 ### Critical Bug: 1000-polytope cap

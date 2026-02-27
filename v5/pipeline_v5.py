@@ -355,8 +355,9 @@ def _t2_worker(args):
         d3_values = []
         h0_dist = Counter()
         best_clean_D = None  # Track best clean bundle for Yukawa
+        first_clean_at = -1  # Index of first clean bundle found
 
-        for D_basis, chi_val in bundles:
+        for idx, (D_basis, chi_val) in enumerate(bundles):
             D_toric = basis_to_toric(D_basis, div_basis, n_toric)
 
             if chi_val > 0:
@@ -386,6 +387,8 @@ def _t2_worker(args):
                                        _precomp=_precomp)
                 if h3 == 0:
                     n_clean += 1
+                    if first_clean_at < 0:
+                        first_clean_at = idx
                     d3 = compute_D3(D_basis, intnums)
                     d3_values.append(d3)
                     if best_clean_D is None:
@@ -423,6 +426,7 @@ def _t2_worker(args):
             'n_chi3': n_chi3,
             'n_bundles_checked': n_chi3,
             'n_clean': n_clean,
+            'first_clean_at': first_clean_at,
             'max_h0': max_h0,
             'max_h0_t2': max_h0,
             'h0_ge3': h0_ge3,
@@ -571,6 +575,7 @@ def db_upsert_t2(db, r, auto_commit=True):
         n_chi3=r.get('n_chi3'),
         n_bundles_checked=r.get('n_bundles_checked'),
         n_clean=r.get('n_clean'),
+        first_clean_at=r.get('first_clean_at'),
         max_h0=r.get('max_h0'),
         max_h0_t2=r.get('max_h0_t2'),
         h0_ge3=r.get('h0_ge3'),
@@ -973,9 +978,38 @@ def _run_t2_parallel(polys, ranked_list, h11, workers, db):
           f"{n_with_clean} with clean bundles, "
           f"{t2_elapsed:.1f}s")
 
-    # Score summary
-    scores = sorted([r['sm_score'] for r in t2_results.values()
-                    if r.get('sm_score')], reverse=True)
+    # ── Post-upsert rescore ──
+    # MONOTONIC_MAX columns (n_clean, yukawa_rank, etc.) keep the MAX of
+    # old + new values, but sm_score is always overwritten.  Recompute
+    # scores from the merged DB rows so they reflect MAX-preserved metrics.
+    if db and t2_results:
+        n_rescored = 0
+        for idx in t2_results:
+            row = db.get_polytope(h11, idx)
+            if row:
+                new_score = compute_sm_score(dict(row))
+                old_score = row['sm_score'] or 0
+                if new_score != old_score:
+                    db.upsert_polytope(h11, idx,
+                                       sm_score=new_score,
+                                       auto_commit=False)
+                    n_rescored += 1
+        if n_rescored > 0:
+            db.commit()
+            print(f"    Rescored {n_rescored} polytopes "
+                  f"(MONOTONIC_MAX merge fix)")
+
+    # Score summary (use DB-corrected scores)
+    if db and t2_results:
+        scores = []
+        for idx in t2_results:
+            row = db.get_polytope(h11, idx)
+            if row and row['sm_score']:
+                scores.append(row['sm_score'])
+        scores.sort(reverse=True)
+    else:
+        scores = sorted([r['sm_score'] for r in t2_results.values()
+                        if r.get('sm_score')], reverse=True)
     if scores:
         print(f"    SM scores: top={scores[0]}, "
               f"median={scores[len(scores)//2]}, "
