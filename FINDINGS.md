@@ -514,6 +514,133 @@ that excels on one axis but not across the board.
 5. **21K polytopes, 1,718 scored** across h20-40. The scan is essentially
    complete for the chi=−6 landscape at 1,000-polytope sampling depth.
 
+## 0.4. T3 Deep Analysis — Top 20 Candidates
+
+**Date**: 2026-02-27. **Pipeline**: v5.0 `--deep --top 20`.
+**Runtime**: ~15 min on Hetzner (8-core, CYTools container).
+**Tests per candidate**: 50 random triangulations (property-level stability),
+20 triangulations (c₂/κ hash stability), fibration analysis, instanton check.
+
+### Method
+
+T3 deep analysis tests whether a polytope's key physical observables are
+**triangulation-invariant**. For each candidate we:
+1. Generate up to 50 random fine, regular, star triangulations (FRST)
+2. Compute c₂ vector and κ signature hash for each triangulation
+3. Report `c2_stable_frac` = fraction of 20 tris sharing the modal c₂ hash
+4. Report `kappa_stable_frac` = fraction of 20 tris sharing the modal κ hash
+5. Search for K3 and elliptic fibrations → check for SM/GUT gauge groups
+6. Check for instanton-supporting divisors (rigid + ample normal bundle)
+
+A polytope with `c2_stable = 1.00` has the same second Chern class in every
+tested triangulation — its physics is robust. One with `c2_stable = 0.00`
+has a different c₂ hash in every triangulation — extremely fragile.
+
+### Results
+
+| # | Candidate | Score | YukRk | Hier | MBD | c₂ stab | κ stab | Inst | K3 | Ell | Tris |
+|---|-----------|-------|-------|------|------|---------|--------|------|-----|-----|------|
+| 1 | h28/P874 | **87** | 154 | 1,150 | 0.95 | **0.50** | **0.50** | Y | 1 | 0 | 20 |
+| 2 | h28/P186 | **87** | 145 | 1,147 | 0.94 | 0.30 | 0.30 | Y | 1 | 0 | 20 |
+| 3 | h30/P289 | **86** | 147 | 34,318 | 0.88 | 0.00 | 0.00 | Y | 3 | 1 | 20 |
+| 4 | h28/P187 | 84 | 164 | 1,160 | 0.95 | **0.55** | **0.55** | Y | 1 | 0 | 20 |
+| 5 | h25/P934 | 81 | 140 | 1,666 | 0.95 | 0.25 | 0.25 | Y | 1 | 0 | 20 |
+| 6 | h20/P903 | 81 | 129 | 510 | 0.93 | 0.00 | 0.00 | Y | 1 | 0 | 20 |
+| 7 | h32/P94 | 80 | 143 | 2,759 | 0.91 | **1.00** | **1.00** | N | 3 | 1 | 6 |
+| 8 | h25/P411 | 80 | 141 | 1,597 | 0.92 | 0.05 | 0.05 | N | 4 | 4 | 20 |
+| 9 | h32/P42 | 79 | 154 | 1,022 | 0.90 | **1.00** | **1.00** | Y | 3 | 1 | 4 |
+| 10 | h27/P219 | 79 | 161 | 901 | 0.97 | **0.55** | **0.55** | Y | 1 | 0 | 20 |
+| 11 | h23/P283 | 79 | 158 | 2,821 | 0.80 | 0.20 | 0.20 | Y | 1 | 0 | 5 |
+| 12 | h21/P496 | 79 | 115 | 49,186 | 0.98 | 0.00 | 0.00 | Y | 3 | 1 | 20 |
+| 13 | h26/P305 | 79 | 147 | 2,991 | 0.93 | 0.00 | 0.00 | Y | 3 | 1 | 20 |
+| 14 | h28/P190 | 78 | 150 | 201 | 0.97 | 0.20 | 0.20 | Y | 1 | 0 | 20 |
+| 15 | h21/P55 | 78 | 126 | 608 | 0.76 | 0.15 | 0.15 | N | 1 | 0 | 20 |
+| 16 | h28/P188 | 78 | 158 | 214 | 0.96 | 0.00 | 0.00 | Y | 1 | 0 | 20 |
+| 17 | h24/P479 | 78 | 141 | 8,449 | 0.64 | 0.00 | 0.00 | N | 2 | 1 | 20 |
+| 18 | h24/P88 | 77 | 170 | 2,256 | 0.62 | 0.30 | 0.30 | N | 2 | 1 | 20 |
+| 19 | h28/P45 | 77 | 139 | 198 | 0.95 | 0.10 | 0.10 | Y | 1 | 0 | 20 |
+| 20 | h28/P247 | 77 | 148 | 2,340 | 0.89 | 0.00 | 0.00 | Y | 2 | 1 | 20 |
+
+**Note**: h21/P55 was rescored 77→78 during deep analysis (tri_stability
+contributed to a borderline rounding). h32/P94 and h32/P42 only have 6 and
+4 triangulations respectively (CYTools found fewer FRST for those polytopes),
+so their 100% stability, while encouraging, has lower statistical power.
+
+### Key Findings
+
+1. **No SM or GUT fibrations found in any of the 20 candidates.** All
+   K3/elliptic fibrations produce non-SM gauge groups. This is consistent
+   with the broader pattern: SM fibrations are extremely rare (3 of 21K
+   polytopes in the full scan), and they don't correlate with high SM score.
+
+2. **Triangulation stability is bimodal.** Candidates cluster into three
+   tiers:
+   - **Robust** (c₂ stab ≥ 0.50): h32/P94 (1.00), h32/P42 (1.00),
+     h28/P187 (0.55), h27/P219 (0.55), h28/P874 (0.50)
+   - **Moderate** (0.10–0.30): h28/P186 (0.30), h24/P88 (0.30),
+     h25/P934 (0.25), h23/P283 (0.20), h28/P190 (0.20), h21/P55 (0.15),
+     h28/P45 (0.10)
+   - **Fragile** (0.00–0.05): h30/P289 (0.00), h20/P903 (0.00),
+     h21/P496 (0.00), h26/P305 (0.00), h28/P188 (0.00), h28/P247 (0.00),
+     h24/P479 (0.00), h25/P411 (0.05)
+
+3. **Score and stability are weakly correlated.** The #1 scored polytope
+   (h28/P874, 87) is only 50% stable, while h28/P187 (84) is the most
+   stable well-sampled candidate at 55%. h30/P289 (86) is completely
+   fragile at 0%. The scoring system captures average-case quality, not
+   triangulation robustness — these measure different things.
+
+4. **The h28 cluster dominates the robust tier.** h28/P874 (50%), P187
+   (55%), and P186 (30%) are all in the top half of stability. The h28
+   polytopes share vertex/facet structure that may explain this clustering.
+
+5. **High hierarchy ≠ stability.** h21/P496 (hier=49,186) and h30/P289
+   (hier=34,318) are both 0% stable. Their extreme Yukawa eigenvalue
+   spreads are triangulation-dependent artifacts, not robust features.
+   This is a cautionary result for any candidate selection based purely
+   on hierarchy.
+
+6. **Instanton divisors are common** (14/20 have them), but anti-correlated
+   with bundled stability features. The 6 without instanton divisors
+   include both 100%-stable h32 candidates and both lowest-stability
+   candidates (h25/P411 at 5%, h24/P479 at 0%).
+
+### Revised Champion Rankings (Score × Stability)
+
+Combining v5 SM score with T3 triangulation stability yields a more
+complete picture. A candidate at score=87 but 0% stable is less
+paper-worthy than score=84 at 55% stable.
+
+| Tier | Candidates | Score | c₂ stab | Assessment |
+|------|-----------|-------|---------|------------|
+| **A — Paper-ready** | h28/P874 | 87 | 50% | Best overall: top score + good stability |
+| | h28/P187 | 84 | 55% | Most stable well-sampled candidate |
+| | h28/P186 | 87 | 30% | Co-champion, moderate stability |
+| **B — Strong** | h32/P94 | 80 | 100% | Perfect stability but only 6 tris tested |
+| | h32/P42 | 79 | 100% | Perfect stability but only 4 tris tested |
+| | h27/P219 | 79 | 55% | High stability, strong MBD (0.97) |
+| **C — Score-driven** | h30/P289 | 86 | 0% | Elite hierarchy but completely fragile |
+| | h25/P934 | 81 | 25% | Balanced but moderate on both axes |
+| | h20/P903 | 81 | 0% | Bundle abundance path, fragile geometry |
+| **D — Interesting** | h21/P496 | 79 | 0% | Record hierarchy (49K) but fragile |
+| | h24/P88 | 77 | 30% | Decent stability, outside sweet spot |
+| | h25/P411 | 80 | 5% | Most fibrations (4K3+4ell), nearly fragile |
+
+### Summary
+
+The T3 deep pass reveals that **triangulation stability is the missing
+discriminator** in the candidate list. Score alone cannot separate
+paper-ready candidates from fragile geometries. The h28 cluster
+(P874, P187, P186) emerges as the clear Tier A — they combine high
+scores with meaningful triangulation robustness. h30/P289, despite its
+spectacular hierarchy of 34,318×, is a cautionary case: its physics
+changes with every triangulation.
+
+The next step is a targeted re-analysis of Tier A candidates with
+larger triangulation samples (100-200 tris) to establish confidence
+intervals on the stability fractions, and focused Yukawa texture
+analysis on the stable triangulations specifically.
+
 ---
 
 ## 1. h13/poly1 — Benchmark Candidate (Pipeline Score: 18/20)
