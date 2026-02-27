@@ -376,6 +376,146 @@ physical properties are more contingent than the h28 cluster.
 
 ---
 
+## 0.3. v5 Scoring — h20-40 (21,000 polytopes, 1,718 T2-scored)
+
+**Date**: 2026-02-27. **Database**: `v4/cy_landscape_v4.db` (6.5 MB).
+**Pipeline version**: v5.0 (rank_sweet_spot replaces fibration_sm, graded
+mori_blowdown, yukawa_rank fallback bug fix, compute_tri_stability added).
+
+### v5 Scoring Changes
+
+| Component | v4.1 | v5 | Rationale |
+|-----------|------|----|-----------|
+| fibration_sm | 3 | **0 (removed)** | Only 3 of 19K polytopes had SM gauge group. 3 pts permanently stranded. |
+| rank_sweet_spot | — | **3 (new)** | Yukawa rank 140-159 is the SM sweet spot for h11_eff=18-22. Graded: 140-159→3, 130-139→2, 120-129→1. |
+| mori_blowdown | 5 (binary) | **5 (graded)** | n_dp_contract/n_mori_rays fraction. ≥0.9→5, ≥0.7→4, ≥0.5→3, ≥0.3→2, else→1. |
+
+**Bug fix**: `yukawa_texture_rank` fallback used Python's falsy `or`, so
+`texture_rank=0` (no clean bundles) fell through to `yukawa_rank` (T05 κ
+count, 100-200), inflating 194 polytopes by +10 to +18. Fixed to explicit
+`None` check.
+
+### New Champions: h28/P874 and h28/P186 (SM Score: 87)
+
+Two h28 polytopes now share the top score of **87** (up from 84 in v4.1).
+Both land in the rank_sweet_spot (yukawa_rank 154 and 145) and have
+near-perfect Mori blowdown fractions (0.95 and 0.94), collecting the full
+3 + 5 from the new/graded components. h30/P289 follows at 86.
+
+| Rank | ID | Score | yuk_rk | hier | dp_frac | clean | vol_h | lvs |
+|------|----|-------|--------|------|---------|-------|-------|-----|
+| 1 | h28/P874 | **87** | 154 | 1,150 | 0.95 | 14 | 1,656 | 0.0017 |
+| 2 | h28/P186 | **87** | 145 | 1,147 | 0.94 | 14 | 1,725 | 0.0017 |
+| 3 | h30/P289 | **86** | 147 | 34,318 | 0.88 | 12 | 1,737 | 0.0018 |
+| 4 | h28/P187 | 84 | 164 | 1,160 | 0.95 | 14 | 1,766 | 0.0016 |
+| 5 | h25/P934 | 81 | 140 | 1,666 | 0.95 | 22 | 1,831 | 0.0022 |
+| 6 | h20/P903 | **80** | 129 | 510 | 0.93 | 74 | 3,052 | 0.0007 |
+| 7 | h32/P94 | 80 | 143 | 2,759 | 0.91 | 42 | 877 | 0.0035 |
+| 8 | h25/P411 | 80 | 141 | 1,597 | 0.92 | 44 | 423 | 0.0043 |
+| 9 | h21/P496 | **79** | 115 | 49,186 | 0.98 | 18 | 231 | 0.0217 |
+| 10 | h32/P42 | 79 | 154 | 1,022 | 0.90 | 60 | 794 | 0.0037 |
+
+**h28/P187 dropped from 84→84** (unchanged): its yukawa_rank of 164 is
+*above* the 140-159 sweet spot, so it misses the rank_sweet_spot bonus.
+This is the grading doing its job — the sweet spot is narrower than
+"high is always good."
+
+### h20-21: New Territory
+
+| h11 | Total | T0 pass | T1 pass | T2 scored | Max | Mean |
+|-----|-------|---------|---------|-----------|-----|------|
+| 20 | 1,000 | 563 (56.3%) | 190 (33.7%) | 190 | **80** | 56.2 |
+| 21 | 1,000 | 622 (62.2%) | 228 (36.7%) | 228 | 79 | 58.2 |
+
+h20-21 have the **highest T0 pass rates** in the database (56-62%), as
+expected — lower h11 means more structural room for favorable geometry.
+T1 pass rates are moderate (34-37%), and T2 yields are competitive with
+h22-24.
+
+**Notable h20-21 polytopes:**
+
+| ID | Score | yuk_rk | hier | clean | vol_h | eff | gap |
+|------------|-------|--------|--------|-------|-------|-----|-----|
+| h20/P903 | **80** | 129 | 510 | 74 | 3,052 | 17 | 3 |
+| h21/P496 | 79 | 115 | **49,186** | 18 | 231 | 17 | 4 |
+| h21/P284 | 77 | 149 | 3,428 | 62 | 1,674 | 19 | 2 |
+| h21/P205 | 77 | 123 | 608 | 52 | 1,793 | 18 | 3 |
+| h21/P55 | 77 | 126 | 608 | 58 | 2,776 | 18 | 3 |
+
+**h20/P903** enters the top 10 overall at score=80, with the highest clean
+bundle count (74) and volume hierarchy (3,052) of any top-10 polytope. It
+reaches score=80 through sheer bundle abundance rather than Yukawa texture
+excellence — the opposite strategy from the h28 champions.
+
+**h21/P496** has a staggering yukawa_hierarchy of **49,186** — by far the
+highest in the entire 21K-polytope database. Its eigenvalue spread is
+170× the population average. Despite this, it only scores 79 because its
+yukawa_rank (115) falls below the 120+ threshold for rank_sweet_spot, and
+its volume_hierarchy (231) is modest. A dramatic example of a polytope
+that excels on one axis but not across the board.
+
+### Updated Landscape Fertile Window (v5)
+
+| h11 | Total | Scored | T2% | Max | Avg | Avg hier | Avg yuk_rk |
+|-----|-------|--------|-----|-----|-----|----------|------------|
+| 20 | 1,000 | 190 | 19.0% | 80 | 56.2 | 137 | 115 |
+| 21 | 1,000 | 228 | 22.8% | 79 | 58.2 | 378 | 126 |
+| 22 | 1,000 | 281 | 28.1% | 75 | 59.5 | 201 | 136 |
+| 23 | 1,000 | 235 | 23.5% | 79 | 57.9 | 237 | 127 |
+| 24 | 1,000 | 184 | 18.4% | 78 | 57.6 | 345 | 131 |
+| 25 | 1,000 | 138 | 13.8% | 81 | 55.5 | 303 | 124 |
+| 26 | 1,000 | 113 | 11.3% | 79 | 52.3 | 320 | 139 |
+| 27 | 1,000 | 63 | 6.3% | 79 | 52.0 | 211 | 124 |
+| 28 | 1,000 | 95 | 9.5% | **87** | 54.2 | 418 | 137 |
+| 29 | 1,000 | 39 | 3.9% | 76 | 51.5 | 298 | 131 |
+| 30 | 1,000 | 56 | 5.6% | **86** | 51.6 | 814 | 139 |
+| 31 | 1,000 | 27 | 2.7% | 71 | 47.4 | 106 | 134 |
+| 32 | 1,000 | 41 | 4.1% | 80 | 54.6 | 420 | 139 |
+| 33 | 1,000 | 7 | 0.7% | 67 | 44.9 | 44 | 139 |
+| 34 | 1,000 | 15 | 1.5% | 72 | 58.9 | 591 | 136 |
+| 35 | 1,000 | 3 | 0.3% | 62 | 57.0 | 202 | 129 |
+| 36 | 1,000 | 2 | 0.2% | 31 | 28.5 | 0 | 140 |
+| 37+ | 4,000 | 1 | 0.0% | 49 | 49.0 | 38 | 129 |
+
+### Score Distribution (v5, n=1,718)
+
+| Threshold | Count | % |
+|-----------|-------|---|
+| ≥ 85 | 3 | 0.2% |
+| ≥ 80 | 8 | 0.5% |
+| ≥ 75 | 45 | 2.6% |
+| ≥ 70 | 151 | 8.8% |
+| ≥ 60 | 878 | 51.1% |
+| Total scored | 1,718 | — |
+| Mean | 56.3 | — |
+| Elite mean (≥70) | 73.5 | — |
+
+### Key Findings
+
+1. **h28 remains the champion tier** under v5 scoring. The rank_sweet_spot
+   bonus elevated P874 and P186 from 84→87, while P187 (yukawa_rank=164,
+   outside sweet spot) stayed at 84. The graded scoring correctly
+   discriminates within the former "tied at 84" cluster.
+
+2. **h20-21 are productive but not elite**: high T0/T2 yield, competitive
+   averages, but peak scores (80, 79) don't challenge the h28 champions.
+   The lower h11 gives more structural room (higher T0 pass) but less
+   room for the complex intersection rings that drive high Yukawa texture.
+
+3. **The fertile window is h20-35**, with a clear peak quality at h25-30.
+   Below h20, h11_eff is too small for the SM's gauge group ranks. Above
+   h35, gap→0 kills the geometry. The sweet spot is h25-30 for peak
+   quality, h20-24 for yield.
+
+4. **The yukawa_rank bug fix deflated 194 polytopes**, removing phantom
+   +10 to +18 point inflation. The v4.1 scores of 84 were slightly
+   inflated for some polytopes; the true v5 scores are more conservative.
+
+5. **21K polytopes, 1,718 scored** across h20-40. The scan is essentially
+   complete for the chi=−6 landscape at 1,000-polytope sampling depth.
+
+---
+
 ## 1. h13/poly1 — Benchmark Candidate (Pipeline Score: 18/20)
 
 **Date**: 2026-02-23. **Script**: [pipeline_h13_P1.py](pipeline_h13_P1.py).
