@@ -775,7 +775,7 @@ def run_ladder(h11_start, h11_end, workers=4, db=None):
 #  Scan mode: T0 → T2 for one h11
 # ══════════════════════════════════════════════════════════════════
 
-def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
+def run_scan(h11, workers=4, top_n=500, db=None, resume=False, limit=1000):
     """Full T0→T2 scan for a single h¹¹ value.
 
     If resume=True and db is available, skips T0→T1 and picks up T2
@@ -789,7 +789,7 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False):
     t_start = time.time()
 
     # Fetch
-    polys = list(ct.fetch_polytopes(h11=h11, h21=h21))
+    polys = list(ct.fetch_polytopes(h11=h11, h21=h21, limit=limit))
     n_polys = len(polys)
     if n_polys == 0:
         print(f"  No polytopes at h¹¹={h11}")
@@ -1110,6 +1110,8 @@ def main():
                        help='Number of parallel workers')
     parser.add_argument('--top', type=int, default=500,
                        help='Max polytopes for T2 (scan) or T3 (deep)')
+    parser.add_argument('--limit', type=int, default=1000,
+                       help='Max polytopes to fetch from KS (0=all)')
     parser.add_argument('--db', type=str, default=None,
                        help='Database path (default: v4/cy_landscape_v4.db)')
     parser.add_argument('--resume', action='store_true',
@@ -1140,7 +1142,7 @@ def main():
                 h11_list = args.h11
             for h11 in h11_list:
                 run_scan(h11, workers=args.workers, top_n=args.top,
-                        db=db, resume=args.resume)
+                        db=db, resume=args.resume, limit=args.limit)
 
         elif args.deep:
             run_deep(top_n=args.top, db=db)
