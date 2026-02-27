@@ -3,7 +3,7 @@
 > **Purpose**: Record what's been checked, what passed, and what's ruled out.
 > If a polytope or approach appears here, you don't need to redo the work.
 >
-> **Last updated**: 2026-02-27. Pipeline v5.2, 100-point SM composite scoring. **168,000 polytopes** scanned (3.1% of 5.46M KS χ=−6 landscape, h20–h40). **2,012 T2-scored**. Champion: h30/P289 (score 89). Database: `v4/cy_landscape_v4.db`. Deployed on Hetzner (16-core).
+> **Last updated**: 2026-02-27. Pipeline v5.2, 100-point SM composite scoring. **174,158 polytopes** scanned (3.0% of 5.80M KS χ=−6 landscape, h13–h40). **2,012 T2-scored**. Champion: h30/P289 (score 89). Database: `v4/cy_landscape_v4.db`. Deployed on Hetzner (16-core).
 
 ---
 
@@ -13,70 +13,64 @@
 
 Two eras of scanning:
 
-**Era 1 (v3–v4, h13–h24)**: 1,025 polytopes, 26-point scoring, limit=100/h¹¹.
+**Era 1 (v3–v4, h13–h24)**: 6,158 polytopes, 26-point scoring, limit=100/h¹¹ (h13–h16 exhaustive).
 **Era 2 (v4.1–v5.2, h20–h40)**: 168,000 polytopes, 100-point SM composite, 1K–50K/h¹¹.
 
-#### Current Coverage (v5.2) — with KS Ground-Truth Counts
+#### Complete Coverage — KS Ground-Truth Counts (h13–h40)
 
 Exact KS database totals queried from the live Kreuzer-Skarke database
 (http://quark.itp.tuwien.ac.at) on 2026-02-27. Counts are for χ = −6
 reflexive 4-polytopes (lattice N).
 
-| h¹¹ | h²¹ | KS total | Scanned | Coverage | T2-scored | Best |
-|------|------|----------|---------|----------|-----------|------|
-| 20 | 23 | 257,613 | 1,000 | 0.4% | 190 | 81 |
-| 21 | 24 | 329,227 | 1,000 | 0.3% | 228 | 80 |
-| 22 | 25 | 407,667 | 1,000 | 0.2% | 281 | 75 |
-| 23 | 26 | 443,162 | 1,000 | 0.2% | 235 | 79 |
-| 24 | 27 | 447,109 | 1,000 | 0.2% | 184 | 78 |
-| 25 | 28 | 432,081 | 1,000 | 0.2% | 138 | 81 |
-| 26 | 29 | 419,456 | 1,000 | 0.2% | 113 | 79 |
-| **27** | **30** | **393,842** | **50,000** | **12.7%** | **270** | **86** |
-| **28** | **31** | **354,495** | **50,000** | **14.1%** | **164** | **87** |
-| 29 | 32 | 322,535 | 1,000 | 0.3% | 39 | 76 |
-| **30** | **33** | **276,639** | **50,000** | **18.1%** | **74** | **89** |
-| 31 | 34 | 244,599 | 1,000 | 0.4% | 27 | 71 |
-| 32 | 35 | 212,314 | 1,000 | 0.5% | 41 | 80 |
-| 33 | 36 | 181,542 | 1,000 | 0.6% | 7 | 67 |
-| 34 | 37 | 164,257 | 1,000 | 0.6% | 15 | 72 |
-| 35 | 38 | 137,448 | 1,000 | 0.7% | 3 | 62 |
-| 36 | 39 | 119,284 | 1,000 | 0.8% | 2 | 31 |
-| 37 | 40 | 100,863 | 1,000 | 1.0% | 0 | — |
-| 38 | 41 | 87,038 | 1,000 | 1.1% | 0 | — |
-| 39 | 42 | 69,757 | 1,000 | 1.4% | 1 | 49 |
-| 40 | 43 | 60,271 | 1,000 | 1.7% | 0 | — |
-| **Total** | | **5,461,199** | **168,000** | **3.1%** | **2,012** | **89** |
+| h¹¹ | h²¹ | KS total | Scanned | Coverage | T2-scored | Best | Era |
+|------|------|----------|---------|----------|-----------|------|-----|
+| 13 | 16 | 3 | 3 | **100%** | — | — | v3 |
+| 14 | 17 | 22 | 22 | **100%** | — | — | v3 |
+| 15 | 18 | 553 | 553 | **100%** | — | — | v3 |
+| 16 | 19 | 5,180 | 5,180 | **100%** | — | — | v3 |
+| 17 | 20 | 38,735 | 200 | 0.5% | — | — | v3 |
+| 18 | 21 | 105,811 | 100 | 0.09% | — | — | v3 |
+| 19 | 22 | 183,287 | 100 | 0.05% | — | — | v3 |
+| 20 | 23 | 257,613 | 1,000 | 0.4% | 190 | 81 | v5 |
+| 21 | 24 | 329,227 | 1,000 | 0.3% | 228 | 80 | v5 |
+| 22 | 25 | 407,667 | 1,000 | 0.2% | 281 | 75 | v5 |
+| 23 | 26 | 443,162 | 1,000 | 0.2% | 235 | 79 | v5 |
+| 24 | 27 | 447,109 | 1,000 | 0.2% | 184 | 78 | v5 |
+| 25 | 28 | 432,081 | 1,000 | 0.2% | 138 | 81 | v5 |
+| 26 | 29 | 419,456 | 1,000 | 0.2% | 113 | 79 | v5 |
+| **27** | **30** | **393,842** | **50,000** | **12.7%** | **270** | **86** | v5 |
+| **28** | **31** | **354,495** | **50,000** | **14.1%** | **164** | **87** | v5 |
+| 29 | 32 | 322,535 | 1,000 | 0.3% | 39 | 76 | v5 |
+| **30** | **33** | **276,639** | **50,000** | **18.1%** | **74** | **89** | v5 |
+| 31 | 34 | 244,599 | 1,000 | 0.4% | 27 | 71 | v5 |
+| 32 | 35 | 212,314 | 1,000 | 0.5% | 41 | 80 | v5 |
+| 33 | 36 | 181,542 | 1,000 | 0.6% | 7 | 67 | v5 |
+| 34 | 37 | 164,257 | 1,000 | 0.6% | 15 | 72 | v5 |
+| 35 | 38 | 137,448 | 1,000 | 0.7% | 3 | 62 | v5 |
+| 36 | 39 | 119,284 | 1,000 | 0.8% | 2 | 31 | v5 |
+| 37 | 40 | 100,863 | 1,000 | 1.0% | 0 | — | v5 |
+| 38 | 41 | 87,038 | 1,000 | 1.1% | 0 | — | v5 |
+| 39 | 42 | 69,757 | 1,000 | 1.4% | 1 | 49 | v5 |
+| 40 | 43 | 60,271 | 1,000 | 1.7% | 0 | — | v5 |
+| **Total** | | **5,795,310** | **174,158** | **3.0%** | **2,012** | **89** | |
 
 **Key stats**:
-- **5.46 million** χ=−6 polytopes exist in the KS database for h¹¹ ∈ [20, 40]
-- We have scanned **168K (3.1%)** of this landscape
-- Even our deepest levels (h27/h28/h30 at 50K) are only **12–18% covered**
+- **5.80 million** χ=−6 polytopes exist in the KS database for h¹¹ ∈ [13, 40]
+- We have scanned **174K (3.0%)** of this landscape
+- h13–h16 are **exhaustively scanned** (100% coverage, 5,758 polytopes)
+- Even our deepest v5 levels (h27/h28/h30 at 50K) are only **12–18% covered**
 - The peak is h24 with **447K polytopes** — we've hit only 0.2%
-- 2,012/168,000 (1.2%) survive to T2 scoring
+- 2,012/168,000 (1.2%) of the v5 scan survive to T2 scoring
 - h27–h30 dominates: 8 of the top 10 candidates
 - **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
 - h30/P289 (score 89) remains the overall champion
 - h37+ is barren — the χ=−6 landscape is exhausted above h¹¹ ≈ 36
-- h27 50K scan produced P22835 (86) and P13954 (85) — new top-5 entries
-
-#### Legacy Coverage (v3–v4, h13–h24)
-
-| h¹¹ | KS count | Scanned | Hits (h⁰≥3) | Coverage |
-|------|----------|---------|-------------|----------|
-| 13 | 3 | 3 | 3 | 100% |
-| 14 | 22 | 22 | 18 | 100% |
-| 15 | 553 | 553 | — | 100% |
-| 16 | 5,180 | 5,180 | — | 100% |
-| 17 | 38,735 | 200 | — | 0.5% |
-| 18 | 105,811 | 100 | — | 0.09% |
-| 19 | 183,287 | 100 | — | 0.05% |
-| 20–24 | 1,884,778 | 100 each | — | <0.03% |
-
-These low-h¹¹ polytopes were scored with the old 26-point system and are now superseded by the v5.2 landscape scan.
+- v3 legacy polytopes (h13–h19) were scored with the old 26-point system; not yet rescored under v5.2
 
 ### What We Haven't Scanned
 
-- **h¹¹ = 13–19**: Covered by legacy scans (h13–h16 at 100%, h17–h19 partial). Not rescored under v5.2. Low-h¹¹ polytopes score lower under the 100-point system due to smaller effective dimension.
+- **h¹¹ = 13–16**: Exhaustively scanned (100% coverage). Scored under legacy 26-point system only.
+- **h¹¹ = 17–19**: 200/100/100 of 38K/106K/183K scanned (<0.5%). Legacy scoring only.
 - **h¹¹ = 20–26, 29, 31–40**: Only 1K of 100K–450K polytopes scanned (0.2–1.7% coverage). Major unexplored territory, especially h22–h26 which each have 400K+ polytopes.
 - **h27 beyond 50K**: 393,842 total — 50K scanned = 12.7% coverage. 343K polytopes remain in the fibration-rich zone.
 - **h28 beyond 50K**: 354,495 total — 50K scanned = 14.1% coverage. 304K polytopes remain.

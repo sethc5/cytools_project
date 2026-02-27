@@ -9,20 +9,20 @@
 
 **Work done**: Queried the live Kreuzer-Skarke database
 (quark.itp.tuwien.ac.at) for exact χ=−6 polytope counts per h¹¹. Fetched
-raw HTTP responses (L=999999) and counted polytope blocks. All 21 h¹¹
-values from 20 to 40 queried successfully (~7 min total).
+raw HTTP responses (L=999999) and counted polytope blocks. All 28 h¹¹
+values from 13 to 40 queried successfully.
 
 **Key findings**:
-- **5,461,199** total χ=−6 reflexive 4-polytopes exist for h¹¹ ∈ [20, 40]
-- We have scanned **168,000 = 3.1%** of this landscape
-- Even our deepest levels: h27 = 12.7%, h28 = 14.1%, h30 = 18.1%
-- Peak density is h24 with **447,109 polytopes** (we've hit 0.2%)
-- Previous docs incorrectly claimed h27/h28/h30 were "fully scanned" at 50K — 
-  actual KS totals are 394K, 354K, 277K respectively
-- Updated CATALOGUE.md with authoritative per-h¹¹ coverage table, corrected
-  "What We Haven't Scanned" section. Updated FINDINGS.md and README.md.
+- **5,795,310** total χ=−6 reflexive 4-polytopes exist for h¹¹ ∈ [13, 40]
+- h13–h16 are **exhaustively scanned** (100% of 5,758 polytopes)
+- h17: 38,735, h18: 105,811, h19: 183,287
+- h20–h40 totals range from 60K (h40) to 447K (h24)
+- Total scanned across all eras: **174,158 = 3.0%** of landscape
+- Even our deepest v5 levels: h27 = 12.7%, h28 = 14.1%, h30 = 18.1%
+- Merged legacy (h13–h19) and v5 (h20–h40) into one unified coverage
+  table in CATALOGUE.md. Updated FINDINGS.md, README.md, PROCESS_LOG.md.
 
-## 2026-02-27 — h27 50K Scan + T3 Deep (Top 10)
+## 2026-02-27 — h27 50K Scan + T3 Deep (Top 10)## 2026-02-27 — h27 50K Scan + T3 Deep (Top 10)
 
 **Work done**: Expanded h27 from 1K → 50K polytopes (v5.2, 14 workers,
 25 min). DB now at 168,000 polytopes, 2,012 T2-scored. Ran T3 deep analysis

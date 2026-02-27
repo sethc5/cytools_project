@@ -4,37 +4,39 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v5.2 · **168,000 polytopes** scanned (3.1% of 5.46M KS χ=−6 landscape, h20–h40) · **2,012 T2-scored** with 100-point SM composite · Champion: h30/P289 (score 89) · h27 fibration-rich zone discovered · Deployed on Hetzner (16-core) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v5.2 · **174K polytopes** scanned (3.0% of 5.80M KS χ=−6 landscape, h13–h40) · **2,012 T2-scored** with 100-point SM composite · Champion: h30/P289 (score 89) · h27 fibration-rich zone discovered · Deployed on Hetzner (16-core) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
 - **A 7-stage screening pipeline** — `v4/pipeline_v4.py` scans polytopes through tiered geometric checks (T0 → T1 → T2 → T3 deep analysis with triangulation stability). 100-point SM composite scoring with 12 components.
-- **A SQLite database** — `v4/cy_landscape_v4.db` (168,000 polytopes, 2,012 scored) with programmatic access via `v4/db_utils_v4.py`
+- **A SQLite database** — `v4/cy_landscape_v4.db` (174K polytopes, 2,012 scored) with programmatic access via `v4/db_utils_v4.py`
 - **Documented findings** — Champion cluster analysis, pipeline methodology, negative results ([FINDINGS.md](FINDINGS.md))
 - **Documented pitfalls** — 9+ CYTools API bugs discovered and worked around ([MATH_SPEC.md](MATH_SPEC.md))
 
 ## The Landscape
 
-There are **104 distinct Hodge number pairs** with χ = −6 in the KS database, spanning h¹¹ = 13 to 128. The number of polytopes per Hodge pair grows explosively — the KS database contains **5.46 million** χ = −6 polytopes for h¹¹ ∈ [20, 40] alone.
+There are **104 distinct Hodge number pairs** with χ = −6 in the KS database, spanning h¹¹ = 13 to 128. The number of polytopes per Hodge pair grows explosively — the KS database contains **5.80 million** χ = −6 polytopes for h¹¹ ∈ [13, 40] alone.
 
 | h¹¹ range | KS total | Scanned | Coverage | Top score | Notes |
 |-----------|----------|---------|----------|-----------|-------|
-| 20–26 | 2,736,315 | 7,000 | 0.3% | 81 | 257K–447K polytopes per level |
+| 13–16 | 5,758 | 5,758 | **100%** | — | Exhaustive (legacy v3 scoring) |
+| 17–19 | 327,833 | 400 | 0.1% | — | Legacy scoring only |
+| 20–26 | 2,736,315 | 7,000 | 0.3% | 81 | 257K–447K per level |
 | **27** | **393,842** | **50,000** | **12.7%** | **86** | **Fibration-rich zone** |
 | **28** | **354,495** | **50,000** | **14.1%** | **87** | h28 stability cluster |
 | 29 | 322,535 | 1,000 | 0.3% | 76 | |
 | **30** | **276,639** | **50,000** | **18.1%** | **89** | **#1: h30/P289** |
 | 31–40 | 1,377,373 | 10,000 | 0.7% | 80 | Barren above h37 |
-| **Total** | **5,461,199** | **168,000** | **3.1%** | **89** | |
+| **Total** | **5,795,310** | **174,158** | **3.0%** | **89** | |
 
-**Database**: `v4/cy_landscape_v4.db` — 168,000 polytopes, 2,012 T2-scored. h27–h30 dominates (8 of top 10). See [CATALOGUE.md](CATALOGUE.md) for full per-h¹¹ coverage.
+**Database**: `v4/cy_landscape_v4.db` — 174K polytopes, 2,012 T2-scored. h27–h30 dominates (8 of top 10). See [CATALOGUE.md](CATALOGUE.md) for full per-h¹¹ coverage.
 
 ## Current Results
 
 ### Screening Funnel (v5.2)
 
 ```
-168,000 polytopes (h11=20..40, v5.2 pipeline)
+168,000 polytopes (h11=20..40, v5.2 pipeline) + 6,158 legacy (h13–h19)
   └─ 5,344 pass T0 (geometry + EFF_MAX=22) ──── 3.2%
       └─ 2,012 pass T1 → T2 scored ────────────── 1.2%
           └─ 22 deep-analyzed (T3) ───────────── 20 FRSTs each

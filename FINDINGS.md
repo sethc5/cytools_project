@@ -8,9 +8,9 @@ Standard Model–like compactifications. For the quick summary, see
 
 ## Executive Summary
 
-**Database**: `v4/cy_landscape_v4.db` — 168,000 polytopes, 2,012 T2-scored.
+**Database**: `v4/cy_landscape_v4.db` — 174K polytopes (h13–h40), 2,012 T2-scored.
 **Pipeline**: v5.2. **Scoring**: 100-point SM composite (12 components).
-**Landscape**: Kreuzer-Skarke χ = −6 polytopes, h¹¹ = 20–40.
+**Landscape**: Kreuzer-Skarke χ = −6 polytopes, h¹¹ = 13–40 (5.80M in KS database).
 
 ### Current Champions
 
@@ -33,12 +33,14 @@ Standard Model–like compactifications. For the quick summary, see
 
 ### Key Numbers
 
-- **5,461,199** χ=−6 polytopes exist in the KS database for h¹¹ ∈ [20, 40]
-- **168,000** polytopes scanned = **3.1%** of the KS landscape
-- **2,012** T2-scored with 100-point SM composite
+- **5,795,310** χ=−6 polytopes exist in the KS database for h¹¹ ∈ [13, 40]
+- **174,158** polytopes scanned = **3.0%** of the KS landscape
+- h13–h16 are **exhaustively scanned** (100% of 5,758 polytopes)
+- **2,012** T2-scored with 100-point SM composite (v5 era, h20–h40)
 - **89** = highest score achieved (h30/P289)
 - **55%** = best c₂ triangulation stability among top candidates (h28/P874, h28/P187)
-- Even our deepest levels (h27/h28/h30 at 50K) are only **12–18% covered**
+- Even our deepest v5 levels (h27/h28/h30 at 50K) are only **12–18% covered**
+- The peak is h24 with **447K polytopes** — only 0.2% scanned
 - **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
 - h27 50K scan produced 2 new top-5 entries: P22835 (86) and P13954 (85)
 - h27–h30 dominates: 8 of top 10 candidates
