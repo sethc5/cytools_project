@@ -643,6 +643,93 @@ analysis on the stable triangulations specifically.
 
 ---
 
+## 0.5. Deep Coverage Scan — h28 at 50K (v5.1)
+
+**Date**: 2026-02-27. **Pipeline**: v5.1 `--scan --h11 28 --limit 50000 -w 12`.
+**Runtime**: 13.5 min on Hetzner (16-core, 12 workers).
+**Database**: `v4/cy_landscape_v4.db` — 70,000 polytopes total.
+
+### Motivation: The 1000-Polytope Cap
+
+CYTools `fetch_polytopes()` has a hidden `limit=1000` default parameter.
+All prior scans retrieved only the first 1,000 polytopes per h¹¹ level
+from the KS web server. The actual chi=−6 populations are **50,000+** per
+h¹¹. We had been scanning only ~2% of each bucket, in a deterministic
+order sorted by lattice point count. v5.1 adds `--limit N` to control
+fetch depth.
+
+### Results
+
+| Stage | Count | Rate |
+|-------|------:|------|
+| Fetched | 50,000 | — |
+| T0 pass | 484 | 1.0% of total |
+| T1 pass → T2 | 164 | 33.9% of T0 |
+| T2 scored | 164 | — |
+| From first 1K | 95 | — |
+| From new 49K | 69 | — |
+
+The T0 pass rate (1.0%) is consistent across the entire 50K range —
+no enrichment or depletion at higher indices.
+
+### Key Finding: First-1K Bias is Mild
+
+The KS server returns polytopes sorted by combinatorial complexity
+(lattice point count). The first 1K polytopes have slightly fewer
+lattice points (mean ≈ 32.9 vs 34.2 at h28), but this does **not**
+hide better SM candidates in the deeper pool.
+
+**Top scores from new polytopes (idx ≥ 1000):**
+
+| Rank | ID | Score | n_clean | yuk_hier | vol_hier |
+|------|----------|-------|---------|----------|----------|
+| 1 | h28/P1040 | 80 | 50 | 3,859 | 2,343 |
+| 2 | h28/P8319 | 75 | 16 | 397 | 2,858 |
+| 3 | h28/P20607 | 75 | 32 | 149 | 3,006 |
+| 4 | h28/P1418 | 73 | 24 | 151 | 1,334 |
+| 5 | h28/P33827 | 72 | 20 | 120 | 1,001 |
+
+The best new polytope (P1040, score=80) has outstanding clean bundle
+abundance (n_clean=50) and Yukawa hierarchy (3,859), but still falls
+7 points short of the existing champions (P874/P186 at 87). P1040
+was hiding just beyond the old limit at index 1040.
+
+Notable: P1105 at idx=1105 has **100 clean bundles** — a record —
+but only scores 70 due to minimal Yukawa hierarchy (12×). This
+reinforces the v5 finding that **Yukawa texture quality dominates
+clean bundle quantity**.
+
+### Score Distribution Comparison
+
+| Bracket | First 1K | New 49K | Total |
+|---------|----------|---------|-------|
+| 80+ | 3 | 1 | 4 |
+| 70-79 | 16 | 12 | 28 |
+| 60-69 | 48 | 25 | 73 |
+| 50-59 | 14 | 12 | 26 |
+| < 50 | 14 | 19 | 33 |
+
+The first-1K polytopes have a slight concentration of higher scores
+(3 of 4 in the 80+ bracket), but the distribution shape is similar.
+The coverage expansion from 2% → 100% at h28 confirms that our
+champion selection is robust, not an artifact of positional bias.
+
+### Bug Fix: MONOTONIC_MAX Score Drift (v5.2)
+
+During the 50K rescan, a score regression was discovered. When the
+pipeline rescans existing polytopes, `MONOTONIC_MAX` columns (n_clean,
+yukawa_rank, etc.) correctly preserve the higher of old vs new values,
+but `sm_score` was computed from the T2 worker's local data and
+unconditionally overwritten. Different triangulation choices can produce
+different clean bundle counts, causing score drops.
+
+**Example:** P874 previously scored 87 with n_clean=14. A fresh T2 run
+found only 6 clean bundles → score=84. The DB kept n_clean=14 (MAX) but
+stored sm_score=84 (latest). Fixed in v5.2 with a post-upsert rescore
+pass that recomputes scores from the merged DB values.
+
+---
+
 ## 1. h13/poly1 — Benchmark Candidate (Pipeline Score: 18/20)
 
 **Date**: 2026-02-23. **Script**: [pipeline_h13_P1.py](pipeline_h13_P1.py).
