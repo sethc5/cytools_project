@@ -1,126 +1,85 @@
 # BACKLOG — χ = −6 CY Landscape Scanner
 
-> Ordered by priority. Top = do next. Updated: 2026-02-25.
+> Ordered by priority. Top = do next. Updated: 2026-02-26.
 >
-> **Project direction**: Open-source pipeline + catalogue. Build the sieve,
-> record what passes and what doesn't, make it contributor-friendly.
-> See [README.md](README.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
+> **Project state**: Pipeline v5.2. 70,000 polytopes scanned (h20–h40).
+> 1,787 T2-scored with 100-point SM composite. Champions: h28/P874,
+> h28/P186 (score 87). Database: `v4/cy_landscape_v4.db`. Hetzner (16-core).
+> See [README.md](README.md) and [CATALOGUE.md](CATALOGUE.md).
 
 ---
 
 ## NOW — Active Sprint
 
-### B-28: Automated scan pipeline (`auto_scan.py`) ✅ DONE
-- **Why**: Manual 6-script workflow (scan_fast → tier1 → tier1.5 → tier2 → pipeline → fiber_analysis) is slow, error-prone, and hard to resume. Need single-command pipeline for h19+.
-- **What**: Built `auto_scan.py` — unified pipeline replacing all 6 scripts.
-  - Stage 0 (T0.25): Parallel early-termination h⁰≥3 check (~0.08s/poly)
-  - Stage 1 (deep): Full bundle count + clean bundles + dP/K3 + Swiss cheese + fibrations (~2-30s/poly)
-  - Stage 2 (fiber): Kodaira classification + gauge algebra (~1-5s/poly)
-  - Checkpoint/resume, CSV + JSON output, progress display with ETA
-- **Validation**:
-  - ✅ h14 (22 polys, 23s): P2 #1 at 26/26, τ=58, SM★ GUT★ — matches pipeline.py exactly
-  - ✅ Resume from checkpoint: loads all completed in 1s
-  - ✅ h15 (553 polys): scale test in progress
-- **Swiss cheese fix**: Uses pipeline-style manual intersection tensor contraction (not cy_compute.check_swiss_cheese which gives negative τ)
-- **Usage**: `python auto_scan.py --h11 19 --workers 8 --top 100`
-- **Completed**: 2026-02-25.
+### B-33: Stage 5 — Higher-rank bundles on h28 champions
+- **Why**: Line bundles only give U(1). Standard Model needs SU(3)×SU(2)×U(1), requiring rank 4 or 5 vector bundles. `rank_n_bundles.py` has been tested on h14/poly2 only — the h28 champions (P874, P186, P187) are untested.
+- **What**: Run SU(4)/SU(5) direct-sum and monad scanners on all three h28 Tier A candidates. Check stability (Hoppe criterion + ∧²V), compute chiral index and Higgs doublet count.
+- **Prior results (h14/poly2)**: 100+ SU(4) direct sums with |χ|=3, 100+ SU(5) with |χ(∧²V)|=3, 3 Hoppe-stable monads. All direct sums polystable (never truly stable).
+- **Acceptance**: At least one stable rank-n bundle with net chirality = 3 on any h28 champion.
+- **Estimate**: Large (research + computation).
 
-### B-19: Expand scan — remove limit=100 cap at h¹¹ = 15–18
-- **Why**: We've only scanned 100/553 at h15, 100/5180 at h16, 100/38735 at h17. The strongest candidates are all in this range.
-- **What**: Run `scan_parallel.py` (multiprocessing, 4 workers) at h15–17, `scan_fast.py` (14 workers) at h18.
-- **Acceptance**: ≥500 polytopes scanned per h¹¹ value.
-- **Status**:
-  - ✅ h15: **553→200→192** auto_scan done. 28× 26/26, 99% SM, 62% GUT, max clean=45 (P147), max τ=14,436 (P41). 1.9 min.
-  - ✅ h16: **5,180→200→190** auto_scan done. 58× 26/26, 100% SM, 89% GUT, max clean=50 (P278), max τ=6,468 (P425). 1.7 min.
-  - ✅ h17: **38,735→200→193** auto_scan done. 87× 26/26, 100% SM, 86% GUT, max clean=59 (P767), max τ=8,608 (P860). 3 min.
-  - 🔶 h18: **running on Hetzner** (Docker, 14 workers). T0.25 done (100K→29,984 passes, 30%). T1 ~18%. ETA ~42 hrs.
-- **Estimate**: h17 ~6hrs Codespace, h18 minutes remaining.
+### B-34: Triangulation stability — expand FRST sampling
+- **Why**: Top-20 T3 deep analysis used 50 random FRSTs per candidate. Stability percentages (e.g. P874 at 50%, P187 at 55%) have wide confidence intervals at n=50.
+- **What**: Expand to 200+ FRSTs for all Tier A candidates. Report c₂ hash and κ hash distributions, refine stability confidence intervals.
+- **Acceptance**: 200+ FRST samples per Tier A candidate with ≤5% CI on stability fraction.
+- **Estimate**: Small–Medium (computation only, infrastructure exists).
 
-### B-26: GL=12/D₆ Picard-Fuchs study ✅ DONE (core)
-- **Why**: The GL=12 polytope (h11=17, h21=20) has the largest automorphism group (|GL(Δ)|=12, D₆) among all χ=−6 polytopes. D₆ symmetry reduces moduli from 20 to 6, making Picard-Fuchs tractable.
-- **What**: Compute GKZ periods, derive PF PDE system, extract Yukawa couplings.
+### B-35: Paper draft
+- **Why**: Tier A candidates (P874, P186, P187) + pipeline methodology + triangulation stability + catalogue of negative results are paper-ready. The v5.2 pipeline, 70K-polytope scan, and scoring system are a contribution regardless of SM discovery.
+- **What**: Draft structure in [paper_outline.md](paper_outline.md). Key sections: methodology (pipeline stages), landscape statistics, champion cluster geometry, triangulation stability, CYTools gotchas.
+- **Acceptance**: Complete draft with figures, tables, and bibliography.
+- **Estimate**: Large.
+
+### B-36: Documentation cleanup sprint ✅ DONE
+- **Why**: Docs were frozen at early project state (Polytope 40 era, 1,025 polytopes, 26-point scoring). Needed updating to reflect v5.2 pipeline, 70K polytopes, h28 champions.
+- **What**: Systematic review and update of all .md files.
 - **Completed**:
-  - ✅ GKZ A-matrix (5×23, rank 5), integer kernel (18-dim)
-  - ✅ D₆ orbit compression: 6 invariant complex structure moduli
-  - ✅ Closed-form CT formula (double factorial sum, 501 exact coefficients in 38s)
-  - ✅ 26 D₆-invariant Yukawa couplings + invariant c₂ numbers
-  - ✅ `picard_fuchs.py` module + `GL12_GEOMETRY.md` reference
-  - ✅ PF PDE system in Mori coordinates z₁…z₆ — 6 GKZ box operators (mori_pf.py)
-  - ✅ S_α orbit-theta table, explicit □₁-□₆ in θ-form (GL12_GEOMETRY.md §PF Operators)
-  - ✅ 1-parameter ODE: ₃F₂ = ₂F₁(1/3,2/3;1;−27t), AESZ #1
-  - ✅ ODE factorization: θ·[₂F₁ equation] — z₁-axis is elliptic curve family
-  - ✅ Logarithmic period, mirror map (integer coefficients to order 30)
-  - ✅ j-invariant: reproduces Klein j (196884 = Monster Moonshine coefficient)
-  - ✅ Hesse pencil identification, Wronskian, discriminant locus
-  - ✅ 9,366/9,366 GKZ recurrence checks pass
-- **Open extensions** (not blocking acceptance):
-  - ❌ Full 6-parameter prepotential (CY3 GW invariants require multi-param analysis)
-- **Acceptance**: ✅ PF operators in Mori coordinates, verified against period series.
-
-### B-25: Tier 0.25 fast pre-filter (`scan_fast.py`) ✅ DONE
-- **Why**: Full scans at h18+ take many hours. A fast pre-filter identifies polytopes worth full analysis without computing exact h⁰ counts for all bundles.
-- **What**: Early-termination scanner — scans all χ=3 bundles with `min_h0=3` ambient bound, stops at first h⁰≥3 hit. 100% recall (zero false negatives), ~2.4× speedup.
-- **Result**: Validated on h15 (553 polytopes): 333/333 hits caught, 0 false negatives, 2.4 poly/s. On hit polytopes, finds first h⁰≥3 at bundle #316/2408 on average (13% of bundles scanned).
-- **Completed**: 2026-02-24.
-
-### B-23: Full pipeline on h15/poly61 (new #5 discovery) ✅ DONE
-- **Why**: 103 clean h⁰=3 bundles — discovered in expanded h15 scan.
-- **Result**: 25/26 score, 110 clean bundles, τ=14,300 (LVS champion). See FINDINGS.md.
-- **Completed**: 2026-02-23.
+  - ✅ FINDINGS.md: Rebuilt from 2,176→~450 lines, executive summary, consolidated leaderboard (commit `83e37be`)
+  - ✅ PROCESS_LOG.md: Added 6 missing entries, fixed dates and formatting (commit `83e37be`)
+  - ✅ VERSIONS.md: Added v4.1 and v5 sections (commit `831f269`)
+  - ✅ MATH_SPEC.md: Fixed numbering, resolved open questions, added §11–§12 (commit `961c7c7`)
+  - ✅ FRAMEWORK.md: Updated all stages to current numbers, v5.2 leaderboard (commit `37414ef`)
+  - ✅ CATALOGUE.md: Updated coverage, funnel, leaderboard, deep results (commit `a49622e`)
+  - ✅ BACKLOG.md: This update
 
 ---
 
 ## NEXT — Ready to Start
 
-### B-20: Stage 5 — Higher-rank vector bundles
-- **Why**: Line bundles only give U(1). Standard Model needs SU(3)×SU(2)×U(1), which requires rank 4 or 5 vector bundles. This is the critical gap.
-- **What**: Implement monad/extension bundle construction on top candidates (h14/poly2 or h17/poly63). Check stability, compute chiral index.
-- **Acceptance**: At least one stable rank-n bundle with net chirality = 3 on any candidate.
-- **Estimate**: Large (research + implementation). External contributions especially welcome.
+### B-37: Low-h¹¹ rescore under v5.2
+- **Why**: h13–h19 legacy candidates were scored with the old 26-point system (v3–v4). Some may rank competitively under the 100-point SM composite, especially those with strong Yukawa or LVS metrics.
+- **What**: Ingest legacy polytopes into `cy_landscape_v4.db`, run T2 scoring with v5.2 pipeline. Compare rankings.
+- **Acceptance**: All legacy top-20 candidates have v5.2 scores. Any scoring ≥75 get T3 deep analysis.
 
-### B-21: F-theory Kodaira fiber classification ✅ DONE (core)
-- **Why**: Elliptic fibrations → F-theory gauge symmetry. Each Kodaira type maps to a gauge factor.
-- **What**: Built `fiber_analysis.py` — reflexive 2D polygon classifier (15/16 GL₂(ℤ)-classified), Kodaira type determination from toric tops, gauge algebra assembly with SM/GUT detection.
-- **Result**: **39/39 fibrations across all 8 top candidates contain SU(3)×SU(2)×U(1). 17/39 are SU(5) GUT candidates.**
-  - h17/poly25: 8 fibs (6 SU(5) GUT), max rank 10
-  - h17/poly63: 6 fibs (6 SU(5) GUT), max rank 10
-  - h16/poly74: 10 fibs (2 SU(5) GUT), max rank 10
-  - h15/poly94: 4 fibs (2 SU(5) GUT), max rank 10
-  - h16/poly63: 4 fibs (2 SU(5) GUT), max rank 10
-  - h14/poly2: 1 fib (1 SU(5) GUT), rank 10
-  - h15/poly61: 3 fibs (0 SU(5) GUT), max rank 9
-  - h17/poly53: 3 fibs (0 SU(5) GUT), max rank 8
-- **Pipeline fix**: Fibration counting deduplication in pipeline.py (frozenset).
-- **Open extensions** (not blocking acceptance):
-  - ❌ Kodaira classifier is heuristic (excess→I_n assumed, no D/E type branching detection)
-  - ❌ Integration into main pipeline scoring
-- **Acceptance**: ✅ Documented gauge groups for **all** fibrations of all 8 top candidates.
+### B-38: GL=12/D₆ — full 6-parameter prepotential
+- **Why**: The 1-parameter slice (z₁-axis = Hesse pencil) is solved. The full CY3 prepotential requires the 6-parameter PDE system in Mori coordinates.
+- **What**: Solve the coupled PF system □₁–□₆ for the full period vector. Extract genus-0 GW invariants. Compare with existing literature (AESZ database, OEIS).
+- **Acceptance**: Genus-0 GW invariants for at least one non-trivial class.
+- **Estimate**: Hard (multi-parameter PDE solving).
 
-### B-24: Run full pipeline on remaining T2 candidates ✅ DONE
-- **Result**: All 24 remaining T2=45 candidates analyzed. **37 total pipeline runs** (13 prior + 24 new).
-- **19 score 26/26** (perfect). New discoveries: h15/poly94 (380 clean, τ=241), h17/poly53 (418 clean, τ=1016), h17/poly51 (340 clean), h16/poly74 (158 clean, 10 ell fibs).
-- **Completed**: 2026-02-23.
-
-### B-22: Run full pipeline on remaining top candidates ✅ DONE
-- All 8 original top candidates + 4 new → **12 total**, 7× score 26/26. See PROCESS_LOG entries.
+### B-39: F-theory discriminant locus on h28 champions
+- **Why**: h28 champions may have elliptic fibrations with interesting gauge algebras. Legacy champion h17/poly25 had 15 elliptic fibrations (record) with SU(5) GUT candidates.
+- **What**: Run `fiber_analysis.py` on h28/P874, P186, P187. Classify Kodaira types. Determine gauge content.
+- **Acceptance**: Gauge algebra tabulated for all fibrations of all three h28 Tier A candidates.
 
 ---
 
 ## LATER — Backlog
 
-### B-07: Paper draft
-- **Why**: Publishable as a methodology/survey paper even without SM discovery. The pipeline, catalogue of negative results, and CYTools gotchas are useful to the community.
-- **Status**: Deferred until B-22 (more full pipeline runs) completes.
-
 ### B-06: Ample Champion orbifold resolution
 - **Why**: The full Z₃×Z₃ quotient is singular. Could resolve and check if χ changes to −6.
 - **What**: Compute resolved Hodge numbers for the Z₃×Z₃ orbifold.
-- **Status**: Parked. Native χ = −6 candidates (h14/poly2, h17/poly63) are stronger paths.
+- **Status**: Parked. h28 champions (score 87) are far stronger paths.
 
 ### B-09: Self-mirror polytope (h11=20, h21=20) deep analysis
 - **Why**: Novel self-mirror CY with χ = 0. Rich fibration structure. Undocumented.
 - **What**: Full pipeline analysis. Check for freely-acting symmetries. F-theory applications.
 - **Status**: Parked. Math curiosity, not a 3-generation candidate.
+
+### B-40: Raise EFF_MAX beyond 22
+- **Why**: h37+ is barren at EFF_MAX=22. Raising the ceiling could unlock new populations but at significant computational cost (more bundles to check per polytope).
+- **What**: Test EFF_MAX=25 or 28 at h35–h40. Measure T0 pass rate vs compute time.
+- **Status**: Low priority — h28 sweet spot already found.
 
 ---
 
@@ -128,6 +87,15 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-41 | B-36: Documentation cleanup sprint — FINDINGS, PROCESS_LOG, VERSIONS, MATH_SPEC, FRAMEWORK, CATALOGUE, BACKLOG | 2026-02-26 |
+| D-40 | v5.2 MONOTONIC_MAX score drift bug fix — post-upsert rescore | 2026-02-26 |
+| D-39 | T3 Deep Analysis — top 20 candidates, 50 FRSTs each, tier A/B/C assignments | 2026-02-26 |
+| D-38 | 50K h28 deep coverage scan — P1040 (score=80) found, champions not displaced | 2026-02-26 |
+| D-37 | v5.1 KS `limit` bug discovery and fix (`--limit N` CLI argument) | 2026-02-26 |
+| D-36 | v5.0 scoring overhaul — 100-point SM composite, 12 components, yukawa_rank bug fix | 2026-02-26 |
+| D-35 | v4.1 tuning — EFF_MAX=22, dp_divisors removed, vol_hierarchy added | 2026-02-26 |
+| D-34 | h20–h40 landscape scan — 21K polytopes, 1,718 T2-scored, new h28 champions (score 87) | 2026-02-26 |
+| D-33 | B-18: h18 T0.25 scan complete — 105,811 polytopes, 30,293 passes | 2026-02-25 |
 | D-32 | B-19/B-28: h16 auto_scan (5,180→200→190): 58× 26/26, 100% SM, 89% GUT, max clean=50, τ=6,468 | 2026-02-25 |
 | D-31 | B-19/B-28: h15 auto_scan (553→200→192): 28× 26/26, 99% SM, 62% GUT, max clean=45, τ=14,436 | 2026-02-25 |
 | D-30 | B-19/B-28: h17 auto_scan (38,735→200→193): 87× 26/26, 100% SM, 86% GUT, max clean=59, τ=8,608 | 2026-02-25 |
