@@ -5,6 +5,33 @@
 
 ---
 
+## 2026-02-27 — h27 50K Scan + T3 Deep (Top 10)
+
+**Work done**: Expanded h27 from 1K → 50K polytopes (v5.2, 14 workers,
+25 min). DB now at 168,000 polytopes, 2,012 T2-scored. Ran T3 deep analysis
+(`--deep --top 10`) on the ten highest-scoring candidates.
+
+**Key results**:
+- h27 produced **two new top-5 entries**: P22835 (score 86) and P13954 (85)
+- **h27 is a fibration-rich zone**: all 6 h27 candidates in the top 10 have
+  SM+GUT gauge groups. This is historically significant — no prior h¹¹ bucket
+  showed this pattern.
+- h27/P22835 has **6 fibrations** (most of any top-10 candidate), gauge group
+  su(2) × su(4) × su(8) or e7 × su(7) × U(1)^5
+- h27/P13954 has 25% c₂ stability — best combining SM gauge + stability
+- h27/P11889 has 62 clean bundles and su(6) × su(11) × su(5)
+- h28 cluster (P874/P186/P187): c₂ stability updated to 35–55%, still no SM/GUT
+- h27/P1520: hierarchy = 17,287 (second only to P289's 34,318)
+
+**Landscape insight**: The h27–h30 corridor now holds 8 of the top 10
+candidates. Two distinct strategies emerge:
+  1. **Stability path** (h28): high c₂ stability but no gauge groups
+  2. **Fibration path** (h27/h30): SM+GUT gauge groups but fragile geometry
+
+**Score distribution shift**: ≥85: 5, ≥80: 25, ≥70: 272 (up from 193).
+
+---
+
 ## 2026-02-27 — h30 50K Scan + T3 Deep Analysis
 
 **Work done**: Expanded h30 from 1K → 50K polytopes on Hetzner (v5.2,

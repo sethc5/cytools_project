@@ -3,7 +3,7 @@
 > **Purpose**: Record what's been checked, what passed, and what's ruled out.
 > If a polytope or approach appears here, you don't need to redo the work.
 >
-> **Last updated**: 2026-02-27. Pipeline v5.2, 100-point SM composite scoring. **119,000 polytopes** scanned (h20–h40). **1,805 T2-scored**. Champion: h30/P289 (score 89). Database: `v4/cy_landscape_v4.db`. Deployed on Hetzner (16-core).
+> **Last updated**: 2026-02-27. Pipeline v5.2, 100-point SM composite scoring. **168,000 polytopes** scanned (h20–h40). **2,012 T2-scored**. Champion: h30/P289 (score 89). Database: `v4/cy_landscape_v4.db`. Deployed on Hetzner (16-core).
 
 ---
 
@@ -14,26 +14,28 @@
 Two eras of scanning:
 
 **Era 1 (v3–v4, h13–h24)**: 1,025 polytopes, 26-point scoring, limit=100/h¹¹.
-**Era 2 (v4.1–v5.2, h20–h40)**: 119,000 polytopes, 100-point SM composite, 1K–50K/h¹¹.
+**Era 2 (v4.1–v5.2, h20–h40)**: 168,000 polytopes, 100-point SM composite, 1K–50K/h¹¹.
 
 #### Current Coverage (v5.2)
 
 | h¹¹ range | Polytopes scanned | T2-scored | Top score | Notes |
 |-----------|-------------------|-----------|-----------|-------|
 | 20–25 | ~6,000 | ~400 | 81 | h25/P934 (81), h20/P903 (81) |
-| 26–28 | ~52,000 | ~340 | **87** | h28 at 50K. h28 champion cluster |
-| 29–30 | ~51,000 | ~110 | **89** | h30 at 50K. **New #1: h30/P289** |
+| 26–27 | ~51,000 | ~380 | **86** | h27 at 50K. h27 fibration-rich zone |
+| 28 | 50,000 | ~164 | **87** | h28 at 50K. h28 stability cluster |
+| 29–30 | ~51,000 | ~110 | **89** | h30 at 50K. **#1: h30/P289** |
 | 31–32 | ~2,000 | ~70 | 80 | h32/P94 (80, 100% stable) |
 | 33–36 | ~4,000 | ~27 | 72 | Sparse, declining quality |
 | 37–40 | ~4,000 | ~1 | 49 | Effectively barren at EFF_MAX=22 |
-| **Total** | **~119,000** | **1,805** | **89** | |
+| **Total** | **~168,000** | **2,012** | **89** | |
 
 **Key stats**:
-- 1,805/119,000 (1.5%) survive to T2 scoring
-- h28–h30 is the sweet spot: 5 of the top 10 candidates
-- h30/P289 (score 89) is the only top-5 candidate with SM+GUT fibrations
+- 2,012/168,000 (1.2%) survive to T2 scoring
+- h27–h30 dominates: 8 of the top 10 candidates
+- **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
+- h30/P289 (score 89) remains the overall champion
 - h37+ is barren — the χ=−6 landscape is exhausted above h¹¹ ≈ 36
-- Expanding h30 from 1K → 50K elevated P289 from 86 → 89
+- h27 50K scan produced P22835 (86) and P13954 (85) — new top-5 entries
 
 #### Legacy Coverage (v3–v4, h13–h24)
 
@@ -54,8 +56,9 @@ These low-h¹¹ polytopes were scored with the old 26-point system and are now s
 - **h¹¹ = 13–19**: Covered by legacy scans (h13–h16 at 100%, h17–h19 partial). Not rescored under v5.2. Low-h¹¹ polytopes score lower under the 100-point system due to smaller effective dimension.
 - **h¹¹ = 37–128**: Barren at EFF_MAX=22 — zero or near-zero T0 pass rate. Would require raising EFF_MAX (with attendant computational cost) to access.
 - **h28 beyond 50K**: The KS database has ~50K χ=−6 polytopes at h28. We scanned all of them. No extension possible at this h¹¹.
-- **h30 beyond 50K**: Fully scanned. 50K polytopes, 74 scored. P289 (89) is the new champion.
-- **Deeper triangulation sampling**: Top-5 candidates sampled at 20 random FRSTs. Expanding to 200+ would refine c₂ stability percentages.
+- **h27 beyond 50K**: Fully scanned. 50K polytopes, 270 scored. Fibration-rich zone — all top candidates have SM+GUT.
+- **h30 beyond 50K**: Fully scanned. 50K polytopes, 74 scored. P289 (89) is the champion.
+- **Deeper triangulation sampling**: Top-10 candidates sampled at 20 random FRSTs. Expanding to 200+ would refine c₂ stability percentages.
 
 ---
 
@@ -64,21 +67,21 @@ These low-h¹¹ polytopes were scored with the old 26-point system and are now s
 ### Current Pipeline (v5.2, h20–h40)
 
 ```
-~119,000 polytopes (h11=20..40, v5.2 pipeline)
+~168,000 polytopes (h11=20..40, v5.2 pipeline)
   │
-  ├─ ~4,500 pass T0 (geometry + EFF_MAX=22) ──── ~3.8% pass
+  ├─ ~5,500 pass T0 (geometry + EFF_MAX=22) ──── ~3.3% pass
   │   │
-  │   └─ 1,805 pass T1 → T2 scored ─────────── 1.5% of total
+  │   └─ 2,012 pass T1 → T2 scored ─────────── 1.2% of total
   │       (100-point SM composite: hierarchy, Yukawa, LVS, clean bundles, ...)
   │       │
-  │       ├─ Top 5 deep-analyzed (T3) ──────── 20 random FRSTs each
-  │       │   h30/P289: SM+GUT fibrations, su(3)×su(17)×U(1)^10
-  │       │   Tier A (paper-ready): 3 candidates
-  │       │   Tier B (strong): 2 candidates
-  │       │   Tier C (score-driven): 2 candidates
+  │       ├─ Top 10 deep-analyzed (T3) ─────── 20 random FRSTs each
+  │       │   h30/P289: SM+GUT, su(3)×su(17)×U(1)^10
+  │       │   h27 cluster: ALL 6 have SM+GUT fibrations
+  │       │   Tier A (paper-ready): 3 candidates (h28 stability cluster)
+  │       │   Tier C (score+fibrations): 4 candidates (h27+h30)
   │       │
   │       └─ Score distribution:
-  │           89: 1,  87: 2,  84: 1,  80-82: 6,  70-79: ~180,  <70: ~1600
+  │           89: 1,  86-87: 3,  83-85: 6,  80-82: 15,  70-79: ~250,  <70: ~1740
 ```
 
 ### Legacy Pipeline (v3–v4, h13–h24)
@@ -107,26 +110,27 @@ These low-h¹¹ polytopes were scored with the old 26-point system and are now s
 | Rank | ID | Score | Hierarchy | MBD | Vol-Hier | Clean | c₂ stab | Tier |
 |------|----|-------|-----------|------|----------|-------|---------|------|
 | 1 | **h30/P289** | **89** | 34,318 | 0.88 | 1,737 | 12 | 0% | C |
-| 2 | h28/P874 | **87** | 1,150 | 0.95 | 1,656 | 14 | 45% | A |
-| 3 | h28/P186 | **87** | 1,147 | 0.94 | 1,725 | 14 | 60% | A |
-| 4 | h28/P187 | 84 | 1,160 | 0.95 | 1,766 | 14 | 40% | A |
-| 5 | h30/P1398 | 82 | 184 | 0.73 | 1,357 | — | 20%/100%κ | — |
-| 6 | h25/P934 | 81 | 1,666 | 0.95 | 1,831 | 22 | 25% | — |
-| 7 | h20/P903 | 81 | 510 | 0.93 | 3,052 | 74 | 0% | — |
-| 8 | h28/P1040 | 80 | 3,859 | — | 2,343 | 50 | — | — |
-| 9 | h32/P94 | 80 | 2,759 | 0.91 | 877 | 42 | 100% | B |
-| 10 | h32/P42 | 79 | 1,022 | 0.90 | 794 | 60 | 100% | B |
+| 2 | h28/P874 | **87** | 1,150 | 0.95 | 1,656 | 14 | 55% | A |
+| 3 | h28/P186 | **87** | 1,147 | 0.94 | 1,725 | 14 | 35% | A |
+| 4 | **h27/P22835** | **86** | 1,046 | — | 844 | 16 | 0% | C |
+| 5 | **h27/P13954** | **85** | 695 | — | 1,339 | 16 | 25% | — |
+| 6 | h28/P187 | 84 | 1,160 | 0.95 | 1,766 | 14 | 55% | A |
+| 7 | h27/P1085 | 83 | 731 | — | 1,744 | 32 | 0% | — |
+| 8 | h27/P1520 | 83 | 17,287 | — | 362 | 16 | 0% | — |
+| 9 | h27/P11889 | 83 | 5,498 | — | 711 | 62 | 0% | — |
+| 10 | h27/P22799 | 83 | 1,026 | — | 806 | 16 | 0% | — |
 
 **Tier A** (paper-ready) = high score + triangulation stability.
 **Tier B** = perfect stability but limited triangulation sampling.
 **Tier C** = high score but fragile geometry (0% c₂ stability).
 
 **Observations**:
-- h30/P289 (score 89) is the **only top-5 candidate with SM+GUT fibrations**: su(3) × su(17) × U(1)^10
-- The h28 cluster (P874/P186/P187) has the best triangulation stability (40–60%)
-- h30/P1398 (score 82) has 100% κ-stability and 3 elliptic fibrations — most robust geometry in top 10
-- h32/P94 and h32/P42 have 100% c₂ stability but lower scores
-- h20/P903 has 74 clean bundles (most of any candidate) but 0% c₂ stability
+- **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
+- h30/P289 (score 89) remains the champion with su(3) × su(17) × U(1)^10
+- h27/P22835 (score 86) has **6 fibrations** — the most of any top-10 candidate — with su(2) × su(4) × su(8) or e7 × su(7)
+- h27/P11889 (score 83) has **62 clean bundles** — new record among top-10 if we count h27
+- The h28 cluster (P874/P186/P187) has the best triangulation stability (35–55%) but no SM/GUT fibrations
+- h27/P13954 (score 85) has 25% c₂ stability — best among h27 candidates with SM+GUT
 
 ### Legacy Top-20 (v3–v4, 26-point scoring — superseded)
 
@@ -146,36 +150,36 @@ These candidates were identified during the early h13–h24 scan. They provided 
 
 ## 4. Deep Analysis Results (T3)
 
-### T3 Deep Analysis: Top 5 (20 random FRSTs each)
+### T3 Deep Analysis: Top 10 (20 random FRSTs each)
 
-The top 5 candidates by v5.2 score were subjected to deep analysis:
+The top 10 candidates by v5.2 score were subjected to deep analysis:
 triangulation stability (20 random FRSTs, c₂ + κ hashing), fibration
 enumeration (K3 + elliptic), and gauge group identification via fiber
-analysis. Key discovery: **h30/P289 is the only top candidate with SM and
-GUT gauge groups** — su(3) × su(17) × U(1)^10.
+analysis.
 
-#### Tier A — Paper-Ready (high score + stability)
+**Key discovery**: h27 is a **fibration-rich zone** — all 6 h27 candidates
+in the top 10 have SM+GUT gauge groups. This contrasts sharply with the
+h28 cluster, which has zero fibrations despite higher stability.
 
-| ID | Score | c₂ stab | Hier | Key strength |
-|----|-------|---------|------|-------------|
-| h28/P874 | 87 | 45% | 1,150 | Best all-round h28 candidate |
-| h28/P186 | 87 | 60% | 1,147 | Best stability in cluster |
-| h28/P187 | 84 | 40% | 1,160 | Cluster sibling |
+#### Tier A — Paper-Ready (high score + stability, no fibrations)
 
-#### Tier B — Strong (perfect stability, lower score)
+| ID | Score | c₂ stab | Hier | Fibers | Key strength |
+|----|-------|---------|------|--------|-------------|
+| h28/P874 | 87 | 55% | 1,150 | 0 | Best stability overall |
+| h28/P186 | 87 | 35% | 1,147 | 0 | h28 cluster sibling |
+| h28/P187 | 84 | 55% | 1,160 | 0 | h28 cluster sibling |
 
-| ID | Score | c₂ stab | Hier | Key strength |
-|----|-------|---------|------|-------------|
-| h32/P94 | 80 | 100% | 2,759 | Perfect stability |
-| h32/P42 | 79 | 100% | 1,022 | Perfect stability |
+#### Tier C — Score + Fibrations (SM+GUT gauge groups)
 
-#### Tier C — Score-Driven (high score, fragile geometry)
-
-| ID | Score | c₂ stab | Hier | Key strength |
-|----|-------|---------|------|-------------|
-| h30/P289 | 89 | 0% | 34,318 | **SM+GUT fibrations**, extreme hierarchy |
-| h30/P1398 | 82 | 20% (100% κ) | 184 | 3 ell fib, κ-stable |
-| h20/P903 | 81 | 0% | 510 | 74 clean bundles (record) |
+| ID | Score | c₂ stab | Hier | Fibers | Gauge group | Key strength |
+|----|-------|---------|------|--------|-------------|-------------|
+| h30/P289 | 89 | 0% | 34,318 | 1 | su(3) × su(17) × U(1)^10 | Champion, extreme hierarchy |
+| h27/P22835 | 86 | 0% | 1,046 | 6 | su(2)×su(4)×su(8) or e7×su(7) | Most fibrations in top 10 |
+| h27/P13954 | 85 | 25% | 695 | 1 | su(2)×su(8) or e7×su(12) | Best c₂ stab with SM gauge |
+| h27/P1085 | 83 | 0% | 731 | 3 | su(2)×su(6)×su(6)×su(12) | Instanton divisor |
+| h27/P1520 | 83 | 0% | 17,287 | 1 | su(13)×su(7)×U(1)^6 | Second-highest hierarchy |
+| h27/P11889 | 83 | 0% | 5,498 | 3 | su(6)×su(11)×su(5) | 62 clean bundles |
+| h27/P22799 | 83 | 0% | 1,026 | 1 | su(2)×su(8) or e7×su(11) | Instanton divisor |
 
 ### Legacy Deep Pipeline (12 complete, v3–v4, 26-point scoring)
 
