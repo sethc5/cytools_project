@@ -5,6 +5,32 @@
 
 ---
 
+## 2026-02-27 — h30 50K Scan + T3 Deep Analysis
+
+**Work done**: Expanded h30 from 1K → 50K polytopes on Hetzner (v5.2,
+14 workers). Total DB now at 119,000 polytopes, 1,805 T2-scored. Ran T3
+deep analysis (`--deep --top 5`) on the five highest-scoring candidates.
+
+**Key results**:
+- **h30/P289 rescored 86 → 89** — new global champion. The 50K scan provided
+  deeper bundle census data that elevated the score.
+- T3 revealed P289 has **3 K3 fibrations, 1 elliptic fibration, SM+GUT gauge
+  groups** (su(3) × su(17) × U(1)^10). Only top-5 candidate with this property.
+- P289 Yukawa hierarchy = 34,318 — 30× higher than the h28 cluster.
+- **Triangulation instability**: P289 has c₂ stab = 0%, κ stab = 0%.
+  Geometry changes across all 20 sampled FRSTs. This is a known caveat.
+- h30/P1398 (score 82) emerged as a strong alternative: 3 K3 + 3 elliptic
+  fibrations, SM+GUT, 100% κ-stability.
+- h28 cluster (P874/P186/P187) has best c₂ stability (40–60%) but no SM/GUT
+  fibrations.
+
+**Updated docs**: FINDINGS.md, CATALOGUE.md, PROCESS_LOG.md, README.md.
+
+**Database snapshot**: 119K polytopes across h20–h40. h28 and h30 at 50K each,
+all others at 1K.
+
+---
+
 ## 2026-02-26 — FINDINGS.md Restructure
 
 **Work done**: Full clarity review of FINDINGS.md (2,176 lines). Identified

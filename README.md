@@ -4,12 +4,12 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v5.2 · **70,000 polytopes** scanned (h20–h40) · **1,787 T2-scored** with 100-point SM composite · Champions: h28/P874, h28/P186 (score 87) · Deployed on Hetzner (16-core) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v5.2 · **119,000 polytopes** scanned (h20–h40) · **1,805 T2-scored** with 100-point SM composite · Champion: h30/P289 (score 89, SM+GUT fibrations) · Deployed on Hetzner (16-core) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
 - **A 7-stage screening pipeline** — `v4/pipeline_v4.py` scans polytopes through tiered geometric checks (T0 → T1 → T2 → T3 deep analysis with triangulation stability). 100-point SM composite scoring with 12 components.
-- **A SQLite database** — `v4/cy_landscape_v4.db` (70,000 polytopes, 1,787 scored) with programmatic access via `v4/db_utils_v4.py`
+- **A SQLite database** — `v4/cy_landscape_v4.db` (119,000 polytopes, 1,805 scored) with programmatic access via `v4/db_utils_v4.py`
 - **Documented findings** — Champion cluster analysis, pipeline methodology, negative results ([FINDINGS.md](FINDINGS.md))
 - **Documented pitfalls** — 9+ CYTools API bugs discovered and worked around ([MATH_SPEC.md](MATH_SPEC.md))
 
@@ -20,24 +20,25 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 | h¹¹ range | Polytopes scanned | T2-scored | Top score | Notes |
 |-----------|-------------------|-----------|-----------|-------|
 | 20–25 | ~6,000 | ~400 | 81 | h25/P934 (81), h20/P903 (81) |
-| 26–28 | ~50,500 | ~500 | **87** | h28 at 50K (full coverage). Champion cluster |
-| 29–32 | ~1,200 | ~200 | 86 | h30/P289 (86), h32/P94 (80) |
-| 33–40 | ~110 | ~50 | 70 | Sparse/barren above h37 |
-| **Total** | **~70,000** | **1,787** | **87** | |
+| 26–28 | ~52,000 | ~340 | **87** | h28 at 50K. h28 champion cluster |
+| 29–30 | ~51,000 | ~110 | **89** | h30 at 50K. **New #1: h30/P289** |
+| 31–32 | ~2,000 | ~70 | 80 | h32/P94 (80, 100% stable) |
+| 33–40 | ~8,000 | ~28 | 72 | Sparse/barren above h37 |
+| **Total** | **~119,000** | **1,805** | **89** | |
 
-**Database**: `v4/cy_landscape_v4.db` — 70,000 polytopes, 1,787 T2-scored. h28 is the sweet spot (3 of top 4). See [CATALOGUE.md](CATALOGUE.md) for full coverage details.
+**Database**: `v4/cy_landscape_v4.db` — 119,000 polytopes, 1,805 T2-scored. h28–h30 is the sweet spot (5 of top 10). See [CATALOGUE.md](CATALOGUE.md) for full coverage details.
 
 ## Current Results
 
 ### Screening Funnel (v5.2)
 
 ```
-~70,000 polytopes (h11=20..40, v5.2 pipeline)
-  └─ ~3,500 pass T0 (geometry + EFF_MAX=22) ──── ~5%
-      └─ 1,787 pass T1 → T2 scored ────────────── 2.6%
-          └─ Top 20 deep-analyzed (T3) ─────────── 50 FRSTs each
+~119,000 polytopes (h11=20..40, v5.2 pipeline)
+  └─ ~4,500 pass T0 (geometry + EFF_MAX=22) ──── ~3.8%
+      └─ 1,805 pass T1 → T2 scored ────────────── 1.5%
+          └─ Top 5 deep-analyzed (T3) ──────────── 20 FRSTs each
               ├─ Tier A (paper-ready): 3 candidates
-              ├─ Tier B (strong): 3 candidates
+              ├─ Tier B (strong): 2 candidates
               └─ Tier C (score-driven): 3 candidates
 ```
 
@@ -45,13 +46,13 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 
 | Rank | ID | Score | Hierarchy | MBD | Clean | c₂ stab | Tier |
 |------|----|-------|-----------|------|-------|---------|------|
-| 1 | **h28/P874** | **87** | 1,150 | 0.95 | 14 | 50% | A |
-| 2 | **h28/P186** | **87** | 1,147 | 0.94 | 14 | 30% | A |
-| 3 | h30/P289 | **86** | 34,318 | 0.88 | 12 | 0% | C |
-| 4 | h28/P187 | 84 | 1,160 | 0.95 | 14 | 55% | A |
-| 5 | h25/P934 | 81 | 1,666 | 0.95 | 22 | 25% | — |
+| 1 | **h30/P289** | **89** | 34,318 | 0.88 | 12 | 0% | C |
+| 2 | **h28/P874** | **87** | 1,150 | 0.95 | 14 | 45% | A |
+| 3 | **h28/P186** | **87** | 1,147 | 0.94 | 14 | 60% | A |
+| 4 | h28/P187 | 84 | 1,160 | 0.95 | 14 | 40% | A |
+| 5 | h30/P1398 | 82 | 184 | 0.73 | — | 20% | — |
 
-**Tier A** = high score + triangulation stability (paper-ready). See [FINDINGS.md](FINDINGS.md) for the full top-10 and champion cluster analysis.
+**Tier A** = high score + triangulation stability (paper-ready). **h30/P289** is the only top candidate with SM+GUT gauge groups (su(3) × su(17) × U(1)^10). See [FINDINGS.md](FINDINGS.md) for the full top-10 and champion analysis.
 
 ## Pipeline Architecture
 

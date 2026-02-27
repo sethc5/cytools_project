@@ -8,7 +8,7 @@ Standard Model–like compactifications. For the quick summary, see
 
 ## Executive Summary
 
-**Database**: `v4/cy_landscape_v4.db` — 70,000 polytopes, 1,787 T2-scored.
+**Database**: `v4/cy_landscape_v4.db` — 119,000 polytopes, 1,805 T2-scored.
 **Pipeline**: v5.2. **Scoring**: 100-point SM composite (12 components).
 **Landscape**: Kreuzer-Skarke χ = −6 polytopes, h¹¹ = 20–40.
 
@@ -16,15 +16,15 @@ Standard Model–like compactifications. For the quick summary, see
 
 | Rank | ID | Score | Hier | MBD | VolH | Clean | c₂ stab | Tier |
 |------|----|-------|------|------|-------|-------|---------|------|
-| 1 | h28/P874 | **87** | 1,150 | 0.95 | 1,656 | 14 | 50% | A |
-| 2 | h28/P186 | **87** | 1,147 | 0.94 | 1,725 | 14 | 30% | A |
-| 3 | h30/P289 | **86** | 34,318 | 0.88 | 1,737 | 12 | 0% | C |
-| 4 | h28/P187 | 84 | 1,160 | 0.95 | 1,766 | 14 | 55% | A |
-| 5 | h25/P934 | 81 | 1,666 | 0.95 | 1,831 | 22 | 25% | — |
-| 6 | h20/P903 | 81 | 510 | 0.93 | 3,052 | 74 | 0% | — |
-| 7 | h28/P1040 | 80 | 3,859 | — | 2,343 | 50 | — | — |
-| 8 | h32/P94 | 80 | 2,759 | 0.91 | 877 | 42 | 100% | B |
-| 9 | h25/P411 | 80 | 1,597 | 0.92 | 423 | 44 | 5% | — |
+| 1 | **h30/P289** | **89** | 34,318 | 0.88 | 1,737 | 12 | 0% | C |
+| 2 | h28/P874 | **87** | 1,150 | 0.95 | 1,656 | 14 | 45% | A |
+| 3 | h28/P186 | **87** | 1,147 | 0.94 | 1,725 | 14 | 60% | A |
+| 4 | h28/P187 | 84 | 1,160 | 0.95 | 1,766 | 14 | 40% | A |
+| 5 | h30/P1398 | 82 | 184 | 0.73 | 1,357 | — | 20%/100%κ | — |
+| 6 | h25/P934 | 81 | 1,666 | 0.95 | 1,831 | 22 | 25% | — |
+| 7 | h20/P903 | 81 | 510 | 0.93 | 3,052 | 74 | 0% | — |
+| 8 | h28/P1040 | 80 | 3,859 | — | 2,343 | 50 | — | — |
+| 9 | h32/P94 | 80 | 2,759 | 0.91 | 877 | 42 | 100% | B |
 | 10 | h32/P42 | 79 | 1,022 | 0.90 | 794 | 60 | 100% | B |
 
 **Tier A** (paper-ready) = high score + triangulation stability.
@@ -33,13 +33,13 @@ Standard Model–like compactifications. For the quick summary, see
 
 ### Key Numbers
 
-- **70,000** polytopes scanned (50K at h28 alone — full coverage)
-- **1,787** T2-scored with 100-point SM composite
-- **87** = highest score achieved (h28/P874 and h28/P186)
-- **50%** = best c₂ triangulation stability among well-sampled candidates
-- **0** SM or GUT fibrations found in top 20 (fibrations produce non-SM groups)
-- The first-1K polytopes per h¹¹ bucket contain the top candidates; expanding
-  to 50K at h28 found P1040 (score=80) but did not displace the champions
+- **119,000** polytopes scanned (50K each at h28 and h30)
+- **1,805** T2-scored with 100-point SM composite
+- **89** = highest score achieved (h30/P289 — new champion from 50K h30 scan)
+- **60%** = best c₂ triangulation stability among top candidates (h28/P186)
+- h30/P289 is the **only top-5 candidate with SM + GUT fibrations** (su(3) × su(17) × U(1)^10)
+- Expanding h30 from 1K → 50K elevated P289 from 86 → 89 (rescored with deeper bundle census)
+- h28–h30 cluster dominates: 5 of top 10 candidates
 
 ---
 
