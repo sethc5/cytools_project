@@ -6,13 +6,13 @@ Contributions welcome — especially scan runs, pipeline improvements, and negat
 
 **Highest impact** (roughly ordered):
 
-1. **Scan expansion** — Run `scan_fast.py` (fastest, Tier 0.25) or `scan_parallel.py` (full detail) at h¹¹ ≥ 19. h13–16 are complete; h17+h18 are in progress.
+1. **Scan expansion** — Run `v4/pipeline_v4.py --scan` at h¹¹ values not yet covered. The landscape database (`v4/cy_landscape_v4.db`) currently holds 70,000 polytopes across h¹¹ = 13–40. High-h¹¹ ranges (h¹¹ ≥ 30) are sparsely sampled — more `--limit` depth there is valuable.
 
-2. **Pipeline results** — Screen your scan output through T1 → T1.5 → T2 and PR the CSVs.
+2. **Deep analysis** — Run `v4/pipeline_v4.py --deep --top N` on T2-scored candidates. The top champions (h28/P874, h28/P186 at SM score 87) need rank-n bundle construction and stability analysis.
 
-3. **Stage 5 implementation** — Monad/extension bundle construction and stability checks. `rank_n_bundles.py` has initial SU(4)/SU(5) scanners — extending with true stability analysis (beyond Hoppe) is the key gap.
+3. **Stage 5 implementation** — Monad/extension bundle construction and stability checks. The `archive/analysis/rank_n_bundles.py` script has initial SU(4)/SU(5) scanners — extending with true stability analysis (beyond Hoppe) is the key gap.
 
-4. **Picard-Fuchs / geometry** — The GL=12/D₆ polytope study ([GL12_GEOMETRY.md](GL12_GEOMETRY.md), [picard_fuchs.py](picard_fuchs.py)) needs the PF PDE system in Mori coordinates. Also: quantum Yukawa corrections (Gromov-Witten invariants).
+4. **Picard-Fuchs / geometry** — The GL=12/D₆ polytope study ([GL12_GEOMETRY.md](GL12_GEOMETRY.md)) needs the PF PDE system in Mori coordinates. Also: quantum Yukawa corrections (Gromov-Witten invariants).
 
 5. **F-theory** — Discriminant locus analysis on elliptic-fibered candidates (h17/poly25 has 15 elliptic fibrations).
 
@@ -40,43 +40,39 @@ The repo has a `.devcontainer/devcontainer.json`. Just open in GitHub Codespaces
 
 ## Running the Pipeline
 
-### 1. Scan
+The current pipeline is `v4/pipeline_v4.py` with v5.2 scoring (100-point SM composite, 12 components). It uses a 4-tier architecture:
+
+| Tier | Time | What it does |
+|------|------|--------------|
+| T0 | 0.1 s | Geometry + intersection algebra — kills ~85% |
+| T1 | 0.5 s | Bundle screening — kills ~70% of T0 survivors |
+| T2 | 3–30 s | Deep physics + SM scoring — top ~1K |
+| T3 | 30 s+ | Full phenomenology + triangulation stability — top ~50 |
+
+### Scan (T0 → T2)
 
 ```bash
-# Fast scan (Tier 0.25 — pass/fail classification, 2.4× faster)
-python scan_fast.py --h11 19 --workers 4
+# Scan h11=28, first 1000 polytopes, 4 workers
+python v4/pipeline_v4.py --scan --h11 28 --limit 1000 -w 4
 
-# Full scan (exact h⁰ counts for every bundle)
-python scan_parallel.py --h11 19 --workers 4
-
-# Legacy serial scan
-python scan_chi6_h0.py  # edit limit= in script
+# Deep scan — first 50K polytopes at h11=28
+python v4/pipeline_v4.py --scan --h11 28 --limit 50000 -w 4
 ```
 
-### 2. Tier 1 (fast, ~1s/polytope)
+### Deep analysis (T3)
 
 ```bash
-python tier1_screen.py
-# Output: results/tier1_screen_results.csv
+# T3 on top 20 candidates by SM score
+python v4/pipeline_v4.py --deep --top 20
 ```
 
-### 3. Tier 1.5 (intermediate, ~5s/polytope)
+### Rescore (after scoring formula changes)
 
 ```bash
-python tier15_screen.py --csv results/tier1_screen_results.csv
-# Output: results/tier15_screen_results.csv
+python v4/pipeline_v4.py --rescore
 ```
 
-### 4. Tier 2 (deep, ~3min/polytope)
-
-```bash
-# Single range:
-python tier2_screen.py --csv15 results/tier15_screen_results.csv --start 0 --end 20
-
-# Parallel batch (4 pipes):
-./run_t2_batch.sh
-# Output: results/tier2_screen_results.csv
-```
+All results are stored in `v4/cy_landscape_v4.db` (SQLite).
 
 ## PR Format
 
@@ -87,29 +83,15 @@ Include in your PR description:
 - **Polytope count**: how many scanned
 - **Summary stats**: pass rates, any standout candidates
 
-Put output CSVs in `results/`. If you find a polytope with T2 score ≥ 40 or max h⁰ ≥ 10, mention it explicitly — these are the ones worth a full pipeline run.
+If you find a polytope with SM score ≥ 80, mention it explicitly — these are strong Standard Model candidates.
 
 ## How We Verify Contributions
 
-Contributed results are **spot-checked before merge** using `verify_results.py`. The pipeline is deterministic — same polytope + same CYTools version = same numbers — so we re-run a random sample from every PR:
+The pipeline is deterministic — same polytope + same CYTools version = same numbers. Contributed results are spot-checked by re-running the pipeline on a random sample.
 
-```bash
-# Verify 5 random rows from a contributed CSV
-python3 verify_results.py results/your_tier2_results.csv
-
-# Verify all rows (slow — ~3min/polytope)
-python3 verify_results.py results/your_tier2_results.csv --all
-
-# Verify a specific row
-python3 verify_results.py results/your_tier2_results.csv --row 7
-```
-
-Six fields are checked for exact match: `clean_h0_3`, `h0_ge3`, `max_h0`, `n_chi3`, `n_k3_fib`, `n_ell_fib`. If any differ, the PR is flagged for discussion.
-
-**Fingerprinting**: The T2 CSV now includes `cytools_version` and `poly_hash` (SHA-256 of sorted vertex matrix). This lets us detect version-dependent differences (e.g. CYTools 1.4.5 vs 2.x triangulation changes) rather than assuming bad faith.
+**Fingerprinting**: The database stores `cytools_version` and `poly_hash` (SHA-256 of sorted vertex matrix). This lets us detect version-dependent differences (e.g. CYTools 1.4.5 vs 2.x triangulation changes).
 
 **What this catches**:
-- Fabricated or copy-pasted results
 - CYTools version mismatches that silently change output
 - Polytope indexing confusion (KS database ordering can vary)
 

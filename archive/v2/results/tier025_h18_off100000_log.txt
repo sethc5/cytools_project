@@ -1,0 +1,117 @@
+/usr/local/lib/python3.12/site-packages/cytools/config.py:154: UserWarning: 
+**************************************************************
+Warning: You have enabled experimental features of CYTools.
+Some of these features may be broken or not fully tested,
+and they may undergo significant changes in future versions.
+**************************************************************
+
+  warnings.warn(
+========================================================================
+  TIER 0.25 FAST PRE-FILTER (early termination + min_h0 bound)
+  h¹¹ = [18], limit=110000, offset=100000, workers=14
+========================================================================
+
+────────────────────────────────────────────────────────────
+  h11=18, h21=21  —  105811 polytopes (fetched in 165.2s)
+────────────────────────────────────────────────────────────
+  Skipping 100000 already done, scanning 5811
+  [100/5811] 14s, 7.2 poly/s, ETA 798s, 34 pass / 66 skip
+  [200/5811] 25s, 7.9 poly/s, ETA 710s, 50 pass / 150 skip
+  [300/5811] 38s, 7.9 poly/s, ETA 699s, 64 pass / 236 skip
+  [400/5811] 48s, 8.3 poly/s, ETA 650s, 77 pass / 323 skip
+  [500/5811] 61s, 8.2 poly/s, ETA 650s, 86 pass / 414 skip
+  [600/5811] 71s, 8.4 poly/s, ETA 621s, 94 pass / 506 skip
+  [700/5811] 84s, 8.3 poly/s, ETA 615s, 102 pass / 598 skip
+  [800/5811] 96s, 8.3 poly/s, ETA 604s, 107 pass / 693 skip
+  [900/5811] 107s, 8.4 poly/s, ETA 587s, 109 pass / 791 skip
+  [1000/5811] 120s, 8.3 poly/s, ETA 579s, 124 pass / 876 skip
+  [1100/5811] 131s, 8.4 poly/s, ETA 560s, 140 pass / 960 skip
+  [1200/5811] 142s, 8.4 poly/s, ETA 547s, 148 pass / 1052 skip
+  [1300/5811] 154s, 8.5 poly/s, ETA 533s, 155 pass / 1145 skip
+  [1400/5811] 168s, 8.3 poly/s, ETA 529s, 161 pass / 1239 skip
+  [1500/5811] 179s, 8.4 poly/s, ETA 514s, 161 pass / 1339 skip
+  [1600/5811] 190s, 8.4 poly/s, ETA 500s, 177 pass / 1423 skip
+  [1700/5811] 203s, 8.4 poly/s, ETA 492s, 185 pass / 1515 skip
+  [1800/5811] 214s, 8.4 poly/s, ETA 478s, 187 pass / 1613 skip
+  [1900/5811] 228s, 8.3 poly/s, ETA 470s, 188 pass / 1712 skip
+  [2000/5811] 241s, 8.3 poly/s, ETA 459s, 189 pass / 1811 skip
+  [2100/5811] 253s, 8.3 poly/s, ETA 447s, 193 pass / 1907 skip
+  [2200/5811] 267s, 8.2 poly/s, ETA 438s, 195 pass / 2005 skip
+  [2300/5811] 278s, 8.3 poly/s, ETA 425s, 195 pass / 2105 skip
+  [2400/5811] 291s, 8.2 poly/s, ETA 414s, 196 pass / 2204 skip
+  [2500/5811] 302s, 8.3 poly/s, ETA 400s, 200 pass / 2300 skip
+  [2600/5811] 316s, 8.2 poly/s, ETA 390s, 202 pass / 2398 skip
+  [2700/5811] 328s, 8.2 poly/s, ETA 378s, 204 pass / 2496 skip
+  [2800/5811] 341s, 8.2 poly/s, ETA 367s, 213 pass / 2587 skip
+  [2900/5811] 352s, 8.2 poly/s, ETA 353s, 214 pass / 2686 skip
+  [3000/5811] 365s, 8.2 poly/s, ETA 342s, 217 pass / 2783 skip
+  [3100/5811] 378s, 8.2 poly/s, ETA 331s, 222 pass / 2878 skip
+  [3200/5811] 389s, 8.2 poly/s, ETA 318s, 227 pass / 2973 skip
+  [3300/5811] 400s, 8.2 poly/s, ETA 304s, 246 pass / 3054 skip
+  [3400/5811] 413s, 8.2 poly/s, ETA 293s, 248 pass / 3152 skip
+  [3500/5811] 425s, 8.2 poly/s, ETA 281s, 254 pass / 3246 skip
+  [3600/5811] 437s, 8.2 poly/s, ETA 269s, 255 pass / 3345 skip
+  [3700/5811] 449s, 8.2 poly/s, ETA 256s, 266 pass / 3434 skip
+  [3800/5811] 462s, 8.2 poly/s, ETA 245s, 270 pass / 3530 skip
+  [3900/5811] 474s, 8.2 poly/s, ETA 232s, 279 pass / 3621 skip
+  [4000/5811] 486s, 8.2 poly/s, ETA 220s, 283 pass / 3717 skip
+  [4100/5811] 499s, 8.2 poly/s, ETA 208s, 287 pass / 3813 skip
+  [4200/5811] 511s, 8.2 poly/s, ETA 196s, 288 pass / 3912 skip
+  [4300/5811] 523s, 8.2 poly/s, ETA 184s, 289 pass / 4011 skip
+  [4400/5811] 536s, 8.2 poly/s, ETA 172s, 291 pass / 4109 skip
+  [4500/5811] 547s, 8.2 poly/s, ETA 159s, 297 pass / 4203 skip
+  [4600/5811] 560s, 8.2 poly/s, ETA 147s, 298 pass / 4302 skip
+  [4700/5811] 572s, 8.2 poly/s, ETA 135s, 299 pass / 4401 skip
+  [4800/5811] 584s, 8.2 poly/s, ETA 123s, 300 pass / 4500 skip
+  [4900/5811] 596s, 8.2 poly/s, ETA 111s, 301 pass / 4599 skip
+  [5000/5811] 609s, 8.2 poly/s, ETA 99s, 301 pass / 4699 skip
+  [5100/5811] 620s, 8.2 poly/s, ETA 86s, 301 pass / 4799 skip
+  [5200/5811] 633s, 8.2 poly/s, ETA 74s, 302 pass / 4898 skip
+  [5300/5811] 646s, 8.2 poly/s, ETA 62s, 302 pass / 4998 skip
+  [5400/5811] 656s, 8.2 poly/s, ETA 50s, 308 pass / 5092 skip
+  [5500/5811] 669s, 8.2 poly/s, ETA 38s, 309 pass / 5191 skip
+  [5600/5811] 681s, 8.2 poly/s, ETA 26s, 309 pass / 5291 skip
+  [5700/5811] 693s, 8.2 poly/s, ETA 13s, 309 pass / 5391 skip
+  [5800/5811] 703s, 8.2 poly/s, ETA 1s, 309 pass / 5491 skip
+  [5811/5811] 703s, 8.3 poly/s, ETA 0s, 309 pass / 5502 skip
+  h11=18: 5811 scanned in 704s (8.3 poly/s), 309 pass (5%) / 5502 skip, 552,711 bundles saved by early term
+
+========================================================================
+  TIER 0.25 SUMMARY
+========================================================================
+  Total scanned:      5811
+  Pass (h⁰≥3):       309 (5.3%)
+  Skip:               5502
+  Bundles saved:      552,711 (by early termination)
+  Total time:         869s (14.5 min)
+  Rate:               6.7 poly/s
+  Output:             results/tier025_h18_off100000.csv
+
+  Early termination stats (pass polytopes):
+    Avg first hit at bundle #145 / 1934 (7.5% of bundles)
+
+────────────────────────────────────────────────────────────
+  T0.25 PASSES — fastest hits first
+────────────────────────────────────────────────────────────
+  h11=18, poly 100014: hit at #1/1352, max h⁰=3
+  h11=18, poly 100246: hit at #1/1586, max h⁰=3
+  h11=18, poly 100264: hit at #1/1498, max h⁰=3
+  h11=18, poly 100274: hit at #1/1330, max h⁰=3
+  h11=18, poly 100283: hit at #1/1520, max h⁰=3
+  h11=18, poly 100395: hit at #1/1936, max h⁰=3
+  h11=18, poly 100509: hit at #1/1816, max h⁰=3
+  h11=18, poly 100806: hit at #1/1912, max h⁰=3
+  h11=18, poly 101127: hit at #1/1434, max h⁰=3
+  h11=18, poly 101172: hit at #1/1558, max h⁰=3
+  h11=18, poly 101358: hit at #1/1814, max h⁰=3
+  h11=18, poly 101371: hit at #1/1932, max h⁰=3
+  h11=18, poly 101539: hit at #1/2268, max h⁰=3
+  h11=18, poly 102760: hit at #1/2158, max h⁰=3
+  h11=18, poly 102761: hit at #1/2078, max h⁰=3
+  h11=18, poly 103212: hit at #1/1522, max h⁰=3
+  h11=18, poly 103219: hit at #1/1854, max h⁰=3
+  h11=18, poly 103665: hit at #1/2278, max h⁰=3
+  h11=18, poly 103852: hit at #1/1876, max h⁰=3
+  h11=18, poly 104058: hit at #1/1956, max h⁰=3
+
+Done.

@@ -1,15 +1,15 @@
 # Pipeline Version History
 
-> Each version lives in its own folder (`v2/`, `v3/`, `v4/`, `v5/`) with
-> independent compute modules, DB schema, and results.  Code inherits
-> upward: v5 imports from v4, v4 from v3, v3 from v2.  Databases are
-> **not** migrated across major versions (v5 shares v4's DB by design).
+> Active code lives in `v4/` and `v5/`.  Legacy versions (`v2/`, `v3/`) are
+> archived in `archive/v2/` and `archive/v3/`.  Code inherits upward:
+> v5 imports from v4, v4 from v3, v3 from v2.  Databases are **not**
+> migrated across major versions (v5 shares v4's DB by design).
 
 ---
 
 ## v2 — Binary Screening at Scale
 
-**Folder**: `v2/`  
+**Folder**: `archive/v2/`  
 **Era**: Initial large-scale scans (h11 = 13–18)  
 **Question**: *"Does this polytope have clean bundles?"*
 
@@ -66,7 +66,7 @@ SCORE_WEIGHTS = {
 
 ## v3 — Physics-Driven Continuous Scoring
 
-**Folder**: `v3/`  
+**Folder**: `archive/v3/`  
 **Era**: Physics-aware scans (h11 = 13–21, 6578 polytopes in DB)  
 **Question**: *"How close is this geometry to the Standard Model?"*
 
@@ -386,24 +386,24 @@ Same 4-tier structure as v4. T3 now includes triangulation stability.
 ## Version Inheritance
 
 ```
-v2/cy_compute.py          ← core math (lattice points, Koszul, χ, fibrations)
+archive/v2/cy_compute.py     ← core math (lattice points, Koszul, χ, fibrations)
   ↑ imports
-v3/cy_compute_v3.py       ← adds: Yukawa texture, LVS, Mori, divisor classify
+archive/v3/cy_compute_v3.py  ← adds: Yukawa texture, LVS, Mori, divisor classify
   ↑ imports
-v4/cy_compute_v4.py       ← adds: compute_sm_score() (v4.0 → v4.1 weights)
+v4/cy_compute_v4.py          ← adds: compute_sm_score() (v4.0 → v4.1 weights)
   ↑ imports
-v5/cy_compute_v5.py       ← adds: graded mori, rank_sweet_spot, tri_stability,
-                              yukawa_rank fallback fix, post-upsert rescore
+v5/cy_compute_v5.py          ← adds: graded mori, rank_sweet_spot, tri_stability,
+                                 yukawa_rank fallback fix, post-upsert rescore
 
-v2/db_utils.py            ← original schema
-v3/db_utils_v3.py         ← expanded schema (Yukawa, LVS, Mori columns)
-v4/db_utils_v4.py         ← same schema as v3
-v5/db_utils_v5.py         ← v4 schema + tri columns (auto-migrated)
+archive/v2/db_utils.py       ← original schema
+archive/v3/db_utils_v3.py    ← expanded schema (Yukawa, LVS, Mori columns)
+v4/db_utils_v4.py            ← same schema as v3
+v5/db_utils_v5.py            ← v4 schema + tri columns (auto-migrated)
 
-v2/pipeline_v2.py         ← T0 → T0.25 → T1 → T2
-v3/pipeline_v3.py         ← T0 → T1 → T2 → T3 (merged T0.25 into T1)
-v4/pipeline_v4.py         ← T0 → T1 → T2 → T3 (gap-priority, wall-time, bundle cap)
-v5/pipeline_v5.py         ← T0 → T1 → T2 → T3 (--limit, rescore, first_clean_at)
+archive/v2/pipeline_v2.py    ← T0 → T0.25 → T1 → T2
+archive/v3/pipeline_v3.py    ← T0 → T1 → T2 → T3 (merged T0.25 into T1)
+v4/pipeline_v4.py            ← T0 → T1 → T2 → T3 (gap-priority, wall-time, bundle cap)
+v5/pipeline_v5.py            ← T0 → T1 → T2 → T3 (--limit, rescore, first_clean_at)
 ```
 
 ---

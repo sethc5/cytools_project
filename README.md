@@ -148,15 +148,10 @@ v4/db_utils_v4.py    — SQLite database layer (upsert, query, rescore)
 v4/review_champions.py — Query and display top candidates
 v4/cy_landscape_v4.db — Active database (70,000 polytopes, 1,787 scored)
 
-# Stage 5+ scripts
-rank_n_bundles.py    — SU(4)/SU(5) bundle scanner (direct sum + monad)
-picard_fuchs.py      — GKZ periods, D₆-invariant Yukawas, closed-form CT formula
-v2/fiber_analysis.py — Fibration analysis + gauge group classification
-
-# Legacy pipelines (superseded)
-v5/pipeline_v5.py    — v5 scoring engine (used by v4/pipeline_v4.py)
-v3/pipeline_v3.py    — v3 pipeline (h13–h22 scanning)
-v2/pipeline_v2.py    — v2 receipt-based pipeline (h13–h19)
+# v5 scoring engine (imported by v4)
+v5/pipeline_v5.py    — v5 scoring formulas (used by v4/pipeline_v4.py)
+v5/cy_compute_v5.py  — Graded mori, rank_sweet_spot, tri_stability
+v5/db_utils_v5.py    — v4 schema + tri columns (auto-migrated)
 
 # Documentation
 FRAMEWORK.md         — 7-stage theoretical pipeline map
@@ -167,7 +162,7 @@ PROCESS_LOG.md       — Chronological investigation diary
 VERSIONS.md          — Pipeline version lineage (v1→v5.2)
 BACKLOG.md           — Prioritized task list + sprint tracking
 results/             — CSV + log outputs from all runs
-archive/             — Audit trail (early scripts, superseded docs)
+archive/             — Audit trail (v2, v3, early scripts, superseded docs)
 ```
 
 ## References

@@ -488,8 +488,8 @@ def _fiber_worker(args):
 def _run_fiber_analysis(polytope, poly_idx, h11_val):
     """Kodaira fiber classification → gauge algebra."""
     try:
-        # Import fiber_analysis from v2
-        _v2_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'v2')
+        # Import fiber_analysis from archive/v2
+        _v2_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'archive', 'v2')
         if _v2_dir not in sys.path:
             sys.path.insert(0, _v2_dir)
         from fiber_analysis import analyze_polytope

@@ -107,12 +107,12 @@ devcontainer up --workspace-folder .
 # One-off command (from host):
 CONTAINER_ID=$(docker ps -q | head -1)
 docker exec -w /workspaces/cytools_project $CONTAINER_ID \
-  python -u scan_fast.py --h11 18 --workers 14
+  python -u v4/pipeline_v4.py --scan --h11 28 --limit 1000 -w 14
 
 # Long-running scan in tmux (survives SSH disconnect):
 tmux new-session -d -s myscan \
   "docker exec -w /workspaces/cytools_project $CONTAINER_ID \
-   python -u scan_fast.py --h11 18 --workers 14 2>&1 \
+   python -u v4/pipeline_v4.py --scan --h11 28 --limit 50000 -w 14 2>&1 \
    | tee ~/cytools_project/results/scan_log.txt"
 
 # Check scan progress:
@@ -163,24 +163,18 @@ To use VS Code on your local machine connected to the Hetzner server:
 
 ## Performance Benchmarks
 
-| Scanner | Workers | h11 | Rate | vs Dell5 |
-|---------|---------|-----|------|----------|
-| `scan_fast.py` (T0.25) | 8 | 15 | **12.7 poly/s** | **5.3× faster** |
-| `scan_fast.py` (T0.25) | 4 | 15 | ~7 poly/s (est) | ~3× faster |
-| Dell5 `scan_fast.py` | 4 | 15 | 2.4 poly/s | baseline |
+Benchmarks using `v4/pipeline_v4.py --scan` (T0→T2, v5.2 scoring):
+
+| Mode | Workers | h11 | Rate | vs Dell5 |
+|------|---------|-----|------|----------|
+| `--scan` (T0→T2) | 14 | 28 | ~8 poly/s | ~3× faster |
+| `--scan` (T0→T2) | 4 | 28 | ~3 poly/s | baseline (Dell5) |
 
 Recommended workers: **14** (leaves 2 threads for OS/Docker overhead).
 
----
-
-## Estimated Scan Times (T0.25 at 12 poly/s)
-
-| h¹¹ | Polytopes | Est. time (14 workers) |
-|-----|-----------|----------------------|
-| 18 | ~195,000 | ~4.5 hrs |
-| 19 | ~440,000 | ~10 hrs |
-| 20 | ~978,000 | ~23 hrs |
-| 21 | ~1,900,000 | ~44 hrs |
+> Legacy `scan_fast.py` (T0.25 only) benchmarks: 12.7 poly/s at 8 workers.
+> The v4 pipeline is slower per polytope because it runs full T0→T2 scoring,
+> but produces complete SM scores directly into the database.
 
 ---
 
