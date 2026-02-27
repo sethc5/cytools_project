@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-02-27 — KS Ground-Truth Counts
+
+**Work done**: Queried the live Kreuzer-Skarke database
+(quark.itp.tuwien.ac.at) for exact χ=−6 polytope counts per h¹¹. Fetched
+raw HTTP responses (L=999999) and counted polytope blocks. All 21 h¹¹
+values from 20 to 40 queried successfully (~7 min total).
+
+**Key findings**:
+- **5,461,199** total χ=−6 reflexive 4-polytopes exist for h¹¹ ∈ [20, 40]
+- We have scanned **168,000 = 3.1%** of this landscape
+- Even our deepest levels: h27 = 12.7%, h28 = 14.1%, h30 = 18.1%
+- Peak density is h24 with **447,109 polytopes** (we've hit 0.2%)
+- Previous docs incorrectly claimed h27/h28/h30 were "fully scanned" at 50K — 
+  actual KS totals are 394K, 354K, 277K respectively
+- Updated CATALOGUE.md with authoritative per-h¹¹ coverage table, corrected
+  "What We Haven't Scanned" section. Updated FINDINGS.md and README.md.
+
 ## 2026-02-27 — h27 50K Scan + T3 Deep (Top 10)
 
 **Work done**: Expanded h27 from 1K → 50K polytopes (v5.2, 14 workers,

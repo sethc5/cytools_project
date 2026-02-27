@@ -16,20 +16,42 @@ Two eras of scanning:
 **Era 1 (v3–v4, h13–h24)**: 1,025 polytopes, 26-point scoring, limit=100/h¹¹.
 **Era 2 (v4.1–v5.2, h20–h40)**: 168,000 polytopes, 100-point SM composite, 1K–50K/h¹¹.
 
-#### Current Coverage (v5.2)
+#### Current Coverage (v5.2) — with KS Ground-Truth Counts
 
-| h¹¹ range | Polytopes scanned | T2-scored | Top score | Notes |
-|-----------|-------------------|-----------|-----------|-------|
-| 20–25 | ~6,000 | ~400 | 81 | h25/P934 (81), h20/P903 (81) |
-| 26–27 | ~51,000 | ~380 | **86** | h27 at 50K. h27 fibration-rich zone |
-| 28 | 50,000 | ~164 | **87** | h28 at 50K. h28 stability cluster |
-| 29–30 | ~51,000 | ~110 | **89** | h30 at 50K. **#1: h30/P289** |
-| 31–32 | ~2,000 | ~70 | 80 | h32/P94 (80, 100% stable) |
-| 33–36 | ~4,000 | ~27 | 72 | Sparse, declining quality |
-| 37–40 | ~4,000 | ~1 | 49 | Effectively barren at EFF_MAX=22 |
-| **Total** | **~168,000** | **2,012** | **89** | |
+Exact KS database totals queried from the live Kreuzer-Skarke database
+(http://quark.itp.tuwien.ac.at) on 2026-02-27. Counts are for χ = −6
+reflexive 4-polytopes (lattice N).
+
+| h¹¹ | h²¹ | KS total | Scanned | Coverage | T2-scored | Best |
+|------|------|----------|---------|----------|-----------|------|
+| 20 | 23 | 257,613 | 1,000 | 0.4% | ~50 | 81 |
+| 21 | 24 | 329,227 | 1,000 | 0.3% | ~55 | 80 |
+| 22 | 25 | 407,667 | 1,000 | 0.2% | ~75 | 79 |
+| 23 | 26 | 443,162 | 1,000 | 0.2% | ~60 | 79 |
+| 24 | 27 | 447,109 | 1,000 | 0.2% | ~70 | 79 |
+| 25 | 28 | 432,081 | 1,000 | 0.2% | ~80 | 81 |
+| 26 | 29 | 419,456 | 1,000 | 0.2% | ~110 | 82 |
+| **27** | **30** | **393,842** | **50,000** | **12.7%** | **~270** | **86** |
+| **28** | **31** | **354,495** | **50,000** | **14.1%** | **~164** | **87** |
+| 29 | 32 | 322,535 | 1,000 | 0.3% | ~40 | 81 |
+| **30** | **33** | **276,639** | **50,000** | **18.1%** | **~74** | **89** |
+| 31 | 34 | 244,599 | 1,000 | 0.4% | ~35 | 80 |
+| 32 | 35 | 212,314 | 1,000 | 0.5% | ~35 | 80 |
+| 33 | 36 | 181,542 | 1,000 | 0.6% | ~10 | 72 |
+| 34 | 37 | 164,257 | 1,000 | 0.6% | ~10 | 70 |
+| 35 | 38 | 137,448 | 1,000 | 0.7% | ~5 | 65 |
+| 36 | 39 | 119,284 | 1,000 | 0.8% | ~2 | 60 |
+| 37 | 40 | 100,863 | 1,000 | 1.0% | ~1 | 49 |
+| 38 | 41 | 87,038 | 1,000 | 1.1% | 0 | — |
+| 39 | 42 | 69,757 | 1,000 | 1.4% | 0 | — |
+| 40 | 43 | 60,271 | 1,000 | 1.7% | 0 | — |
+| **Total** | | **5,461,199** | **168,000** | **3.1%** | **2,012** | **89** |
 
 **Key stats**:
+- **5.46 million** χ=−6 polytopes exist in the KS database for h¹¹ ∈ [20, 40]
+- We have scanned **168K (3.1%)** of this landscape
+- Even our deepest levels (h27/h28/h30 at 50K) are only **12–18% covered**
+- The peak is h24 with **447K polytopes** — we've hit only 0.2%
 - 2,012/168,000 (1.2%) survive to T2 scoring
 - h27–h30 dominates: 8 of the top 10 candidates
 - **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
@@ -54,10 +76,11 @@ These low-h¹¹ polytopes were scored with the old 26-point system and are now s
 ### What We Haven't Scanned
 
 - **h¹¹ = 13–19**: Covered by legacy scans (h13–h16 at 100%, h17–h19 partial). Not rescored under v5.2. Low-h¹¹ polytopes score lower under the 100-point system due to smaller effective dimension.
+- **h¹¹ = 20–26, 29, 31–40**: Only 1K of 100K–450K polytopes scanned (0.2–1.7% coverage). Major unexplored territory, especially h22–h26 which each have 400K+ polytopes.
+- **h27 beyond 50K**: 393,842 total — 50K scanned = 12.7% coverage. 343K polytopes remain in the fibration-rich zone.
+- **h28 beyond 50K**: 354,495 total — 50K scanned = 14.1% coverage. 304K polytopes remain.
+- **h30 beyond 50K**: 276,639 total — 50K scanned = 18.1% coverage. 227K polytopes remain. The champion P289 (89) came from this level.
 - **h¹¹ = 37–128**: Barren at EFF_MAX=22 — zero or near-zero T0 pass rate. Would require raising EFF_MAX (with attendant computational cost) to access.
-- **h28 beyond 50K**: The KS database has ~50K χ=−6 polytopes at h28. We scanned all of them. No extension possible at this h¹¹.
-- **h27 beyond 50K**: Fully scanned. 50K polytopes, 270 scored. Fibration-rich zone — all top candidates have SM+GUT.
-- **h30 beyond 50K**: Fully scanned. 50K polytopes, 74 scored. P289 (89) is the champion.
 - **Deeper triangulation sampling**: Top-10 candidates sampled at 20 random FRSTs. Expanding to 200+ would refine c₂ stability percentages.
 
 ---

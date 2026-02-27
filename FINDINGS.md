@@ -33,10 +33,12 @@ Standard Model–like compactifications. For the quick summary, see
 
 ### Key Numbers
 
-- **168,000** polytopes scanned (50K each at h27, h28, h30)
+- **5,461,199** χ=−6 polytopes exist in the KS database for h¹¹ ∈ [20, 40]
+- **168,000** polytopes scanned = **3.1%** of the KS landscape
 - **2,012** T2-scored with 100-point SM composite
 - **89** = highest score achieved (h30/P289)
 - **55%** = best c₂ triangulation stability among top candidates (h28/P874, h28/P187)
+- Even our deepest levels (h27/h28/h30 at 50K) are only **12–18% covered**
 - **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
 - h27 50K scan produced 2 new top-5 entries: P22835 (86) and P13954 (85)
 - h27–h30 dominates: 8 of top 10 candidates
