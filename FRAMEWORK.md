@@ -38,11 +38,11 @@ The Higgs field enters at two levels:
 
 | Step | Description | Tool/Method | Status |
 |------|-------------|-------------|--------|
-| 1.1 | Enumerate $\chi = -6$ polytopes | `fetch_polytopes(h11, h21=h11+3)` | ✅ 7500+ polytopes found |
+| 1.1 | Enumerate $\chi = -6$ polytopes | `fetch_polytopes(h11, h21=h11+3)` | ✅ 70,000+ polytopes across h¹¹ = 20–40 |
 | 1.2 | Triangulate and compute CY data | CYTools triangulate/get_cy | ✅ Routine |
-| 1.3 | Choose best candidates | Pipeline scorecard | ✅ Polytope 40, h13-P0/P1/P2 identified |
+| 1.3 | Choose best candidates | Pipeline v5.2 scorecard (100-point SM composite) | ✅ h28/P874 & h28/P186 (score 87) |
 
-**Key insight**: $\chi = -6$ exists at every $h^{1,1} \geq 13$. The smallest cases (h11=13, 3 polytopes) are the cleanest.
+**Key insight**: $\chi = -6$ exists at every $h^{1,1} \geq 13$. The sweet spot turns out to be **h¹¹ ≈ 28** — large enough for rich intersection structure but small enough for tractable computation. The first-1K polytopes per h¹¹ bucket contain the top candidates.
 
 ### Stage 2: Divisor Analysis ✅ DONE
 
@@ -54,8 +54,8 @@ The Higgs field enters at two levels:
 | 2.1 | Divisor basis identification | `cyobj.divisor_basis()` | ✅ |
 | 2.2 | Intersection numbers | `intersection_numbers(in_basis=True)` | ✅ |
 | 2.3 | Second Chern class | `second_chern_class(in_basis=True)` | ✅ (has size bug at high h11) |
-| 2.4 | Divisor classification (dP, K3, etc.) | $D^3$, $c_2 \cdot D$, $\chi(\mathcal{O}_D)$ | ✅ Polytope 40: 11 rigid dP |
-| 2.5 | Swiss cheese structure | Volume hierarchy $\tau_{\text{small}} / \mathcal{V}^{2/3} \ll 1$ | ✅ Poly40: τ=4.0, h13-P1: τ=4.5 |
+| 2.4 | Divisor classification (dP, K3, etc.) | $D^3$, $c_2 \cdot D$, $\chi(\mathcal{O}_D)$ | ✅ Champions have 14+ clean line bundles |
+| 2.5 | Swiss cheese structure | Volume hierarchy $\tau_{\text{small}} / \mathcal{V}^{2/3} \ll 1$ | ✅ Champions: hierarchy ~1,150 (h28/P874), MBD ≥ 0.94 |
 
 ### Stage 3: Line Bundle Cohomology ✅ DONE
 
@@ -64,13 +64,13 @@ The Higgs field enters at two levels:
 
 | Step | Description | Tool/Method | Status |
 |------|-------------|-------------|--------|
-| 3.1 | Find all $\chi = 3$ line bundles | HRR: $\chi = D^3/6 + c_2 \cdot D / 12$ | ✅ 119 on Poly40, ~1000+ on h13 polytopes |
+| 3.1 | Find all $\chi = 3$ line bundles | HRR: $\chi = D^3/6 + c_2 \cdot D / 12$ | ✅ Thousands per polytope at h¹¹ ≥ 20 |
 | 3.2 | Compute $h^0$ via Koszul sequence | Lattice point counting + shift | ✅ Verified on quintic |
 | 3.3 | Nefness / Kodaira vanishing check | Mori cone pairing | ✅ No nef bundles found (any polytope) |
 | 3.4 | Serre duality cross-check | $h^3(D) = h^0(-D)$ | ✅ |
-| 3.5 | Landscape scan for $h^0 \geq 3$ | scan_chi6_h0.py | ✅ 136/320 polytopes have $h^0 \geq 3$ |
+| 3.5 | Landscape scan for $h^0 \geq 3$ | scan_chi6_h0.py / pipeline v5.2 | ✅ **1,787** polytopes T2-scored out of 70K |
 
-**Key result**: Polytope 40 has max $h^0 = 2$ (unusual). h13-P0 has 12 bundles with exact $h^0 = \chi = 3$.
+**Key result**: Champions h28/P874 and h28/P186 each have 14 clean ($h^0 = 3$, $h^3 = 0$) line bundles. Earlier candidate Polytope 40 proved a dead end (max $h^0 = 2$).
 
 ### Stage 4: Net Chirality from Line Bundles 🔶 PARTIALLY DONE
 
@@ -111,7 +111,7 @@ The Higgs field enters at two levels:
 
 | Step | Description | Status |
 |------|-------------|--------|
-| 6.1 | Kähler moduli: Swiss cheese / LVS | ✅ Multiple candidates viable (best: h15/poly61 τ=14,300) |
+| 6.1 | Kähler moduli: Swiss cheese / LVS | ✅ Multiple candidates viable (best: h28/P874, hierarchy=1,150, MBD=0.95) |
 | 6.2 | Complex structure moduli: flux superpotential | 🔶 Picard-Fuchs periods computed for GL=12/D₆ polytope (closed-form formula, 501 terms) |
 | 6.3 | Vacuum energy / cosmological constant | ❌ |
 
@@ -135,27 +135,45 @@ Stage 1 ──── Stage 2 ──── Stage 3 ──── Stage 4 ───
   ✅            ✅            ✅            🔶            🔶            🔶            🔶
 ```
 
-**We are working across Stages 5–7 in parallel.** Line bundle analysis (Stages 1–4) is complete for 12 candidates. Active fronts:
-- (A) Stage 5: `rank_n_bundles.py` built — SU(4)/SU(5) scanners with direct sum + monad construction. First results on h14/poly2.
+**Stages 1–4 are complete at scale** (70K polytopes, 1,787 T2-scored with 100-point SM composite). **Active fronts span Stages 5–7:**
+- (A) Stage 5: `rank_n_bundles.py` built — SU(4)/SU(5) scanners with direct sum + monad construction. First results on h14/poly2. Not yet run on h28 champions.
 - (B) Stage 6.2: Picard-Fuchs periods for the GL=12/D₆ polytope (closed-form formula, 501 exact coefficients, GKZ orbit compression to 6 invariant moduli).
 - (C) Stage 7.1: D₆-invariant classical Yukawa couplings (26 non-zero entries, two-sector structure). See [GL12_GEOMETRY.md](GL12_GEOMETRY.md).
+- (D) **Landscape scanning**: v5.2 pipeline deployed on Hetzner (16-core). 50K h28 scan completed. Champions: h28/P874, h28/P186 (score 87).
 
 ---
 
 ## 3. Candidate Comparison
 
+### Current Champions (v5.2 scoring, 100-point SM composite)
+
+| Rank | ID | Score | Hierarchy | MBD | Vol-Hier | Clean | c₂ stability | Tier |
+|------|----|-------|-----------|------|----------|-------|---------------|------|
+| 1 | h28/P874 | **87** | 1,150 | 0.95 | 1,656 | 14 | 50% | A |
+| 2 | h28/P186 | **87** | 1,147 | 0.94 | 1,725 | 14 | 30% | A |
+| 3 | h30/P289 | **86** | 34,318 | 0.88 | 1,737 | 12 | 0% | C |
+| 4 | h28/P187 | 84 | 1,160 | 0.95 | 1,766 | 14 | 55% | A |
+| 5 | h25/P934 | 81 | 1,666 | 0.95 | 1,831 | 22 | 25% | — |
+
+**Tier A** = high score + triangulation stability (paper-ready).
+**Tier B** = perfect stability but limited sampling.
+**Tier C** = high score but fragile geometry.
+
+The h28 cluster (P874/P186/P187) is a connected family in KS polytope space — the score-87 region is a localized island.
+
+### Earlier Candidates (superseded)
+
+The early pipeline (v3–v4) focused on low-h¹¹ polytopes with a 26-point scoring system:
+
 | | h14/poly2 | h17/poly25 | h15/poly61 | h17/poly63 |
 |---|---|---|---|---|
 | **Stage 1**: $\chi = -6$ | ✅ | ✅ | ✅ | ✅ |
-| **Stage 2**: Rigid divisors | **13/13** | 13/17 | 10/15 | **13/13** |
-| **Stage 2**: Swiss cheese | **YES** ($\tau=58.5$) | YES ($\tau=56$) | **YES** ($\tau=14,300$) | YES ($\tau=84$) |
-| **Stage 3**: Clean $h^0=3$ | **320** | 170 | 110 | 218 |
-| **Stage 3**: Max $h^0$ | 13 | 8 | 4 | **40** |
-| **Stage 4**: All clean verified | ✅ | ✅ | ✅ | ✅ |
+| **Stage 2**: Swiss cheese | YES ($\tau=58.5$) | YES ($\tau=56$) | YES ($\tau=14,300$) | YES ($\tau=84$) |
+| **Stage 3**: Clean $h^0=3$ | 320 | 170 | 110 | 218 |
 | **Stage 5**: Rank-4/5 bundles | 🔶 initial | ❌ | ❌ | ❌ |
-| **Fibrations**: K3 / Ell | 3/3 | **6/15** | 3/3 | 5/10 |
-| **Score** | **26/26** | **26/26** | 25/26 | **26/26** |
-| **Best for…** | Heterotic | F-theory + triple-threat | LVS | Fibrations |
+| **Score (v4)** | 26/26 | 26/26 | 25/26 | 26/26 |
+
+These provided proof-of-concept for the pipeline but are outscored by the h28 champions under the 100-point SM composite.
 
 ### GL=12 / D₆ Polytope (h¹¹=17, h²¹=20)
 
@@ -191,7 +209,7 @@ Ranked by "what can we compute now with existing tools":
 
 | Task | Difficulty | Tools available | Priority |
 |------|-----------|----------------|----------|
-| Full pipeline on top candidates | **Easy** | All Stage 1-4 tools proven | ✅ DONE (12 runs) |
+| Full pipeline on top candidates | **Easy** | All Stage 1-4 tools proven | ✅ DONE (70K polytopes, 1,787 T2-scored) |
 | Rank-4/5 bundles (Stage 5.1-5.2) | Medium-Hard | ✅ `rank_n_bundles.py` built | **Active** |
 | Picard-Fuchs in Mori coordinates | Hard | `picard_fuchs.py` + sympy | **Active** |
 | Individual $h^1, h^2$ (Stage 4.3) | Medium | Čech cohomology or exact sequences | Next |
