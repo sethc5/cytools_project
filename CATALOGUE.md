@@ -3,7 +3,7 @@
 > **Purpose**: Record what's been checked, what passed, and what's ruled out.
 > If a polytope or approach appears here, you don't need to redo the work.
 >
-> **Last updated**: 2026-02-23. h13–h16 fully scanned (~11,000 polytopes). h17 scan 42% (Codespace). h18 scan 98% (Hetzner). **12 full pipeline runs** (7× 26/26). GL=12/D₆ geometry study in progress.
+> **Last updated**: 2026-02-26. Pipeline v5.2, 100-point SM composite scoring. **70,000 polytopes** scanned (h20–h40). **1,787 T2-scored**. Champions: h28/P874, h28/P186 (score 87). Database: `v4/cy_landscape_v4.db`. Deployed on Hetzner (16-core).
 
 ---
 
@@ -11,32 +11,73 @@
 
 ### What We Scanned
 
+Two eras of scanning:
+
+**Era 1 (v3–v4, h13–h24)**: 1,025 polytopes, 26-point scoring, limit=100/h¹¹.
+**Era 2 (v4.1–v5.2, h20–h40)**: 70,000 polytopes, 100-point SM composite, 1K–50K/h¹¹.
+
+#### Current Coverage (v5.2)
+
+| h¹¹ range | Polytopes scanned | T2-scored | Top score | Notes |
+|-----------|-------------------|-----------|-----------|-------|
+| 20–25 | ~6,000 | ~400 | 81 | h25/P934 (81), h20/P903 (81) |
+| 26–28 | ~50,500 | ~500 | **87** | h28 at 50K (full coverage). Champion cluster |
+| 29–32 | ~1,200 | ~200 | 86 | h30/P289 (86), h32/P94 (80) |
+| 33–36 | ~100 | ~50 | 70 | Sparse, declining quality |
+| 37–40 | ~10 | ~4 | 49 | Effectively barren at EFF_MAX=22 |
+| **Total** | **~70,000** | **1,787** | **87** | |
+
+**Key stats**:
+- 1,787/70,000 (2.6%) survive to T2 scoring
+- h28 is the sweet spot: 3 of the top 4 candidates are h28 polytopes
+- h37+ is barren — the χ=−6 landscape is exhausted above h¹¹ ≈ 36
+- First-1K polytopes per h¹¹ bucket contain the top candidates; expanding to 50K at h28 found P1040 (score=80) but did not displace the champions
+
+#### Legacy Coverage (v3–v4, h13–h24)
+
 | h¹¹ | KS count | Scanned | Hits (h⁰≥3) | Coverage |
 |------|----------|---------|-------------|----------|
 | 13 | 3 | 3 | 3 | 100% |
 | 14 | 22 | 22 | 18 | 100% |
-| 15 | 553 | 100 | 73 | 18% |
-| 16 | 5,180 | 100 | 73 | 1.9% |
-| 17 | 38,735 | 100 | 82 | 0.26% |
-| 18 | ~200k+ | 100 | 73 | <0.05% |
-| 19 | ~500k+ | 100 | 68 | <0.02% |
-| 20 | ~1M+ | 100 | 59 | ~0% |
-| 21 | large | 100 | 57 | ~0% |
-| 22 | large | 100 | 56 | ~0% |
-| 23 | large | 100 | 43 | ~0% |
-| 24 | large | 100 | 29 | ~0% |
-| **Total** | | **1,025** | **634** | |
+| 15 | 553 | 553 | — | 100% |
+| 16 | 5,180 | 5,180 | — | 100% |
+| 17 | 38,735 | 200 | — | 0.5% |
+| 18 | ~200K+ | 100 | — | <0.05% |
+| 19–24 | large | 100 each | — | ~0% |
 
-**Key stat**: 634/1025 (62%) have at least one line bundle with h⁰ ≥ 3 among the first ~5,500 bundles probed.
+These low-h¹¹ polytopes were scored with the old 26-point system and are now superseded by the v5.2 landscape scan.
 
 ### What We Haven't Scanned
 
-- **h¹¹ = 19–128**: 90+ of 104 Hodge pairs have only 100 polytopes sampled. The KS database has millions at high h¹¹.
-- **Favorable bias**: Scan v1 (pre-B-11 fix) missed all 705 non-favorable polytopes. Scan v2 fixed this, but our best candidates are all non-favorable.
+- **h¹¹ = 13–19**: Covered by legacy scans (h13–h16 at 100%, h17–h19 partial). Not rescored under v5.2. Low-h¹¹ polytopes score lower under the 100-point system due to smaller effective dimension.
+- **h¹¹ = 37–128**: Barren at EFF_MAX=22 — zero or near-zero T0 pass rate. Would require raising EFF_MAX (with attendant computational cost) to access.
+- **h28 beyond 50K**: The KS database has ~50K χ=−6 polytopes at h28. We scanned all of them. No extension possible at this h¹¹.
+- **Deeper triangulation sampling**: Top-20 candidates sampled at 50 random FRSTs. Expanding to 200+ would refine c₂ stability percentages.
 
 ---
 
 ## 2. Screening Funnel Results
+
+### Current Pipeline (v5.2, h20–h40)
+
+```
+~70,000 polytopes (h11=20..40, v5.2 pipeline)
+  │
+  ├─ ~3,500 pass T0 (geometry + EFF_MAX=22) ──── ~5% pass
+  │   │
+  │   └─ 1,787 pass T1 → T2 scored ───────────── 2.6% of total
+  │       (100-point SM composite: hierarchy, Yukawa, LVS, clean bundles, ...)
+  │       │
+  │       ├─ Top 20 deep-analyzed (T3) ────────── 50 random FRSTs each
+  │       │   Tier A (paper-ready): 3 candidates
+  │       │   Tier B (strong): 3 candidates
+  │       │   Tier C (score-driven): 3 candidates
+  │       │
+  │       └─ Score distribution:
+  │           87: 2,  86: 1,  84: 1,  80-81: 5,  70-79: ~100,  <70: ~1700
+```
+
+### Legacy Pipeline (v3–v4, h13–h24)
 
 ```
 1,025 polytopes (scan v2, h11=13..24, limit=100/h11)
@@ -44,112 +85,104 @@
   ├─ 634 have h⁰ ≥ 3 line bundles ─────────── 62% pass
   │   │
   │   ├─ 337 pass Tier 1 ──────────────────── 33% of total
-  │   │   (dP divisors + Swiss cheese + symmetry + max h⁰)
   │   │   │
-  │   │   ├─ 157 pass Tier 1.5 ────────────── 15% of total  
-  │   │   │   (fibrations + 300-bundle probe, ≥3 clean h⁰=3)
-  │   │   │   │
-  │   │   │   └─ 157 completed Tier 2 ────── ✅ ALL DONE
-  │   │   │       23 scored T2=45 (max)
-  │   │   │       66 scored T2≥41
-  │   │   │
-  │   │   └─ 180 filtered at T1.5
-  │   │       (too few clean bundles or probe truncated badly)
+  │   │   └─ 157 pass Tier 1.5 → Tier 2 ──── 15% of total
+  │   │       23 scored T2=45 (max)
   │   │
   │   └─ 297 filtered at T1
-  │       (no dP divisors, no Swiss cheese, or max h⁰ too low)
   │
   └─ 391 have max h⁰ ≤ 2 ──────────────────── 38% fail
 ```
 
 ---
 
-## 3. Top Candidates (Tier 2 — all 177 complete)
+## 3. Top Candidates
 
-Ranked by clean h⁰=3 bundle count. All non-favorable. T2 score out of 55.
+### Current Leaderboard (v5.2, 100-point SM composite)
 
-| Rank | Polytope | Score | Clean h⁰=3 | h⁰≥3 | max h⁰ | K3 | Ell | Notes |
-|------|----------|-------|------------|-------|--------|-----|-----|-------|
-| 1 | **★ h14/poly2** | **26/26** | **320** | 828 | 13 | 3 | 3 | Heterotic champion |
-| 2 | **★ h16/poly11** | **26/26** | **298** | 840 | 13 | 3 | 3 | 5 dP divisors |
-| 3 | **★ h17/poly96** | **25/26** | **252** | 930 | **65** | 2 | 1 | Highest max h⁰, 0 dP |
-| 4 | **★ h17/poly63** | **26/26** | **218** | 922 | 40 | 5 | **10** | F-theory champion |
-| 5 | **★ h17/poly9** | **23/26** | **192** | 876 | 15 | 1 | 0 | No ell/dP |
-| 6 | **★ h18/poly34** | **26/26** | **184** | 730 | 16 | 4 | 6 | 5 dP |
-| 7 | **★ h17/poly8** | **26/26** | **180** | 558 | 13 | 3 | 3 | Best LVS (τ=2208) |
-| 8 | h17/poly90 | 45 | 148 | 542 | 16 | 3 | 3 |
-| 9 | h15/poly23 | 45 | 119 | 524 | 20 | 4 | 6 |
-| 10 | h17/poly21 | 45 | 118 | 532 | 13 | 4 | 6 |
-| 11 | h19/poly7 | 41 | 114 | 374 | 6 | 3 | 1 |
-| 12 | h16/poly22 | 45 | 111 | 440 | 10 | 4 | 6 |
-| 13 | h16/poly51 | 41 | 109 | 486 | 12 | 3 | 1 |
-| 14 | h15/poly36 | 41 | 107 | 310 | 11 | 3 | 1 |
-| 15 | h15/poly61 | 45 | 103 | 338 | 4 | 3 | 3 |
-| 16 | h17/poly58 | 45 | 102 | 520 | 6 | 3 | 3 |
-| 17 | h16/poly43 | 41 | 98 | 544 | 13 | 3 | 1 |
-| 18 | h15/poly25 | 45 | 95 | 418 | 13 | 3 | 3 |
-| 19 | h17/poly32 | 45 | 95 | 438 | 13 | 3 | 3 |
-| 20 | h16/poly52 | 41 | 94 | 388 | 4 | 3 | 1 |
+| Rank | ID | Score | Hierarchy | MBD | Vol-Hier | Clean | c₂ stab | Tier |
+|------|----|-------|-----------|------|----------|-------|---------|------|
+| 1 | **h28/P874** | **87** | 1,150 | 0.95 | 1,656 | 14 | 50% | A |
+| 2 | **h28/P186** | **87** | 1,147 | 0.94 | 1,725 | 14 | 30% | A |
+| 3 | h30/P289 | **86** | 34,318 | 0.88 | 1,737 | 12 | 0% | C |
+| 4 | h28/P187 | 84 | 1,160 | 0.95 | 1,766 | 14 | 55% | A |
+| 5 | h25/P934 | 81 | 1,666 | 0.95 | 1,831 | 22 | 25% | — |
+| 6 | h20/P903 | 81 | 510 | 0.93 | 3,052 | 74 | 0% | — |
+| 7 | h28/P1040 | 80 | 3,859 | — | 2,343 | 50 | — | — |
+| 8 | h32/P94 | 80 | 2,759 | 0.91 | 877 | 42 | 100% | B |
+| 9 | h25/P411 | 80 | 1,597 | 0.92 | 423 | 44 | 5% | — |
+| 10 | h32/P42 | 79 | 1,022 | 0.90 | 794 | 60 | 100% | B |
 
-Full merged CSV: [results/tier2_full_results.csv](results/tier2_full_results.csv)
-
-### T2 Score Distribution (all 177)
-
-| T2 Score | Count |
-|----------|-------|
-| 45 (max) | 23 |
-| 44 | 17 |
-| 43 | 6 |
-| 42 | 4 |
-| 41 | 16 |
-| 40 | 11 |
-| 39 | 10 |
-| 38 | 14 |
-| ≤37 | 56 |
+**Tier A** (paper-ready) = high score + triangulation stability.
+**Tier B** = perfect stability but limited triangulation sampling.
+**Tier C** = high score but fragile geometry (0% c₂ stability).
 
 **Observations**:
-- **★ h14/poly2 (Heterotic Champion)**: Full pipeline score 26/26, **320 clean bundles** (up from 268 in T2), 3 Swiss cheese directions, lowest h¹¹ (14) = simplest moduli stabilization.
-- **★ h17/poly63 (F-Theory Champion)**: Full pipeline score 26/26, **218 clean bundles** (up from 198 in T2), **10 elliptic fibrations** (up from 6 in T2), 6 dP divisors, richest fibration structure.
-- **h17/poly96 has max h⁰ = 65** — the highest of any polytope scanned. 227 clean bundles despite only T2=39.
-- Every top candidate is non-favorable. These were invisible before Bug B-11 fix.
-- 23 polytopes hit the T2 score cap of 45 — the scoring saturates. Full pipeline 26-point scorecard is the better discriminator.
-- **Full pipeline finds more**: T2→pipeline upgrades: h14/poly2 clean 268→320, h17/poly63 clean 198→218, elliptic 6→10. The more thorough methodology in Stages 1-4 catches bundles/fibrations missed by the faster T2 screen.
-- h16/poly74 has **10 elliptic fibrations** (most of any candidate) — exceptional for F-theory.
+- The h28 cluster (P874/P186/P187) is a connected family in KS polytope space — the score-87 region is a localized island
+- h20/P903 has 74 clean bundles (most of any candidate) but 0% c₂ stability
+- h32/P94 and h32/P42 have 100% c₂ stability but lower scores
+- No SM or GUT fibrations found in any of the top 20 candidates
+
+### Legacy Top-20 (v3–v4, 26-point scoring — superseded)
+
+These candidates were identified during the early h13–h24 scan. They provided proof-of-concept for the pipeline but are outscored by the h28 champions under the 100-point SM composite.
+
+| Rank | Polytope | Score (v4) | Clean h⁰=3 | max h⁰ | K3 | Ell | Notes |
+|------|----------|------------|------------|--------|-----|-----|-------|
+| 1 | h14/poly2 | 26/26 | 320 | 13 | 3 | 3 | Heterotic champion |
+| 2 | h16/poly11 | 26/26 | 298 | 13 | 3 | 3 | 5 dP divisors |
+| 3 | h17/poly96 | 25/26 | 252 | 65 | 2 | 1 | Highest max h⁰ |
+| 4 | h17/poly63 | 26/26 | 218 | 40 | 5 | 10 | F-theory champion |
+| 5 | h17/poly25 | 26/26 | 170 | 8 | 6 | 15 | 15 ell fib (record) |
+| 6 | h15/poly61 | 25/26 | 110 | 4 | 3 | 3 | LVS τ=14,300 |
+| 7 | h17/poly8 | 26/26 | 180 | 13 | 3 | 3 | LVS τ=2,208 |
 
 ---
 
-## 4. Deep Pipeline Results (12 complete)
+## 4. Deep Analysis Results (T3)
 
-### ★ h14/poly2 — Heterotic Champion (Score: 26/26)
+### T3 Deep Analysis: Top 20 (50 random FRSTs each)
 
-- h¹¹=14, h²¹=17, χ=−6 (native 3-gen)
-- **320 completely clean bundles** (most of any candidate)
-- 828 with h⁰ ≥ 3, max h⁰ = 13
-- 3 dP divisors, 3 Swiss cheese directions (τ=58.5)
-- 3 K3 + 3 elliptic fibrations
+The top 20 candidates by v5.2 score were subjected to triangulation stability
+testing: 50 random FRST triangulations per polytope, computing c₂ hash and
+κ hash for each. Results reveal a bimodal distribution — candidates are
+either robust (≥50% stability) or fragile (0%).
 
-### ★ h17/poly25 — F-Theory + Triple-Threat Champion (Score: 26/26)
+#### Tier A — Paper-Ready (high score + stability)
 
-- h¹¹=17, h²¹=20, χ=−6
-- **170 clean bundles**, 490 with h⁰ ≥ 3, max h⁰ = 8
-- **15 elliptic fibrations** (all-time record) + 6 K3 + Swiss cheese τ=56
-- Only candidate excelling at heterotic + F-theory + LVS simultaneously
+| ID | Score | c₂ stab | Hier | Key strength |
+|----|-------|---------|------|-------------|
+| h28/P874 | 87 | 50% | 1,150 | Overall champion |
+| h28/P186 | 87 | 30% | 1,147 | Cluster sibling of P874 |
+| h28/P187 | 84 | 55% | 1,160 | Best stability in h28 cluster |
 
-### ★ h15/poly61 — LVS Champion (Score: 25/26)
+#### Tier B — Strong (perfect stability, lower score)
 
-- h¹¹=15, h²¹=18, χ=−6
-- **110 clean bundles**, 338 with h⁰ ≥ 3, max h⁰ = 4
-- **Swiss cheese τ = 14,300** (6.5× runner-up)
-- 3 K3 + 3 elliptic fibrations. 0 dP (−1 point)
+| ID | Score | c₂ stab | Hier | Key strength |
+|----|-------|---------|------|-------------|
+| h32/P94 | 80 | 100% | 2,759 | Perfect stability |
+| h32/P42 | 79 | 100% | 1,022 | Perfect stability |
+| h27/P219 | 79 | 55% | — | Moderate stability |
 
-### ★ h17/poly63 — Former F-Theory Champion (Score: 26/26)
+#### Tier C — Score-Driven (high score, fragile geometry)
 
-- 218 clean bundles, max h⁰=40, 6 dP, 5 K3 + 10 elliptic
-- 1 nef bundle (extremely rare)
+| ID | Score | c₂ stab | Hier | Key strength |
+|----|-------|---------|------|-------------|
+| h30/P289 | 86 | 0% | 34,318 | Extreme hierarchy |
+| h25/P934 | 81 | 25% | 1,666 | — |
+| h20/P903 | 81 | 0% | 510 | 74 clean bundles (record) |
 
-### ★ h16/poly11 (26/26, 298 clean), h18/poly34 (26/26, 184 clean), h17/poly8 (26/26, 180 clean, τ=2208)
+### Legacy Deep Pipeline (12 complete, v3–v4, 26-point scoring)
 
-### All 12 pipeline runs: see [FINDINGS.md](FINDINGS.md)
+These were the first candidates to receive full pipeline analysis.
+Key results preserved for reference:
+
+- **h14/poly2**: 320 clean bundles, 3 Swiss cheese directions (τ=58.5), first heterotic champion
+- **h17/poly25**: 15 elliptic fibrations (record), 6 K3, triple-threat (heterotic + F-theory + LVS)
+- **h15/poly61**: Swiss cheese τ=14,300 (extreme LVS), 0 dP (−1 point)
+- **h17/poly63**: 218 clean bundles, max h⁰=40, 10 elliptic fibrations
+- **h16/poly11** (298 clean), **h18/poly34** (184 clean), **h17/poly8** (180 clean, τ=2,208)
+- All 12 runs: see [FINDINGS.md](FINDINGS.md)
 
 ### h13/poly1 — Benchmark (Score: 18/20, legacy scoring)
 
@@ -211,32 +244,36 @@ These bugs wasted significant time. If you're using CYTools 1.4.5, be aware:
 
 Ordered by expected impact:
 
-1. **Complete h17 + h18 scans** — h17 running on Codespace (42%), h18 on Hetzner (98% — nearly done). Results will add thousands of new candidates to the T1→T2 funnel.
+1. **Stage 5: Higher-rank bundles on h28 champions** — `rank_n_bundles.py` has been tested on h14/poly2 only. Run SU(4)/SU(5) direct-sum and monad scanners on h28/P874, h28/P186, h28/P187. Find a truly stable (not just polystable) rank-4/5 bundle with net chirality = 3.
 
-2. **Stage 5: Higher-rank bundles** — `rank_n_bundles.py` exists but needs stability analysis beyond Hoppe. Find a truly stable rank-4/5 bundle with net chirality = 3.
+2. **Triangulation stability — expand sampling** — Top-20 sampled at 50 random FRSTs. Expand to 200+ for Tier A candidates to refine c₂ stability percentages and establish tighter confidence intervals.
 
-3. **Picard-Fuchs in Mori coordinates** — The GL=12/D₆ polytope has a closed-form period formula and 26 D₆-invariant Yukawa couplings. Next: derive the PF PDE system in the 6 Mori coordinates for exact period integrals.
+3. **Picard-Fuchs in Mori coordinates** — The GL=12/D₆ polytope has a closed-form period formula and 26 D₆-invariant Yukawa couplings. Derive the PF PDE system in 6 Mori coordinates for exact period integrals.
 
-4. **F-theory discriminant locus** — h17/poly25 has **15 elliptic fibrations** (record). Classify singular fibers (Kodaira types) to determine gauge algebras.
+4. **F-theory discriminant locus** — h17/poly25 has 15 elliptic fibrations (record). Classify singular fibers (Kodaira types) to determine gauge algebras.
 
-5. **Run full pipeline on remaining T2 candidates** — 27 T2 candidates still lack full pipeline analysis.
+5. **Low-h¹¹ rescore** — Rescore h13–h19 legacy candidates under v5.2. Some may rank competitively despite lower h¹¹_eff.
 
-6. **Expand to h¹¹ ≥ 19** — Use `scan_fast.py` (2.4× speedup) on the Hetzner server after h18 completes.
+6. **Paper draft** — Tier A candidates (P874, P186, P187) + triangulation stability methodology are paper-ready. Draft structure in [paper_outline.md](paper_outline.md).
 
 ---
 
-## 7. How to Contribute to This Catalogue
+## 7. How to Run the Pipeline
 
-Run any tier of the pipeline and PR your results:
+The current pipeline is v5.2, deployed on the Hetzner server (16-core).
 
 ```bash
-# Scan more polytopes (increase limit or add new h11 values)
-python scan_chi6_h0.py  # edit limit= in script
+# Scan a range of h11 values (v5.2 pipeline)
+python v4/pipeline_v4.py --scan --h11 28 --limit 1000 -w 12
 
-# Screen results through the pipeline
-python tier1_screen.py
-python tier15_screen.py --csv results/tier1_screen_results.csv
-python tier2_screen.py --csv15 results/tier15_screen_results.csv --start 0 --end 20
+# Scan with deeper coverage (50K polytopes at one h11)
+python v4/pipeline_v4.py --scan --h11 28 --limit 50000 -w 12
+
+# Deep analysis: top N candidates, 50 random FRSTs each
+python v4/pipeline_v4.py --deep --top 20
+
+# Rescore all existing T2 records (after scoring formula changes)
+python v4/pipeline_v4.py --rescore
 ```
 
-Output CSVs go in `results/`. Include your scan parameters in the PR description.
+Results go into `v4/cy_landscape_v4.db` (SQLite). Query with `v4/review_champions.py` or direct SQL.
