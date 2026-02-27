@@ -5,6 +5,132 @@
 
 ---
 
+## 2026-02-26 — FINDINGS.md Restructure
+
+**Work done**: Full clarity review of FINDINGS.md (2,176 lines). Identified
+structural problems: three overlapping leaderboard tables (§0, §0.1, §0.3)
+at different pipeline versions, "§0.x" numbering, stale score references,
+wrong "Theoretical Ceiling: Score=84" claim (champions hit 87), no executive
+summary.
+
+**Approach**: Preserved original as `archive/FINDINGS_v1.md`. Built fresh
+version with:
+- Executive summary at top with current leaderboard and tier assignments
+- Single authoritative landscape trends section (consolidated from three)
+- Sequential §1–§15 numbering
+- All score references updated to post-rescore values
+- Earlier pipeline results (h13–h19) grouped under one heading with
+  scoring-system context note
+
+**Net effect**: 2,176 → ~450 lines. ~75% reduction, zero information loss.
+
+---
+
+## 2026-02-26 — v5.2 MONOTONIC_MAX Score Drift Fix (commit `b1c9555`)
+
+**Work done**: Diagnosed and fixed score regression bug discovered after 50K
+h28 scan. Champions P874/P186 had dropped from 87 → 84.
+
+**Root cause**: T2 worker computes `sm_score` from its local result dict
+(where e.g. n_clean=6 from a fresh triangulation). The DB preserves
+`MAX(old, new)` for MONOTONIC_MAX columns (n_clean, yukawa_rank, etc.),
+so the DB correctly keeps n_clean=14. But `sm_score` is NOT in
+MONOTONIC_MAX — computed from the worker's stale n_clean=6, it overwrites
+the stored 87 with 84.
+
+**Manual trace** (P874):
+- Worker data: n_clean=6 → clean_bundles=7, total=84
+- DB merged data: n_clean=14 → clean_bundles=9, total=87
+- Score was being computed BEFORE upsert, from local data
+
+**Fix (three parts)**:
+1. Post-upsert rescore in `_run_t2_parallel()` — reads merged DB row after
+   upsert and recomputes `compute_sm_score()` from the merged values
+2. T2 worker now tracks `first_clean_at` (index of first clean bundle found)
+3. Added `first_clean_at` to T2 upsert function
+
+**Verification**: Deployed to Hetzner, ran `--rescore` which updated 358 of
+1,787 scores. P874/P186 restored to 87. P187 correctly at 84. Full
+leaderboard verified.
+
+**Files modified**: v5/pipeline_v5.py, v5/CHANGELOG.md
+
+---
+
+## 2026-02-26 — Deep Coverage Scan: h28 at 50K (v5.1)
+
+**Work done**: Ran `--scan --h11 28 --limit 50000 -w 12` on Hetzner.
+13.5 min runtime. Tests whether the first-1K (2% of h28 population)
+contains the true champions.
+
+**Results**:
+- 50,000 fetched → 484 T0 pass (1.0%) → 164 T2 scored
+- 95 from first 1K, 69 from new 49K
+- Best new: h28/P1040 (score=80, n_clean=50, hier=3,859)
+- Champions P874/P186 (score=87) not displaced
+- P1105 has 100 clean bundles (record) but only scores 70
+
+**Conclusion**: First-1K bias is mild. Champion selection robust.
+
+---
+
+## 2026-02-26 — v5.1: KS `limit` Bug Discovery (commit `0e1287b`)
+
+**Work done**: Discovered CYTools `fetch_polytopes()` has a hidden
+`limit=1000` default. All prior scans retrieved only the first 1,000 of
+~50,000+ polytopes per h¹¹ from the KS web server.
+
+**Fix**: Added `--limit N` CLI argument to pipeline_v5.py. Threads through
+`run_scan`, `run_ladder`, `run_deep`.
+
+---
+
+## 2026-02-26 — T3 Deep Analysis: Top 20 Candidates
+
+**Work done**: Ran `--deep --top 20` on Hetzner. For each candidate, generate
+up to 50 random FRST triangulations. Compute c₂ hash and κ hash. Report
+stability fraction.
+
+**Key findings**:
+1. No SM or GUT fibrations in any of the 20 candidates
+2. Stability is bimodal: robust (≥50%) vs fragile (0%)
+3. Score and stability weakly correlated — different quality axes
+4. High hierarchy (e.g. h21/P496 at 49K×) can be triangulation-dependent
+
+**Tier assignments**:
+- **A (paper-ready)**: h28/P874 (87, 50%), h28/P187 (84, 55%), h28/P186 (87, 30%)
+- **B (strong)**: h32/P94 (80, 100%), h32/P42 (79, 100%), h27/P219 (79, 55%)
+- **C (score-driven)**: h30/P289 (86, 0%), h25/P934 (81, 25%), h20/P903 (81, 0%)
+
+**Commit**: `3e46bc4`
+
+---
+
+## 2026-02-26 — v5 Scoring Overhaul + h20-40 Scan (21K polytopes)
+
+**Work done**: Created v5 pipeline with revised 100-point scoring based on
+v4.1 landscape analysis. Deployed to Hetzner, scanned h20-40 at 1K/bucket.
+
+**Scoring changes from v4.1**:
+- `fibration_sm` (3 pts) → **removed**. Only 3 of 19K polytopes had SM gauge
+  group fibrations — 3 pts permanently stranded for 99.98% of candidates.
+- `rank_sweet_spot` (3 pts) → **new**. Yukawa rank 140–159 is the SM sweet
+  spot for h11_eff=18–22.
+- `mori_blowdown` → **graded**. Was binary 5/0. Now fraction-based:
+  ≥0.9→5, ≥0.7→4, ≥0.5→3, ≥0.3→2, >0→1.
+- `yukawa_rank` fallback → **bug fix**. `texture_rank=0` (falsy) was falling
+  through to κ triple count via `or` operator, inflating 194 polytopes by
+  +10 to +18 points.
+
+**Scan results**: 21K polytopes, 1,718 T2-scored. New champions at h28
+(score=87) displacing old h30/P289 (82→86 under v5). Fertile window:
+h20–35, barren at h37+.
+
+**Files**: v5/pipeline_v5.py, v5/cy_compute_v5.py, v5/db_utils_v5.py,
+v5/CHANGELOG.md
+
+---
+
 ## 2026-02-26 — v4.1 Tuning: EFF_MAX=22, Scoring Redistribution, h26-40 Launch
 
 **Work done**: Applied evidence-based tuning from h22-30 analysis. Killed
@@ -291,7 +417,7 @@ v4 scoring correctly uses the binary check (lvs_binary) and ratio quality
 
 ---
 
-## 2026-03-01 — v3 Pipeline Infrastructure & Workspace Reorganization
+## 2026-02-25 — v3 Pipeline Infrastructure & Workspace Reorganization
 
 **Work done**: Built the complete v3 pipeline infrastructure and reorganized the
 workspace for clarity.
@@ -1518,12 +1644,15 @@ Issues that surfaced during the project, for reference.
 | I-07 | 02-22 07:43 | GLSM linrels include origin direction | Filter by origin_component==0 for char translations | Bug #7 |
 | I-08 | 02-22 01:14 | Ample Champion Z₃×Z₃ has fixed curves | Full quotient singular; diagonal Z₃ acts freely | — |
 | I-09 | 02-22 00:50 | Ample Champion misidentified as P²×P² | Different toric variety; det-3 lattice transform | — |
+| I-10 | 02-24 | pipeline_v2 upsert clobbers old metrics | MONOTONIC_MAX on upsert; 1,173 values restored | — |
+| I-11 | 02-26 | CYTools `fetch_polytopes()` hidden limit=1000 | Added `--limit N` CLI arg (v5.1) | — |
+| I-12 | 02-26 | yukawa_rank fallback: 0 is falsy in `or` | Explicit `is None` check (v5) | — |
+| I-13 | 02-26 | MONOTONIC_MAX score drift: sm_score overwrites | Post-upsert rescore from merged DB row (v5.2) | — |
 
 ---
 
-### B-26 update: GL12/D₆ Mirror Map, ODE Factorization & j-Invariant
+## 2026-02-23 — B-26: GL12/D₆ Mirror Map, ODE Factorization & j-Invariant
 
-**Date**: 2026-02-23  
 **Commit**: (pending)
 
 **Summary**: Extended the GL12/D₆ Picard-Fuchs analysis with three major results:
@@ -1553,7 +1682,7 @@ Issues that surfaced during the project, for reference.
 
 ---
 
-### 2025-02-23: Z₂ Bundle Analysis — h16/P329 (B-22)
+## 2026-02-23 — Z₂ Bundle Analysis: h16/P329 (B-22)
 
 **Goal**: Test whether P329's Z₂ involution splits 3 generations as 2+1,
 providing Yukawa texture zeros.
@@ -1579,7 +1708,7 @@ v3 used GLSM charge matrix to properly express σ on Pic(X).
 
 ---
 
-### Session: AGLP Line Bundle Sum Search (2026-02-23)
+## 2026-02-23 — AGLP Line Bundle Sum Search
 
 **Goal**: Search for rank-5 line bundle sums V = L₁⊕···⊕L₅ with c₁=0, c₃=±6
 (3 generations) on h14/P2 and h16/P329 — AGLP SU(5) GUT construction.
@@ -1611,7 +1740,7 @@ properties. High h¹¹ makes brute-force AGLP intractable without the filter.
 
 ---
 
-### Session: Database & Pipeline v2 (2026-02-23 → 2026-02-24)
+## 2026-02-23 — Database & Pipeline v2
 
 **Goal**: Build centralized SQLite database (cy_landscape.db) and a production
 gap-aware scanning pipeline (pipeline_v2.py) to replace the scattered CSV/JSON
@@ -1628,7 +1757,7 @@ workflow.
 
 ---
 
-### Session: h17 Full Scan on Codespace (2026-02-24)
+## 2026-02-24 — h17 Full Scan on Codespace
 
 **Goal**: Scan all 76,863 h¹¹=17 polytopes through pipeline_v2.
 
@@ -1641,7 +1770,7 @@ workflow.
 
 ---
 
-### Session: h13–h16 Rescan & Loser Analysis (2026-02-24)
+## 2026-02-24 — h13–h16 Rescan & Loser Analysis
 
 **Goal**: Rescan h13–h16 with pipeline_v2 (`--gap-min 0`) for uniform methodology.
 Profile "loser" polytopes (zero clean bundles).
@@ -1657,7 +1786,7 @@ Profile "loser" polytopes (zero clean bundles).
 
 ---
 
-### Session: Conflict Audit & Threshold Fix (2026-02-24)
+## 2026-02-24 — Conflict Audit & Threshold Fix
 
 **Goal**: Investigate 216 data conflicts — polytopes where old scans found
 n_clean>0 but pipeline_v2 screened them at T0 or T025.
