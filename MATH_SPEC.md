@@ -319,7 +319,7 @@ On a CY3 ($\omega_X \cong \mathcal{O}_X$): $L$ ample $\Rightarrow$ $H^i(X, L) = 
 **⚠️ WARNING**: Requires $L$ ample on the CY $X$, not just on the ambient $V$.
 Ampleness on $X$ ⊂ nef on $V$ (but nef on $V$ does not imply ample on $X$).
 
-### 5.2 Kawamata-Viehweg Vanishing
+### 6.2 Kawamata-Viehweg Vanishing
 
 **Statement**: If $D$ is nef and big, then $H^i(X, \mathcal{O}(K_X + D)) = 0$ for $i > 0$.
 
@@ -330,7 +330,7 @@ Operationally: check against all Mori cone generators.
 
 **Big test**: $D$ is big iff $D^3 > 0$.
 
-### 5.3 Serre Duality on CY3
+### 6.3 Serre Duality on CY3
 
 $$h^i(X, L) = h^{3-i}(X, L^{-1})$$
 
@@ -486,6 +486,11 @@ Every bug encountered, so we never repeat them.
 
 ## 10. Proven Results (Polytope 40: h11=15, h21=18)
 
+> **Note**: Polytope 40 was the original benchmark candidate but has been
+> superseded. max h⁰ = 2 makes it a dead end for line bundle phenomenology.
+> The current champions are at h28 (see FINDINGS.md). These results remain
+> valid as methodology validation.
+
 ### 10.1 Confirmed True
 | Claim | Method | Script |
 |-------|--------|--------|
@@ -506,19 +511,77 @@ Every bug encountered, so we never repeat them.
 | `proven_h0_3 = True` | No line bundle has $h^0 = 3$; max is 2 | dragon_slayer_40h.py |
 | Any $\chi = 3$ bundle is nef | 0 nef bundles among 246; closest Mori pairing = −2 | dragon_slayer_40d.py |
 
-### 10.3 Open / Unresolved
-| Question | Status |
-|----------|--------|
-| Does any higher-rank vector bundle yield $h^1(V) = 3$? | Not investigated |
-| Are there other $\chi = -6$ polytopes with $h^0 = 3$ line bundles? | Not investigated |
-| K3/elliptic fibration structure of Polytope 40? | Not investigated |
+### 10.3 Resolved (formerly open)
+| Question | Answer | Reference |
+|----------|--------|----------|
+| Other χ = −6 polytopes with h⁰ = 3 line bundles? | **Yes — abundant.** 70K polytopes scanned, 1,787 T2-scored. Champions at h28 score 87/100. | FINDINGS.md §1–§4 |
+| K3/elliptic fibration structure of Polytope 40? | 3 K3 + 3 elliptic fibrations. No SM gauge group. | FINDINGS.md §7.5 |
+| Higher-rank vector bundle with h¹(V) = 3? | AGLP rank-5 search found 0 solutions at h¹¹_eff ≥ 13. Lattice too sparse after h⁰=3 filter. | FINDINGS.md §10 |
 
 ---
 
-## 11. Version History
+---
+
+## 11. Triangulation Stability
+
+### 11.1 Motivation
+
+CYTools' default `.triangulate()` returns the placing (pushing) triangulation.
+Physical quantities (c₂, κ nonzero pattern, Yukawa eigenvalues) may depend on
+the triangulation choice. T3 deep analysis tests robustness.
+
+### 11.2 Method
+
+For a polytope $p$ with FRST triangulation $\mathcal{T}_0$:
+
+1. Generate $N$ random fine, regular, star triangulations via `p.random_triangulations_fast(N)`
+2. For each $\mathcal{T}_i$, compute:
+   - $c_2(\mathcal{T}_i)$ — second Chern class vector (basis-indexed)
+   - $\kappa(\mathcal{T}_i)$ — nonzero pattern of intersection numbers (frozenset of keys)
+3. Hash each to a canonical form (round c₂ to 8 decimals, frozenset hash for κ)
+4. Report stability fractions:
+
+$$\text{c2\_stable\_frac} = \frac{\#\{i : c_2(\mathcal{T}_i) = c_2(\mathcal{T}_0)\}}{N}$$
+
+$$\text{kappa\_stable\_frac} = \frac{\#\{i : \kappa(\mathcal{T}_i) = \kappa(\mathcal{T}_0)\}}{N}$$
+
+### 11.3 Empirical Findings
+
+- c₂ and κ stability are perfectly correlated (same fraction for all tested polytopes)
+- Distribution is bimodal: either ≥50% stable or ≤5% stable
+- High Yukawa hierarchy can be a triangulation artifact (h21/P496: 49K× hierarchy, 0% stable)
+- Small triangulation count (h32/P94: only 6 FRSTs) → 100% stable by construction
+
+---
+
+## 12. Database Concepts
+
+### 12.1 MONOTONIC_MAX Columns
+
+When the pipeline rescans a polytope (different triangulation, deeper bundle
+search), some metrics should only increase:
+
+```python
+MONOTONIC_MAX = {
+    'max_h0', 'n_clean', 'n_bundles_checked', 'max_h0_t2',
+    'h0_ge3', 'n_chi3', 'n_computed', 'n_clean_est',
+    'yukawa_rank', 'n_kappa_entries'
+}
+```
+
+The DB upsert uses `MAX(COALESCE(existing, 0), new)` for these columns.
+
+**⚠️ WARNING**: `sm_score` is NOT in MONOTONIC_MAX. It must be recomputed from
+the merged (MAX-preserved) values after upsert, not from the worker's local
+data. See v5.2 CHANGELOG for the bug and fix.
+
+---
+
+## 13. Version History
 
 | Date | Change |
 |------|--------|
 | 2026-02-22 | Initial spec created from audit of dragon_slayer_40{a-h}.py |
 | 2026-02-22 | Bug #7 added (GLSM linrels vs character translations). Verified h⁰=2 via char translations (8/8 pass). Quintic cross-check confirms Koszul method. |
 | 2026-02-23 | §5 added: Rank-n vector bundle formulas (direct sum, monad, Hoppe, ∧²V). First Stage 5 results on h14/poly2. Sections renumbered. |
+| 2026-02-26 | §6 numbering fix (5.2→6.2, 5.3→6.3). §10.3 updated: all formerly-open questions resolved. §11 added: triangulation stability methodology. §12 added: MONOTONIC_MAX definition and warning. |
