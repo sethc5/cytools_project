@@ -19,10 +19,10 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 
 | h¹¹ range | KS total | Scanned | Coverage | Top score | Notes |
 |-----------|----------|---------|----------|-----------|-------|
-| 20–26 | 2,736,315 | 7,000 | 0.3% | 82 | 257K–447K polytopes per level |
+| 20–26 | 2,736,315 | 7,000 | 0.3% | 81 | 257K–447K polytopes per level |
 | **27** | **393,842** | **50,000** | **12.7%** | **86** | **Fibration-rich zone** |
 | **28** | **354,495** | **50,000** | **14.1%** | **87** | h28 stability cluster |
-| 29 | 322,535 | 1,000 | 0.3% | 81 | |
+| 29 | 322,535 | 1,000 | 0.3% | 76 | |
 | **30** | **276,639** | **50,000** | **18.1%** | **89** | **#1: h30/P289** |
 | 31–40 | 1,377,373 | 10,000 | 0.7% | 80 | Barren above h37 |
 | **Total** | **5,461,199** | **168,000** | **3.1%** | **89** | |
@@ -34,10 +34,10 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 ### Screening Funnel (v5.2)
 
 ```
-~168,000 polytopes (h11=20..40, v5.2 pipeline)
-  └─ ~5,500 pass T0 (geometry + EFF_MAX=22) ──── ~3.3%
+168,000 polytopes (h11=20..40, v5.2 pipeline)
+  └─ 5,344 pass T0 (geometry + EFF_MAX=22) ──── 3.2%
       └─ 2,012 pass T1 → T2 scored ────────────── 1.2%
-          └─ Top 10 deep-analyzed (T3) ─────────── 20 FRSTs each
+          └─ 22 deep-analyzed (T3) ───────────── 20 FRSTs each
               ├─ Tier A (paper-ready): 3 (h28 stability cluster)
               └─ Tier C (score+fibrations): 7 (h27+h30, all SM+GUT)
 ```
