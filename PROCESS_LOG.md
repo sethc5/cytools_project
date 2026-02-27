@@ -5,7 +5,26 @@
 
 ---
 
-## 2026-02-27 — KS Ground-Truth Counts
+## 2026-02-27 — Full χ=−6 Landscape Mapped (h13–119)
+
+**Work done**: Extended KS ground-truth queries beyond h40 to map the
+complete χ=−6 landscape. Queried every h¹¹ from 41 to 491. Found that
+χ=−6 polytopes exist from h¹¹=13 to h¹¹=119 and are zero everywhere else.
+
+**Key findings**:
+- **6,122,441** total χ=−6 reflexive 4-polytopes in the full KS database
+- h13–h40: **5,795,310** (94.7% of total) — our active scan window
+- h41–h50: **265,177** (4.3%) — counts drop from 49K (h41) to 12K (h50)
+- h51–h119: **61,954** (1.0%) — long sparse tail, zero by h120
+- h41–h119 total: **327,131** (5.3%)
+- Below h13: zero. Above h119: zero.
+- The landscape hierarchy: 6.12M polytopes → ~10^10–15 triangulations
+  → ~10^20+ (CY, bundle) pairs → ~10^500 flux vacua. We work at the
+  polytope level (top of funnel).
+- Updated all docs: CATALOGUE.md, README.md, FINDINGS.md from 5.80M → 6.12M.
+  Added landscape hierarchy note to README. Coverage now 2.8% (was 3.0%).
+
+## 2026-02-27 — KS Ground-Truth Counts (h13–h40)
 
 **Work done**: Queried the live Kreuzer-Skarke database
 (quark.itp.tuwien.ac.at) for exact χ=−6 polytope counts per h¹¹. Fetched

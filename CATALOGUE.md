@@ -3,7 +3,7 @@
 > **Purpose**: Record what's been checked, what passed, and what's ruled out.
 > If a polytope or approach appears here, you don't need to redo the work.
 >
-> **Last updated**: 2026-02-27. Pipeline v5.2, 100-point SM composite scoring. **174,158 polytopes** scanned (3.0% of 5.80M KS χ=−6 landscape, h13–h40). **2,012 T2-scored**. Champion: h30/P289 (score 89). Database: `v4/cy_landscape_v4.db`. Deployed on Hetzner (16-core).
+> **Last updated**: 2026-02-27. Pipeline v5.2, 100-point SM composite scoring. **174,158 polytopes** scanned (2.8% of 6.12M KS χ=−6 landscape). **2,012 T2-scored**. Champion: h30/P289 (score 89). Database: `v4/cy_landscape_v4.db`. Deployed on Hetzner (16-core).
 
 ---
 
@@ -20,7 +20,10 @@ Two eras of scanning:
 
 Exact KS database totals queried from the live Kreuzer-Skarke database
 (http://quark.itp.tuwien.ac.at) on 2026-02-27. Counts are for χ = −6
-reflexive 4-polytopes (lattice N).
+reflexive 4-polytopes (lattice N). The full χ = −6 landscape spans
+h¹¹ = 13–119. It dies to zero above h¹¹ = 119. The table below covers
+h¹¹ = 13–40 (our active scan window); an additional 327,131 polytopes
+exist at h¹¹ = 41–119 (5.3% of the total 6,122,441).
 
 | h¹¹ | h²¹ | KS total | Scanned | Coverage | T2-scored | Best | Era |
 |------|------|----------|---------|----------|-----------|------|-----|
@@ -52,19 +55,23 @@ reflexive 4-polytopes (lattice N).
 | 38 | 41 | 87,038 | 1,000 | 1.1% | 0 | — | v5 |
 | 39 | 42 | 69,757 | 1,000 | 1.4% | 1 | 49 | v5 |
 | 40 | 43 | 60,271 | 1,000 | 1.7% | 0 | — | v5 |
-| **Total** | | **5,795,310** | **174,158** | **3.0%** | **2,012** | **89** | |
+| **Total (h13–40)** | | **5,795,310** | **174,158** | **3.0%** | **2,012** | **89** | |
+| h41–119 | | 327,131 | 0 | 0% | — | — | — |
+| **Grand total** | | **6,122,441** | **174,158** | **2.8%** | **2,012** | **89** | |
 
 **Key stats**:
-- **5.80 million** χ=−6 polytopes exist in the KS database for h¹¹ ∈ [13, 40]
-- We have scanned **174K (3.0%)** of this landscape
+- **6,122,441** χ=−6 polytopes exist in the full KS database (h¹¹ = 13–119)
+- h13–h40 contains **94.7%** of them (5,795,310); h41–119 adds only **327K** (5.3%)
+- The landscape peaks at h24 (447K) and drops to zero by h120
+- We have scanned **174K (2.8%)** of the full landscape
 - h13–h16 are **exhaustively scanned** (100% coverage, 5,758 polytopes)
 - Even our deepest v5 levels (h27/h28/h30 at 50K) are only **12–18% covered**
-- The peak is h24 with **447K polytopes** — we've hit only 0.2%
 - 2,012/168,000 (1.2%) of the v5 scan survive to T2 scoring
 - h27–h30 dominates: 8 of the top 10 candidates
 - **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
 - h30/P289 (score 89) remains the overall champion
-- h37+ is barren — the χ=−6 landscape is exhausted above h¹¹ ≈ 36
+- h37+ is barren — the χ=−6 landscape thins rapidly above h¹¹ ≈ 36
+- h41–50 still has ~250K polytopes; h51+ has only ~77K — diminishing returns
 - v3 legacy polytopes (h13–h19) were scored with the old 26-point system; not yet rescored under v5.2
 
 ### What We Haven't Scanned
@@ -75,7 +82,8 @@ reflexive 4-polytopes (lattice N).
 - **h27 beyond 50K**: 393,842 total — 50K scanned = 12.7% coverage. 343K polytopes remain in the fibration-rich zone.
 - **h28 beyond 50K**: 354,495 total — 50K scanned = 14.1% coverage. 304K polytopes remain.
 - **h30 beyond 50K**: 276,639 total — 50K scanned = 18.1% coverage. 227K polytopes remain. The champion P289 (89) came from this level.
-- **h¹¹ = 37–128**: Barren at EFF_MAX=22 — zero or near-zero T0 pass rate. Would require raising EFF_MAX (with attendant computational cost) to access.
+- **h¹¹ = 41–119**: 327K polytopes exist above h40 (tapering from 49K at h41 to zero by h120). Not yet scanned. Diminishing physical returns — very high h11 means very high Picard rank and explosive triangulation counts, but fewer clean line bundle solutions.
+- **h¹¹ = 37–40**: Barren at EFF_MAX=22 — zero or near-zero T0 pass rate. Would require raising EFF_MAX (with attendant computational cost) to access.
 - **Deeper triangulation sampling**: Top-10 candidates sampled at 20 random FRSTs. Expanding to 200+ would refine c₂ stability percentages.
 
 ---

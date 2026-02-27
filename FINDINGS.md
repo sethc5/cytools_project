@@ -10,7 +10,7 @@ Standard Model–like compactifications. For the quick summary, see
 
 **Database**: `v4/cy_landscape_v4.db` — 174K polytopes (h13–h40), 2,012 T2-scored.
 **Pipeline**: v5.2. **Scoring**: 100-point SM composite (12 components).
-**Landscape**: Kreuzer-Skarke χ = −6 polytopes, h¹¹ = 13–40 (5.80M in KS database).
+**Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total).
 
 ### Current Champions
 
@@ -33,8 +33,9 @@ Standard Model–like compactifications. For the quick summary, see
 
 ### Key Numbers
 
-- **5,795,310** χ=−6 polytopes exist in the KS database for h¹¹ ∈ [13, 40]
-- **174,158** polytopes scanned = **3.0%** of the KS landscape
+- **6,122,441** χ=−6 polytopes exist in the full KS database (h¹¹ = 13–119)
+- h13–h40 contains **5,795,310** (94.7%); h41–119 adds 327,131 (tapers to zero by h120)
+- **174,158** polytopes scanned = **2.8%** of the full landscape
 - h13–h16 are **exhaustively scanned** (100% of 5,758 polytopes)
 - **2,012** T2-scored with 100-point SM composite (v5 era, h20–h40)
 - **89** = highest score achieved (h30/P289)

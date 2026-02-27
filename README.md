@@ -2,9 +2,9 @@
 
 **Systematic scan of the [Kreuzer-Skarke database](http://hep.itp.tuwien.ac.at/~kreuzer/CY/) for Calabi-Yau 3-folds compatible with 3-generation particle physics.**
 
-The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are potentially millions of such manifolds in the Kreuzer-Skarke database of 473 million reflexive polytopes. This project builds the pipeline to find and screen them.
+The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are **6.12 million** such polytopes in the Kreuzer-Skarke database of 473 million reflexive polytopes (spanning h¹¹ = 13–119). This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v5.2 · **174K polytopes** scanned (3.0% of 5.80M KS χ=−6 landscape, h13–h40) · **2,012 T2-scored** with 100-point SM composite · Champion: h30/P289 (score 89) · h27 fibration-rich zone discovered · Deployed on Hetzner (16-core) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v5.2 · **174K polytopes** scanned (2.8% of 6.12M KS χ=−6 landscape) · **2,012 T2-scored** with 100-point SM composite · Champion: h30/P289 (score 89) · h27 fibration-rich zone discovered · Deployed on Hetzner (16-core) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -15,7 +15,7 @@ The Standard Model has three generations of quarks and leptons. In string compac
 
 ## The Landscape
 
-There are **104 distinct Hodge number pairs** with χ = −6 in the KS database, spanning h¹¹ = 13 to 128. The number of polytopes per Hodge pair grows explosively — the KS database contains **5.80 million** χ = −6 polytopes for h¹¹ ∈ [13, 40] alone.
+There are **104 distinct Hodge number pairs** with χ = −6 in the KS database. The full χ = −6 landscape contains **6,122,441 polytopes** spanning h¹¹ = 13–119 (dying to zero above h¹¹ = 119). The bulk (94.7%) sits at h¹¹ = 13–40 where we focus our scan.
 
 | h¹¹ range | KS total | Scanned | Coverage | Top score | Notes |
 |-----------|----------|---------|----------|-----------|-------|
@@ -27,9 +27,12 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database,
 | 29 | 322,535 | 1,000 | 0.3% | 76 | |
 | **30** | **276,639** | **50,000** | **18.1%** | **89** | **#1: h30/P289** |
 | 31–40 | 1,377,373 | 10,000 | 0.7% | 80 | Barren above h37 |
-| **Total** | **5,795,310** | **174,158** | **3.0%** | **89** | |
+| 41–119 | 327,131 | 0 | 0% | — | Tail: 49K at h41 → 0 by h120 |
+| **Grand total** | **6,122,441** | **174,158** | **2.8%** | **89** | |
 
 **Database**: `v4/cy_landscape_v4.db` — 174K polytopes, 2,012 T2-scored. h27–h30 dominates (8 of top 10). See [CATALOGUE.md](CATALOGUE.md) for full per-h¹¹ coverage.
+
+> **Note on scale**: The KS database has 473.8M reflexive 4-polytopes total; filtering to χ = −6 (3 generations) yields 6.12M. Each polytope admits many triangulations (→ distinct CY threefolds), each CY admits many vector bundles, and each (CY, bundle) pair admits many flux configurations. The famous "10^500 string vacua" estimate counts the product of all these choices — we work at the polytope level, the top of this hierarchy.
 
 ## Current Results
 
