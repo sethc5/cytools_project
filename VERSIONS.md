@@ -1,8 +1,9 @@
 # Pipeline Version History
 
-> Each version lives in its own folder (`v2/`, `v3/`, `v4/`) with independent
-> compute modules, DB schema, and results.  Code inherits upward:
-> v4 imports from v3, v3 imports from v2.  Databases are **not** migrated.
+> Each version lives in its own folder (`v2/`, `v3/`, `v4/`, `v5/`) with
+> independent compute modules, DB schema, and results.  Code inherits
+> upward: v5 imports from v4, v4 from v3, v3 from v2.  Databases are
+> **not** migrated across major versions (v5 shares v4's DB by design).
 
 ---
 
@@ -146,13 +147,13 @@ Analysis of the 6,578-polytope v3 DB revealed:
 
 ## v4 — Evidence-Based Weight Redistribution
 
-**Folder**: `v4/`  
-**Era**: Optimized scans (h11 = 22–30), currently running  
+**Folder**: `v4/`
+**Era**: h22–30 scans (9K polytopes, 1,134 T2-scored)
 **Question**: *"Same physics, sharper scoring, faster pipeline."*
 
 ### What changed from v3
 
-#### Scoring overhaul (evidence from 6,578 v3 polytopes)
+#### v4.0 Scoring overhaul (evidence from 6,578 v3 polytopes)
 
 | Component          | v3 pts | v4 pts | Rationale                                   |
 |--------------------|--------|--------|---------------------------------------------|
@@ -252,6 +253,136 @@ Compare: v4-without-fixes T1 hung indefinitely on h22 (same polytopes).
 
 ---
 
+## v4.1 — Evidence-Based Scoring Redistribution
+
+**Folder**: `v4/` (same code, weights updated in-place)
+**Era**: h22–40 scan complete (19K polytopes, 1,300 T2-scored)
+**Trigger**: Analysis of 9,000 v4.0 polytopes revealed scoring waste
+
+### What changed from v4.0
+
+| Component | v4.0 | v4.1 | Rationale |
+|-----------|------|------|-----------|
+| dp_divisors | 5 | **0** | n_dp anti-correlates with score (r=−0.19); elite polytopes avg 5.0 vs pop 6.5 |
+| fibration_sm | 5 | **3** | n_k3_fib anti-correlates (r=−0.22); keep SM gauge signal only |
+| vol_hierarchy | — | **5 (NEW)** | vol_h > 1000 polytopes avg 6.5 pts higher (n=203 vs n=71); strong unscored predictor |
+| yukawa_hierarchy | 25 | **27** | Absorbed 2 freed points; still the dominant discriminator (r=+0.31) |
+
+### Thresholds
+
+```
+EFF_MAX  = 22      # raised from 20 — 46% of score-75+ were at the ceiling
+```
+
+EFF_MAX=22 impact: h26 T0 pass rate doubled (142→282), h27 +80%.
+
+### Scan Results
+
+Completed h26–40 with 14 workers (~16 min total). h37+ effectively barren.
+New top score **84** at h28 and h30 (unlocked by EFF_MAX=22). Database grew
+to 19K scored polytopes.
+
+---
+
+## v5 — Scoring Refinement + Triangulation Stability (current)
+
+**Folder**: `v5/`
+**Era**: h20–40 deep scans (70K polytopes, 1,787 T2-scored)
+**Database**: shares `v4/cy_landscape_v4.db` — scoring upgrade, not schema break
+**Question**: *"Which candidates survive triangulation variation?"*
+
+### What changed from v4.1
+
+#### v5.0 — Scoring changes (total remains 100)
+
+| Component | v4.1 | v5 | Rationale |
+|-----------|------|----|-----------|
+| fibration_sm | 3 | **0 (REMOVED)** | Only 3 of 19K polytopes had SM gauge group via fibration. 3 pts permanently stranded for 99.98% of candidates. |
+| rank_sweet_spot | — | **3 (NEW)** | Yukawa rank 140–159 is the SM sweet spot for h11_eff=18–22. Graded: 140-159→3, 130-139→2, 120-129→1. |
+| mori_blowdown | 5 (binary) | **5 (graded)** | Now fraction-based (n_dp_contract / n_mori_rays): ≥0.9→5, ≥0.7→4, ≥0.5→3, ≥0.3→2, >0→1. |
+| yukawa_rank | 15 | 15 | Bug fix: `texture_rank=0` (falsy) fell through `or` to κ triple count, inflating 194 polytopes by +10 to +18. Now uses `is None` check. |
+
+#### v5.0 — New feature: triangulation stability (T3)
+
+`compute_tri_stability(polytope, n_samples=20)`:
+- Tests 20 random FRST triangulations vs default placing triangulation
+- Compares c₂ vector hash and κ nonzero pattern hash
+- Returns `tri_c2_stable_frac` and `tri_kappa_stable_frac`
+- Three new DB columns: `tri_n_tested`, `tri_c2_stable_frac`, `tri_kappa_stable_frac`
+- Auto-migrated via `_migrate()` in db_utils_v5.py
+
+#### v5.1 — KS fetch limit fix
+
+CYTools `fetch_polytopes()` has a hidden `limit=1000` default. All prior
+scans retrieved only the first 1,000 of ~50,000+ polytopes per h¹¹ from
+the KS web server. Added `--limit N` CLI argument to all pipeline modes.
+
+#### v5.2 — MONOTONIC_MAX score drift fix
+
+When rescanning existing polytopes, `MONOTONIC_MAX` columns (n_clean,
+yukawa_rank, etc.) correctly preserve higher values, but `sm_score` was
+computed from the T2 worker's stale local data and unconditionally
+overwritten. Fix: post-upsert rescore reads merged DB row and recomputes
+`compute_sm_score()`. Also added `first_clean_at` tracking in T2.
+
+### Scoring (100-point scale, v5.2 current)
+
+```python
+SM_SCORE_WEIGHTS = {
+    'clean_bundles':    10,   # log₂ scaled (saturates ~50)
+    'yukawa_rank':      15,   # texture rank ≥ 3
+    'yukawa_hierarchy': 27,   # eigenvalue spread — THE discriminator
+    'lvs_binary':        5,   # has Swiss cheese structure
+    'lvs_quality':      10,   # τ/V^{2/3} ratio grading
+    'rank_sweet_spot':   3,   # Yukawa rank 140-159 sweet spot
+    'vol_hierarchy':     5,   # volume hierarchy > 1000
+    'tadpole_ok':        5,   # |χ/24| ≤ 20
+    'mori_blowdown':     5,   # del Pezzo contraction fraction (graded)
+    'd3_diversity':      5,   # distinct D³ values
+    'clean_depth':       5,   # first clean bundle found early
+    'clean_rate':        5,   # n_clean / n_bundles_checked
+}
+# Total: 100 pts.  Zero stranded points.
+```
+
+### Architecture
+
+Same 4-tier structure as v4. T3 now includes triangulation stability.
+
+| Tier | Time     | Purpose                              | Kill rate |
+|------|----------|--------------------------------------|-----------|
+| T0   | 0.1s     | Geometry + intersection algebra      | ~85%      |
+| T1   | 0.5–120s | Bundle screening (capped, wall-timed)| ~55%      |
+| T2   | 3–30s    | Deep physics + SM scoring + rescore  | top ~1K   |
+| T3   | 30s+     | Tri stability + fibrations + phenome | top ~50   |
+
+### Key Files
+
+- `pipeline_v5.py` — orchestrator (adds `--limit`, post-upsert rescore,
+  `first_clean_at` tracking)
+- `cy_compute_v5.py` — imports v4 core + new `compute_sm_score()` with
+  v5 weights, graded mori_blowdown, rank_sweet_spot, tri_stability
+- `db_utils_v5.py` — v4 schema + 3 tri columns (auto-migrated)
+- `CHANGELOG.md` — detailed v5.0/v5.1/v5.2 history
+
+### Data Collected
+
+- `v4/cy_landscape_v4.db`: 70,000 polytopes (h11=20–40), 1,787 T2-scored
+- 50,000-polytope deep scan at h28 (full coverage of KS population)
+- Top 20 candidates analyzed with T3 triangulation stability
+- Scanned on Hetzner (16-core, 12 workers)
+
+### Key Results
+
+| Champions | Score | c₂ stab | Tier |
+|-----------|-------|---------|------|
+| h28/P874  | 87    | 50%     | A    |
+| h28/P186  | 87    | 30%     | A    |
+| h30/P289  | 86    | 0%      | C    |
+| h28/P187  | 84    | 55%     | A    |
+
+---
+
 ## Version Inheritance
 
 ```
@@ -259,23 +390,28 @@ v2/cy_compute.py          ← core math (lattice points, Koszul, χ, fibrations)
   ↑ imports
 v3/cy_compute_v3.py       ← adds: Yukawa texture, LVS, Mori, divisor classify
   ↑ imports
-v4/cy_compute_v4.py       ← adds: new compute_sm_score() with v4 weights
+v4/cy_compute_v4.py       ← adds: compute_sm_score() (v4.0 → v4.1 weights)
+  ↑ imports
+v5/cy_compute_v5.py       ← adds: graded mori, rank_sweet_spot, tri_stability,
+                              yukawa_rank fallback fix, post-upsert rescore
 
 v2/db_utils.py            ← original schema
 v3/db_utils_v3.py         ← expanded schema (Yukawa, LVS, Mori columns)
 v4/db_utils_v4.py         ← same schema as v3
+v5/db_utils_v5.py         ← v4 schema + tri columns (auto-migrated)
 
 v2/pipeline_v2.py         ← T0 → T0.25 → T1 → T2
 v3/pipeline_v3.py         ← T0 → T1 → T2 → T3 (merged T0.25 into T1)
 v4/pipeline_v4.py         ← T0 → T1 → T2 → T3 (gap-priority, wall-time, bundle cap)
+v5/pipeline_v5.py         ← T0 → T1 → T2 → T3 (--limit, rescore, first_clean_at)
 ```
 
 ---
 
 ## Compute Environments
 
-| Environment    | Specs          | Used for                      |
-|----------------|----------------|-------------------------------|
-| Hetzner        | 16-core, 128GB | v2 h18 batch, v4 h22–30 scan  |
-| Codespace      | 4-core, 32GB   | v3 h13–24 scans               |
-| Local (Dell5)  | Dev, analysis  | DB queries, scoring R&D       |
+| Environment | Specs           | Used for                                  |
+|-------------|-----------------|-------------------------------------------|
+| Hetzner     | 16-core, 128GB  | v2 h18, v4 h22-40, v5 h20-40 + 50K h28   |
+| Codespace   | 4-core, 32GB    | v3 h13-24 scans, h17 full landscape       |
+| Local       | Dev, analysis   | DB queries, scoring R&D, documentation    |
