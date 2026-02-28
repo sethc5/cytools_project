@@ -261,13 +261,15 @@ def _t1_worker(args):
 
             D_toric = basis_to_toric(D_basis, div_basis, n_toric)
 
+            # min_h0=3: allow h⁰=3 through for the clean-bundle check
+            # (h⁰(X,D) ≤ h⁰(V,D), so h0_V<3 can't produce h⁰=3; safe to skip)
             if chi_val > 0:
                 h0 = compute_h0_koszul(pts, ray_indices, D_toric,
-                                       _precomp=_precomp, min_h0=H0_MIN_T1)
+                                       _precomp=_precomp, min_h0=3)
             else:
                 D_neg = basis_to_toric(-D_basis, div_basis, n_toric)
                 h0 = compute_h0_koszul(pts, ray_indices, D_neg,
-                                       _precomp=_precomp, min_h0=H0_MIN_T1)
+                                       _precomp=_precomp, min_h0=3)
 
             if h0 < 0:
                 continue
