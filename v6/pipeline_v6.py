@@ -1202,7 +1202,7 @@ def run_fiber_pass(top_n=100, workers=4, db=None, ks_limit=1000,
             continue
 
         # Run fiber workers in parallel
-        with Pool(processes=min(workers, len(worker_args))) as pool:
+        with mp.Pool(processes=min(workers, len(worker_args))) as pool:
             results = pool.map(_fiber_worker, worker_args)
 
         for fiber_result in results:
