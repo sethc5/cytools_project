@@ -1153,14 +1153,20 @@ def main():
     parser.add_argument('--gap-min', type=int, default=None,
                        help='Override GAP_MIN threshold (default: 2). '
                             'Use --gap-min 0 to include favorable (gap=0) polytopes.')
+    parser.add_argument('--eff-max', type=int, default=None,
+                       help='Override EFF_MAX threshold (default: 22). '
+                            'Use --eff-max 30 for gap=0 probes at high h11.')
 
     args = parser.parse_args()
 
     # Apply CLI overrides to globals
-    global GAP_MIN
+    global GAP_MIN, EFF_MAX
     if args.gap_min is not None:
         GAP_MIN = args.gap_min
         print(f"  GAP_MIN overridden to {GAP_MIN}")
+    if args.eff_max is not None:
+        EFF_MAX = args.eff_max
+        print(f"  EFF_MAX overridden to {EFF_MAX}")
 
     # Open DB
     db = LandscapeDB(args.db) if args.db else LandscapeDB()
