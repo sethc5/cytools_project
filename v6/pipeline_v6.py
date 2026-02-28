@@ -709,10 +709,26 @@ def run_rescore(db):
 
 
 # ══════════════════════════════════════════════════════════════════
+#  Polytope loading helper (local KS files or CGI)
+# ══════════════════════════════════════════════════════════════════
+
+def _load_polytopes(h11, limit, local_ks=False):
+    """Load polytopes from local KS index or CYTools CGI."""
+    if local_ks:
+        import sys
+        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        from ks_index import load_h11_polytopes
+        return load_h11_polytopes(h11, limit=limit)
+    else:
+        import cytools as ct
+        return list(ct.fetch_polytopes(h11=h11, h21=h11+3, limit=limit))
+
+
+# ══════════════════════════════════════════════════════════════════
 #  Ladder mode: T0 only
 # ══════════════════════════════════════════════════════════════════
 
-def run_ladder(h11_start, h11_end, workers=4, db=None, ks_limit=1000):
+def run_ladder(h11_start, h11_end, workers=4, db=None, ks_limit=1000, local_ks=False):
     """Run T0 across h11 range. Fast landscape mapping."""
     import cytools as ct
     from cytools.config import enable_experimental_features
@@ -726,7 +742,7 @@ def run_ladder(h11_start, h11_end, workers=4, db=None, ks_limit=1000):
         print(f"  {BOLD}h11 = {h11}{RESET}")
 
         try:
-            polys = list(ct.fetch_polytopes(h11=h11, h21=h21, limit=ks_limit))
+            polys = _load_polytopes(h11, ks_limit, local_ks=local_ks)
         except Exception as e:
             print(f"    {RED}Fetch failed: {e}{RESET}")
             continue
@@ -786,7 +802,7 @@ def run_ladder(h11_start, h11_end, workers=4, db=None, ks_limit=1000):
 #  Scan mode: T0 → T2 for one h11
 # ══════════════════════════════════════════════════════════════════
 
-def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000):
+def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000, local_ks=False):
     """Full T0→T2 scan for a single h11 value."""
     import cytools as ct
     from cytools.config import enable_experimental_features
@@ -795,7 +811,7 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000):
     h21 = h11 + 3
     t_start = time.time()
 
-    polys = list(ct.fetch_polytopes(h11=h11, h21=h21, limit=ks_limit))
+    polys = _load_polytopes(h11, ks_limit, local_ks=local_ks)
     n_polys = len(polys)
     if n_polys == 0:
         print(f"  No polytopes at h11={h11}")
@@ -1022,7 +1038,7 @@ def _run_t2_parallel(polys, ranked_list, h11, workers, db):
 #  Deep mode: T3 on top candidates
 # ══════════════════════════════════════════════════════════════════
 
-def run_deep(top_n=50, db=None, ks_limit=1000):
+def run_deep(top_n=50, db=None, ks_limit=1000, local_ks=False):
     """Run T3 (full phenomenology + fiber + tri stability) on top candidates.
 
     Inherited from v5: runs compute_tri_stability() on each candidate.
@@ -1048,7 +1064,7 @@ def run_deep(top_n=50, db=None, ks_limit=1000):
 
         try:
             fetch_limit = max(ks_limit, idx + 1)
-            polys = list(ct.fetch_polytopes(h11=h11, h21=h11+3, limit=fetch_limit))
+            polys = _load_polytopes(h11, fetch_limit, local_ks=local_ks)
             p = polys[idx]
 
             # Fiber analysis
@@ -1125,7 +1141,7 @@ def run_deep(top_n=50, db=None, ks_limit=1000):
 # ══════════════════════════════════════════════════════════════════
 
 def run_fiber_pass(top_n=100, workers=4, db=None, ks_limit=1000,
-                  unclassified_only=True):
+                  unclassified_only=True, local_ks=False):
     """Run _fiber_worker on top-N scored polytopes, update DB with gauge algebra.
 
     Args:
@@ -1182,8 +1198,7 @@ def run_fiber_pass(top_n=100, workers=4, db=None, ks_limit=1000,
         print(f"\n  h{h11}: {len(rows)} candidates (fetching {fetch_limit} polytopes)")
 
         try:
-            polys = list(ct.fetch_polytopes(h11=h11, h21=h11+3,
-                                             limit=fetch_limit))
+            polys = _load_polytopes(h11, fetch_limit, local_ks=local_ks)
         except Exception as e:
             print(f"    KS fetch error: {e}")
             errors += len(rows)
@@ -1279,6 +1294,9 @@ def main():
                        help='KS fetch limit per (h11,h21) query (default: 1000). '
                             'The KS database has 10K-50K+ polytopes per h11 at chi=-6. '
                             'Use --limit 5000 to scan 5x deeper.')
+    parser.add_argument('--local-ks', action='store_true',
+                       help='Load polytopes from local KS index files '
+                            '(ks_raw/chi6/) instead of CYTools CGI.')
     parser.add_argument('--gap-min', type=int, default=None,
                        help='Override GAP_MIN threshold (default: 2). '
                             'Use --gap-min 0 to include favorable (gap=0) polytopes.')
@@ -1309,7 +1327,7 @@ def main():
             if not args.h11 or len(args.h11) < 2:
                 parser.error("--ladder requires --h11 START END")
             run_ladder(args.h11[0], args.h11[1], workers=args.workers,
-                      db=db, ks_limit=args.limit)
+                      db=db, ks_limit=args.limit, local_ks=args.local_ks)
 
         elif args.scan:
             if not args.h11:
@@ -1320,14 +1338,17 @@ def main():
                 h11_list = args.h11
             for h11 in h11_list:
                 run_scan(h11, workers=args.workers, top_n=args.top,
-                        db=db, resume=args.resume, ks_limit=args.limit)
+                        db=db, resume=args.resume, ks_limit=args.limit,
+                        local_ks=args.local_ks)
 
         elif args.deep:
-            run_deep(top_n=args.top, db=db, ks_limit=args.limit)
+            run_deep(top_n=args.top, db=db, ks_limit=args.limit,
+                    local_ks=args.local_ks)
 
         elif args.fiber:
             run_fiber_pass(top_n=args.top, workers=args.workers,
-                           db=db, ks_limit=args.limit)
+                           db=db, ks_limit=args.limit,
+                           local_ks=args.local_ks)
 
     finally:
         db.close()
