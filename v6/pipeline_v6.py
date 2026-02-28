@@ -1231,7 +1231,7 @@ def run_fiber_pass(top_n=100, workers=4, db=None, ks_limit=1000,
             gauge_tag = f' [{best_gauge}]' if best_gauge else ''
             print(f"    P{idx}: {len(fibs)} fibers{sm_tag}{gut_tag}{gauge_tag}")
 
-        db.conn.commit()
+        db.commit()
 
     elapsed = time.time() - t_start
     print(f"\n  {'='*60}")
