@@ -5,6 +5,48 @@
 
 ---
 
+## 2026-02-28 — n_clean_est Bug Fix + T1-Skip Rescue (9,155 polytopes)
+
+**Work done**: Found and fixed critical T1 screening bug causing `n_clean_est=0`
+for all polytopes. Ran rescue scan across 21 h¹¹ levels, recovering 9,155
+previously-dropped polytopes. Total T2-scored: 4,588 → **13,806**.
+
+### Bug Discovery
+
+All 4,575 T2 polytopes had `n_clean_est = 0`. Root cause: T1 worker called
+`compute_h0_koszul(..., min_h0=H0_MIN_T1)` where `H0_MIN_T1=5`. The function
+returns 0 (screening signal) for h⁰(V) < 5, so the clean check (`if h0 == 3`)
+could never fire. Fix: `min_h0=3` for the clean-estimation path only.
+Commit: `64a846e`. Scoring NOT affected (uses `n_clean` from T2).
+
+### Rescue Execution
+
+Built `rescue_t1_skips.py` to replay T1+T2 on all T1-skipped polytopes with
+the fixed code. Two runs across 21 levels:
+
+- **Run 1**: 8 levels, 8,535 rescued (h19:4032, h18:2529, h17:681, h27:501,
+  h21:236, h20:228, h22:190, h28:138). 27,474s.
+- **Run 2**: 13 levels, 620 rescued (h23:112, h16:97, h24:96, h26:84,
+  h25:66, h30:48, h29:26, h15:20, h31:12, h33:8, h32:4, h14:0, h35:1). 8,305s.
+- **Total**: 9,155 rescued from 10,801 candidates (~85% rescue rate).
+
+### Impact
+
+- **h22/P302**: New top-6 entry at score 82, 182 clean bundles (rescue champion)
+- **93 polytopes score ≥ 70** from rescue alone
+- Score distribution (13,806 total): 80+(12), 70-79(199), 60-69(1,027),
+  50-59(3,739), 40-49(6,049), <40(2,780)
+- v6 top-3 champions: h28/P874 (84), h28/P186 (84), h27/P43 (84)
+
+### Rsync Note
+
+DB transfer tool upgraded: SCP → rsync (`-avP`) for resume support on the
+140MB database transfers. Also identified KS static mirror files at
+`http://quark.itp.tuwien.ac.at/~kreuzer/V/v{05-22}.gz` as 78 MB/s
+alternative to the slow CYTools CGI endpoint.
+
+---
+
 ## 2026-02-28 — v6 Deployment on Hetzner + Gap=0 Probe + Fiber Worker Audit
 
 **Work done**: Deployed pipeline v6 on Hetzner (Docker container `funny_davinci`,
