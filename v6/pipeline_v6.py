@@ -1150,8 +1150,17 @@ def main():
                        help='KS fetch limit per (h11,h21) query (default: 1000). '
                             'The KS database has 10K-50K+ polytopes per h11 at chi=-6. '
                             'Use --limit 5000 to scan 5x deeper.')
+    parser.add_argument('--gap-min', type=int, default=None,
+                       help='Override GAP_MIN threshold (default: 2). '
+                            'Use --gap-min 0 to include favorable (gap=0) polytopes.')
 
     args = parser.parse_args()
+
+    # Apply CLI overrides to globals
+    global GAP_MIN
+    if args.gap_min is not None:
+        GAP_MIN = args.gap_min
+        print(f"  GAP_MIN overridden to {GAP_MIN}")
 
     # Open DB
     db = LandscapeDB(args.db) if args.db else LandscapeDB()
