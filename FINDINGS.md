@@ -555,10 +555,39 @@ pre-pipeline_v2 data only (N=496):
 Gap ≥ 2: 170/170 = 100% hit rate. Gap is an **efficiency knob** (prioritize
 richer targets), not a quality gate (almost nothing fails regardless).
 
+### Update — gap=0 Probe at h27 (2026-02-28)
+
+**Direct test**: 500 gap=0 (favorable) polytopes at h¹¹=27 run through pipeline v6
+with GAP_MIN=0, EFF_MAX=30 overrides. Results vs same h11 scan of gap≥2 polytopes:
+
+| Metric | gap=0 (favorable) | gap≥2 (non-favorable) |
+|--------|-------------------|-----------------------|
+| T1 time (500 polys) | **744s** | ~88s |
+| T1 pass rate | 21.0% (105/500) | ~45% |
+| T2 with clean | 90/105 (86%) | high |
+| Top score | **84** | **89** (current champion) |
+| Mean score | 55.2 | ~57 |
+
+**Root cause of slowness**: gap=0 → h¹¹_eff = h¹¹ = 27. Bundle search runs in
+a 27-dimensional integer lattice — exponentially larger than h¹¹_eff=20–22 for
+gap≥6 at h27. T1 throughput drops 5.3× (0.67/s vs 3.5/s).
+
+**Verdict**: The real gate is **h¹¹_eff ≤ 22 (EFF_MAX)**, not gap itself.
+GAP_MIN=2 is a fast proxy for this constraint — at h27+, gap<2 implies
+h¹¹_eff=27-28 which exceeds EFF_MAX and would be unacceptably slow regardless.
+The original filter was correct on both axes: quality (lower ceiling, best=84 vs
+champion 89) AND compute time (5× slower). Gap=0 polytopes are a dead end for
+high-h¹¹ SM searches.
+
+**Middle path**: EFF_MAX is the unifying constraint. Rather than opening gap=0,
+the highest ROI is scanning deeper into h27–30 gap≥3 space — only ~500 of
+~47K favorable scans done there. The champion cluster (gap=6–10, h¹¹_eff=20–22)
+is undersampled by 100×.
+
 ### Other empirical findings
 
 - **Non-favorable polytopes dominate**: 9 of 10 all-time best are NF
-- **h¹¹_eff = 13 is the sweet spot**: enough complexity for bundles, not too much for Kähler cone
+- **h¹¹_eff ≤ 22 is the tractability ceiling**: above this T1 becomes unacceptably slow
 - **Swiss cheese is NOT predictive** for T1 success (89% vs 86%)
 - **n_chi3 ≥ 10,000** → avg 92.4 clean (phase transition)
 - **Clean increases with h¹¹ at fixed eff**: more embedding room is pure upside

@@ -88,7 +88,7 @@ Scoring components: yukawa_hierarchy (27), yukawa_rank (15), clean_bundles (10),
 
 These save you time. Don't re-check them:
 
-- **Gap is an efficiency knob, not a quality gate.** In unbiased data (N=496, excl pipeline_v2), gap<2 hits 97.2% vs gap≥2 at 100%. The 2.8pp difference is real but small. Gap predicts *yield* (avg 23.8 vs 13.7 clean) not pass/fail. Finding 14 originally overclaimed this — see circularity audit in [PROCESS_LOG.md](PROCESS_LOG.md).
+- **Gap=0 is a dead end at high h¹¹ — don't reopen the gate.** Probe at h27 (500 polytopes, 2026-02-28): gap=0 runs 5.3× slower (h¹¹_eff=27 lattice vs h¹¹_eff=20–22 for gap≥6), 21% T1 pass rate (vs ~45%), and top score of 84 vs champion 89. The real constraint is `EFF_MAX=22` (h¹¹_eff), not `GAP_MIN=2` — these are equivalent at h27+ because gap=0 forces h¹¹_eff=h¹¹. At h13–14 (h¹¹_eff<15) gap=0 is fine; everywhere else it hits a compute wall. In unbiased early data (N=496): gap<2 hit rate 97.2% vs gap≥2 100%, yield 1.7× lower. See Finding 11 + circularity audit in [PROCESS_LOG.md](PROCESS_LOG.md).
 - **Only 9 losers exist** out of 1,284 deep-analyzed. All are favorable + gap≤1 + borderline h⁰. The pipeline almost never wastes compute.
 - **No nef h⁰=3 bundles exist** on any scanned χ = −6 polytope. Kodaira vanishing never applies.
 - **All χ = −6 polytopes have K3 + elliptic fibrations.** Universal, not selective — don't use it as a discriminator.
