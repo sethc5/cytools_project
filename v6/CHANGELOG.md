@@ -1,6 +1,34 @@
 # Pipeline v6 — Changelog
 
-## v6.0 (2025-06-30)
+## v6.1 (2026-02-28)
+
+### New: `--fiber` CLI mode
+
+`python3 v6/pipeline_v6.py --fiber --top 100 -w 16`
+
+Runs `_fiber_worker` (Kodaira fiber classification → gauge algebra) on the
+top-N scored polytopes in the DB. Populates `has_SM`, `has_GUT`, `best_gauge`,
+`n_fibers`, and the `fibrations` table. Groups candidates by h11 to minimise
+KS fetches; parallelises with `--workers`.
+
+Previously the fiber worker had no CLI path — it was only reachable inside
+`run_deep()` which runs per-polytope serially. This mode makes gauge algebra
+classification a first-class batch operation. Use `--top 4588` with
+`--unclassified-only` behaviour (default) to classify all scored polytopes.
+
+### New: `--gap-min` and `--eff-max` CLI overrides
+
+```
+python3 v6/pipeline_v6.py --scan --h11 27 -w 16 --gap-min 0 --eff-max 30
+```
+
+Probe-mode overrides for the T0 geometry pre-filter. Added after the gap=0
+probe at h27 (2026-02-28) which confirmed gap=0 polytopes are 5.3× slower
+and ceiling-capped at score=84 vs champion 89. These flags exist for
+experimental probes only — the defaults (GAP_MIN=2, EFF_MAX=22) remain
+correct for production scans.
+
+## v6.0 (2026-02-27)
 
 **Base:** v5.2 (not v4). Inherits all v5 fixes + features.
 

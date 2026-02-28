@@ -1119,6 +1119,129 @@ def run_deep(top_n=50, db=None, ks_limit=1000):
 
 
 # ══════════════════════════════════════════════════════════════════
+#  Fiber pass (gauge algebra classification on top-N DB candidates)
+# ══════════════════════════════════════════════════════════════════
+
+def run_fiber_pass(top_n=100, workers=4, db=None, ks_limit=1000,
+                  unclassified_only=True):
+    """Run _fiber_worker on top-N scored polytopes, update DB with gauge algebra.
+
+    Args:
+        top_n: Number of top-scored candidates to classify.
+        workers: Number of parallel workers.
+        db: LandscapeDB instance.
+        ks_limit: KS fetch limit per query (must be > poly_idx).
+        unclassified_only: If True, skip polytopes that already have n_fibers set.
+    """
+    import cytools as ct
+
+    # Query candidates from DB
+    if unclassified_only:
+        sql = """SELECT h11, poly_idx, sm_score, n_k3_fib, n_fibers
+                 FROM polytopes
+                 WHERE sm_score IS NOT NULL AND sm_score > 0
+                   AND (n_fibers IS NULL OR n_fibers = 0)
+                 ORDER BY sm_score DESC
+                 LIMIT ?"""
+    else:
+        sql = """SELECT h11, poly_idx, sm_score, n_k3_fib, n_fibers
+                 FROM polytopes
+                 WHERE sm_score IS NOT NULL AND sm_score > 0
+                 ORDER BY sm_score DESC
+                 LIMIT ?"""
+
+    candidates = db.query(sql, (top_n,))
+    if not candidates:
+        print("  No candidates found.")
+        return
+
+    print(f"\n{'='*68}")
+    print(f"  FIBER PASS — gauge algebra  |  {len(candidates)} candidates  |  "
+          f"{workers} workers")
+    label = 'unclassified only' if unclassified_only else 'all'
+    print(f"  top_n={top_n}  ({label})")
+    print(f"{'='*68}")
+
+    # Group by h11 to minimise KS fetches
+    from collections import defaultdict
+    by_h11 = defaultdict(list)
+    for row in candidates:
+        by_h11[row['h11']].append(row)
+
+    t_start = time.time()
+    total_done = 0
+    total_sm = 0
+    total_gut = 0
+    errors = 0
+
+    for h11, rows in sorted(by_h11.items()):
+        max_idx = max(r['poly_idx'] for r in rows)
+        fetch_limit = max(ks_limit, max_idx + 1)
+        print(f"\n  h{h11}: {len(rows)} candidates (fetching {fetch_limit} polytopes)")
+
+        try:
+            polys = list(ct.fetch_polytopes(h11=h11, h21=h11+3,
+                                             limit=fetch_limit))
+        except Exception as e:
+            print(f"    KS fetch error: {e}")
+            errors += len(rows)
+            continue
+
+        # Build worker args: (vertices, poly_idx, h11)
+        worker_args = []
+        for row in rows:
+            idx = row['poly_idx']
+            if idx >= len(polys):
+                print(f"    idx={idx} out of range (fetched {len(polys)}), skip")
+                errors += 1
+                continue
+            verts = polys[idx].vertices().tolist()
+            worker_args.append((verts, idx, h11))
+
+        if not worker_args:
+            continue
+
+        # Run fiber workers in parallel
+        with Pool(processes=min(workers, len(worker_args))) as pool:
+            results = pool.map(_fiber_worker, worker_args)
+
+        for fiber_result in results:
+            idx = fiber_result.get('poly_idx')
+            if fiber_result.get('error'):
+                print(f"    P{idx}: error — {fiber_result['error'][:80]}")
+                errors += 1
+                continue
+
+            fibs = fiber_result.get('fibrations', [])
+            has_sm = any(f.get('contains_SM') for f in fibs)
+            has_gut = any(f.get('has_SU5_GUT') for f in fibs)
+            best_gauge = ''
+            if fibs:
+                best = max(fibs, key=lambda f: f.get('gauge_rank', 0))
+                best_gauge = best.get('gauge_algebra', '')
+
+            db_upsert_fiber(db, h11, idx, fiber_result)
+            total_done += 1
+            if has_sm:
+                total_sm += 1
+            if has_gut:
+                total_gut += 1
+            sm_tag = ' SM' if has_sm else ''
+            gut_tag = ' GUT' if has_gut else ''
+            gauge_tag = f' [{best_gauge}]' if best_gauge else ''
+            print(f"    P{idx}: {len(fibs)} fibers{sm_tag}{gut_tag}{gauge_tag}")
+
+        db.conn.commit()
+
+    elapsed = time.time() - t_start
+    print(f"\n  {'='*60}")
+    print(f"  Done: {total_done}/{len(candidates)} classified, "
+          f"{total_sm} SM, {total_gut} GUT, {errors} errors, "
+          f"{elapsed:.0f}s")
+    print(f"  {'='*60}")
+
+
+# ══════════════════════════════════════════════════════════════════
 #  CLI
 # ══════════════════════════════════════════════════════════════════
 
@@ -1135,6 +1258,10 @@ def main():
                      help='T3 on top candidates (fiber + stability + rescore)')
     mode.add_argument('--rescore', action='store_true',
                      help='Recompute SM scores from existing T2 data (v6 weights)')
+    mode.add_argument('--fiber', action='store_true',
+                     help='Run Kodaira fiber/gauge-algebra classification on top-N '
+                          'scored polytopes. Populates has_SM, has_GUT, best_gauge, '
+                          'n_fibers. Use --top N to control candidate count.')
 
     parser.add_argument('--h11', type=int, nargs='+',
                        help='h11 values (1 for scan, 2 for ladder range)')
@@ -1195,6 +1322,10 @@ def main():
 
         elif args.deep:
             run_deep(top_n=args.top, db=db, ks_limit=args.limit)
+
+        elif args.fiber:
+            run_fiber_pass(top_n=args.top, workers=args.workers,
+                           db=db, ks_limit=args.limit)
 
     finally:
         db.close()
