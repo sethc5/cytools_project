@@ -5,6 +5,74 @@
 
 ---
 
+## 2026-02-28 — h20–h26 50K Campaign + New Champion (h25/P46481 = 85)
+
+**Work done**: Ran 50K scans for all 7 h¹¹ levels from h20 to h26 on Hetzner
+(Docker container `funny_davinci`, 16-core i9, 14 workers). Used new `--local-ks`
+flag with local KS chi-6 files to avoid CYTools CGI bottleneck. Total batch
+runtime: ~4h 40m. Also ran h27–h30 at 50K earlier in the session.
+
+### Pipeline Enhancement
+
+Added `--local-ks` CLI flag to `pipeline_v6.py`. New `_load_polytopes()` helper
+function dispatches to `ks_index.load_h11_polytopes()` (local files) or
+`ct.fetch_polytopes()` (KS CGI endpoint). Threaded through all 4 run functions
+(run_ladder, run_scan, run_deep, run_fiber_pass).
+
+### Batch Results (h20–h26 at 50K)
+
+| h¹¹ | T0 pass | Scored | Top score | Wall time |
+|------|---------|--------|-----------|-----------|
+| 20   | 13,316  | 892    | 78        | 47.8 min  |
+| 21   | 14,947  | 911    | 78        | 1.4 hr    |
+| 22   | 7,153   | 925    | 82        | 51.7 min  |
+| 23   | 4,144   | 1,286  | 79        | 38.1 min  |
+| 24   | 1,870   | 1,208  | 79        | 25.2 min  |
+| 25   | 910     | 1,113  | **85**    | 22.4 min  |
+| 26   | 403     | 888    | 80        | 12.7 min  |
+
+### New Champion: h25/P46481 (score 85)
+
+**h25/P46481** is the new overall champion at score **85**, displacing the
+h28 cluster (84). Key properties:
+- yukawa_hierarchy = 4,893 (bin: ≥1K → 22/30 pts)
+- n_clean = 22 (22 clean bundles from 124 checked)
+- volume_hierarchy = 3,024
+- gap = 0, h11_eff = 28
+- 6 del Pezzo divisors, 8 rigid divisors
+- Swiss cheese: yes (τ = −439,945)
+- 3 K3 fibrations, 3 elliptic fibrations
+- Not yet T3-analyzed
+
+### Impact
+
+- **New #1**: h25/P46481 at 85 (was h28/P874 at 84)
+- **5 new entries** in top-17: h25/P46481, h25/P860, h26/P30513, h26/P11871, h26/P315
+- **h25/P860** (score 81): gap=8, h11_eff=20, hier=1,187, 24 clean bundles
+- h26 contributed 3 score-80 entries despite only 403 T0-passing polytopes
+
+### Coverage Update
+
+893,596 total polytopes in DB (up from 502K). 19,870 scored (up from 13,806).
+h13–h19: 100%, h20–h30: 50K each (~2.5–13% per level), h31–h40: 1K each.
+Overall active landscape coverage: 15.4% (was 8.2%).
+
+### Scoring Ceiling Analysis
+
+All 10 scoring components analyzed. Observed maximum sum across the DB = 97
+(theoretical 100). The gap is entirely due to yukawa_hierarchy: the best
+observed value (49,282 on h19/P438) scores 27/30 — just barely missing the
+≥50K threshold for full 30 points. No single polytope achieves all 10
+component maxima simultaneously.
+
+### h29 at 50K (earlier this session)
+
+Also ran h29 at 50K: 77/50K T0 pass (0.15%), 57 T1, 37 clean, top=75.
+Low T0 rate is expected — EFF_MAX=22 requires gap≥7 at h29, deep in
+the exponential tail of the gap distribution.
+
+---
+
 ## 2026-02-28 — n_clean_est Bug Fix + T1-Skip Rescue (9,155 polytopes)
 
 **Work done**: Found and fixed critical T1 screening bug causing `n_clean_est=0`

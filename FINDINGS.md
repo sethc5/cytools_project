@@ -8,28 +8,33 @@ Standard Model–like compactifications. For the quick summary, see
 
 ## Executive Summary
 
-**Database**: `v6/cy_landscape_v6.db` — 502K polytopes (h13–h40), **13,806** T2-scored.
-**Pipeline**: v6 (post-rescue). **Scoring**: 100-point SM composite (10 components).
-**Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h19 exhaustively scanned (100%).
+**Database**: `v6/cy_landscape_v6.db` — 894K polytopes (h13–h40), **19,870** scored.
+**Pipeline**: v6 (post-rescue, `--local-ks`). **Scoring**: 100-point SM composite (10 components).
+**Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h19 exhaustively scanned (100%). h20–h30 at 50K coverage.
 
 ### Current Champions (v6 scoring)
 
 | Rank | ID | Score | Hier | Clean | Yukawa rank |
 |------|----|-------|------|-------|-------------|
-| 1 | **h28/P874** | **84** | 1,150 | 14 | 154 |
-| 2 | **h28/P186** | **84** | 1,147 | 14 | 145 |
-| 3 | **h27/P43** | **84** | 621 | 24 | 214 |
-| 4 | h27/P240 | 82 | 577 | 24 | 213 |
-| 5 | h27/P239 | 82 | 531 | 26 | 206 |
-| 6 | **h22/P302** ★ | **82** | 970 | 182 | 142 |
-| 7 | h19/P438 | 81 | 49,282 | 56 | 125 |
-| 8 | h28/P187 | 81 | 1,160 | 14 | 164 |
-| 9 | h19/P390 ★ | 80 | 122 | 70 | 140 |
-| 10 | h18/P315 | 80 | 3,259 | 40 | 118 |
-| 11 | h27/P9181 | 80 | 144 | 24 | 159 |
-| 12 | h30/P289 | 80 | 34,318 | 12 | 147 |
+| 1 | **h25/P46481** ★★ | **85** | 4,893 | 22 | 17 |
+| 2 | **h27/P43** | **84** | 621 | 24 | 15 |
+| 3 | **h28/P874** | **84** | 1,150 | 14 | 16 |
+| 4 | **h28/P186** | **84** | 1,147 | 14 | 15 |
+| 5 | **h22/P302** | **82** | 970 | 182 | 18 |
+| 6 | h27/P240 | 82 | 577 | 24 | 16 |
+| 7 | h27/P239 | 82 | 531 | 26 | 15 |
+| 8 | h19/P438 | 81 | 49,282 | 56 | 16 |
+| 9 | h25/P860 ★★ | 81 | 1,187 | 24 | 18 |
+| 10 | h28/P187 | 81 | 1,160 | 14 | 16 |
+| 11 | h18/P315 | 80 | 3,259 | 40 | 15 |
+| 12 | h19/P390 | 80 | 122 | 70 | 11 |
+| 13 | h26/P30513 ★★ | 80 | 1,760 | 22 | 17 |
+| 14 | h26/P11871 ★★ | 80 | 519 | 26 | 12 |
+| 15 | h26/P315 ★★ | 80 | 1,506 | 32 | 15 |
+| 16 | h27/P9181 | 80 | 144 | 24 | 11 |
+| 17 | h30/P289 | 80 | 34,318 | 12 | 18 |
 
-★ = new entry from n_clean_est rescue (see §16)
+★★ = new entry from h20–h26 50K campaign (2026-02-28)
 
 **Note**: v6 scoring removed 2 dead components (tadpole_ok, lvs_binary) and
 reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivalents.
@@ -38,16 +43,14 @@ reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivale
 
 - **6,122,441** χ=−6 polytopes exist in the full KS database (h¹¹ = 13–119)
 - h13–h40 contains **5,795,310** (94.7%); h41–119 adds 327,131 (tapers to zero by h120)
-- **501,591** polytopes scanned = **8.2%** of the full landscape
+- **893,596** polytopes scanned = **15.4%** of the active landscape
 - **h13–h19 exhaustively scanned** (100% of 333,591 polytopes) under v5.2
-- **13,806** T2-scored with 100-point SM composite (up from 4,588 pre-rescue)
-- **9,163** polytopes rescued by n_clean_est bug fix (see §16)
-- **84** = highest v6 score achieved (h28/P874, h28/P186, h27/P43)
-- **h22/P302** = rescue champion — 182 clean bundles, score 82, entered top 6
-- **93 rescue polytopes score ≥ 70** — massive new high-quality population
+- **h20–h30 at 50K** coverage each (550K polytopes, ~2.5–13% per level)
+- **19,870** scored with 100-point SM composite
+- **85** = highest v6 score achieved (**h25/P46481** — new champion from h20–h26 campaign)
+- **h22/P302** = rescue champion — 182 clean bundles, score 82, top 5
 - **55%** = best c₂ triangulation stability among top candidates (h28/P874, h28/P187)
-- Even our deepest v5 levels (h27/h28/h30 at 50K) are only **12–18% covered**
-- The peak is h24 with **447K polytopes** — only 0.2% scanned
+- The peak is h24 with **447K polytopes** — 11.2% scanned (50K of 447K)
 - **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
 - h27 50K scan produced 2 new top-5 entries, h27 cluster dominates top-5
 - P289 drops from #1 (v4=89) to #12 (v6=80) — dead components removed by v6 audit
