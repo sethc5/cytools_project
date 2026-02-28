@@ -594,6 +594,58 @@ is undersampled by 100×.
 
 ---
 
+## 14. Fiber Worker Status + Gap=0 Cheap Alternative Analysis
+
+**Date**: 2026-02-28.
+
+### Fiber Worker (gauge algebra classification)
+
+All pipeline versions (v4/v5/v6) contain `_fiber_worker()`: Kodaira fiber
+classification that determines gauge algebra (`has_SM`, `has_GUT`, `best_gauge`,
+`n_fibers`). **It has no CLI flag and has only been run manually on 8 polytopes.**
+
+Consequence: the v6 scoring component `fibration_sm` (3 pts) scores 0 for 99.8%
+of T2-scored polytopes — not because they have no fibrations (virtually all have
+K3 + elliptic fibrations; `n_k3_fib` and `n_ell_fib` are populated for 4,584/4,588)
+but because gauge algebra extraction was never systematically run.
+
+**Fix**: add `--fiber --top N` CLI mode to run `_fiber_worker` on the top-N scored
+polytopes in the DB. Would populate `has_SM`/`has_GUT`/`best_gauge` for the
+leaderboard, unlocking 3 pts of scoring signal.
+
+**Note**: all T3-analyzed candidates in CATALOGUE.md §4 have gauge data because
+they were run through the manual fiber pass. The issue is scale coverage.
+
+### Gap=0 — Is There a Cheap Alternative to Full T1?
+
+**Question**: Can T0-level data predict clean bundle yield for gap=0 polytopes
+without running the full 27D bundle lattice enumeration?
+
+**Three approaches evaluated:**
+
+| Method | Cost | Filters | Verdict |
+|--------|------|---------|--------|
+| n_chi3 count (HRR solutions) | T0 already | ~0% (always huge at h27) | Useless |
+| c2_all_positive + Mori fraction | T0 already | ~15% | Too weak |
+| Regression on 4,588 T2-scored (predict n_clean from T0 features) | One-time fit | Unknown but promising | **Best option, not yet built** |
+
+The regression model approach: fit `n_clean ~ [n_chi3, h11_eff, volume_hierarchy,
+n_dp, n_k3_div, c2_all_positive, aut_order, gap]` on existing T2 data — since
+all features are T0-computable, the trained model could score gap=0 polytopes in
+< 0.1s without running T1. Accuracy would be limited but could filter the bottom
+50% of candidates.
+
+**Practical verdict**: For h11 ≥ 23, gap=0 implies h11_eff ≥ 23, which already
+exceeds EFF_MAX=22. The existing EFF_MAX filter IS the cheap proxy. No additional
+layer needed. Gap=0 polytopes at h11 ≥ 23 are correctly excluded by EFF_MAX alone.
+
+At h11 = 13–14 (h11_eff < 15, exempt from both filters): gap=0 runs fine and we
+have full coverage. Only 13 polytopes — all already in the DB.
+
+**Conclusion: no gap=0 universe to unlock. The filter architecture is sound.**
+
+---
+
 ## 12. GL=12 / D₆ Polytope — Picard-Fuchs and Yukawa Study
 
 **Date**: 2026-02-23.

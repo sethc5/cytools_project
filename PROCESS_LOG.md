@@ -5,6 +5,81 @@
 
 ---
 
+## 2026-02-28 — v6 Deployment on Hetzner + Gap=0 Probe + Fiber Worker Audit
+
+**Work done**: Deployed pipeline v6 on Hetzner (Docker container `funny_davinci`,
+16-core i9). Ran gap=0 probe at h27. Documented all key pipeline status findings.
+
+### v6 Hetzner Deployment
+
+1. `git pull` inside container pulled all v6 files (5 new files: pipeline_v6.py,
+   cy_compute_v6.py, db_utils_v6.py, SPEC.md, CHANGELOG.md)
+2. Copied Hetzner's v4 DB → v6 DB: `cp v4/cy_landscape_v4.db v6/cy_landscape_v6.db`
+3. Ran `python3 v6/pipeline_v6.py --rescore` → updated all 4,588 T2/T3 scores with
+   v6 weights. v6 top-5: 81, 81, 81, 80, 80 (lower ceiling than v4 89 because dead
+   components removed — scores will rise as new scans fill in).
+4. Test scan: `--scan --h11 22 -w 16 --limit 500` → 313/500 T0 pass (62.6%), 143 T2.
+5. v4 DB on Hetzner verified identical to local (same row counts, same top-5 scores).
+
+### Gap=0 Probe Results (SETTLED — don't revisit)
+
+Added `--gap-min N` and `--eff-max N` CLI overrides to pipeline_v6.py to enable
+favorable-polytope probes. Ran 500 gap=0 polytopes at h27 with GAP_MIN=0, EFF_MAX=30.
+
+**Timing comparison:**
+- Regular (gap≥2, h11_eff≈20-22): T1 at **3.5 poly/s**, 88s for 313 polytopes
+- Gap=0 (h11_eff=27):            T1 at **0.67 poly/s**, 744s for 500 polytopes
+- Slowdown: **5.3×**
+
+**Quality:** 105/500 pass T1 (21% vs ~45%), top score=84, mean=55.2. Best gap=0
+score (84) is below current non-favorable champion at same h11 level.
+
+**Root cause:** gap=0 → h11_eff = h11 = 27. The χ=3 bundle enumeration lattice is
+27-dimensional vs 20–22 for non-favorable. The T1_BUNDLE_CAP=500 still applies but
+finding those 500 candidates in a 27D lattice is intrinsically slow — no algorithmic
+shortcut exists.
+
+**Conclusion:** GAP_MIN=2 filter is correct and should not be relaxed for h11≥15.
+Killed h28 probe mid-run (same outcome expected). See Finding 11 in FINDINGS.md.
+
+### Fiber Worker Status (Important — unimplemented CLI path)
+
+`_fiber_worker()` (Kodaira fiber classification → gauge algebra) is coded in
+all pipeline versions (v4/v5/v6) but has **no CLI flag**. Gauge algebra fields
+(`has_SM`, `has_GUT`, `best_gauge`, `n_fibers`) are populated for only 8 polytopes
+(from a one-off manual run). The `fibration_sm` scoring component (3 pts in v6) is
+therefore 0 for 99.8% of scored polytopes — not because they lack fibrations
+(virtually all do), but because gauge classification was never systematically run.
+
+To fix: add `--fiber` CLI flag or run a separate `--fiber --top 100` pass on the
+DB's top-ranked polytopes. See Finding 14 in FINDINGS.md.
+
+### Cheap Alternatives to Full T1 for Gap=0 Screening (Analysis)
+
+Question: Is there a fast database-insight method to pre-screen gap=0 polytopes
+without running full T1?
+
+Short answer: **No fast proxy exists for h⁰ computation.** Three options considered:
+
+1. **n_chi3 count (HRR lattice count)**: Already computed at T0. For gap=0 at h27,
+   n_chi3 is extremely large (dense 27D lattice) — doesn't discriminate.
+
+2. **c2_all_positive flag + Mori cone fraction**: Necessary condition for h³=0
+   (clean bundles). Can be checked at T0. Filters out ~15% of polytopes, not enough.
+
+3. **Regression model on existing T2 data**: Fit `n_clean ~ T0_features` across the
+   4,588 T2-scored (gap≥2) polytopes — features: n_chi3, volume_hierarchy, h11_eff,
+   n_dp, n_k3_div, c2_all_positive, aut_order. Apply to gap=0 polytopes using only
+   T0 data to predict expected clean count. This is the most promising approach —
+   cheap to run, uses existing data, gives a probability score before T1. Not yet
+   implemented. See BACKLOG.md.
+
+**Verdict**: The h11_eff dimension is computable at T0 in 0.1s. Since h11_eff > 22
+at gap=0 for h11≥23, the EFF_MAX filter already implements the correct proxy.
+No additional cheap screen needed.
+
+---
+
 ## 2026-02-28 — h13–19 Exhaustive v5.2 Scan + DB Sync
 
 **Work done**: Ran exhaustive v5.2 pipeline scan over all h¹¹ = 13–19
