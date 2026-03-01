@@ -835,7 +835,17 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000, lo
             if top_n > 0:
                 need_t2 = need_t2[:top_n]
             print(f"  Resume: {len(need_t2)} polytopes need T2")
-            _run_t2_parallel(polys, need_t2, h11, workers, db)
+            # poly_idx values are absolute KS positions from original scan.
+            # Reload polys from index 0 up to max_poly_idx so indexing works
+            # regardless of what --offset was used when polytopes were scanned.
+            max_idx = max(r["poly_idx"] for r in need_t2)
+            if max_idx >= len(polys) + offset or offset > 0:
+                print(f"    Reloading polys to cover poly_idx up to {max_idx}")
+                polys_full = _load_polytopes(h11, max_idx + 1,
+                                             local_ks=local_ks, offset=0)
+                _run_t2_parallel(polys_full, need_t2, h11, workers, db, offset=0)
+            else:
+                _run_t2_parallel(polys, need_t2, h11, workers, db, offset=offset)
             clear_poly_cache()
             return
 
