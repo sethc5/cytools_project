@@ -4,12 +4,13 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are **6.12 million** such polytopes in the Kreuzer-Skarke database of 473 million reflexive polytopes (spanning h¹¹ = 13–119). This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v5.2 · **502K polytopes** scanned (8.2% of 6.12M KS χ=−6 landscape) · **4,588 T2-scored** with 100-point SM composite · Champion: h30/P289 (score 89), #2: h19/P438 (88) · h13–h19 exhaustive · h27 fibration-rich zone · Deployed on Hetzner (16-core) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v6 · **1.38M polytopes** scanned (23.9% of 6.12M KS χ=−6 landscape) · **50,232 T2-scored** with 100-point SM composite (10 components) · Champion: **h26/P11670 (score 89)**, #2: h23/P37201 (87) · h13–h19 exhaustive · h20–h40 at 50K+ · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
-- **A 7-stage screening pipeline** — `v4/pipeline_v4.py` scans polytopes through tiered geometric checks (T0 → T1 → T2 → T3 deep analysis with triangulation stability). 100-point SM composite scoring with 12 components.
-- **A SQLite database** — `v4/cy_landscape_v4.db` (502K polytopes, 4,588 scored) with programmatic access via `v4/db_utils_v4.py`
+- **A 7-stage screening pipeline** — `v6/pipeline_v6.py` scans polytopes through tiered geometric checks (T0 → T1 → T2 → T3 deep analysis with triangulation stability). 100-point SM composite scoring with 10 physics-driven components.
+- **A SQLite database** — `v6/cy_landscape_v6.db` (1.38M polytopes, 50,232 scored) with programmatic access via `v6/db_utils_v6.py`
+- **Local KS index** — Pre-indexed χ=−6 polytope files for fast offline scanning (`--local-ks` flag)
 - **Documented findings** — Champion cluster analysis, pipeline methodology, negative results ([FINDINGS.md](FINDINGS.md))
 - **Documented pitfalls** — 9+ CYTools API bugs discovered and worked around ([MATH_SPEC.md](MATH_SPEC.md))
 
@@ -17,62 +18,65 @@ The Standard Model has three generations of quarks and leptons. In string compac
 
 There are **104 distinct Hodge number pairs** with χ = −6 in the KS database. The full χ = −6 landscape contains **6,122,441 polytopes** spanning h¹¹ = 13–119 (dying to zero above h¹¹ = 119). The bulk (94.7%) sits at h¹¹ = 13–40 where we focus our scan.
 
-| h¹¹ range | KS total | Scanned | Coverage | Top score | Notes |
-|-----------|----------|---------|----------|-----------|-------|
-| 13–16 | 5,758 | 5,758 | **100%** | 68 | Exhaustive (v5.2) |
-| **17–19** | **327,833** | **327,833** | **100%** | **88** | **Exhaustive (v5.2) — #2: h19/P438** |
-| 20–26 | 2,736,315 | 7,000 | 0.3% | 81 | 257K–447K per level |
-| **27** | **393,842** | **50,000** | **12.7%** | **86** | **Fibration-rich zone** |
-| **28** | **354,495** | **50,000** | **14.1%** | **87** | h28 stability cluster |
-| 29 | 322,535 | 1,000 | 0.3% | 76 | |
-| **30** | **276,639** | **50,000** | **18.1%** | **89** | **#1: h30/P289** |
-| 31–40 | 1,377,373 | 10,000 | 0.7% | 80 | Barren above h37 |
-| 41–119 | 327,131 | 0 | 0% | — | Tail: 49K at h41 → 0 by h120 |
-| **Grand total** | **6,122,441** | **501,591** | **8.2%** | **89** | |
+| h¹¹ range | KS total | Scanned | Coverage | Scored | Top score | Notes |
+|-----------|----------|---------|----------|--------|-----------|-------|
+| 13–16 | 5,758 | 5,758 | **100%** | 215 | 62 | Exhaustive |
+| **17–19** | **327,833** | **327,833** | **100%** | **9,729** | **81** | **Exhaustive — h19/P438 (81)** |
+| **20–21** | **257,148** | **100,000** | **38.9%** | **11,657** | **80** | High T0 pass rate (~26%) |
+| **22–24** | **982,565** | **150,000** | **15.3%** | **18,410** | **87** | **Sweet spot — 3 of top 6** |
+| **25–26** | **850,073** | **100,000** | **11.8%** | **6,868** | **89** | **#1: h26/P11670** |
+| 27–28 | 1,078,976 | 100,000 | 9.3% | 2,636 | 84 | h27 favorable cluster |
+| 29–30 | 832,645 | 100,000 | 12.0% | 471 | 80 | Diminishing returns |
+| 31–40 | 1,360,792 | 500,000 | 36.7% | 246 | 75 | EFF_MAX=22 wall |
+| 41–119 | 327,131 | 0 | 0% | — | — | Tail: 49K at h41 → 0 by h120 |
+| **Grand total** | **6,122,441** | **1,383,592** | **23.9%** | **50,232** | **89** | |
 
-**Database**: `v4/cy_landscape_v4.db` — 502K polytopes, 4,588 T2-scored. h27–h30 dominates (8 of top 15). h19/P438 (88) is #2. See [CATALOGUE.md](CATALOGUE.md) for full per-h¹¹ coverage.
+**Database**: `v6/cy_landscape_v6.db` — 1.38M polytopes, 50,232 T2-scored. The h22–h26 sweet spot dominates the leaderboard (7 of top 10). See [FINDINGS.md](FINDINGS.md) for full per-h¹¹ coverage.
 
 > **Note on scale**: The KS database has 473.8M reflexive 4-polytopes total; filtering to χ = −6 (3 generations) yields 6.12M. Each polytope admits many triangulations (→ distinct CY threefolds), each CY admits many vector bundles, and each (CY, bundle) pair admits many flux configurations. The famous "10^500 string vacua" estimate counts the product of all these choices — we work at the polytope level, the top of this hierarchy.
 
 ## Current Results
 
-### Screening Funnel (v5.2)
+### Screening Funnel (v6)
 
 ```
-501,591 polytopes (h13–h40, v5.2 pipeline)
+1,383,592 polytopes (h13–h40, v6 pipeline)
   └─ h13–h19: 333,591 exhaustive (100% coverage)
-  └─ h20–h40: 168,000 (1K–50K per level)
-      └─ 4,588 T2-scored ────────────────── 0.9%
-          └─ 22 deep-analyzed (T3) ───────── 20 FRSTs each
-              ├─ Tier A (paper-ready): 3 (h28 stability cluster)
-              └─ Tier C (score+fibrations): 7 (h27+h30, all SM+GUT)
+  └─ h20–h40: 1,050,001 (50K per level + T2 backlog sweep)
+      └─ 50,232 T2-scored ──────────────── 3.6%
+          └─ 26 scoring ≥80 ──────────────── 0.05%
+              └─ 4 scoring ≥85 ───────────── elite tier
 ```
 
-### Top Candidates (v5.2, 100-point SM composite)
+### Top Candidates (v6, 100-point SM composite)
 
-| Rank | ID | Score | Hierarchy | Clean | c₂ stab | SM+GUT | Tier |
-|------|----|-------|-----------|-------|---------|--------|------|
-| 1 | **h30/P289** | **89** | 34,318 | 12 | 0% | ✅ su(3)×su(17) | C |
-| 2 | **h19/P438** | **88** | — | 56 | — | — | — |
-| 3 | h28/P874 | **87** | 1,150 | 14 | 55% | — | A |
-| 4 | h28/P186 | **87** | 1,147 | 14 | 35% | — | A |
-| 5 | **h27/P22835** | **86** | 1,046 | 16 | 0% | ✅ 6 fibrations | C |
-| 6 | **h18/P315** | **85** | — | 40 | — | — | — |
+| Rank | ID | Score | Yukawa hier | Clean | Vol hier | Gap | Fibers |
+|------|----|-------|-------------|-------|----------|-----|--------|
+| 1 | **h26/P11670** | **89** | 2,389 | 22 | 18,493 | 4 | 4 K3 + 4 ell |
+| 2 | **h23/P37201** | **87** | 1,598 | 26 | 2,303 | 2 | 3 K3 + 1 ell |
+| 3 | h24/P45873 | **85** | 1,221 | 22 | 1,432 | 3 | 3 K3 + 1 ell |
+| 4 | h25/P46481 | **85** | 4,893 | 22 | 3,024 | 4 | 3 K3 + 3 ell |
+| 5 | h27/P43 | **84** | 621 | 24 | 71,546 | 0 | — |
+| 6 | h24/P868 | **83** | 1,219 | 24 | 6,373 | 2 | 2 K3 + 1 ell |
+| 7 | h27/P240 | **82** | 576 | 24 | 21,343 | 0 | — |
+| 8 | h27/P239 | **82** | 531 | 26 | 19,527 | 1 | — |
+| 9 | h25/P7867 | **81** | 512 | 18 | 2,187 | 3 | — |
+| 10 | h19/P438 | **81** | 49,282 | 56 | 602 | 3 | 6 K3 + 7 ell |
 
-**Tier A** = high score + stability. **Tier C** = high score + SM/GUT fibrations. h19/P438 (88) and h18/P315 (85) are new from exhaustive low-h¹¹ scans — not yet T3-analyzed. See [FINDINGS.md](FINDINGS.md) for the full top-15 and T3 analysis.
+The h22–h26 sweet spot dominates: 7 of top 10, including the #1 champion. h27 contributes a distinct "favorable cluster" (gap=0, extreme volume hierarchies). h19/P438 has the highest raw Yukawa hierarchy (49,282) but falls short of the 50K threshold for maximum scoring. See [FINDINGS.md](FINDINGS.md) for the full top-20.
 
 ## Pipeline Architecture
 
-### v4/pipeline_v4.py — Tiered Scanner (v5.2 scoring)
+### v6/pipeline_v6.py — Tiered Scanner (v6 scoring)
 
 ```
-T0: Geometry + EFF_MAX filter (h11_eff ≤ 22)
-T1: Full divisor analysis, bundle census, LVS check
-T2: 100-point SM composite scoring (12 components)
-T3: Deep analysis — 50 random FRSTs, c₂/κ stability
+T0: Geometry + EFF_MAX filter (h11_eff ≤ 22, gap ≥ 2)
+T1: Bundle screening with adaptive depth + wall-time limit (120s)
+T2: 100-point SM composite scoring (10 components)
+T3: Deep analysis — FRSTs, c₂/κ stability, fibration classification
 ```
 
-Scoring components: yukawa_hierarchy (27), yukawa_rank (15), clean_bundles (10), lvs_quality (10), lvs_binary (5), vol_hierarchy (5), mori_blowdown (5), tadpole_ok (5), d3_diversity (5), clean_depth (5), clean_rate (5), rank_sweet_spot (3).
+Scoring components: yukawa_hierarchy (30), yukawa_rank (15), n_clean (10), volume_hierarchy (10), gap (10), swiss_cheese (5), fibrations (5), del_pezzo (5), rigid_divisors (5), d3_diversity (5).
 
 | Stage | Description | Status |
 |-------|-------------|--------|
@@ -120,57 +124,58 @@ python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# Scan a range of h11 values (v5.2 pipeline)
-python v4/pipeline_v4.py --scan --h11 28 --limit 1000 -w 12
+# Scan 50K polytopes at h11=24 using local KS index (fast)
+python v6/pipeline_v6.py --scan --h11 24 --limit 50000 --local-ks -w 14
 
-# Deep coverage scan (50K polytopes at one h11)
-python v4/pipeline_v4.py --scan --h11 28 --limit 50000 -w 12
+# Scan the NEXT 50K (polytopes 50K-100K) using --offset
+python v6/pipeline_v6.py --scan --h11 24 --offset 50000 --limit 50000 --local-ks -w 14
 
-# Deep analysis: top N candidates, 50 random FRSTs each
-python v4/pipeline_v4.py --deep --top 20
+# Scan a range of h11 values
+python v6/pipeline_v6.py --scan --h11 20 26 --limit 50000 --local-ks -w 14
 
-# Rescore all existing T2 records (after scoring formula changes)
-python v4/pipeline_v4.py --rescore
+# Clear T2 backlog (score all T1-passed polytopes)
+python v6/pipeline_v6.py --scan --h11 24 --resume --top 99999 --local-ks -w 14
 
-# Query champions
-python v4/review_champions.py
+# Deep analysis: top N candidates with FRST stability
+python v6/pipeline_v6.py --deep --top 20
+
+# Rescore all existing T2 records (after scoring changes)
+python v6/pipeline_v6.py --rescore
 ```
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contributions right now:
 
-1. **Stage 5: Higher-rank bundles on h28 champions** — find a stable rank-4/5 bundle with χ = 3
-2. **Triangulation stability** — expand FRST sampling beyond 50 for Tier A candidates
-3. **F-theory on h28** — Kodaira fiber classification on new champions
-4. **Low-h¹¹ rescore** — ingest legacy h13–h19 polytopes into v4 DB and score under v5.2
-5. **Bug fixes** — cohomology computation alternatives to cohomCalg
+1. **Deep scan h24/h26** — highest ROI levels (447K/489K total, only 11%/10% covered), richest score density
+2. **Higher-rank bundles on top 10** — find a stable rank-4/5 bundle with χ = 3 on h26/P11670 or h23/P37201
+3. **Triangulation stability** — FRST sampling on the new champion cluster
+4. **Fibration + yukawa_rank** — run `--fiber` pass on top 25 (many have rank=0 = not computed)
+5. **Push h19/P438 over 50K** — retriangulation to nudge yukawa_hierarchy from 49,282 past 50K threshold
 
 ## File Structure
 
 ```
-# Active pipeline (v5.2 scoring, v4 DB schema)
-v4/pipeline_v4.py    — Main pipeline: --scan, --deep, --rescore
-v4/cy_compute_v4.py  — Computational core (Koszul, Yukawa, LVS, etc.)
-v4/db_utils_v4.py    — SQLite database layer (upsert, query, rescore)
-v4/review_champions.py — Query and display top candidates
-v4/cy_landscape_v4.db — Active database (70,000 polytopes, 1,787 scored)
+# Active pipeline (v6)
+v6/pipeline_v6.py    — Main pipeline: --scan, --deep, --rescore, --fiber
+v6/cy_compute_v6.py  — Computational core (Koszul, Yukawa, Swiss cheese, etc.)
+v6/db_utils_v6.py    — SQLite database layer (upsert, query, rescore)
+v6/cy_landscape_v6.db — Active database (1.38M polytopes, 50K scored)
+v6/SPEC.md           — v6 scoring specification
+v6/CHANGELOG.md      — v6 change log
 
-# v5 scoring engine (imported by v4)
-v5/pipeline_v5.py    — v5 scoring formulas (used by v4/pipeline_v4.py)
-v5/cy_compute_v5.py  — Graded mori, rank_sweet_spot, tri_stability
-v5/db_utils_v5.py    — v4 schema + tri columns (auto-migrated)
+# KS index (local polytope files for --local-ks)
+ks_index.py          — Indexer: extracts χ=−6 polytopes from raw KS files
+ks_raw/chi6/         — Pre-indexed h11_NNN.txt files (one per h¹¹ level)
 
 # Documentation
 FRAMEWORK.md         — 7-stage theoretical pipeline map
 MATH_SPEC.md         — Formulas, CYTools API contracts, bugs
-CATALOGUE.md         — Coverage, funnel, leaderboard, ruled-out list
 FINDINGS.md          — Detailed results and champion cluster analysis
 PROCESS_LOG.md       — Chronological investigation diary
-VERSIONS.md          — Pipeline version lineage (v1→v5.2)
 BACKLOG.md           — Prioritized task list + sprint tracking
 results/             — CSV + log outputs from all runs
-archive/             — Audit trail (v2, v3, early scripts, superseded docs)
+archive/             — Audit trail (v2–v5, early scripts, superseded docs)
 ```
 
 ## References
