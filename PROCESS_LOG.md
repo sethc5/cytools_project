@@ -5,6 +5,93 @@
 
 ---
 
+## 2026-03-01 — T2 Backlog Sweep + New Champion (h26/P11670 = 89)
+
+**Work done**: Identified 19,672 polytopes sitting at tier_reached='T1' with
+status='pass' that had never been T2-scored — left behind by previous scans
+that hit the default 500-polytope T2 cap. Ran `--scan --resume --top 99999`
+for all 15 h¹¹ levels (h20–h38) on Hetzner. Total runtime: ~6.5 hours
+(16:46 CST Feb 28 → 23:22 CST Feb 28 / 05:22 UTC Mar 1).
+
+### T2 Backlog Results by h¹¹
+
+| h¹¹ | T2 scored | Top score | Wall time |
+|------|-----------|-----------|-----------|
+| 20   | 4,325     | 75        | 70 min    |
+| 21   | 5,529     | 80        | 123 min   |
+| 22   | 3,121     | 81        | 82 min    |
+| 23   | 5,911     | 87        | ~45 min   |
+| 24   | 5,959     | 85        | ~40 min   |
+| 25   | 3,210     | 81        | ~25 min   |
+| 26   | 1,657     | **89**    | ~15 min   |
+| 27+  | 575       | 80        | ~10 min   |
+
+### New Champion: h26/P11670 (score 89)
+
+**h26/P11670** is the new overall champion at score **89**, displacing
+h25/P46481 (85). Key properties:
+- yukawa_hierarchy = 2,390 (bin: ≥1K → 22/30 pts)
+- n_clean = 22 (22 clean bundles)
+- yukawa_rank = 17
+- gap = 4, h11_eff = 22
+- volume_hierarchy = 18,494
+
+**h23/P37201** came in 2nd at **87** — also new from this sweep:
+- yukawa_hierarchy = 1,599, n_clean = 26, yukawa_rank = 13
+- gap = 2, h11_eff = 21, volume_hierarchy = 2,303
+
+### Impact
+
+- **New #1**: h26/P11670 at 89 (was h25/P46481 at 85)
+- **+30,287 newly scored polytopes** (19,870 → 50,232)
+- **7 new entries** in top 15 leaderboard
+- **h24** leads in scored population: 7,167 scored polytopes, 3 entries in top 15
+- T2 backlog was #1 ROI opportunity — confirmed by massive yield and new champion
+- h31+ contributed almost nothing (EFF_MAX=22 wall)
+
+### DB Stats After Sweep
+
+1,383,592 total polytopes. 50,232 scored. Max score = 89.
+h13–h19: 100% scanned. h20–h40: 50K each. T2 backlog: cleared.
+
+---
+
+## 2026-02-28 — h31–h40 50K Campaign + EFF_MAX Wall Analysis
+
+**Work done**: Ran 50K scans for h31–h40 on Hetzner (14:31–15:39 CST, ~1h 10m).
+Very fast completion because EFF_MAX=22 wall means almost nothing passes T0
+at these h¹¹ levels (need gap ≥ h¹¹ − 22, which is 9+ for h31+).
+
+### Batch Results (h31–h40 at 50K)
+
+| h¹¹ | T0 pass | Scored | Top score |
+|------|---------|--------|-----------|
+| 31   | 20      | —      | 68        |
+| 32   | 15      | —      | 72        |
+| 33   | 8       | —      | 73        |
+| 34   | 6       | —      | 75        |
+| 35   | 3       | —      | 64        |
+| 36   | 2       | —      | 67        |
+| 37   | 0       | —      | —         |
+| 38   | 1       | —      | 66        |
+| 39   | 1       | —      | 59        |
+| 40   | 0       | —      | —         |
+
+### EFF_MAX=22 Wall
+
+At h¹¹=N, T0 requires gap ≥ N−22. For h31 that's gap≥9 — deep in the
+exponential tail. By h37/h40, zero polytopes pass out of 50K sampled.
+These h¹¹ levels are effectively exhausted at 50K coverage.
+
+### Strategic ROI Analysis
+
+After h31–h40 completion, analyzed full DB for next best action:
+1. **T2 backlog sweep** (19,672 polytopes) — highest ROI, cleared next
+2. h25/h27 to 200K — moderate ROI
+3. h20–h21 to 200K — high T0 pass rate, good yield expected
+
+---
+
 ## 2026-02-28 — h20–h26 50K Campaign + New Champion (h25/P46481 = 85)
 
 **Work done**: Ran 50K scans for all 7 h¹¹ levels from h20 to h26 on Hetzner
