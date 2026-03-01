@@ -5,6 +5,51 @@
 
 ---
 
+## 2026-03-01 — 100K Batch Campaign (h20–h26 to 100K, h22–h25 to 150K)
+
+**Work done**: Added `--offset` flag to pipeline_v6.py to enable scanning
+deeper into the KS ordering without re-processing. Ran two-round batch:
+- **Round 1**: h20–h26, each from 50K→100K (offset=50000, limit=50000)
+- **Round 2**: h22–h25, each from 100K→150K (offset=100000, limit=50000)
+
+Total runtime: ~3.5 hours (06:50–10:12 UTC Mar 1). 14 workers.
+
+### Pipeline Enhancement: --offset
+
+Added `--offset N` CLI flag to skip the first N polytopes in the KS index.
+Changes: `_load_polytopes()` fetches offset+limit then slices, `run_scan()`
+uses offset+idx for absolute poly_idx so DB stores the correct position,
+`_run_t2_parallel()` converts back to local index for list access.
+Smoke-tested with h20 offset=50000 limit=100 — correct DB indices (50000+).
+
+### Batch Results
+
+| h¹¹ | Coverage | New scored | New ≥75 | Top score |
+|------|----------|------------|---------|-----------|
+| 20   | 100K     | +1,106     | 0       | 78        |
+| 21   | 100K     | +1,895     | 0       | 80        |
+| 22   | 150K     | +1,177     | 0       | 81        |
+| 23   | 150K     | +1,591     | 0       | 87        |
+| 24   | 150K     | +2,006     | 2       | 85        |
+| 25   | 150K     | +1,188     | 2       | 85        |
+| 26   | 100K     | +503       | 1       | 89        |
+
+### Key finding: diminishing returns at deeper KS offsets
+
+Only 5 polytopes scored ≥75 from the entire 550K new batch (best: 77).
+The top candidates cluster heavily in the first 50K of the KS ordering —
+later polytopes pass T0 at much lower rates (h25 Round 2: 1/50K pass vs
+910/50K in the first batch). This is expected: the KS file ordering
+correlates with combinatorial simplicity, and simpler polytopes have
+larger gaps and higher effective h¹¹.
+
+### DB Stats After Batch
+
+1,933,829 total polytopes. 59,826 scored. Max score = 89 (unchanged).
+Leaderboard: no changes — all top 25 entries from the first 50K.
+
+---
+
 ## 2026-03-01 — T2 Backlog Sweep + New Champion (h26/P11670 = 89)
 
 **Work done**: Identified 19,672 polytopes sitting at tier_reached='T1' with

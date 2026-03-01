@@ -4,12 +4,12 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are **6.12 million** such polytopes in the Kreuzer-Skarke database of 473 million reflexive polytopes (spanning h¹¹ = 13–119). This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v6 · **1.38M polytopes** scanned (23.9% of 6.12M KS χ=−6 landscape) · **50,232 T2-scored** with 100-point SM composite (10 components) · Champion: **h26/P11670 (score 89)**, #2: h23/P37201 (87) · h13–h19 exhaustive · h20–h40 at 50K+ · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v6 · **1.93M polytopes** scanned (33.4% of 5.8M active h13–h40 landscape) · **59,826 T2-scored** with 100-point SM composite (10 components) · Champion: **h26/P11670 (score 89)**, #2: h23/P37201 (87) · h13–h19 exhaustive · h20–h26 at 100–150K · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
 - **A 7-stage screening pipeline** — `v6/pipeline_v6.py` scans polytopes through tiered geometric checks (T0 → T1 → T2 → T3 deep analysis with triangulation stability). 100-point SM composite scoring with 10 physics-driven components.
-- **A SQLite database** — `v6/cy_landscape_v6.db` (1.38M polytopes, 50,232 scored) with programmatic access via `v6/db_utils_v6.py`
+- **A SQLite database** — `v6/cy_landscape_v6.db` (1.93M polytopes, 59,826 scored) with programmatic access via `v6/db_utils_v6.py`
 - **Local KS index** — Pre-indexed χ=−6 polytope files for fast offline scanning (`--local-ks` flag)
 - **Documented findings** — Champion cluster analysis, pipeline methodology, negative results ([FINDINGS.md](FINDINGS.md))
 - **Documented pitfalls** — 9+ CYTools API bugs discovered and worked around ([MATH_SPEC.md](MATH_SPEC.md))
@@ -22,16 +22,16 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 |-----------|----------|---------|----------|--------|-----------|-------|
 | 13–16 | 5,758 | 5,758 | **100%** | 215 | 62 | Exhaustive |
 | **17–19** | **327,833** | **327,833** | **100%** | **9,729** | **81** | **Exhaustive — h19/P438 (81)** |
-| **20–21** | **257,148** | **100,000** | **38.9%** | **11,657** | **80** | High T0 pass rate (~26%) |
-| **22–24** | **982,565** | **150,000** | **15.3%** | **18,410** | **87** | **Sweet spot — 3 of top 6** |
-| **25–26** | **850,073** | **100,000** | **11.8%** | **6,868** | **89** | **#1: h26/P11670** |
-| 27–28 | 1,078,976 | 100,000 | 9.3% | 2,636 | 84 | h27 favorable cluster |
-| 29–30 | 832,645 | 100,000 | 12.0% | 471 | 80 | Diminishing returns |
-| 31–40 | 1,360,792 | 500,000 | 36.7% | 246 | 75 | EFF_MAX=22 wall |
+| **20–21** | **257,148** | **200,000** | **77.7%** | **14,658** | **80** | High T0 pass rate (~26%) |
+| **22–24** | **982,565** | **450,000** | **45.8%** | **23,184** | **87** | **Sweet spot — 3 of top 6** |
+| **25–26** | **850,073** | **250,109** | **29.4%** | **8,559** | **89** | **#1: h26/P11670** |
+| 27–28 | 1,078,976 | 100,125 | 9.3% | 2,761 | 84 | h27 favorable cluster |
+| 29–30 | 832,645 | 100,003 | 12.0% | 474 | 80 | Diminishing returns |
+| 31–40 | 1,360,792 | 500,000 | 36.7% | 245 | 75 | EFF_MAX=22 wall |
 | 41–119 | 327,131 | 0 | 0% | — | — | Tail: 49K at h41 → 0 by h120 |
-| **Grand total** | **6,122,441** | **1,383,592** | **23.9%** | **50,232** | **89** | |
+| **Grand total** | **6,122,441** | **1,933,829** | **33.4%** | **59,826** | **89** | |
 
-**Database**: `v6/cy_landscape_v6.db` — 1.38M polytopes, 50,232 T2-scored. The h22–h26 sweet spot dominates the leaderboard (7 of top 10). See [FINDINGS.md](FINDINGS.md) for full per-h¹¹ coverage.
+**Database**: `v6/cy_landscape_v6.db` — 1.93M polytopes, 59,826 T2-scored. The h22–h26 sweet spot dominates the leaderboard (7 of top 10). Diminishing returns beyond first 50K per h¹¹ level — top candidates cluster early in KS ordering. See [FINDINGS.md](FINDINGS.md) for full per-h¹¹ coverage.
 
 > **Note on scale**: The KS database has 473.8M reflexive 4-polytopes total; filtering to χ = −6 (3 generations) yields 6.12M. Each polytope admits many triangulations (→ distinct CY threefolds), each CY admits many vector bundles, and each (CY, bundle) pair admits many flux configurations. The famous "10^500 string vacua" estimate counts the product of all these choices — we work at the polytope level, the top of this hierarchy.
 
@@ -40,11 +40,11 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 ### Screening Funnel (v6)
 
 ```
-1,383,592 polytopes (h13–h40, v6 pipeline)
+1,933,829 polytopes (h13–h40, v6 pipeline)
   └─ h13–h19: 333,591 exhaustive (100% coverage)
-  └─ h20–h40: 1,050,001 (50K per level + T2 backlog sweep)
-      └─ 50,232 T2-scored ──────────────── 3.6%
-          └─ 26 scoring ≥80 ──────────────── 0.05%
+  └─ h20–h40: 1,600,238 (100–150K per level via --offset batches)
+      └─ 59,826 T2-scored ──────────────── 3.1%
+          └─ 26 scoring ≥80 ──────────────── 0.04%
               └─ 4 scoring ≥85 ───────────── elite tier
 ```
 
@@ -147,11 +147,13 @@ python v6/pipeline_v6.py --rescore
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contributions right now:
 
-1. **Deep scan h24/h26** — highest ROI levels (447K/489K total, only 11%/10% covered), richest score density
-2. **Higher-rank bundles on top 10** — find a stable rank-4/5 bundle with χ = 3 on h26/P11670 or h23/P37201
-3. **Triangulation stability** — FRST sampling on the new champion cluster
-4. **Fibration + yukawa_rank** — run `--fiber` pass on top 25 (many have rank=0 = not computed)
-5. **Push h19/P438 over 50K** — retriangulation to nudge yukawa_hierarchy from 49,282 past 50K threshold
+1. **Higher-rank bundles on top 10** — find a stable rank-4/5 bundle with χ = 3 on h26/P11670 or h23/P37201
+2. **Triangulation stability** — FRST sampling on the new champion cluster
+3. **Fibration + yukawa_rank** — run `--fiber` pass on top 25 (many have rank=0 = not computed)
+4. **Push h19/P438 over 50K** — retriangulation to nudge yukawa_hierarchy from 49,282 past 50K threshold
+5. **Extend h27–h30 coverage** — still at 50K each, only 9–12% coverage; h27 has a promising favorable cluster
+
+> **Note**: Deeper KS scanning (offset >50K) shows diminishing returns — top candidates cluster in the first 50K of KS ordering per h¹¹ level. 550K new polytopes in the 100K batch yielded only 5 scoring ≥75 (best: 77). Depth is less productive than breadth at this stage.
 
 ## File Structure
 
@@ -160,7 +162,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contributions right no
 v6/pipeline_v6.py    — Main pipeline: --scan, --deep, --rescore, --fiber
 v6/cy_compute_v6.py  — Computational core (Koszul, Yukawa, Swiss cheese, etc.)
 v6/db_utils_v6.py    — SQLite database layer (upsert, query, rescore)
-v6/cy_landscape_v6.db — Active database (1.38M polytopes, 50K scored)
+v6/cy_landscape_v6.db — Active database (1.93M polytopes, 60K scored)
 v6/SPEC.md           — v6 scoring specification
 v6/CHANGELOG.md      — v6 change log
 

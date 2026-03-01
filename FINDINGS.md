@@ -8,9 +8,9 @@ Standard Model–like compactifications. For the quick summary, see
 
 ## Executive Summary
 
-**Database**: `v6/cy_landscape_v6.db` — 1.38M polytopes (h13–h40), **50,232** scored.
-**Pipeline**: v6 (post-rescue, `--local-ks`). **Scoring**: 100-point SM composite (10 components).
-**Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h19 exhaustively scanned (100%). h20–h40 at 50K coverage.
+**Database**: `v6/cy_landscape_v6.db` — 1.93M polytopes (h13–h40), **59,826** scored.
+**Pipeline**: v6 (post-rescue, `--local-ks`, `--offset`). **Scoring**: 100-point SM composite (10 components).
+**Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h19 exhaustively scanned (100%). h20–h26 at 100K–150K. h27–h40 at 50K.
 
 ### Current Champions (v6 scoring)
 
@@ -46,15 +46,15 @@ reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivale
 
 - **6,122,441** χ=−6 polytopes exist in the full KS database (h¹¹ = 13–119)
 - h13–h40 contains **5,795,310** (94.7%); h41–119 adds 327,131 (tapers to zero by h120)
-- **1,383,592** polytopes scanned = **23.9%** of the active landscape
+- **1,933,829** polytopes scanned = **33.4%** of the active landscape
 - **h13–h19 exhaustively scanned** (100% of 333,591 polytopes) under v5.2
-- **h20–h40 at 50K** coverage each (h31–h40 effectively exhausted by EFF_MAX=22)
-- **50,232** scored with 100-point SM composite (up from 19,870 after T2 backlog sweep)
-- **89** = highest v6 score achieved (**h26/P11670** — new champion from T2 backlog sweep)
-- T2 backlog sweep scored **30,287** previously-skipped polytopes — massive yield
-- **h24** leads in scored population: 7,167 scored polytopes, 3 entries in top 15
+- **h20–h21 at 100K**, **h22–h25 at 150K**, **h26 at 100K**, h27–h40 at 50K
+- **59,826** scored with 100-point SM composite
+- **89** = highest v6 score achieved (**h26/P11670** — champion since T2 backlog sweep)
+- 100K batch (h20–h26 to 100K + h22–h25 to 150K) added 9,594 scored but **no leaderboard change** — top candidates cluster in first 50K of KS ordering
+- **h24** leads in scored population: 9,173 scored polytopes, 3 entries in top 15
 - **55%** = best c₂ triangulation stability among top candidates (h28/P874, h28/P187)
-- The peak is h24 with **447K polytopes** — 12.6% scanned
+- The peak is h24 with **447K polytopes** — 33.5% scanned (150K of 447K)
 - **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
 - h27 50K scan produced 2 new top-5 entries, h27 cluster dominates top-5
 - P289 drops from #1 (v4=89) to #12 (v6=80) — dead components removed by v6 audit
