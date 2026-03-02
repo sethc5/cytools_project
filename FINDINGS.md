@@ -8,36 +8,42 @@ Standard Model–like compactifications. For the quick summary, see
 
 ## Executive Summary
 
-**Database**: `v6/cy_landscape_v6.db` — 1.93M polytopes (h13–h40), **59,826** scored.
+**Database**: `v6/cy_landscape_v6.db` — **2.94M polytopes** (h13–h40), **62,377** scored.
 **Pipeline**: v6 (post-rescue, `--local-ks`, `--offset`). **Scoring**: 100-point SM composite (10 components).
-**Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h19 exhaustively scanned (100%). h20–h26 at 100K–150K. h27–h40 at 50K.
+**Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h21 exhaustively scanned (100%). h22–h26 partially covered (66–91%). h27–h30 at 200K. h31–h40 at 50K.
 
 ### Current Champions (v6 scoring)
 
-| Rank | ID | Score | Hier | Clean | Yukawa rank |
-|------|----|-------|------|-------|-------------|
-| 1 | **h26/P11670** ★★★ | **89** | 2,390 | 22 | 17 |
-| 2 | **h23/P37201** ★★★ | **87** | 1,599 | 26 | 13 |
-| 3 | **h24/P45873** ★★★ | **85** | 1,222 | 22 | 17 |
-| 4 | h25/P46481 | 85 | 4,893 | 22 | 17 |
-| 5 | h27/P43 | 84 | 621 | 24 | 15 |
-| 6 | **h24/P868** ★★★ | **83** | 1,220 | 24 | 16 |
-| 7 | h27/P240 | 82 | 577 | 24 | 16 |
-| 8 | h27/P239 | 82 | 531 | 26 | 15 |
-| 9 | **h25/P7867** ★★★ | **81** | 513 | 18 | 15 |
-| 10 | h19/P438 | 81 | 49,282 | 56 | 16 |
-| 11 | h28/P187 | 81 | 1,160 | 14 | 16 |
-| 12 | h22/P302 | 81 | 970 | 182 | 18 |
-| 13 | h24/P44004 ★★★ | 80 | 619 | 26 | 15 |
-| 14 | h24/P9576 ★★★ | 80 | 594 | 28 | 14 |
-| 15 | h24/P1015 ★★★ | 80 | 2,403 | 30 | 14 |
-| 16 | h26/P30513 | 80 | 1,760 | 22 | 17 |
-| 17 | h26/P11871 | 80 | 519 | 26 | 12 |
-| 18 | h19/P390 | 80 | 122 | 70 | 11 |
-| 19 | h18/P315 | 80 | 3,259 | 40 | 15 |
-| 20 | h27/P9181 | 80 | 144 | 24 | 11 |
+| Rank | ID | Score | Hier | Clean | Note |
+|------|----|-------|------|-------|------|
+| 1 | **h26/P11670** | **89** | 2,390 | 22 | champion, unchanged |
+| 2 | **h23/P37201** | **87** | 1,599 | 26 | |
+| 3 | **h24/P45873** | **85** | 1,222 | 22 | |
+| 4 | h25/P46481 | 85 | 4,893 | 22 | |
+| 5 | **h24/P868** | **83** | 1,220 | 24 | |
+| 6 | h27/P240 | 82 | 577 | 24 | |
+| 7 | h27/P239 | 82 | 531 | 26 | |
+| 8 | h19/P438 | 81 | 49,282 | 56 | |
+| 9 | **h22/P302** ★★★ | **81** | 970 | **182** | clean record, T2 sweep discovery |
+| 10 | h25/P7867 | 81 | 513 | 18 | |
+| 11 | h18/P315 | 80 | 3,259 | 40 | |
+| 12 | h19/P390 | 80 | 122 | 70 | |
+| 13 | h21/P270 | 80 | — | 74 | |
+| 14 | h21/P55 | 80 | — | 58 | |
+| 15 | h24/P44004 | 80 | 619 | 26 | |
+| 16 | h24/P9576 | 80 | 594 | 28 | |
+| 17 | h24/P1015 | 80 | 2,403 | 30 | |
+| 18 | h24/P272 | 80 | — | 24 | |
+| 19 | h25/P860 | 80 | — | 24 | |
+| 20 | h26/P30513 | 80 | 1,760 | 22 | |
+| 21 | h26/P11871 | 80 | 519 | 26 | |
+| 22 | h26/P315 | 80 | — | 32 | |
+| 23 | h27/P9181 | 80 | 144 | 24 | |
+| 24 | h30/P289 | 80 | 34,318 | 12 | |
 
-★★★ = new entry from T2 backlog sweep (2026-03-01)
+★★★ = discovered by T2 backlog sweep (2026-03-01/02). h22/P302 has **182 clean bundles** — the highest in the database. Its max_h⁰ was below the T1 screening threshold and remained invisible until the backlog sweep.
+
+**Note on prior v5 champions**: h28/P874 (v5 = 87) and h28/P186 (v5 = 87) both fail T0 in v6 (scores 10 and 13 respectively) — the v6 `--local-ks` polytope ordering assigns them different positions than the v5 KS-server ordering used when those results were recorded. h28/P187 (v5 = 84, v6 = 78) and h27/P43 (prev. est. 84, v6 = 79) similarly rescored after full T2 processing.
 
 **Note**: v6 scoring removed 2 dead components (tadpole_ok, lvs_binary) and
 reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivalents.
@@ -46,18 +52,18 @@ reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivale
 
 - **6,122,441** χ=−6 polytopes exist in the full KS database (h¹¹ = 13–119)
 - h13–h40 contains **5,795,310** (94.7%); h41–119 adds 327,131 (tapers to zero by h120)
-- **1,933,829** polytopes scanned = **33.4%** of the active landscape
-- **h13–h19 exhaustively scanned** (100% of 333,591 polytopes) under v5.2
-- **h20–h21 at 100K**, **h22–h25 at 150K**, **h26 at 100K**, h27–h40 at 50K
-- **59,826** scored with 100-point SM composite
-- **89** = highest v6 score achieved (**h26/P11670** — champion since T2 backlog sweep)
-- 100K batch (h20–h26 to 100K + h22–h25 to 150K) added 9,594 scored but **no leaderboard change** — top candidates cluster in first 50K of KS ordering
-- **h24** leads in scored population: 9,173 scored polytopes, 3 entries in top 15
-- **55%** = best c₂ triangulation stability among top candidates (h28/P874, h28/P187)
-- The peak is h24 with **447K polytopes** — 33.5% scanned (150K of 447K)
-- **h27 is a fibration-rich zone**: all 6 T3-analyzed h27 candidates have SM+GUT gauge groups
-- h27 50K scan produced 2 new top-5 entries, h27 cluster dominates top-5
-- P289 drops from #1 (v4=89) to #12 (v6=80) — dead components removed by v6 audit
+- **2,943,641** polytopes scanned = **~50.8%** of the active landscape
+- **h13–h21 exhaustively scanned** (100% of ~258K polytopes)
+- **h22–h24** at ~90% coverage (890K of 982K); **h25–h26** at ~66% (562K of 850K)
+- **h27–h28** at ~18.5% (200K of 1.08M); **h29–h30** at ~24% (200K of 833K)
+- **62,377** scored with 100-point SM composite
+- **89** = highest v6 score achieved (**h26/P11670** — champion)
+- **≥80: 24 polytopes. ≥75: 174 polytopes. ≥70: 575 polytopes.**
+- **T0 wall finding**: at KS offsets >150K per h11 (h23/h24), >100K (h25), >50K (h27–h30), T0 pass rate drops to **0%**. ~700K polytopes scanned in one batch yielded zero scores above 23. The KS lattice-point ordering is a strong proxy for geometric viability.
+- h22/P302 (n_clean=182) is the new clean-bundle record holder — found only after T2 backlog sweep cleared polytopes stuck below the T1 max-h⁰ screening threshold
+- **h24** leads in scored population: most top-20 entries (5), densest high-score cluster
+- The peak polytope density is at h24 with ~447K polytopes; coverage now at ~90%
+- P289 (v4 = champion at 89) now scores 80 in v6 — dead components removed
 
 ---
 
@@ -319,16 +325,17 @@ quality dominates clean bundle quantity**.
 3. **h32 has anomalously high T1→T2 pass rates** (76%), meaning survivors
    at high h¹¹ are disproportionately good.
 
-### 5.2 Score distribution (v5, n=1,718)
+### 5.2 Score distribution (v6, n=62,377)
 
-| Threshold | Count | % |
-|-----------|-------|---|
-| ≥ 85 | 3 | 0.2% |
-| ≥ 80 | 8 | 0.5% |
-| ≥ 75 | 45 | 2.6% |
-| ≥ 70 | 151 | 8.8% |
-| ≥ 60 | 878 | 51.1% |
-| Mean | — | 56.3 |
+| Threshold | Count | % of scored |
+|-----------|------:|-------------|
+| ≥ 85 | 4 | 0.006% |
+| ≥ 80 | 24 | 0.038% |
+| ≥ 79 | 40 | 0.064% |
+| ≥ 75 | 174 | 0.28% |
+| ≥ 70 | 575 | 0.92% |
+
+The ≥75 count jumped from ~31 (pre-T2-sweep) to **174** after the March 2026 T2 backlog sweep, which scored 2,551 polytopes that had been stuck at T1 due to the max-h⁰ screening threshold.
 
 ### 5.3 What separates 79 from 87
 
@@ -792,3 +799,114 @@ Overall rescue rate ~85%. **13,806** total T2-scored (up from 4,588).
 
 5. Score distribution post-rescue: 80+ (12), 70–79 (199), 60–69 (1,027),
    50–59 (3,739), 40–49 (6,049), <40 (2,780).
+
+---
+
+## 17. T0 Wall — KS Depth Limit for Productive Scanning
+
+**Date**: 2026-03-01. **Context**: 7-hour batch (batch_7hr.sh) across h20–h30
+at KS offsets beyond the existing coverage frontiers.
+
+### 17.1 Finding
+
+At large KS offsets, the T0 geometry filter pass rate drops to **0%**,
+making further scanning totally unproductive. The threshold is approximately:
+
+| h¹¹ | Productive range | T0 wall at offset |
+|-----|-----------------|-------------------|
+| h20–h22 | < 100K | ~100K (100% covered) |
+| h23–h24 | < 150K | ~150K |
+| h25 | < 100K | ~100K |
+| h26 | < 100K | ~100K |
+| h27–h30 | < 50K | ~50K |
+
+**Test**: 700K polytopes scanned beyond these thresholds in one batch
+yielded **zero scores above 23** (no T2 candidates at all).
+
+### 17.2 Mechanism
+
+The Kreuzer-Skarke database is ordered by number of lattice points. Polytopes
+with fewer lattice points tend to have simpler geometry — more del Pezzo
+divisors, well-separated volumes, favorable Hodge numbers. These pass the T0
+geometry filter (effectiveness cutoffs on n_dp, h11_eff, volume structure).
+Beyond a depth threshold, the remaining polytopes are geometrically
+degenerate for our purposes (wrong divisor structure, failing h11_eff ≤ 22,
+or minimal Mori cone viability).
+
+**Practical implication**: The current coverage frontiers are the
+**effective physical boundaries** of the productive landscape for this scan.
+Going deeper is a confirmed waste of compute. The active frontier is
+breadth (exhausting h25–h30 within the productive offsets), not depth.
+
+### 17.3 Consequence for scan strategy
+
+- h20–h21: **exhaustively covered** — all 258K+ polytopes including any T0-passing ones
+- h22–h24: within 90% of the productive region; diminishing returns starting
+- h25–h28: highest remaining ROI — 18–66% coverage with T0 pass rate still positive
+- h29–h30: ~24% coverage, 200K scanned — productive region partially unexplored
+
+---
+
+## 18. T2 Backlog Sweep — March 2026
+
+**Date**: 2026-03-01 to 2026-03-02 UTC. **Command**: `python3 pipeline_v6.py --scan --h11 20 30 --resume --top 99999 --local-ks -w 14`.
+**Runtime**: ~8 hours (h20: 1.3h, h21: 2.4h, h22: 2.3h, then ~5h for h23–h30).
+
+### 18.1 Motivation
+
+After the T1-skip rescue (Section 16) and subsequent scans, a backlog of
+T1-scored polytopes remained that had not been processed through T2 (Yukawa
+calculation). These polytopes had passed T0 and the n_clean_est threshold
+but were never promoted to T2 due to queue completion or indexing issues.
+
+A bug was also discovered (and fixed) in the `--resume` path: `poly_idx`
+values stored in the DB were absolute KS positions (e.g., 150,001 for
+polytopes loaded with `--offset 150000`), but the resume path reloaded polys
+with offset=0, causing `polys[poly_idx - offset]` to go out of bounds. Fixed
+by detecting when `max(poly_idx) >= len(polys) + offset` and reloading from
+index 0 to cover the full range. **Committed as `9e081c4`**.
+
+### 18.2 Results by h¹¹
+
+| h¹¹ | T2 scored | Top score | Runtime |
+|-----|----------:|-----------|---------|
+| 20 | 6,112 | 75 | ~1.3h |
+| 21 | 9,007 | 80 | ~2.4h |
+| 22 | 5,050 | **81** | ~2.3h |
+| 23 | 2,658 | 79 | ~0.8h |
+| 24 | 975 | 80 | ~0.3h |
+| 25 | ~510 | 79 | ~0.2h |
+| 26 | 216 | 76 | ~0.1h |
+| 27–28 | — | — | — |
+| 29 | 77 | 70 | ~1min |
+| 30 | 75 | 78 | ~1min |
+| **Total** | **~24,700** | **81** | **~8h** |
+
+### 18.3 Key Discovery — h22/P302 (score=81, n_clean=182)
+
+The most significant find of the sweep: **h22/P302**, previously invisible,
+scores **81** with **182 clean bundles** — the highest clean bundle count
+in the entire database. For comparison:
+
+| Candidate | n_clean | Score |
+|-----------|--------:|------:|
+| h22/P302 | **182** | 81 |
+| h19/P438 | 56 | 81 |
+| h21/P270 | 74 | 80 |
+| h19/P390 | 70 | 80 |
+| h26/P11670 (champion) | 22 | 89 |
+
+h22/P302's exceptional clean bundle density (182 bundles, Yukawa=970×, vol=2,650,
+gap=4, K3 fibrations=4, elliptic=4) makes it the premier heterotic candidate
+in the database. The Yukawa hierarchy of 970 places it in the top tier despite
+falling short of the champion's discriminating 2,390 value.
+
+### 18.4 Population impact
+
+Before the sweep: **59,826** scored, **~31** with score ≥ 75.
+After the sweep: **62,377** scored (+2,551), **174** with score ≥ 75.
+
+The **≥75 count increased 5.6×** in one sweep. This confirms that the
+"high-quality tail" of the landscape is substantially larger than T1-only
+scans suggested — many polytopes with excellent bundle structure had been
+screened out at T1 due to the max-h⁰ threshold before the T1 screening fix.

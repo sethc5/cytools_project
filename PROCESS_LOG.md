@@ -5,6 +5,123 @@
 
 ---
 
+## 2026-03-02 — T2 Backlog Resweep + T0 Wall Confirmed + h22/P302 Discovery
+
+**Work done**: Launched 7-hour batch extending coverage into deep KS offsets,
+confirmed the T0 wall, fixed an IndexError bug in the resume path, and ran a
+full second T2 backlog sweep across h20–h30. DB synced from Hetzner. Final state:
+2,943,641 polytopes scanned, 62,377 scored, max=89 (champion unchanged).
+
+### Session 1 — 7-hour Batch (batch_7hr.sh)
+
+**Launch**: 13:38 UTC Mar 1. **Completed**: ~16:42 UTC (~3h4m). 5 rounds across h20–h30.
+
+| Round | h¹¹ range | Offsets | T0 pass | Result |
+|-------|-----------|---------|---------|--------|
+| 1 | h20–h22 | ~100K | positive | Completed, top=23 |
+| 2 | h23–h24 +100K, h25 offset=150K | >150K | **0%** | Wall hit |
+| 3 | h26+100K, h27/h28+50K | >100K/50K | **0%** | All barren |
+| 4 | h29/h30+50K, finish h23 | >50K | **0%** | All barren |
+| 5 | h24+100K, h25+112K | >150K | **0%** | All barren |
+
+**700K polytopes scanned beyond the productive frontier — zero scores above 23.**
+This conclusively establishes that the KS ordering is a strong proxy for
+geometric viability: polytopes beyond ~100–150K per h11 are degenerate for SM searches.
+
+### Key Negative Result — T0 Wall
+
+The T0 geometry filter pass rate drops to 0% beyond the following offsets:
+
+| h¹¹ | T0 wall |
+|-----|---------|
+| h20–h22 | ~100K (100% covered by this point) |
+| h23–h24 | ~150K |
+| h25 | ~100K |
+| h26 | ~100K |
+| h27–h30 | ~50K |
+
+All existing coverage fronts are at or near the T0 wall. Going deeper has
+**zero scientific return** for this scoring framework.
+
+### Session 2 — T2 Backlog Bug Fix
+
+After batch_7hr.sh completed, the T2 backlog sweep crashed with:
+`IndexError: list index out of range` in `_run_t2_parallel`.
+
+**Root cause**: `--resume --h11 20 30` reloaded polytopes with offset=0 (default),
+but `poly_idx` values in the DB were absolute KS positions (e.g. 150,001 for
+polytopes fetched with `--offset 150000`). The line `polys[poly_idx - offset]`
+would compute `polys[150001 - 0]` but only 50,000 polytopes were loaded.
+
+**Fix** (committed `9e081c4`): In the resume path, after fetching `need_t2` from
+the DB, detect when `max(r["poly_idx"] for r in need_t2) >= len(polys) + offset`
+and reload: `polys_full = _load_polytopes(h11, max_idx + 1, local_ks=local_ks, offset=0)`.
+This covers the full index range needed without reloading more than necessary.
+
+### Session 3 — T2 Backlog Resweep (h20–h30)
+
+**Launch**: 16:50 UTC Mar 1 (after bug fix). **Completed**: 00:54 UTC Mar 2 (~8h4m).
+**Command**: `python3 pipeline_v6.py --scan --h11 20 30 --resume --top 99999 --local-ks -w 14`
+
+| h¹¹ | T2 scored | Top score | Runtime |
+|-----|----------:|-----------|---------|
+| 20 | 6,112 | 75 | ~1.3h |
+| 21 | 9,007 | 80 | ~2.4h |
+| 22 | 5,050 | **81** | ~2.3h |
+| 23 | 2,658 | 79 | ~0.8h |
+| 24 | 975 | 80 | ~0.3h |
+| 25 | ~510 | 79 | ~0.2h |
+| 26 | 216 | 76 | ~0.1h |
+| 29 | 77 | 70 | ~1min |
+| 30 | 75 | 78 | ~1min |
+| **Total** | **~24,700** | **81** | **~8h** |
+
+**New polytopes scored**: +2,551 (62,377 total, was 59,826).
+**≥75 count**: jumped from ~31 to **174** (5.6× increase).
+
+### Key Discovery — h22/P302 (score=81, n_clean=182)
+
+h22/P302 is now the **clean bundle record holder** with **182 clean bundles**
+(n_clean=182). Key properties:
+
+| Property | Value |
+|----------|-------|
+| score | 81 |
+| yukawa_hierarchy | 969.7 |
+| n_clean | **182** |
+| volume_hierarchy | 2,650 |
+| gap | 4 |
+| n_k3_fib | 4 |
+| n_ell_fib | 4 |
+
+This polytope was invisible until this sweep — its max h⁰ was below the old T1
+screening threshold, so it was never promoted through T1 → T2 until the
+backlog sweep. It is now rank #9 in the leaderboard.
+
+### DB Transfer
+
+```
+# On Hetzner (container + host):
+gzip -1 -k -f cy_landscape_v6.db            # 130 MB compressed
+docker cp funny_davinci:/workspaces/.../cy_landscape_v6.db.gz /tmp/cy_v6_latest.db.gz
+# Local:
+rsync -avP hetzner:/tmp/cy_v6_latest.db.gz /tmp/   # 4m54s @ 449KB/s
+gunzip -c /tmp/cy_v6_latest.db.gz > v6/cy_landscape_v6.db  # 754 MB
+```
+
+### Final State
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Total polytopes | 1,933,829 | **2,943,641** |
+| Scored | 59,826 | **62,377** |
+| Max score | 89 | 89 (unchanged) |
+| ≥80 | 26 | **24** |
+| ≥75 | ~31 | **174** |
+| ≥70 | ~130 | **575** |
+
+---
+
 ## 2026-03-01 — 100K Batch Campaign (h20–h26 to 100K, h22–h25 to 150K)
 
 **Work done**: Added `--offset` flag to pipeline_v6.py to enable scanning

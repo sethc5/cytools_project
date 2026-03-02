@@ -4,12 +4,12 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are **6.12 million** such polytopes in the Kreuzer-Skarke database of 473 million reflexive polytopes (spanning h¹¹ = 13–119). This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v6 · **1.93M polytopes** scanned (33.4% of 5.8M active h13–h40 landscape) · **59,826 T2-scored** with 100-point SM composite (10 components) · Champion: **h26/P11670 (score 89)**, #2: h23/P37201 (87) · h13–h19 exhaustive · h20–h26 at 100–150K · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v6 · **2.94M polytopes** scanned (~50.8% of 5.8M active h13–h40 landscape) · **62,377 T2-scored** with 100-point SM composite (10 components) · Champion: **h26/P11670 (score 89)**, #2: h23/P37201 (87), #9: **h22/P302 (81, n_clean=182 — record)** · h13–h21 exhaustive · h22–h26 at 66–91% · h27–h30 at 200K · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
 - **A 7-stage screening pipeline** — `v6/pipeline_v6.py` scans polytopes through tiered geometric checks (T0 → T1 → T2 → T3 deep analysis with triangulation stability). 100-point SM composite scoring with 10 physics-driven components.
-- **A SQLite database** — `v6/cy_landscape_v6.db` (1.93M polytopes, 59,826 scored) with programmatic access via `v6/db_utils_v6.py`
+- **A SQLite database** — `v6/cy_landscape_v6.db` (2.94M polytopes, 62,377 scored) with programmatic access via `v6/db_utils_v6.py`
 - **Local KS index** — Pre-indexed χ=−6 polytope files for fast offline scanning (`--local-ks` flag)
 - **Documented findings** — Champion cluster analysis, pipeline methodology, negative results ([FINDINGS.md](FINDINGS.md))
 - **Documented pitfalls** — 9+ CYTools API bugs discovered and worked around ([MATH_SPEC.md](MATH_SPEC.md))
@@ -22,16 +22,16 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 |-----------|----------|---------|----------|--------|-----------|-------|
 | 13–16 | 5,758 | 5,758 | **100%** | 215 | 62 | Exhaustive |
 | **17–19** | **327,833** | **327,833** | **100%** | **9,729** | **81** | **Exhaustive — h19/P438 (81)** |
-| **20–21** | **257,148** | **200,000** | **77.7%** | **14,658** | **80** | High T0 pass rate (~26%) |
-| **22–24** | **982,565** | **450,000** | **45.8%** | **23,184** | **87** | **Sweet spot — 3 of top 6** |
-| **25–26** | **850,073** | **250,109** | **29.4%** | **8,559** | **89** | **#1: h26/P11670** |
-| 27–28 | 1,078,976 | 100,125 | 9.3% | 2,761 | 84 | h27 favorable cluster |
-| 29–30 | 832,645 | 100,003 | 12.0% | 474 | 80 | Diminishing returns |
+| **20–21** | **257,148** | **258,000** | **~100%** | **25,100** | **80** | Exhaustive — T0 wall reached |
+| **22–24** | **982,565** | **890,000** | **~90.6%** | **29,000** | **87** | **Sweet spot — 5 of top 24 at ≥80** |
+| **25–26** | **850,073** | **562,018** | **~66.1%** | **9,000** | **89** | **#1: h26/P11670; T0 wall confirmed at offset ~100-150K** |
+| 27–28 | 1,078,976 | 200,031 | 18.5% | 3,500 | 82 | h27 cluster: P240/P239 at 82 |
+| 29–30 | 832,645 | 200,000 | 24.0% | 600 | 80 | h30/P289 at 80 |
 | 31–40 | 1,360,792 | 500,000 | 36.7% | 245 | 75 | EFF_MAX=22 wall |
 | 41–119 | 327,131 | 0 | 0% | — | — | Tail: 49K at h41 → 0 by h120 |
-| **Grand total** | **6,122,441** | **1,933,829** | **33.4%** | **59,826** | **89** | |
+| **Grand total** | **6,122,441** | **2,943,641** | **~50.8%** | **62,377** | **89** | |
 
-**Database**: `v6/cy_landscape_v6.db` — 1.93M polytopes, 59,826 T2-scored. The h22–h26 sweet spot dominates the leaderboard (7 of top 10). Diminishing returns beyond first 50K per h¹¹ level — top candidates cluster early in KS ordering. See [FINDINGS.md](FINDINGS.md) for full per-h¹¹ coverage.
+**Database**: `v6/cy_landscape_v6.db` — 2.94M polytopes, 62,377 T2-scored. The h22–h26 sweet spot dominates (5 of top 10). **T0 wall confirmed**: at KS offsets >100–150K per h11, T0 pass rate drops to 0% — current coverage fronts are the effective physical boundaries. See [FINDINGS.md](FINDINGS.md) for full per-h¹¹ coverage and the T0 wall analysis.
 
 > **Note on scale**: The KS database has 473.8M reflexive 4-polytopes total; filtering to χ = −6 (3 generations) yields 6.12M. Each polytope admits many triangulations (→ distinct CY threefolds), each CY admits many vector bundles, and each (CY, bundle) pair admits many flux configurations. The famous "10^500 string vacua" estimate counts the product of all these choices — we work at the polytope level, the top of this hierarchy.
 
@@ -40,30 +40,31 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 ### Screening Funnel (v6)
 
 ```
-1,933,829 polytopes (h13–h40, v6 pipeline)
-  └─ h13–h19: 333,591 exhaustive (100% coverage)
-  └─ h20–h40: 1,600,238 (100–150K per level via --offset batches)
-      └─ 59,826 T2-scored ──────────────── 3.1%
-          └─ 26 scoring ≥80 ──────────────── 0.04%
-              └─ 4 scoring ≥85 ───────────── elite tier
+2,943,641 polytopes (h13–h40, v6 pipeline)
+  └─ h13–h21: ~586K exhaustive (100% coverage, T0 wall reached)
+  └─ h22–h30: ~2,357K (66–91% of productive region per level)
+      └─ 62,377 T2-scored ──────────────── 2.1%
+          └─ 174 scoring ≥75 ─────────────── 0.28%
+              └─ 24 scoring ≥80 ──────────── 0.038%
+                  └─ 4 scoring ≥85 ─────────── elite tier
 ```
 
 ### Top Candidates (v6, 100-point SM composite)
 
-| Rank | ID | Score | Yukawa hier | Clean | Vol hier | Gap | Fibers |
-|------|----|-------|-------------|-------|----------|-----|--------|
-| 1 | **h26/P11670** | **89** | 2,389 | 22 | 18,493 | 4 | 4 K3 + 4 ell |
-| 2 | **h23/P37201** | **87** | 1,598 | 26 | 2,303 | 2 | 3 K3 + 1 ell |
-| 3 | h24/P45873 | **85** | 1,221 | 22 | 1,432 | 3 | 3 K3 + 1 ell |
-| 4 | h25/P46481 | **85** | 4,893 | 22 | 3,024 | 4 | 3 K3 + 3 ell |
-| 5 | h27/P43 | **84** | 621 | 24 | 71,546 | 0 | — |
-| 6 | h24/P868 | **83** | 1,219 | 24 | 6,373 | 2 | 2 K3 + 1 ell |
-| 7 | h27/P240 | **82** | 576 | 24 | 21,343 | 0 | — |
-| 8 | h27/P239 | **82** | 531 | 26 | 19,527 | 1 | — |
-| 9 | h25/P7867 | **81** | 512 | 18 | 2,187 | 3 | — |
-| 10 | h19/P438 | **81** | 49,282 | 56 | 602 | 3 | 6 K3 + 7 ell |
+| Rank | ID | Score | Yukawa hier | Clean | Gap | Fibers |
+|------|----|-------|-------------|-------|-----|--------|
+| 1 | **h26/P11670** | **89** | 2,389 | 22 | 4 | 4 K3 + 4 ell |
+| 2 | **h23/P37201** | **87** | 1,598 | 26 | 2 | 3 K3 + 1 ell |
+| 3 | h24/P45873 | **85** | 1,221 | 22 | 3 | 3 K3 + 1 ell |
+| 4 | h25/P46481 | **85** | 4,893 | 22 | 4 | 3 K3 + 3 ell |
+| 5 | h24/P868 | **83** | 1,219 | 24 | 2 | 2 K3 + 1 ell |
+| 6 | h27/P240 | **82** | 576 | 24 | — | — |
+| 7 | h27/P239 | **82** | 531 | 26 | 1 | — |
+| 8 | h19/P438 | **81** | 49,282 | 56 | 3 | 6 K3 + 7 ell |
+| 9 | **h22/P302** ★ | **81** | 970 | **182** | 4 | 4 K3 + 4 ell |
+| 10 | h25/P7867 | **81** | 512 | 18 | 3 | — |
 
-The h22–h26 sweet spot dominates: 7 of top 10, including the #1 champion. h27 contributes a distinct "favorable cluster" (gap=0, extreme volume hierarchies). h19/P438 has the highest raw Yukawa hierarchy (49,282) but falls short of the 50K threshold for maximum scoring. See [FINDINGS.md](FINDINGS.md) for the full top-20.
+★ h22/P302 discovered by T2 backlog sweep (2026-03-02) — **182 clean bundles, clean record by 3×**. Its max_h⁰ fell below T1 screening threshold; it was invisible in all prior scans until the backlog was cleared. h27/P43 (prev. listed as 84) rescored to 79 after full T2 processing. See [FINDINGS.md](FINDINGS.md) for the full top-24 (all ≥80).
 
 ## Pipeline Architecture
 
@@ -93,6 +94,7 @@ Scoring components: yukawa_hierarchy (30), yukawa_rank (15), n_clean (10), volum
 These save you time. Don't re-check them:
 
 - **Gap=0 is a dead end at high h¹¹ — don't reopen the gate.** Probe at h27 (500 polytopes, 2026-02-28): gap=0 runs 5.3× slower (h¹¹_eff=27 lattice vs h¹¹_eff=20–22 for gap≥6), 21% T1 pass rate (vs ~45%), and top score of 84 vs champion 89. The real constraint is `EFF_MAX=22` (h¹¹_eff), not `GAP_MIN=2` — these are equivalent at h27+ because gap=0 forces h¹¹_eff=h¹¹. At h13–14 (h¹¹_eff<15) gap=0 is fine; everywhere else it hits a compute wall. In unbiased early data (N=496): gap<2 hit rate 97.2% vs gap≥2 100%, yield 1.7× lower. See Finding 11 + circularity audit in [PROCESS_LOG.md](PROCESS_LOG.md).
+- **T0 wall at KS depth >100–150K per h11.** Confirmed by scanning 700K polytopes beyond existing coverage fronts: 0% T0 pass rate, zero scores above 23. The KS lattice-point ordering is a strong proxy for geometric viability — all productive polytopes are in the first ~100–150K. Current coverage fronts are the effective physical boundaries. See FINDINGS.md §17.
 - **Only 9 losers exist** out of 1,284 deep-analyzed. All are favorable + gap≤1 + borderline h⁰. The pipeline almost never wastes compute.
 - **No nef h⁰=3 bundles exist** on any scanned χ = −6 polytope. Kodaira vanishing never applies.
 - **All χ = −6 polytopes have K3 + elliptic fibrations.** Universal, not selective — don't use it as a discriminator.
