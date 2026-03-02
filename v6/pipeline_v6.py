@@ -719,16 +719,25 @@ def run_rescore(db):
 #  Polytope loading helper (local KS files or CGI)
 # ══════════════════════════════════════════════════════════════════
 
-def _load_polytopes(h11, limit, local_ks=False):
+def _load_polytopes(h11, limit, local_ks=False, offset=0):
     """Load polytopes from local KS index or CYTools CGI."""
     if local_ks:
         import sys
         sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         from ks_index import load_h11_polytopes
-        return load_h11_polytopes(h11, limit=limit)
+        fetch_limit = (offset + limit) if limit else None
+        polys = load_h11_polytopes(h11, limit=fetch_limit)
+        if offset > 0:
+            polys = polys[offset:]
+            print(f'    [offset={offset}] skipped first {offset}, loaded {len(polys)}')
+        return polys
     else:
         import cytools as ct
-        return list(ct.fetch_polytopes(h11=h11, h21=h11+3, limit=limit))
+        fetch_limit = (offset + limit) if limit else None
+        polys = list(ct.fetch_polytopes(h11=h11, h21=h11+3, limit=fetch_limit))
+        if offset > 0:
+            polys = polys[offset:]
+        return polys
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -809,7 +818,7 @@ def run_ladder(h11_start, h11_end, workers=4, db=None, ks_limit=1000, local_ks=F
 #  Scan mode: T0 → T2 for one h11
 # ══════════════════════════════════════════════════════════════════
 
-def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000, local_ks=False):
+def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000, local_ks=False, offset=0):
     """Full T0→T2 scan for a single h11 value."""
     import cytools as ct
     from cytools.config import enable_experimental_features
@@ -818,7 +827,7 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000, lo
     h21 = h11 + 3
     t_start = time.time()
 
-    polys = _load_polytopes(h11, ks_limit, local_ks=local_ks)
+    polys = _load_polytopes(h11, ks_limit, local_ks=local_ks, offset=offset)
     n_polys = len(polys)
     if n_polys == 0:
         print(f"  No polytopes at h11={h11}")
@@ -859,7 +868,7 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000, lo
     # ── T0 ──
     print(f"  T0: geometry + intersection algebra ({n_polys:,} polytopes)")
     t0_start = time.time()
-    t0_args = [(np.array(p.points(), dtype=int).tolist(), idx, h11)
+    t0_args = [(np.array(p.points(), dtype=int).tolist(), offset + idx, h11)
                for idx, p in enumerate(polys)]
 
     with mp.Pool(workers) as pool:
@@ -892,7 +901,7 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000, lo
     print(f"\n  T1: bundle screening ({len(t0_pass_sorted):,} polytopes, "
           f"gap>=5: {gap_hi}, gap<=2: {gap_lo})")
     t1_start = time.time()
-    t1_args = [(np.array(polys[r['poly_idx']].points(), dtype=int).tolist(),
+    t1_args = [(np.array(polys[r['poly_idx'] - offset].points(), dtype=int).tolist(),
                 r['poly_idx'], h11)
                for r in t0_pass_sorted]
 
@@ -948,7 +957,7 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000, lo
         t1_ranked = t1_ranked[:top_n]
 
     # ── T2 (parallel) ──
-    _run_t2_parallel(polys, t1_ranked, h11, workers, db)
+    _run_t2_parallel(polys, t1_ranked, h11, workers, db, offset=offset)
 
     total_elapsed = time.time() - t_start
     print(f"\n  {'='*56}")
@@ -958,7 +967,7 @@ def run_scan(h11, workers=4, top_n=500, db=None, resume=False, ks_limit=1000, lo
     clear_poly_cache()
 
 
-def _run_t2_parallel(polys, ranked_list, h11, workers, db):
+def _run_t2_parallel(polys, ranked_list, h11, workers, db, offset=0):
     """Run T2 in parallel with progress reporting.
 
     Includes v5.2 MONOTONIC_MAX post-upsert rescore: after all T2 upserts,
@@ -969,7 +978,7 @@ def _run_t2_parallel(polys, ranked_list, h11, workers, db):
     print(f"\n  T2: deep physics ({n_todo:,} polytopes, {workers} workers)")
     t2_start = time.time()
 
-    t2_args = [(np.array(polys[r['poly_idx']].points(), dtype=int).tolist(),
+    t2_args = [(np.array(polys[r['poly_idx'] - offset].points(), dtype=int).tolist(),
                 r['poly_idx'], h11)
                for r in ranked_list]
 
@@ -1311,6 +1320,10 @@ def main():
                        help='KS fetch limit per (h11,h21) query (default: 1000). '
                             'The KS database has 10K-50K+ polytopes per h11 at chi=-6. '
                             'Use --limit 5000 to scan 5x deeper.')
+    parser.add_argument('--offset', type=int, default=0,
+                       help='Skip first N polytopes in KS index. '
+                            'Use with --limit to scan in batches: '
+                            '--offset 50000 --limit 50000 scans polytopes 50K-100K.')
     parser.add_argument('--local-ks', action='store_true',
                        help='Load polytopes from local KS index files '
                             '(ks_raw/chi6/) instead of CYTools CGI.')
@@ -1356,7 +1369,7 @@ def main():
             for h11 in h11_list:
                 run_scan(h11, workers=args.workers, top_n=args.top,
                         db=db, resume=args.resume, ks_limit=args.limit,
-                        local_ks=args.local_ks)
+                        local_ks=args.local_ks, offset=args.offset)
 
         elif args.deep:
             run_deep(top_n=args.top, db=db, ks_limit=args.limit,
