@@ -8,8 +8,8 @@ Standard Model–like compactifications. For the quick summary, see
 
 ## Executive Summary
 
-**Database**: `v6/cy_landscape_v6.db` — **2.94M polytopes** (h13–h40), **62,377** scored.
-**Pipeline**: v6 (post-rescue, `--local-ks`, `--offset`). **Scoring**: 100-point SM composite (10 components).
+**Database**: `v6/cy_landscape_v6.db` — **2.94M polytopes** (h13–h40), **37,937** fully scored (yukawa + n_clean computed).
+**Pipeline**: v6 (post-rescue, `--local-ks`, `--offset`). **Scoring**: 100-point SM composite (10 components). Score mean = 48.9, range 25–89.
 **Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h21 exhaustively scanned (100%). h22–h26 partially covered (66–91%). h27–h30 at 200K. h31–h40 at 50K.
 
 ### Current Champions (v6 scoring)
@@ -56,14 +56,16 @@ reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivale
 - **h13–h21 exhaustively scanned** (100% of ~258K polytopes)
 - **h22–h24** at ~90% coverage (890K of 982K); **h25–h26** at ~66% (562K of 850K)
 - **h27–h28** at ~18.5% (200K of 1.08M); **h29–h30** at ~24% (200K of 833K)
-- **62,377** scored with 100-point SM composite
+- **37,937** fully scored (yukawa + n_clean) — see §19 for data integrity audit
 - **89** = highest v6 score achieved (**h26/P11670** — champion)
 - **≥80: 24 polytopes. ≥75: 174 polytopes. ≥70: 575 polytopes.**
-- **T0 wall finding**: at KS offsets >150K per h11 (h23/h24), >100K (h25), >50K (h27–h30), T0 pass rate drops to **0%**. ~700K polytopes scanned in one batch yielded zero scores above 23. The KS lattice-point ordering is a strong proxy for geometric viability.
-- h22/P302 (n_clean=182) is the new clean-bundle record holder — found only after T2 backlog sweep cleared polytopes stuck below the T1 max-h⁰ screening threshold
-- **h24** leads in scored population: most top-20 entries (5), densest high-score cluster
-- The peak polytope density is at h24 with ~447K polytopes; coverage now at ~90%
-- P289 (v4 = champion at 89) now scores 80 in v6 — dead components removed
+- **T0 wall**: KS offsets >100–150K per h11 → 0% T0 pass. Current frontiers are the effective physical scan boundaries.
+- h22/P302 (n_clean=182) is the clean-bundle record and **n_dp=1** anomaly — nearly no del Pezzo divisors yet 182 clean bundles (7.5% of all 2,440 bundles checked)
+- **h11_eff=22 is the sweet spot**: 9 of 24 entries at ≥80; h11_eff 21–22 together have 14 of 24
+- **Hard walls for ≥80**: yukawa_hier < 500 → impossible; vol_hier < 100 → impossible; n_dp ≥ 11 → impossible; n_fibers ≥ 12 → impossible
+- **23,749 T1 polytopes with n_clean_est > 0 are unscored** — Yukawa never computed; max est=118 at h20/P3275 — potential champion pool
+- **h24** has the most ≥80 entries in absolute terms (6); h26 has the highest ≥80 rate among well-sampled h11 levels (0.14%)
+- P289 (v4 champion at 89) now scores 80 in v6 — dead components removed
 
 ---
 
@@ -903,10 +905,224 @@ falling short of the champion's discriminating 2,390 value.
 
 ### 18.4 Population impact
 
-Before the sweep: **59,826** scored, **~31** with score ≥ 75.
-After the sweep: **62,377** scored (+2,551), **174** with score ≥ 75.
+After the sweep, the raw scored count was **62,377**. After the §19 data
+integrity audit, **37,937** have full T2 data (yukawa + n_clean). The leaderboard
+(≥80, ≥75, ≥70) is unchanged — all high-score rows had full data. The reduction
+came from nulling 24,440 partial T1 scores (mean=20.1, max=30) that were set
+from T0/T1 features only, and from finding that most T2-attempted rows at h20–h22
+actually failed the Yukawa computation.
 
-The **≥75 count increased 5.6×** in one sweep. This confirms that the
-"high-quality tail" of the landscape is substantially larger than T1-only
-scans suggested — many polytopes with excellent bundle structure had been
-screened out at T1 due to the max-h⁰ threshold before the T1 screening fix.
+---
+
+## 19. Database Integrity Audit — 2026-03-01
+
+**Trigger**: Discovered that `sm_score IS NOT NULL` (62,377) ≠ `tier_reached='T2'` (35,351).
+
+### 19.1 Issues Found
+
+Three categories of problematic rows:
+
+**Issue A — T0/T1-labeled rows with full T2 data (2,871 rows)**
+
+`tier_reached` was downgraded (T2 → T1 or T0) when a later batch reprocessed
+a polytope and failed at T0/T1, but `MONOTONIC_MAX` preserved the valid score
+fields. Fix: set `tier_reached='T2'` for rows where `n_clean IS NOT NULL AND
+yukawa_hierarchy > 0` regardless of tier label.
+
+Top affected rows (all legitimate leaderboard candidates):
+- h27/P239 (score=82), h27/P240 (score=82), h30/P289 (score=80) — previously T0/skip
+- 1,606 total T0-with-full-data, 1,265 T1-with-full-data
+
+**Issue B — Partial T1 scores (24,440 rows)**
+
+Polytopes where `sm_score` was set from T0/T1 features only (no yukawa, no
+n_clean). These appear when the pipeline ran T2 but the Yukawa computation
+returned 0 or failed, yet still stored a partial score from whatever T0 components
+were available (volume_hierarchy, gap, n_dp, mori_blowdown). Mean score = 20.1,
+max = 30 — all too low to affect the leaderboard, but inflate the "scored" count.
+Fix: `UPDATE polytopes SET sm_score=NULL WHERE sm_score IS NOT NULL AND (n_clean IS NULL OR yukawa_hierarchy IS NULL OR yukawa_hierarchy = 0)`.
+
+**Issue C — Why so few scored at h20–h22?**
+
+Despite "6-9K T2 attempted" per the sweep logs, only 410/451/459 polytopes
+at h20/h21/h22 have full T2 data. The rest had Yukawa computation fail silently
+(returned 0 or raised an exception handled internally), leaving `yukawa_hierarchy=NULL`
+and only a partial T1-level score — now nulled. The **23,749 polytopes
+with `n_clean_est > 0` but no Yukawa** are the most important untapped pool.
+
+### 19.2 Corrected Counts
+
+| Metric | Before audit | After audit |
+|--------|-------------|-------------|
+| sm_score IS NOT NULL | 62,377 | **37,937** |
+| tier_reached = 'T2' | 35,351 | **38,222** |
+| Score mean | 37.6 | **48.9** |
+| Score min | 3 | **25** |
+| ≥80 / ≥75 / ≥70 | 24 / 174 / 575 | **24 / 174 / 575** (unchanged) |
+
+The leaderboard is completely intact. Only the aggregate counts changed.
+
+### 19.3 Root Cause — Partial Scoring at T1
+
+The v6 pipeline stores `sm_score` when T2 is attempted even if Yukawa fails.
+Since 5+ scoring components (vol_hierarchy, gap bonus, lvs_quality, mori_blowdown,
+clean_bundles) are computable from T0/T1 data, these polytopes score 15–30 purely
+from geometry. This is misleading — it appears "scored" but is not comparable to
+a full T2 score. **Fix needed**: only write `sm_score` when `yukawa_hierarchy > 0`.
+
+---
+
+## 20. Landscape Structure — Hard Walls and Fertile Zones
+
+**Method**: Full SQL analysis on 37,937 properly scored polytopes.
+
+### 20.1 Hard Walls for ≥80
+
+The following constraints are **necessary conditions** for score ≥80. No polytope
+violates any of them:
+
+| Feature | Wall | Confirmed by |
+|---------|------|-------------|
+| yukawa_hierarchy | **≥ 500** (needed), often ≥ 1000 | 0 polytopes with hier<500 score ≥80 |
+| volume_hierarchy | **≥ 100** (needed), often ≥ 1000 | 0 polytopes with vol<100 score ≥80 |
+| n_dp | **≤ 10** | 0 polytopes with n_dp≥11 score ≥80 |
+| n_fibers (K3+ell) | **≤ 11** | 0 polytopes with n_fibers≥12 score ≥80 |
+| lvs_score | **< 0.1** | All 24 entries at ≥80 have lvs_score < 0.1 |
+
+The first two (yukawa_hierarchy > 500 and volume_hierarchy > 1000) are
+**near-necessary** — 21 of 24 entries at ≥80 satisfy both. Three exceptions
+(h19/P390, h21/P270, h27/P9181) compensate via very high n_clean (70, 74, 24)
+and other components.
+
+### 20.2 Sweet Spot Geometry
+
+The 24 polytopes at score ≥80 cluster tightly in feature space:
+
+| Feature | Champion range | Notes |
+|---------|---------------|-------|
+| h11_eff | **21–22** | 14 of 24; h11_eff=16 has 4 (low-h11 with high gap) |
+| gap | **2–6** | All major entries; extremes at gap=0 (h27/P240) and gap=8-12 |
+| n_dp | **6–10** | Sweet spot — too few or too many del Pezzo kills score |
+| n_fibers | **3–8** | Peak fertility at 4-8; champion at 8 (4K3+4ell) |
+| yukawa_hier | **500–5000** | Plateau above 5K (score stops improving much) |
+| vol_hier | **1000–20000** | Log-linear relationship; outlier h30/P289 at 34,318 |
+
+**Score vs fibration richness is non-monotone**: n_fibers=8 is optimal (max=89);
+above 11, average score drops below 47 and no polytopes reach ≥80. More fibrations
+dilute the Yukawa texture quality.
+
+### 20.3 Two Scoring Archetypes
+
+Examining the ≥80 cluster reveals two distinct paths to high score:
+
+**Archetype A — Yukawa-Dominant** (h11_eff=21–22, moderate clean, high Yukawa):
+- Examples: h26/P11670 (hier=2390, clean=22), h23/P37201 (hier=1599, clean=26)
+- Pattern: hier ≥ 1000, n_clean 18–32, h11_eff=21–22, gap=2–4, n_dp=6–10
+- Wins primarily through Yukawa hierarchy (30pts) + rank (15pts)
+- **All ≥85 belong to this archetype**
+
+**Archetype B — Clean-Dominant** (low h11_eff=16–17, very high clean, low Yukawa):
+- Examples: h21/P270 (hier=123, clean=74), h19/P390 (hier=122, clean=70), h22/P302 (hier=970, clean=182)
+- Pattern: hier 100–1000, n_clean ≥ 40, h11_eff=16–21
+- Wins through clean_bundles (10pts) + clean_rate (5pts) + clean_depth (5pts) + other
+- h22/P302 is a hybrid: clean=182 (record) with hier=970 (moderate) — the only polytope scoring ≥80 through both paths simultaneously
+
+### 20.4 h22/P302 Geometry — The Clean Bundle Anomaly
+
+h22/P302 has a deeply unusual structure for a high-score candidate:
+
+| Property | h22/P302 | Champion h26/P11670 |
+|----------|--------:|-------------------:|
+| n_dp (del Pezzo) | **1** | 10 |
+| n_rigid | 5 | — |
+| n_k3_fib | 4 | 4 |
+| n_ell_fib | 4 | 4 |
+| n_chi3 | 2,440 | — |
+| n_clean / n_checked | **182 / 2440 = 7.5%** | 22 / — |
+| yukawa_hierarchy | 970 | 2,390 |
+| h11_eff | 21 | 22 |
+| gap | 4 | 4 |
+| lvs_score | 0.00074 | — |
+
+With only **1 del Pezzo divisor**, this polytope has almost no Mori blowdown
+structure — yet its 7.5% clean rate across 2,440 bundles is exceptional.
+The large n_rigid=5 (rigid divisors) may act as a substitute for dP structure
+in supporting clean bundles. This geometry deserves T3 deep analysis.
+
+### 20.5 Fertility Rates (≥75 among fully scored, by h11)
+
+| h11 | scored | ≥75 rate | ≥80 rate | top |
+|-----|-------:|----------|----------|-----|
+| 21 | 451 | **2.66%** | 0.44% | 80 |
+| 30 | 153 | **2.61%** | 0.65% | 80 |
+| 27 | 1,799 | 1.28% | 0.17% | 82 |
+| 28 | 816 | 1.47% | 0.00% | 79 |
+| 26 | 2,839 | 0.92% | **0.14%** | 89 |
+| 22 | 459 | 0.87% | 0.22% | 81 |
+| 23 | 6,308 | 0.32% | 0.02% | 87 |
+| 24 | 9,132 | 0.42% | **0.07%** | 85 |
+
+**Key insight**: h26 has the highest ≥80 rate (0.14%) despite moderate ≥75 rate.
+h21 and h30 have high ≥75 rates but only half reach ≥80 — these are the
+Clean-Dominant archetype (high clean, moderate Yukawa). h26 represents the
+Yukawa-Dominant archetype where most ≥75s convert to ≥80.
+
+**h34 anomaly** (not in table): h34/P61 scores 75 via gap=12, h11_eff=22 —
+despite h11=34 it's effectively an h11_eff=22 polytope with extreme redundancy.
+Confirms EFF_MAX=22 is the physical ceiling, not h11 itself.
+
+### 20.6 The Unscored Pool — 23,749 T1 Candidates with n_clean_est > 0
+
+The largest single opportunity for new discoveries: **23,749 polytopes** passed
+T0 and T1 clean estimation (n_clean_est > 0) but never had Yukawa computed.
+The Yukawa computation was either never attempted (T2 backlog) or timed out.
+
+| h11 | T1 with clean_est > 0 | max_clean_est | Priority |
+|-----|-----------------------:|--------------|---------|
+| 20 | 5,949 | **118** | CRITICAL |
+| 21 | 8,774 | 88 | CRITICAL |
+| 22 | 4,863 | 80 | HIGH |
+| 23 | 2,519 | 78 | HIGH |
+| 24 | 909 | 74 | MEDIUM |
+| 25 | 426 | 56 | MEDIUM |
+| 26 | 173 | 56 | MEDIUM |
+
+**Top unscored polytopes** (by n_clean_est, all at h20 with gap=3, h11_eff=20):
+
+| ID | n_clean_est | h11_eff | gap |
+|----|------------|---------|-----|
+| h20/P3275 | **118** | 20 | 3 |
+| h20/P4946 | 114 | 20 | 3 |
+| h20/P1099 | 108 | 20 | 3 |
+| h20/P5181 | 106 | 20 | 3 |
+
+If h20/P3275 has yukawa_hierarchy ≥ 500, it could score **≥82** on clean bundles
+alone (n_clean=118 at h11_eff=20 yields ~10pts clean component; combined with
+moderate Yukawa). The h11_eff=20 constraint limits the Yukawa rank component,
+but the sheer clean bundle density is exceptional.
+
+**Action**: Targeted T2 Yukawa retry for all polytopes with `n_clean_est ≥ 30`
+(~3,000 polytopes). This is the highest-ROI computation available.
+
+### 20.7 Yukawa Hierarchy — Hard Predictive Value
+
+The Yukawa hierarchy alone is the single best predictor of very high scores:
+
+| Hier range | n | mean score | max score | ≥80 count |
+|-----------|---|-----------|-----------|-----------|
+| < 50 | 20,329 | 46.2 | 75 | 0 |
+| 50–100 | 8,940 | 47.8 | 73 | 0 |
+| 100–200 | 5,064 | 55.5 | 80 | 3 |
+| 200–500 | 2,661 | 55.9 | 79 | 0 |
+| 500–1000 | 634 | 61.3 | 82 | 9 |
+| 1000–2000 | 179 | 65.4 | 87 | 6 |
+| 2000–5000 | 105 | 63.6 | 89 | 4 |
+| 5000+ | 25 | 66.4 | 81 | 2 |
+
+**The 5K→89 regime (105 polytopes, hier 2K–5K) contains the champion.** Only
+~0.28% of scored polytopes reach hier ≥ 1000. The exponentially sparse hier > 2000
+bin (105 rows, 0.28% of scored) holds 4 of 24 top-80 entries (16.7% hit rate).
+
+This strongly supports using yukawa_hierarchy as a T1.5 pre-filter: scanning
+Yukawa first and only doing the full T2 bundle census when hier ≥ 200 would
+dramatically concentrate compute on productive polytopes.

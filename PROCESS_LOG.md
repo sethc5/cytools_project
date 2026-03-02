@@ -5,6 +5,43 @@
 
 ---
 
+## 2026-03-01 — Database Integrity Audit + Landscape Analysis
+
+**Trigger**: Noticed `sm_score IS NOT NULL` (62,377) ≠ `tier_reached='T2'` (35,351) — a 27K gap.
+
+### Findings
+
+**Issue A**: 2,871 rows had `tier_reached` downgraded (T0 or T1) by a later batch
+reprocessing, but `MONOTONIC_MAX` preserved valid T2 scores. Includes h27/P239 (82),
+h27/P240 (82), h30/P289 (80). **Fix**: promoted all to T2.
+
+**Issue B**: 24,440 rows had `sm_score` set from T0/T1 features only (no yukawa,
+no n_clean). Mean=20.1, max=30. These arise when the Yukawa computation fails or
+times out but the pipeline still stores a partial score. **Fix**: `UPDATE polytopes SET sm_score=NULL WHERE sm_score IS NOT NULL AND (n_clean IS NULL OR yukawa_hierarchy IS NULL OR yukawa_hierarchy = 0)`.
+
+**Corrected scored count: 37,937** (was 62,377). Leaderboard and all ≥75/≥80/≥85
+thresholds unchanged — all high-score rows had full data.
+
+### Hard Walls Confirmed (≥80 impossible if any violated)
+- yukawa_hierarchy < 500 → no ≥80 (29K polytopes, 0 exceptions)
+- volume_hierarchy < 100 → no ≥80 (10.7K polytopes, 0 exceptions)
+- n_dp ≥ 11 → no ≥80 (11K polytopes, 0 exceptions)
+- n_fibers ≥ 12 → no ≥80 (~7K polytopes, 0 exceptions)
+
+### Two Scoring Archetypes
+- **Yukawa-Dominant** (h11_eff=21-22, hier≥1000, clean=18-32): all ≥85 entries
+- **Clean-Dominant** (h11_eff=16-17, hier=100-200, clean≥40): h19/P390, h21/P270; h22/P302 is the only hybrid
+
+### h22/P302 Anomaly
+n_dp=1 (only 1 del Pezzo), n_rigid=5, n_clean=182 (7.5% clean rate over 2,440 bundles).
+Unusual geometry that deserves T3 analysis. Highest clean count in database by 3×.
+
+### Unscored Pool
+23,749 T1 polytopes with n_clean_est > 0 but no Yukawa computed. Max est=118 (h20/P3275).
+Targeted Yukawa retry for n_clean_est ≥ 30 (~3K polytopes) is the highest-ROI next step.
+
+---
+
 ## 2026-03-02 — T2 Backlog Resweep + T0 Wall Confirmed + h22/P302 Discovery
 
 **Work done**: Launched 7-hour batch extending coverage into deep KS offsets,

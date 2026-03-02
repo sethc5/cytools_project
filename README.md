@@ -4,12 +4,12 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are **6.12 million** such polytopes in the Kreuzer-Skarke database of 473 million reflexive polytopes (spanning h¹¹ = 13–119). This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v6 · **2.94M polytopes** scanned (~50.8% of 5.8M active h13–h40 landscape) · **62,377 T2-scored** with 100-point SM composite (10 components) · Champion: **h26/P11670 (score 89)**, #2: h23/P37201 (87), #9: **h22/P302 (81, n_clean=182 — record)** · h13–h21 exhaustive · h22–h26 at 66–91% · h27–h30 at 200K · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v6 · **2.94M polytopes** scanned (~50.8% of 5.8M active h13–h40 landscape) · **37,937 fully T2-scored** (yukawa + n_clean; after audit) · Champion: **h26/P11670 (score 89)**, #2: h23/P37201 (87), #9: **h22/P302 (81, n_clean=182 — record)** · h13–h21 exhaustive · h22–h26 at 66–91% · h27–h30 at 200K · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
 - **A 7-stage screening pipeline** — `v6/pipeline_v6.py` scans polytopes through tiered geometric checks (T0 → T1 → T2 → T3 deep analysis with triangulation stability). 100-point SM composite scoring with 10 physics-driven components.
-- **A SQLite database** — `v6/cy_landscape_v6.db` (2.94M polytopes, 62,377 scored) with programmatic access via `v6/db_utils_v6.py`
+- **A SQLite database** — `v6/cy_landscape_v6.db` (2.94M polytopes, 37,937 fully T2-scored after audit) with programmatic access via `v6/db_utils_v6.py`
 - **Local KS index** — Pre-indexed χ=−6 polytope files for fast offline scanning (`--local-ks` flag)
 - **Documented findings** — Champion cluster analysis, pipeline methodology, negative results ([FINDINGS.md](FINDINGS.md))
 - **Documented pitfalls** — 9+ CYTools API bugs discovered and worked around ([MATH_SPEC.md](MATH_SPEC.md))
@@ -29,9 +29,9 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 | 29–30 | 832,645 | 200,000 | 24.0% | 600 | 80 | h30/P289 at 80 |
 | 31–40 | 1,360,792 | 500,000 | 36.7% | 245 | 75 | EFF_MAX=22 wall |
 | 41–119 | 327,131 | 0 | 0% | — | — | Tail: 49K at h41 → 0 by h120 |
-| **Grand total** | **6,122,441** | **2,943,641** | **~50.8%** | **62,377** | **89** | |
+| **Grand total** | **6,122,441** | **2,943,641** | **~50.8%** | **37,937** | **89** | |
 
-**Database**: `v6/cy_landscape_v6.db` — 2.94M polytopes, 62,377 T2-scored. The h22–h26 sweet spot dominates (5 of top 10). **T0 wall confirmed**: at KS offsets >100–150K per h11, T0 pass rate drops to 0% — current coverage fronts are the effective physical boundaries. See [FINDINGS.md](FINDINGS.md) for full per-h¹¹ coverage and the T0 wall analysis.
+**Database**: `v6/cy_landscape_v6.db` — 2.94M polytopes, 37,937 fully T2-scored (yukawa + n_clean; 24,440 partial T1 scores removed by audit). The h22–h26 sweet spot dominates (5 of top 10). **T0 wall confirmed**: at KS offsets >100–150K per h11, T0 pass rate drops to 0% — current coverage fronts are the effective physical boundaries. See [FINDINGS.md](FINDINGS.md) for full per-h¹¹ coverage and the T0 wall analysis.
 
 > **Note on scale**: The KS database has 473.8M reflexive 4-polytopes total; filtering to χ = −6 (3 generations) yields 6.12M. Each polytope admits many triangulations (→ distinct CY threefolds), each CY admits many vector bundles, and each (CY, bundle) pair admits many flux configurations. The famous "10^500 string vacua" estimate counts the product of all these choices — we work at the polytope level, the top of this hierarchy.
 
@@ -43,10 +43,11 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 2,943,641 polytopes (h13–h40, v6 pipeline)
   └─ h13–h21: ~586K exhaustive (100% coverage, T0 wall reached)
   └─ h22–h30: ~2,357K (66–91% of productive region per level)
-      └─ 62,377 T2-scored ──────────────── 2.1%
-          └─ 174 scoring ≥75 ─────────────── 0.28%
-              └─ 24 scoring ≥80 ──────────── 0.038%
+      └─ 37,937 fully T2-scored ───────────── 1.3%
+          └─ 174 scoring ≥75 ─────────────── 0.46%
+              └─ 24 scoring ≥80 ──────────── 0.063%
                   └─ 4 scoring ≥85 ─────────── elite tier
+  Note: +23,749 T1 polytopes with n_clean_est>0 awaiting Yukawa retry
 ```
 
 ### Top Candidates (v6, 100-point SM composite)
