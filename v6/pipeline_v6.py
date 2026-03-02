@@ -464,7 +464,14 @@ def _t2_worker(args):
         # ── SM Score (v6 weights) ──
         result['chi_over_24'] = chi / 24.0
         result['c2_all_positive'] = int(np.all(c2[:h11_eff] >= 0))
-        result['sm_score'] = compute_sm_score(result)
+        # Only score when Yukawa computation succeeded.
+        # yukawa_hierarchy=0 means no clean bundle or Yukawa timed out;
+        # writing a score in that case produces a partial score that
+        # overwrites a valid existing score on the next re-scan.
+        if result.get('yukawa_hierarchy', 0) > 0:
+            result['sm_score'] = compute_sm_score(result)
+        else:
+            result['sm_score'] = None  # upsert_polytope skips None → preserves
 
         return result
 
@@ -1000,7 +1007,7 @@ def _run_t2_parallel(polys, ranked_list, h11, workers, db):
         n_rescored = 0
         for idx in t2_results:
             row = db.get_polytope(h11, idx)
-            if row:
+            if row and (row['yukawa_hierarchy'] or 0) > 0:
                 new_score = compute_sm_score(dict(row))
                 old_score = row['sm_score'] or 0
                 if new_score != old_score:
