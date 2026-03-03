@@ -29,7 +29,17 @@ DEFAULT_DB = os.path.join(_v6_dir, 'cy_landscape_v6.db')
 
 
 class LandscapeDB(_LandscapeDB_v5):
-    """v6 LandscapeDB — same as v5 but defaults to v6/cy_landscape_v6.db."""
+    """v6 LandscapeDB — same as v5 but defaults to v6/cy_landscape_v6.db.
+
+    Adds tier_reached to MONOTONIC_MAX so rescans never demote a polytope
+    from T2→T1. T0<T1<T2<T3 sorts correctly alphabetically, so SQL MAX()
+    on TEXT correctly keeps the highest tier reached.
+    """
+
+    # Extend v5's set — tier_reached is TEXT but T0<T1<T2<T3 alpha-sorts
+    # correctly, so MAX(polytopes.tier_reached, excluded.tier_reached) always
+    # gives the higher tier. This prevents T1 rescans from clobbering T2 data.
+    MONOTONIC_MAX = _LandscapeDB_v5.MONOTONIC_MAX | {'tier_reached'}
 
     def __init__(self, db_path=None):
         super().__init__(db_path or DEFAULT_DB)
