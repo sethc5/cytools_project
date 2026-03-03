@@ -15,7 +15,7 @@ echo "Target: T1-backlog T2 sweep h20-h25 (~6799 polytopes)" | tee -a $LOG
 # Estimated wall time at 6 workers: ~118 min total.
 for h in 20 21 22 23 24 25; do
     echo "[$(date -u)] Resuming T2 for h${h}..." | tee -a $LOG
-    python3 pipeline_v6.py --resume --h11 $h --local-ks -w 6 --top 99999 2>&1 | tail -8 | tee -a $LOG
+    python3 pipeline_v6.py --scan --resume --h11 $h --local-ks -w 6 --top 99999 2>&1 | tail -8 | tee -a $LOG
     echo "[$(date -u)] h${h} done." | tee -a $LOG
 done
 
