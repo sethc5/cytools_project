@@ -5,6 +5,29 @@
 
 ---
 
+## 2026-03-03 — T1-Backlog T2 Sweep (§24)
+
+**Started**: ~11:25 CST (17:25 UTC) March 3, 2026.
+
+**Script**: `v6/batch_resume.sh` — deployed to Hetzner container `funny_davinci`, queued to fire automatically after `batch_deep.sh` (Step 1b h19 T2) completes.
+
+**Target**: 6,799 T1-pass polytopes across h20–h25 that passed T1 but never received T2 scoring:
+
+| h11 | backlog | s/poly (obs) | est. wall |
+|-----|--------:|:------------:|----------:|
+| h20 | 2,021 | 0.756 | 25.5 min |
+| h21 | 2,795 | 1.042 | 48.5 min |
+| h22 | 1,308 | 1.221 | 26.6 min |
+| h23 | 543 | 1.541 | 13.9 min |
+| h24 | 121 | 1.496 | 3.0 min |
+| h25 | 11 | 1.670 | 0.3 min |
+| **TOT** | **6,799** | | **~118 min** |
+
+**Method**: `--resume` mode queries `tier_reached='T1' AND status='pass'` per h11 and feeds directly to T2 — no T0/T1 re-run.  
+**Workers**: 6 | **Committed**: `5b77404`
+
+---
+
 ## 2026-03-03 — DB Tier Repair + Code Audit (§23)
 
 **Trigger**: DB insight sweep revealed 764,764 rows with `tier_reached=NULL` in local DB, including the champion h26/P11670 (score=89) and all 19,925 scored rows from the §21 fresh-scan batch.
