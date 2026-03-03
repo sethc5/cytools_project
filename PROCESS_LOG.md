@@ -5,6 +5,30 @@
 
 ---
 
+## 2026-03-02 — Fresh Hetzner Scan + DB Merge (§21)
+
+**Goal**: Definitively eliminate all partial-score corruption by running a fully clean pipeline on a fresh DB, then merging back into the standing local DB.
+
+### Pipeline fix (yukawa partial-score bug)
+
+`analyze_t2()` was calling `compute_sm_score()` even when `yukawa_hierarchy == 0` (Yukawa failed/timed out), writing a partial score from T0/T1 features only. Fix: `result['sm_score'] = None` when `yukawa_hierarchy == 0`; `upsert_polytope` skips None fields so any valid pre-existing score is preserved. Post-upsert rescore guarded identically. Committed `7c9ecbd`, pushed.
+
+### Fresh scan
+
+Hetzner DB (`/workspaces/cytools_project/v6/cy_landscape_v6.db`) deleted. `batch_fresh.sh` launched **01:47 UTC**. Completed **17:59 UTC** (~16h). Covered h20–h30 (50K limit for h21–h26, 30K for h20/h27–h30). T2 backlog sweep at end found only 23 polytopes — near-zero residual. See §21.2 for per-h11 breakdown.
+
+### DB merge (local)
+
+`v6/cy_landscape_v6_fresh.db` (rsync'd from Hetzner, 126MB) merged into `v6/cy_landscape_v6.db` (754MB) via ATTACH + DELETE + INSERT. 450,333 rows replaced.
+
+**Result**: 34,790 scored | max=89 | 0 partial-score violations | ≥80: 16 | ≥75: 123 | ≥70: 437
+
+**8 leaderboard entries invalidated** by fresh rescan: h23/P37201 (prev. 87), h27/P240 (82), h27/P239 (82), h22/P302 (81), h21/P270 (80), h21/P55 (80), h27/P9181 (80), h30/P289 (80). All confirmed as partial-score or pipeline-version artifacts.
+
+**Commits**: pipeline fix `7c9ecbd`, Hetzner code sync `c0fd5c7`.
+
+---
+
 ## 2026-03-01 — Database Integrity Audit + Landscape Analysis
 
 **Trigger**: Noticed `sm_score IS NOT NULL` (62,377) ≠ `tier_reached='T2'` (35,351) — a 27K gap.

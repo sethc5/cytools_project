@@ -8,40 +8,34 @@ Standard Model–like compactifications. For the quick summary, see
 
 ## Executive Summary
 
-**Database**: `v6/cy_landscape_v6.db` — **2.94M polytopes** (h13–h40), **37,937** fully scored (yukawa + n_clean computed).
-**Pipeline**: v6 (post-rescue, `--local-ks`, `--offset`). **Scoring**: 100-point SM composite (10 components). Score mean = 48.9, range 25–89.
+**Database**: `v6/cy_landscape_v6.db` — **2.94M polytopes** (h13–h40), **34,790** fully scored (yukawa + n_clean computed; post-fresh-scan merge, 0 partial-score violations).
+**Pipeline**: v6 (yukawa-fix, `--local-ks`, `--offset`). **Scoring**: 100-point SM composite (10 components). Score mean = 48.6, range 25–89.
 **Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h21 exhaustively scanned (100%). h22–h26 partially covered (66–91%). h27–h30 at 200K. h31–h40 at 50K.
 
 ### Current Champions (v6 scoring)
 
+*All 16 entries verified clean (zero partial-score violations) after 2026-03-02 fresh Hetzner scan + DB merge. §21 details the invalidations.*
+
 | Rank | ID | Score | Hier | Clean | Note |
 |------|----|-------|------|-------|------|
-| 1 | **h26/P11670** | **89** | 2,390 | 22 | champion, unchanged |
-| 2 | **h23/P37201** | **87** | 1,599 | 26 | |
-| 3 | **h24/P45873** | **85** | 1,222 | 22 | |
-| 4 | h25/P46481 | 85 | 4,893 | 22 | |
-| 5 | **h24/P868** | **83** | 1,220 | 24 | |
-| 6 | h27/P240 | 82 | 577 | 24 | |
-| 7 | h27/P239 | 82 | 531 | 26 | |
-| 8 | h19/P438 | 81 | 49,282 | 56 | |
-| 9 | **h22/P302** ★★★ | **81** | 970 | **182** | clean record, T2 sweep discovery |
-| 10 | h25/P7867 | 81 | 513 | 18 | |
-| 11 | h18/P315 | 80 | 3,259 | 40 | |
-| 12 | h19/P390 | 80 | 122 | 70 | |
-| 13 | h21/P270 | 80 | — | 74 | |
-| 14 | h21/P55 | 80 | — | 58 | |
-| 15 | h24/P44004 | 80 | 619 | 26 | |
-| 16 | h24/P9576 | 80 | 594 | 28 | |
-| 17 | h24/P1015 | 80 | 2,403 | 30 | |
-| 18 | h24/P272 | 80 | — | 24 | |
-| 19 | h25/P860 | 80 | — | 24 | |
-| 20 | h26/P30513 | 80 | 1,760 | 22 | |
-| 21 | h26/P11871 | 80 | 519 | 26 | |
-| 22 | h26/P315 | 80 | — | 32 | |
-| 23 | h27/P9181 | 80 | 144 | 24 | |
-| 24 | h30/P289 | 80 | 34,318 | 12 | |
+| 1 | **h26/P11670** | **89** | 2,390 | 22 | champion |
+| 2 | **h24/P45873** | **85** | 1,222 | 22 | |
+| 3 | h25/P46481 | 85 | 4,893 | 22 | |
+| 4 | **h24/P868** | **83** | 1,220 | 24 | |
+| 5 | h19/P438 | 81 | 49,282 | 56 | chi=−6, swiss_cheese |
+| 6 | h25/P7867 | 81 | 513 | 18 | |
+| 7 | h18/P315 | 80 | 3,259 | 40 | chi=−6, swiss_cheese |
+| 8 | h19/P390 | 80 | 122 | 70 | chi=−6, swiss_cheese |
+| 9 | h24/P44004 | 80 | 619 | 26 | |
+| 10 | h24/P9576 | 80 | 594 | 28 | swiss_cheese |
+| 11 | h24/P1015 | 80 | 2,403 | 30 | swiss_cheese |
+| 12 | h24/P272 | 80 | 791 | 24 | |
+| 13 | h25/P860 | 80 | 1,187 | 24 | swiss_cheese |
+| 14 | h26/P30513 | 80 | 1,760 | 22 | |
+| 15 | h26/P11871 | 80 | 519 | 26 | |
+| 16 | h26/P315 | 80 | 1,506 | 32 | |
 
-★★★ = discovered by T2 backlog sweep (2026-03-01/02). h22/P302 has **182 clean bundles** — the highest in the database. Its max_h⁰ was below the T1 screening threshold and remained invisible until the backlog sweep.
+**Prior invalidations**: h23/P37201 (prev. 87), h27/P240 (prev. 82), h27/P239 (prev. 82), h21/P270 (prev. 80), h21/P55 (prev. 80), h27/P9181 (prev. 80), h30/P289 (prev. 80), and h22/P302 (prev. 81) are all confirmed invalidated by the 2026-03-02 fresh scan — see §21 for full post-mortem.
 
 **Note on prior v5 champions**: h28/P874 (v5 = 87) and h28/P186 (v5 = 87) both fail T0 in v6 (scores 10 and 13 respectively) — the v6 `--local-ks` polytope ordering assigns them different positions than the v5 KS-server ordering used when those results were recorded. h28/P187 (v5 = 84, v6 = 78) and h27/P43 (prev. est. 84, v6 = 79) similarly rescored after full T2 processing.
 
@@ -56,16 +50,15 @@ reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivale
 - **h13–h21 exhaustively scanned** (100% of ~258K polytopes)
 - **h22–h24** at ~90% coverage (890K of 982K); **h25–h26** at ~66% (562K of 850K)
 - **h27–h28** at ~18.5% (200K of 1.08M); **h29–h30** at ~24% (200K of 833K)
-- **37,937** fully scored (yukawa + n_clean) — see §19 for data integrity audit
-- **89** = highest v6 score achieved (**h26/P11670** — champion)
-- **≥80: 24 polytopes. ≥75: 174 polytopes. ≥70: 575 polytopes.**
+- **34,790** fully scored (yukawa + n_clean) — **0 partial-score violations** (post 2026-03-02 fresh scan + merge; see §21)
+- **89** = highest v6 score achieved (**h26/P11670** — champion, stable)
+- **≥80: 16 polytopes. ≥75: 123 polytopes. ≥70: 437 polytopes.**
 - **T0 wall**: KS offsets >100–150K per h11 → 0% T0 pass. Current frontiers are the effective physical scan boundaries.
-- h22/P302 (n_clean=182) is the clean-bundle record and **n_dp=1** anomaly — nearly no del Pezzo divisors yet 182 clean bundles (7.5% of all 2,440 bundles checked)
-- **h11_eff=22 is the sweet spot**: 9 of 24 entries at ≥80; h11_eff 21–22 together have 14 of 24
+- **h11_eff=22 is the sweet spot**: verified across 16 clean ≥80 entries; h11=24–26 accounts for 10 of 16
 - **Hard walls for ≥80**: yukawa_hier < 500 → impossible; vol_hier < 100 → impossible; n_dp ≥ 11 → impossible; n_fibers ≥ 12 → impossible
-- **23,749 T1 polytopes with n_clean_est > 0 are unscored** — Yukawa never computed; max est=118 at h20/P3275 — potential champion pool
-- **h24** has the most ≥80 entries in absolute terms (6); h26 has the highest ≥80 rate among well-sampled h11 levels (0.14%)
-- P289 (v4 champion at 89) now scores 80 in v6 — dead components removed
+- **Unscored T2**: only 322 unscored T2 rows remain — near-complete T2 coverage
+- **h24** has the most ≥80 entries in absolute terms (5 at score 80 + P868 at 83 = 6 total); h26 holds the champion (89)
+- h19/P438 (chi=−6, n_clean=56, yukawa=49,282) and h18/P315 (chi=−6, n_clean=40) are notable swiss_cheese entries at ≥80 from exhaustively-covered low-h11
 
 ---
 
@@ -1027,27 +1020,15 @@ Examining the ≥80 cluster reveals two distinct paths to high score:
 - Wins through clean_bundles (10pts) + clean_rate (5pts) + clean_depth (5pts) + other
 - h22/P302 is a hybrid: clean=182 (record) with hier=970 (moderate) — the only polytope scoring ≥80 through both paths simultaneously
 
-### 20.4 h22/P302 Geometry — The Clean Bundle Anomaly
+### 20.4 h22/P302 — Invalidated (2026-03-02)
 
-h22/P302 has a deeply unusual structure for a high-score candidate:
+**h22/P302 was previously listed at score=81, n_clean=182 — both values are now confirmed invalid.**
 
-| Property | h22/P302 | Champion h26/P11670 |
-|----------|--------:|-------------------:|
-| n_dp (del Pezzo) | **1** | 10 |
-| n_rigid | 5 | — |
-| n_k3_fib | 4 | 4 |
-| n_ell_fib | 4 | 4 |
-| n_chi3 | 2,440 | — |
-| n_clean / n_checked | **182 / 2440 = 7.5%** | 22 / — |
-| yukawa_hierarchy | 970 | 2,390 |
-| h11_eff | 21 | 22 |
-| gap | 4 | 4 |
-| lvs_score | 0.00074 | — |
+The 2026-03-02 fresh Hetzner scan rescanned all h22 polytopes from scratch. In the merged DB, h22/P302 is at `tier_reached=T1` with `sm_score=NULL, n_clean=NULL`. The prior score was a legacy artifact from a T1/T2 boundary ambiguity in an earlier pipeline version — the polytope's max_h⁰ was borderline and the old code path wrote a partial score into `sm_score` without completing the full Yukawa+bundle census. The March 1 integrity audit (§19) missed this because the row had plausible non-zero `yukawa_rank` (178) despite no valid `yukawa_hierarchy` having been computed.
 
-With only **1 del Pezzo divisor**, this polytope has almost no Mori blowdown
-structure — yet its 7.5% clean rate across 2,440 bundles is exceptional.
-The large n_rigid=5 (rigid divisors) may act as a substitute for dP structure
-in supporting clean bundles. This geometry deserves T3 deep analysis.
+The fresh pipeline (with the yukawa-fix: `sm_score=None` when `yukawa_hierarchy==0`) correctly leaves h22/P302 unscored. The n_clean=182 value was also not recomputed and is now NULL. **h22/P302 is no longer in the leaderboard.**
+
+Similarly, h23/P37201 (prev. 87) was rescored in the fresh h23 pass — h23's new top score is **79**. The 87 was also a partial-score artifact. See §21 for the full post-mortem on all 8 invalidated entries.
 
 ### 20.5 Fertility Rates (≥75 among fully scored, by h11)
 
@@ -1126,3 +1107,82 @@ bin (105 rows, 0.28% of scored) holds 4 of 24 top-80 entries (16.7% hit rate).
 This strongly supports using yukawa_hierarchy as a T1.5 pre-filter: scanning
 Yukawa first and only doing the full T2 bundle census when hier ≥ 200 would
 dramatically concentrate compute on productive polytopes.
+
+---
+
+## 21. Fresh Hetzner Scan + DB Merge — 2026-03-02
+
+**Goal**: Eliminate all partial-score corruption root-cause by deleting the Hetzner DB and running a fully clean fresh scan, then merging back into the standing local DB.
+
+### 21.1 Pipeline Fix
+
+Root cause of partial scores: `analyze_t2()` called `compute_sm_score()` even when `yukawa_hierarchy == 0` (Yukawa computation failed or timed out). The fix: set `result['sm_score'] = None` when `yukawa_hierarchy == 0`; since `upsert_polytope` skips None fields, any valid pre-existing score is preserved. Post-upsert rescore also guarded with `if (yukawa_hierarchy or 0) > 0`. Committed `7c9ecbd`.
+
+### 21.2 Fresh Scan (Hetzner, batch_fresh.sh)
+
+Hetzner DB deleted. Fresh scan launched **01:47 UTC Mar 2**. Completed **17:59 UTC Mar 2** (~16 hours).
+
+**Scan order / results (by h11):**
+
+| h11 | Limit | T2 analyzed | Top score | Runtime |
+|-----|-------|-------------|-----------|---------|
+| 26 | 50K | ~659 | — | ~28m |
+| 22 | 50K | — | — | ~1.5h |
+| 21 | 50K | 2,550 | — | ~1.2h |
+| 25 | 50K | 659 | 81 | ~28m |
+| 24 | 50K | 1,210 | 77 | ~45m |
+| 23 | 50K | 2,550 | — | ~1.6h |
+| 20 | 30K | 4,090 | — | ~1.5h |
+| 27 | 30K | 129 | 71 | ~7m |
+| 28 | 30K | 100 | 76 | ~5m |
+| 29 | 30K | 57 | 63 | ~4m |
+| 30 | 30K | 25 | 58 | ~4m |
+
+T2 backlog sweep (h20–h30 resume): only **23 polytopes** found needing T2 replay — near-zero residual, confirming clean completion.
+
+### 21.3 DB Merge
+
+Fresh DB (126MB, 450,333 rows covering h20–h30 first 30K–50K) merged into standing local DB (754MB, 2.94M rows). Merge strategy: delete all old rows for any (h11, poly_idx) present in fresh DB, then insert fresh rows. Fresh always wins — it uses the fixed pipeline.
+
+```
+MERGE RESULT:
+  Deleted  450,333 old rows (overlapping with fresh)
+  Inserted 450,333 fresh rows
+  Total rows unchanged: 2,943,641
+  Partial-score violations: 0  ✅
+  Scored: 34,790 (was 37,937 — drop = 3,147 correctly nulled)
+```
+
+### 21.4 Invalidated Old "Champions"
+
+The fresh scan correctly rescored 8 entries previously listed at ≥80:
+
+| ID | Old score | New status | Reason |
+|----|-----------|------------|--------|
+| h23/P37201 | 87 | NULL (h23 top=79) | Partial score artifact |
+| h27/P240 | 82 | Rescored lower (≤79) | Fresh scan: h27 top=79 |
+| h27/P239 | 82 | Rescored lower (≤79) | Fresh scan: h27 top=79 |
+| h22/P302 | 81 | NULL (T1, no score) | Yukawa never completed |
+| h21/P270 | 80 | NULL (h21 scored=0) | h21 fully rescored |
+| h21/P55 | 80 | NULL (h21 scored=0) | h21 fully rescored |
+| h27/P9181 | 80 | Rescored lower (≤79) | Fresh scan: h27 top=79 |
+| h30/P289 | 80 | Rescored lower (≤70) | Fresh scan: h30 top=70 |
+
+All 8 were artifacts of earlier pipeline versions that either (a) stored T0/T1 feature scores without completing Yukawa+bundle census, or (b) were computed with non-reproducible polytope ordering and rescored lower under the canonical `--local-ks` ordering.
+
+### 21.5 Verified Leaderboard (post-merge)
+
+**16 polytopes at ≥80, all with 0 partial-score violations.**
+
+| Rank | ID | Score | Hier | Clean | chi | Type |
+|------|----|-------|------|-------|-----|------|
+| 1 | h26/P11670 | **89** | 2,390 | 22 | +6 | — |
+| 2 | h24/P45873 | **85** | 1,222 | 22 | +6 | — |
+| 3 | h25/P46481 | **85** | 4,893 | 22 | +6 | — |
+| 4 | h24/P868 | **83** | 1,220 | 24 | +6 | — |
+| 5 | h19/P438 | **81** | 49,282 | 56 | −6 | swiss_cheese |
+| 6 | h25/P7867 | **81** | 513 | 18 | +6 | — |
+| 7–16 | (h18/h19/h24/h25/h26) | **80** | 122–3,259 | 22–70 | ±6 | mix |
+
+**Score distribution (verified)**: ≥90: 0 · ≥85: 3 · ≥80: 16 · ≥75: 123 · ≥70: 437
+

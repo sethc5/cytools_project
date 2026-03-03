@@ -4,7 +4,7 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are **6.12 million** such polytopes in the Kreuzer-Skarke database of 473 million reflexive polytopes (spanning h¹¹ = 13–119). This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v6 · **2.94M polytopes** scanned (~50.8% of 5.8M active h13–h40 landscape) · **37,937 fully T2-scored** (yukawa + n_clean; after audit) · Champion: **h26/P11670 (score 89)**, #2: h23/P37201 (87), #9: **h22/P302 (81, n_clean=182 — record)** · h13–h21 exhaustive · h22–h26 at 66–91% · h27–h30 at 200K · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v6 (yukawa-fix) · **2.94M polytopes** scanned (~50.8% of 5.8M active h13–h40 landscape) · **34,790 fully T2-scored** (0 partial-score violations; post 2026-03-02 fresh scan + merge) · Champion: **h26/P11670 (score 89)**, #2: h24/P45873 (85), #4: h24/P868 (83) · h13–h21 exhaustive · h22–h26 at 66–91% · h27–h30 at 200K · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -23,15 +23,15 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 | 13–16 | 5,758 | 5,758 | **100%** | 215 | 62 | Exhaustive |
 | **17–19** | **327,833** | **327,833** | **100%** | **9,729** | **81** | **Exhaustive — h19/P438 (81)** |
 | **20–21** | **257,148** | **258,000** | **~100%** | **25,100** | **80** | Exhaustive — T0 wall reached |
-| **22–24** | **982,565** | **890,000** | **~90.6%** | **29,000** | **87** | **Sweet spot — 5 of top 24 at ≥80** |
+| **22–24** | **982,565** | **890,000** | **~90.6%** | **15,000** | **85** | **Sweet spot — 6 of top 16 at ≥80 (verified clean)** |
 | **25–26** | **850,073** | **562,018** | **~66.1%** | **9,000** | **89** | **#1: h26/P11670; T0 wall confirmed at offset ~100-150K** |
-| 27–28 | 1,078,976 | 200,031 | 18.5% | 3,500 | 82 | h27 cluster: P240/P239 at 82 |
-| 29–30 | 832,645 | 200,000 | 24.0% | 600 | 80 | h30/P289 at 80 |
+| 27–28 | 1,078,976 | 200,031 | 18.5% | 1,200 | 79 | h27/h28 top=79 after fresh rescan |
+| 29–30 | 832,645 | 200,000 | 24.0% | 250 | 75 | h29 top=75; h30 top=70 |
 | 31–40 | 1,360,792 | 500,000 | 36.7% | 245 | 75 | EFF_MAX=22 wall |
 | 41–119 | 327,131 | 0 | 0% | — | — | Tail: 49K at h41 → 0 by h120 |
-| **Grand total** | **6,122,441** | **2,943,641** | **~50.8%** | **37,937** | **89** | |
+| **Grand total** | **6,122,441** | **2,943,641** | **~50.8%** | **34,790** | **89** | |
 
-**Database**: `v6/cy_landscape_v6.db` — 2.94M polytopes, 37,937 fully T2-scored (yukawa + n_clean; 24,440 partial T1 scores removed by audit). The h22–h26 sweet spot dominates (5 of top 10). **T0 wall confirmed**: at KS offsets >100–150K per h11, T0 pass rate drops to 0% — current coverage fronts are the effective physical boundaries. See [FINDINGS.md](FINDINGS.md) for full per-h¹¹ coverage and the T0 wall analysis.
+**Database**: `v6/cy_landscape_v6.db` — 2.94M polytopes, **34,790 fully T2-scored** (0 partial-score violations; fresh Hetzner scan h20–h30 merged 2026-03-02). The h24–h26 sweet spot dominates (10 of 16 verified ≥80). **T0 wall confirmed**: at KS offsets >100–150K per h11, T0 pass rate drops to 0% — current coverage fronts are the effective physical boundaries. See [FINDINGS.md §21](FINDINGS.md) for the fresh-scan post-mortem and full invalidation list.
 
 > **Note on scale**: The KS database has 473.8M reflexive 4-polytopes total; filtering to χ = −6 (3 generations) yields 6.12M. Each polytope admits many triangulations (→ distinct CY threefolds), each CY admits many vector bundles, and each (CY, bundle) pair admits many flux configurations. The famous "10^500 string vacua" estimate counts the product of all these choices — we work at the polytope level, the top of this hierarchy.
 
@@ -40,32 +40,28 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 ### Screening Funnel (v6)
 
 ```
-2,943,641 polytopes (h13–h40, v6 pipeline)
+2,943,641 polytopes (h13–h40, v6 pipeline, 0 partial-score violations)
   └─ h13–h21: ~586K exhaustive (100% coverage, T0 wall reached)
   └─ h22–h30: ~2,357K (66–91% of productive region per level)
-      └─ 37,937 fully T2-scored ───────────── 1.3%
-          └─ 174 scoring ≥75 ─────────────── 0.46%
-              └─ 24 scoring ≥80 ──────────── 0.063%
-                  └─ 4 scoring ≥85 ─────────── elite tier
-  Note: +23,749 T1 polytopes with n_clean_est>0 awaiting Yukawa retry
+      └─ 34,790 fully T2-scored ───────────── 1.2%
+          └─ 123 scoring ≥75 ─────────────── 0.35%
+              └─ 16 scoring ≥80 ──────────── 0.046%
+                  └─ 3 scoring ≥85 ─────────── elite tier
+  Note: 322 unscored T2 rows remain (near-complete coverage)
 ```
 
 ### Top Candidates (v6, 100-point SM composite)
 
-| Rank | ID | Score | Yukawa hier | Clean | Gap | Fibers |
-|------|----|-------|-------------|-------|-----|--------|
-| 1 | **h26/P11670** | **89** | 2,389 | 22 | 4 | 4 K3 + 4 ell |
-| 2 | **h23/P37201** | **87** | 1,598 | 26 | 2 | 3 K3 + 1 ell |
-| 3 | h24/P45873 | **85** | 1,221 | 22 | 3 | 3 K3 + 1 ell |
-| 4 | h25/P46481 | **85** | 4,893 | 22 | 4 | 3 K3 + 3 ell |
-| 5 | h24/P868 | **83** | 1,219 | 24 | 2 | 2 K3 + 1 ell |
-| 6 | h27/P240 | **82** | 576 | 24 | — | — |
-| 7 | h27/P239 | **82** | 531 | 26 | 1 | — |
-| 8 | h19/P438 | **81** | 49,282 | 56 | 3 | 6 K3 + 7 ell |
-| 9 | **h22/P302** ★ | **81** | 970 | **182** | 4 | 4 K3 + 4 ell |
-| 10 | h25/P7867 | **81** | 512 | 18 | 3 | — |
+| Rank | ID | Score | Yukawa hier | Clean | chi | Note |
+|------|----|-------|-------------|-------|-----|------|
+| 1 | **h26/P11670** | **89** | 2,390 | 22 | +6 | champion |
+| 2 | **h24/P45873** | **85** | 1,222 | 22 | +6 | |
+| 3 | h25/P46481 | **85** | 4,893 | 22 | +6 | |
+| 4 | h24/P868 | **83** | 1,220 | 24 | +6 | |
+| 5 | h19/P438 | **81** | 49,282 | 56 | −6 | swiss_cheese |
+| 6 | h25/P7867 | **81** | 513 | 18 | +6 | |
 
-★ h22/P302 discovered by T2 backlog sweep (2026-03-02) — **182 clean bundles, clean record by 3×**. Its max_h⁰ fell below T1 screening threshold; it was invisible in all prior scans until the backlog was cleared. h27/P43 (prev. listed as 84) rescored to 79 after full T2 processing. See [FINDINGS.md](FINDINGS.md) for the full top-24 (all ≥80).
+All 6 (and all 16 entries at ≥80) verified with 0 partial-score violations after the 2026-03-02 fresh Hetzner scan + merge. **8 prior leaderboard entries (h23/P37201 at 87, h27/P240/P239 at 82, h22/P302 at 81, h21/P270/P55 at 80, h27/P9181 at 80, h30/P289 at 80) were invalidated** — all confirmed as partial-score artifacts or pipeline-version artifacts. See [FINDINGS.md §21](FINDINGS.md) for full post-mortem. Full verified ≥80 list in [FINDINGS.md §21.5](FINDINGS.md).
 
 ## Pipeline Architecture
 
