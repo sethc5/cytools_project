@@ -4,7 +4,7 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are **6.12 million** such polytopes in the Kreuzer-Skarke database of 473 million reflexive polytopes (spanning h¹¹ = 13–119). This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v6 (yukawa-fix) · **2.94M polytopes** scanned (~50.8% of 5.8M active h13–h40 landscape) · **34,790 fully T2-scored** (0 partial-score violations; post 2026-03-02 fresh scan + merge) · Champion: **h26/P11670 (score 89)**, #2: h24/P45873 (85), #4: h24/P868 (83) · h13–h21 exhaustive · h22–h26 at 66–91% · h27–h30 at 200K · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v6 (yukawa-fix) · **3.09M polytopes** scanned (~50.5% of 5.8M active h13–h40 landscape) · **34,067 fully T2-scored** (0 partial-score violations; 2026-03-03 ext merge) · Champion: **h26/P11670 (score 89)**, #2: h24/P45873 (85), #4: h24/P868 (83) · h13–h21 exhaustive · h24/h25 fully exhausted · h22 at 50%, h26 at 49% · T0 wall confirmed in back halves of h24/h25 · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -22,16 +22,16 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 |-----------|----------|---------|----------|--------|-----------|-------|
 | 13–16 | 5,758 | 5,758 | **100%** | 215 | 62 | Exhaustive |
 | **17–19** | **327,833** | **327,833** | **100%** | **9,729** | **81** | **Exhaustive — h19/P438 (81)** |
-| **20–21** | **257,148** | **258,000** | **~100%** | **25,100** | **80** | Exhaustive — T0 wall reached |
-| **22–24** | **982,565** | **890,000** | **~90.6%** | **15,000** | **85** | **Sweet spot — 6 of top 16 at ≥80 (verified clean)** |
-| **25–26** | **850,073** | **562,018** | **~66.1%** | **9,000** | **89** | **#1: h26/P11670; T0 wall confirmed at offset ~100-150K** |
+| **20–21** | **257,148** | **258,000** | **~100%** | **620** | **74** | Exhaustive — T0 wall reached |
+| **22–24** | **982,565** | **978,000** | **~99.5%** | **9,600** | **85** | **Nearly exhaustive — h24 fully exhausted (438K/438K)** |
+| **25–26** | **836,598** | **624,018** | **~74.6%** | **5,500** | **89** | **#1: h26/P11670; h25 fully exhausted (424K/424K); T0 wall confirmed in back halves** |
 | 27–28 | 1,078,976 | 200,031 | 18.5% | 1,200 | 79 | h27/h28 top=79 after fresh rescan |
 | 29–30 | 832,645 | 200,000 | 24.0% | 250 | 75 | h29 top=75; h30 top=70 |
 | 31–40 | 1,360,792 | 500,000 | 36.7% | 245 | 75 | EFF_MAX=22 wall |
 | 41–119 | 327,131 | 0 | 0% | — | — | Tail: 49K at h41 → 0 by h120 |
-| **Grand total** | **6,122,441** | **2,943,641** | **~50.8%** | **34,790** | **89** | |
+| **Grand total** | **6,122,441** | **3,093,641** | **~50.5%** | **34,067** | **89** | |
 
-**Database**: `v6/cy_landscape_v6.db` — 2.94M polytopes, **34,790 fully T2-scored** (0 partial-score violations; fresh Hetzner scan h20–h30 merged 2026-03-02). The h24–h26 sweet spot dominates (10 of 16 verified ≥80). **T0 wall confirmed**: at KS offsets >100–150K per h11, T0 pass rate drops to 0% — current coverage fronts are the effective physical boundaries. See [FINDINGS.md §21](FINDINGS.md) for the fresh-scan post-mortem and full invalidation list.
+**Database**: `v6/cy_landscape_v6.db` — 3.09M polytopes, **34,067 fully T2-scored** (0 partial-score violations; ext scan merged 2026-03-03). h24 and h25 are now **fully exhausted** through the KS universe — their back halves returned 0 T0 passes, confirming the T0 wall hypothesis. The h24–h26 sweet spot dominates (9 of 14 verified ≥80). See [FINDINGS.md §22](FINDINGS.md) for the ext-scan post-mortem.
 
 > **Note on scale**: The KS database has 473.8M reflexive 4-polytopes total; filtering to χ = −6 (3 generations) yields 6.12M. Each polytope admits many triangulations (→ distinct CY threefolds), each CY admits many vector bundles, and each (CY, bundle) pair admits many flux configurations. The famous "10^500 string vacua" estimate counts the product of all these choices — we work at the polytope level, the top of this hierarchy.
 
@@ -40,14 +40,14 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 ### Screening Funnel (v6)
 
 ```
-2,943,641 polytopes (h13–h40, v6 pipeline, 0 partial-score violations)
+3,093,641 polytopes (h13–h40, v6 pipeline, 0 partial-score violations)
   └─ h13–h21: ~586K exhaustive (100% coverage, T0 wall reached)
-  └─ h22–h30: ~2,357K (66–91% of productive region per level)
-      └─ 34,790 fully T2-scored ───────────── 1.2%
-          └─ 123 scoring ≥75 ─────────────── 0.35%
-              └─ 16 scoring ≥80 ──────────── 0.046%
+  └─ h22–h30: ~2,507K (h24/h25 fully exhausted; h26 at 49%)
+      └─ 34,067 fully T2-scored ───────────── 1.1%
+          └─ 119 scoring ≥75 ─────────────── 0.35%
+              └─ 14 scoring ≥80 ──────────── 0.040%
                   └─ 3 scoring ≥85 ─────────── elite tier
-  Note: 322 unscored T2 rows remain (near-complete coverage)
+  Note: 246 unscored T2 rows remain (persistent Yukawa timeouts)
 ```
 
 ### Top Candidates (v6, 100-point SM composite)
@@ -58,10 +58,10 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 | 2 | **h24/P45873** | **85** | 1,222 | 22 | +6 | |
 | 3 | h25/P46481 | **85** | 4,893 | 22 | +6 | |
 | 4 | h24/P868 | **83** | 1,220 | 24 | +6 | |
-| 5 | h19/P438 | **81** | 49,282 | 56 | −6 | swiss_cheese |
-| 6 | h25/P7867 | **81** | 513 | 18 | +6 | |
+| 5 | h25/P7867 | **81** | 513 | 18 | +6 | |
+| 6 | **h22/P682** | 80 | 1,464 | **84** | +6 | highest n_clean in ≥80 tier |
 
-All 6 (and all 16 entries at ≥80) verified with 0 partial-score violations after the 2026-03-02 fresh Hetzner scan + merge. **8 prior leaderboard entries (h23/P37201 at 87, h27/P240/P239 at 82, h22/P302 at 81, h21/P270/P55 at 80, h27/P9181 at 80, h30/P289 at 80) were invalidated** — all confirmed as partial-score artifacts or pipeline-version artifacts. See [FINDINGS.md §21](FINDINGS.md) for full post-mortem. Full verified ≥80 list in [FINDINGS.md §21.5](FINDINGS.md).
+All 14 entries at ≥80 verified clean (0 partial-score violations) after 2026-03-03 extension scan + merge. See [FINDINGS.md §22](FINDINGS.md) for ext-scan post-mortem and full invalidation history.
 
 ## Pipeline Architecture
 

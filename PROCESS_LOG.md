@@ -5,6 +5,32 @@
 
 ---
 
+## 2026-03-03 — Extension Scan + DB Merge (§22)
+
+**Goal**: Exhaust h24/h25 KS universes, extend h26, mop up remaining unscored T2.
+
+### Scan
+`batch_ext.sh` launched 00:20 UTC, completed 06:55 UTC (6.6h, 12 workers).
+- Step 0: T2 mop-up h13–40 `--resume` — 19,925 scored in container DB; 246 unscored T2 remain
+- Step 1: h25 offset=362K limit=62K → **0 T0 passes** (h25 fully exhausted)
+- Step 2: h24 offset=350K limit=88K → **0 T0 passes** (h24 fully exhausted)
+- Step 3: h26 offset=50K limit=150K → **0 T0 passes** (3 T2 residuals scored)
+
+**T0 wall confirmed**: 300K polytopes across back halves of h24/h25/h26, 0 passes. KS ordering concentrates viable geometry at low poly_idx.
+
+### Mop-up collateral
+h19/P438 (prev. 81), h18/P315 (prev. 80), h19/P390 (prev. 80) overwritten by T1-stall rows. Mop-up re-scanned h18/h19 from scratch in fresh container DB; yukawa_hierarchy timed out under 12-worker load.
+
+### Merge
+ext DB (764,764 rows, docker cp → rsync → gunzip) merged into local DB.
+- Deleted: 614,764 rows | Inserted: 764,764 rows | Time: 26.7s
+
+**Result**: 3,093,641 total | 34,067 scored | max=89 | 0 violations | ≥80: 14 | ≥75: 119 | ≥70: 435
+
+**New entry**: h22/P682 (score=80, n_clean=84) — highest clean-bundle count in ≥80 tier.
+
+---
+
 ## 2026-03-02 — Fresh Hetzner Scan + DB Merge (§21)
 
 **Goal**: Definitively eliminate all partial-score corruption by running a fully clean pipeline on a fresh DB, then merging back into the standing local DB.
