@@ -74,8 +74,10 @@ PYEOF
 echo "" | tee -a "$LOG"
 echo "Exporting t3_results.db for local merge..." | tee -a "$LOG"
 python3 - "$DB" <<'PYEOF'
-import sqlite3, sys
+import sqlite3, sys, os
 src = sqlite3.connect(sys.argv[1])
+if os.path.exists('t3_results.db'):
+    os.remove('t3_results.db')
 dst = sqlite3.connect('t3_results.db')
 
 # Schema

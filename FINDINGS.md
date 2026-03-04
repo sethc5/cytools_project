@@ -11,34 +11,49 @@ Standard Model–like compactifications. For the quick summary, see
 **Database**: `v6/cy_landscape_v6.db` — **3.11M polytopes** (h13–h40), **52,865** fully scored (yukawa + n_clean computed).  
 **Pipeline**: v6 (yukawa-fix, `--local-ks`, `--offset`). **Scoring**: 100-point SM composite (10 components). Score range 25–89.  
 **Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h21 exhaustively scanned (100%). h22–h24 nearly exhaustive (~99.5%). h25 fully exhausted. h26 at ~49%. h27–h30 at 100–200K. h31–h40 at 50K.  
-*Updated 2026-03-04 post §24–§25 Hetzner batch + DB merge.*
+*Updated 2026-03-04 post §26 Hetzner T3 batch (all 35 ≥80 entries now T3-verified).*
 
-### Current Champions (v6 scoring, post §25 merge)
+### Current Champions (v6 scoring, post §26 T3 batch)
 
-*Top-19 entries all T3-verified (SM/GUT classification, gauge group, c2 stability). T2-only entries (score=80) await T3 deep scan.*
+*All 35 entries ≥80 are T3-verified (SM/GUT classification, gauge group, c2 stability). §26 Hetzner batch 2026-03-04 completed T3 on all 17 previously pending score=80 candidates. 2 confirmed below 80.*
 
 | Rank | ID | Score | SM | GUT | n_clean | max_h0 | Tier | Note |
 |------|----|-------|----|-----|---------|--------|------|------|
 | 1 | **h26/P11670** | **89** | ✓ | ✓ | 22 | 3 | T3 | champion — stable |
-| 2 | **h29/P8423** | **87** | ✓ | ✓ | 30 | 3 | T3 | NEW post-§25 |
-| 3 | **h27/P9192** | **87** | ✓ | ✓ | 22 | 4 | T3 | NEW post-§25 |
-| 4 | h27/P4102 | 87 | ✗ | ✗ | 22 | 4 | T3 | no SM/GUT |
-| 5 | **h24/P868** | **87** | ✓ | ✓ | 24 | 6 | T3 | previously 83 |
-| 6 | **h28/P6642** | **85** | ✓ | ✓ | 30 | 3 | T3 | NEW post-§25 |
-| 7 | **h27/P9133** | **85** | ✓ | ✓ | 22 | 3 | T3 | NEW post-§25 |
-| 8 | h24/P45873 | 85 | ✓ | ✓ | 22 | 3 | T3 | |
-| 9 | h25/P46481 | 85 | ✓ | ✓ | 22 | 7 | T3 | |
-| 10 | **h27/P45013** | **85** | ✓ | ✓ | 12 | 6 | T3 | NEW post-§25 |
-| 11 | **h29/P13253** | **83** | ✓ | ✓ | 20 | 8 | T3 | NEW post-§25 |
-| 12 | **h28/P5473** | **82** | ✓ | ✓ | 26 | 3 | T3 | NEW post-§25 |
-| 13 | h28/P718 | 82 | ✗ | ✗ | 22 | 7 | T3 | no SM/GUT |
-| 14 | h28/P33 | 82 | ✗ | ✗ | 20 | 9 | T3 | no SM/GUT |
-| 15 | **h27/P2317** | **82** | ✓ | ✓ | 24 | 3 | T3 | NEW post-§25 |
-| 16 | **h27/P27537** | **81** | ✓ | ✓ | 16 | 3 | T3 | NEW post-§25 |
-| 17 | h25/P7867 | 81 | ✓ | ✓ | 18 | 3 | T3 | |
-| 18 | h25/P860 | 81 | ✓ | ✓ | 24 | 7 | T3 | |
-| 19 | **h27/P39352** | **81** | ✓ | ✓ | 12 | 3 | T3 | NEW post-§25 |
-| 20–37 | h24–h29 | 80 | — | — | 20–26 | 3–9 | T2 | 18 entries pending T3 |
+| 2 | **h29/P8423** | **87** | ✓ | ✓ | 30 | 3 | T3 | |
+| 3 | **h24/P868** | **87** | ✓ | ✓ | 24 | 6 | T3 | |
+| 4 | **h27/P9192** | **87** | ✓ | ✓ | 22 | 4 | T3 | |
+| 5 | h27/P4102 | 87 | ✗ | ✗ | 22 | 4 | T3 | no SM/GUT |
+| 6 | **h22/P682** | **85** | ✓ | ✓ | **84** | 7 | T3 | **★ NEW §26** — n_clean record; score 80→85 at T3 |
+| 7 | **h28/P6642** | **85** | ✓ | ✓ | 30 | 3 | T3 | |
+| 8 | **h27/P9133** | **85** | ✓ | ✓ | 22 | 3 | T3 | |
+| 9 | h24/P45873 | 85 | ✓ | ✓ | 22 | 3 | T3 | |
+| 10 | h25/P46481 | 85 | ✓ | ✓ | 22 | 7 | T3 | |
+| 11 | **h27/P45013** | **85** | ✓ | ✓ | 12 | 6 | T3 | |
+| 12 | **h29/P13253** | **83** | ✓ | ✓ | 20 | 8 | T3 | |
+| 13 | **h28/P5473** | **82** | ✓ | ✓ | 26 | 3 | T3 | |
+| 14 | h27/P2317 | 82 | ✓ | ✓ | 24 | 3 | T3 | |
+| 15 | h28/P718 | 82 | ✗ | ✗ | 22 | 7 | T3 | no SM/GUT |
+| 16 | h28/P33 | 82 | ✗ | ✗ | 20 | 9 | T3 | no SM/GUT |
+| 17 | h25/P860 | 81 | ✓ | ✓ | 24 | 7 | T3 | |
+| 18 | h25/P7867 | 81 | ✓ | ✓ | 18 | 3 | T3 | |
+| 19 | h27/P27537 | 81 | ✓ | ✓ | 16 | 3 | T3 | |
+| 20 | h27/P39352 | 81 | ✓ | ✓ | 12 | 3 | T3 | |
+| 21 | **h26/P315** | **80** | ✓ | ✓ | 32 | 7 | T3 | **NEW §26** |
+| 22 | **h28/P33562** | **80** | ✓ | ✓ | 28 | 9 | T3 | **NEW §26** |
+| 23 | **h25/P5449** | **80** | ✓ | ✓ | 26 | 7 | T3 | **NEW §26** |
+| 24 | **h24/P44004** | **80** | ✓ | ✓ | 26 | 3 | T3 | **NEW §26** |
+| 25 | **h26/P11871** | **80** | ✓ | ✓ | 26 | 4 | T3 | **NEW §26** |
+| 26 | **h25/P38242** | **80** | ✓ | ✓ | 24 | 9 | T3 | **NEW §26** |
+| 27 | **h25/P8995** | **80** | ✓ | ✓ | 24 | 9 | T3 | **NEW §26** |
+| 28 | h24/P272 | 80 | ✗ | ✗ | 24 | 5 | T3 | **NEW §26** — no SM/GUT |
+| 29 | **h29/P6577** | **80** | ✓ | ✓ | 22 | 3 | T3 | **NEW §26** |
+| 30 | **h29/P6575** | **80** | ✓ | ✓ | 22 | 8 | T3 | **NEW §26** |
+| 31 | **h25/P18950** | **80** | ✓ | ✓ | 22 | 3 | T3 | **NEW §26** |
+| 32 | **h26/P30513** | **80** | ✓ | ✓ | 22 | 3 | T3 | **NEW §26** |
+| 33 | **h28/P1937** | **80** | ✓ | ✓ | 20 | 3 | T3 | **NEW §26** |
+| 34 | **h27/P28704** | **80** | ✓ | ✓ | 20 | 7 | T3 | **NEW §26** |
+| 35 | **h27/P26021** | **80** | ✓ | ✓ | 20 | 9 | T3 | **NEW §26** |
 
 **Prior invalidations (§21)**: h23/P37201 (prev. 87), h27/P240 (82), h27/P239 (82), h22/P302 (81), h21/P270 (80), h21/P55 (80), h27/P9181 (80), h30/P289 (80) — confirmed partial-score artifacts by 2026-03-02 fresh scan.
 
@@ -56,16 +71,16 @@ reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivale
 - **h13–h21 exhaustively scanned** (100% of ~258K polytopes)
 - **h22–h24 nearly exhaustive** (~99.5%; h24 fully exhausted: 438K/438K); **h25 fully exhausted** (424K/424K); **h26** at ~49% (200K of 412K)
 - **h27–h28** at ~18.5% (200K of 1.08M); **h29–h30** at ~24% (200K of 833K)
-- **52,865** fully scored (yukawa + n_clean) — T2: **54,911** total | T3: **20**
+- **52,865** fully scored (yukawa + n_clean) — T2: **54,911** total | T3: **37**
 - **89** = highest v6 score achieved (**h26/P11670** — champion, stable across all batches)
-- **≥80: 37 polytopes. ≥75: 278 polytopes. ≥70: 965 polytopes.**
-- **Score distribution (top)**: 89×1, 87×4, 85×5, 83×1, 82×4, 81×4, 80×18
+- **≥80: 35 polytopes (all T3-verified). ≥75: 278 polytopes. ≥70: 965 polytopes.**
+- **Score distribution (top)**: 89×1, 87×4, 85×6, 83×1, 82×4, 81×4, 80×15
 - **T0 wall confirmed**: h24 back half (350K–438K) and h25 back half (362K–424K) each returned 0 T0 passes — KS polytope ordering concentrates all viable geometry at the front
-- **h11_eff=22 is the sweet spot**: consistent across top-19 T3-verified entries; h11=27–29 now contributes 8 of top-19 SM+GUT entries
+- **h11_eff=22 is the sweet spot**: consistent across top entries; h11=27–29 contributes 9 of top-20 SM+GUT entries
 - **Hard walls for ≥80**: yukawa_hier < 500 → impossible; vol_hier < 100 → impossible; n_dp ≥ 11 → impossible; n_fibers ≥ 12 → impossible
-- **h24** and **h27** tied for most ≥80 SM+GUT entries (4 each); h29 contributes 2 new SM+GUT entries at 87 and 83
-- **18 score=80 T2-only polytopes** at h24–h29 are prime T3 candidates
-- **h22/P682** (score=80, n_clean=84) is the new highest-n_clean entry at ≥80 tier, emerging from the ext scan's h22 coverage
+- **h22/P682**: score **85** (jumped from T2=80), n_clean=**84** — record n_clean in entire ≥80 tier; gauge su(3) × su(14) × U(1)^5
+- **2 score=80 T2 candidates confirmed below 80** at T3 (expected: T2 scoring is a lower bound)
+- **T3-verified count**: 37 total entries at tier T3; 35 at score≥80, 2 below 80
 
 ---
 
