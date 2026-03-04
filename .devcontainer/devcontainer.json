@@ -10,7 +10,7 @@
     }
   },
   "hostRequirements": {
-    "cpus": 4,
+    "cpus": 8,
     "memory": "16gb"
   },
   "customizations": {
@@ -25,9 +25,18 @@
         "python.defaultInterpreterPath": "/usr/local/bin/python",
         "python.terminal.activateEnvironment": false,
         "jupyter.notebookFileRoot": "${workspaceFolder}"
-      }
+      },
+      "tasks": [
+        {
+          "label": "Run T3 batch",
+          "type": "shell",
+          "command": "bash v6/batch_t3.sh",
+          "group": { "kind": "build", "isDefault": true },
+          "presentation": { "reveal": "always", "panel": "new" }
+        }
+      ]
     }
   },
-  "postCreateCommand": "python -c 'import cytools; from cytools import Polytope; print(\"CYTools ready\")' && echo \"Cores: $(nproc) | RAM: $(free -h | awk '/Mem:/{print $2}')\"",
+  "postCreateCommand": "python v6/setup_codespace.py",
   "shutdownAction": "none"
 }

@@ -56,6 +56,8 @@ receipts/.merged
 
 # Database files (large, not for git)
 *.db
+# Allowlist: small seed DB for Codespace T3 runs (640KB, committed)
+!v6/t3_seed.db
 
 # Old results archives (backed up elsewhere)
 results/hetzner_old/
