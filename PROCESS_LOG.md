@@ -5,7 +5,37 @@
 
 ---
 
+## 2026-03-04 — §26 T3 Sweep: Score 70-79 Borderline Candidates
+
+**Goal**: T3-verify all score=70-79 T2-only candidates. h22/P682 (score=80→85 at T3) suggested score=77-79 candidates may similarly jump.
+
+### §26a — T3 Pending Clearance (score=80 queue, Hetzner, 2026-03-04)
+
+Ran `WORKERS=14 TOP=37 bash v6/batch_t3.sh` on Hetzner `funny_davinci` container.
+
+**Pre-run**: T2-pending-T3=17 (all score=80), T3=20 already done.  
+**Result**: All 17 cleared. T3: 20→37. 2 candidates scored below 80 at T3 (T2 overestimate as expected).
+
+Key finding: **h22/P682 score 80→85** at T3 — highest n_clean (84) in ≥80 tier; gauge `su(3) × su(14) × U(1)^5`.
+
+Merge: `python3 v6/merge_t3_results.py --results v6/t3_results.db`  
+Post-merge: T3=37, scored=52,865, max=89.  
+**Commit**: `73ccb9d`
+
+### §26b — Score 70-79 Sweep (launched 2026-03-04)
+
+Generated `v6/t3_sweep_seed.db` — 928 T2-only entries at score 70-79 (no T3 entries; avoids re-processing already-verified candidates).
+
+Launched `WORKERS=14 TOP=300 bash v6/batch_t3_sweep.sh` on Hetzner.  
+Targets: all score 75-79 (241 candidates) + top-59 score-74 entries ≈ 8 hours.  
+Results in `v6/t3_sweep_results.db` for merge.
+
+**Commit**: (pending — this entry)
+
+---
+
 ## 2026-03-04 — Hetzner Batch Completion + DB Merge (§25)
+
 
 **Both Hetzner batches completed overnight 2026-03-04.**
 
