@@ -5,6 +5,67 @@
 
 ---
 
+## 2026-03-04 — Hetzner Batch Completion + DB Merge (§25)
+
+**Both Hetzner batches completed overnight 2026-03-04.**
+
+### Batch completions
+- **batch_resume** (T1-backlog T2 sweep, h20–h25): DONE by 06:26 UTC
+  - h20: 3,954 polys scanned, 3,950 clean passes, 8,547s elapsed
+  - h21–h25: all completed; h25 final: 633 polys, 409 clean, 499s
+- **batch_deep** (EFF_MAX=24 Steps 3–4 + T3 deep): DONE by 10:46 UTC
+  - T3 results: SM=yes, GUT=yes, best_gauge=`su(6)×su(8)` or `e7×su(15)`
+  - 50 triangulations tested, c2_stable=0.00, no instanton divisor found
+
+### DB merge procedure
+- Compressed on Hetzner: `gzip -c cy_landscape_v6.db > /tmp/cy_landscape_v6.db.gz` → 42 MB
+- Downloaded via scp → `v6/cy_landscape_v6_hetzner.db.gz` (82s)
+- Decompressed → `v6/cy_landscape_v6_hetzner.db` (255 MB)
+- Pre-merge: Hetzner=884,943 rows, T2=40,044; Local=3,093,641 rows, T2=34,431
+
+### SQLite upsert bug found and fixed
+`INSERT INTO polytopes ... SELECT ... FROM h.polytopes ON CONFLICT ...` failed with
+`sqlite3.OperationalError: near "DO": syntax error` despite SQLite 3.46.1.
+Root cause: when the FROM clause references an ATTACHed database schema (`h.polytopes`),
+SQLite's parser mis-reads `ON` as a JOIN keyword rather than the start of ON CONFLICT.
+**Fix**: append `WHERE 1=1` after `FROM h.polytopes` to terminate the FROM clause
+unambiguously — parser then correctly recognizes `ON CONFLICT` as the upsert clause.
+
+Merge SQL pattern (MONOTONIC_MAX-safe):
+```sql
+INSERT INTO polytopes (col1, ...) SELECT col1, ... FROM h.polytopes WHERE 1=1
+ON CONFLICT(h11, poly_idx) DO UPDATE SET
+  tier_reached = NULLIF(MAX(COALESCE(tier_reached,''), COALESCE(excluded.tier_reached,'')), ''),
+  max_h0 = MAX(COALESCE(max_h0,0), COALESCE(excluded.max_h0,0)),
+  ...other cols = COALESCE(excluded.col, col)
+```
+
+Merge: 884,943 rows processed, 40s elapsed.
+
+### Post-merge state
+| metric | before | after |
+|--------|-------:|------:|
+| total rows | 3,093,641 | 3,113,640 |
+| T2 rows | 34,431 | 54,911 |
+| scored | 34,067 | 52,865 |
+| max score | 89 | 89 |
+
+### Leaderboard (top-5)
+| rank | h11 | poly_idx | score | SM | GUT | gauge |
+|------|-----|---------|-------|----|-----|-------|
+| 1 | 26 | 11670 | 89 | ✓ | ✓ | su(4)×su(2)×su(12)×… |
+| 2 | 29 | 8423 | 87 | ✓ | ✓ | su(2)×su(8) or e7×su(… |
+| 3 | 27 | 9192 | 87 | ✓ | ✓ | su(2)×su(8) or e7×su(… |
+| 4 | 27 | 4102 | 87 | ✗ | ✗ | — |
+| 5 | 24 | 868 | 87 | ✓ | ✓ | su(2)×su(15)×su(3)×… |
+
+Champion unchanged: h26/P11670, score=89, T3.
+
+### Cleanup
+Deleted `v6/cy_landscape_v6_hetzner.db` and `.gz` after successful merge.
+
+---
+
 ## 2026-03-03 — T1-Backlog T2 Sweep (§24)
 
 **Started**: ~11:25 CST (17:25 UTC) March 3, 2026.
