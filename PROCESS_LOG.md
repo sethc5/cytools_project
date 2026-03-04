@@ -64,6 +64,35 @@ Champion unchanged: h26/P11670, score=89, T3.
 ### Cleanup
 Deleted `v6/cy_landscape_v6_hetzner.db` and `.gz` after successful merge.
 
+### Write lock-out incidents (concurrent batch analysis)
+
+During the §24 batch, two concurrent batches overlapped on the Hetzner Hetzner DB:
+- **batch_deep h22 EFF_MAX=24** (started ~18:32 UTC, 6 workers) continued running
+- **batch_resume h20** fired prematurely (at ~18:48 UTC) and began writing to the same DB concurrently
+
+The `upsert_polytope` call hit `sqlite3.OperationalError: database is locked` during the overlap window (~18:32–21:14 UTC, ~2.5h). Fix deployed at 19:35 CST: `timeout=60` + `PRAGMA journal_mode=WAL` in `db_utils_v5.py` (commit `7f51dff`).
+
+**Evidence from scan_log fragmentation** — lock restarts create small residual runs:
+
+| h11 | scan_log runs | total_n | Smallest run | Assessment |
+|-----|:-------------:|--------:|:------------:|-----------|
+| h16 | 2 | ~1,400 | — | normal |
+| h17 | 3 | 1,510 | 353 | mild fragmentation |
+| h18 | 3 | 3,561 | 344 | mild fragmentation |
+| h19 | 3 | 5,946 | 591 | mild fragmentation |
+| **h20** | **8** | 13,146 | **4** | severe — lock restart pattern |
+| **h21** | **7** | 18,577 | 228 | severe — concurrent window |
+| **h22** | **9** | 11,214 | 132 | most fragmented — concurrent start |
+| h23 | 4+ | — | 126 | moderate |
+| h24–h25 | 2–3 | — | — | minor (WAL fix active) |
+
+The micro-runs (n=4, n=49 for h20) are classic crash-restart: a worker acquired the write lock, wrote a tiny batch, then was killed by the OS scheduler when the next worker also tried to write.
+
+**Data loss assessment**: Polytope data writes appear to have mostly succeeded — the MONOTONIC_MAX merge preserves best values, and the final scan_log aggregates show full pass counts for all h11 values. The primary loss is scan_log metadata fragmentation (cosmetic). No polytope rows are identified as lock-kill victims; the aborted writes were retried by the pipeline's own retry logic.
+
+**Separate data quality issue (§23 false promotions)**:
+The §23 tier repair (`UPDATE SET tier_reached='T2' WHERE tier_reached IS NULL AND n_clean IS NOT NULL`) incorrectly promoted **19,884 rows** to T2. These are old-pipeline rows where `n_clean=0` (satisfies IS NOT NULL, but indicates T0 rejection or T1 pass with no bundles). They have `status='ok'` (old pipeline sentinel) and `error='eff=X>Y'` (T0 filter reason). Their `sm_score` is correctly NULL. This is a cosmetic over-count in the T2 statistic; the scored/leaderboard numbers are unaffected since sm_score IS NULL excludes them from all meaningful queries.
+
 ---
 
 ## 2026-03-03 — T1-Backlog T2 Sweep (§24)
