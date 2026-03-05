@@ -5,6 +5,45 @@
 
 ---
 
+## 2026-03-05 — §26 DB Audit + Fibration Re-merge Fix
+
+**Context**: Post §26a+§26b merge. Comprehensive DB audit triggered by discrepancy in fibration counts.
+
+### Fibration Merge Bug (root cause + fix)
+
+**Symptom**: Only 3/337 T3 entries showed fibrations in DB after §26a+§26b merges.  
+**Root cause**: `v6/merge_t3_results.py` used `INSERT OR IGNORE INTO fibrations (id, ...) VALUES (?, ...)` with the explicit `id` column from result files. Result DBs auto-assign `id` starting at 1. The production DB already had ids 1–1146. Every incoming row conflicted on `id` PRIMARY KEY and was silently dropped by IGNORE — only 3 fibrations with lucky id gaps survived.
+
+**Fix applied (one-off + permanent)**:
+- One-off Python script: read fibrations from both result files, strip `id` column, deduplicate on `(h11, poly_idx, fiber_type)`, INSERT without id (AUTOINCREMENT assigns fresh ids)
+- Permanent fix to `v6/merge_t3_results.py`: fibration merge now excludes `id` column, deduplicates against existing set, reports "N in file / M new inserted"
+- Result: **458 new fibrations inserted** (75 from §26a, 383 from §26b)
+
+### Post-Fix DB State
+
+| metric | before fix | after fix |
+|--------|----------:|----------:|
+| total fibrations | 1,146 | **1,604** |
+| T3 entries with fibrations | 3 / 337 | **278 / 337** |
+| T3 entries with 0 fibrations | 334 | **59** |
+
+The 59 T3 entries with 0 fibrations all have `has_SM=False` — T3 fibration analysis ran and found no eligible elliptic fibrations (genuine no-SM polytopes, not a data error). Confirmed: h27/P4102, h23/P36, h21/P9085, etc.
+
+### Other Audit Findings
+
+**T2 NULL sm_score (2,066 rows)**: h26=1,378, h28=341, h29=56, h31=18, h32=20, others. All have `n_clean=0` — these are §23 false-promotions or T2-stalls where yukawa computation timed out or found no clean models. Cosmetic; no action needed.
+
+**No duplicate (h11, poly_idx) pairs**: confirmed ✓
+
+**Remaining T2-only score≥70**: 628 rows (score=73: 46, 72: 147, 71: 67, 70: 368). Score 74-79 all T3-verified in §26b. Score ≥80: all T3-verified (37 entries).
+
+### Next Run: §27 — Remaining Score 70-73 T3 Sweep
+
+628 candidates at score=70-73 remain. Seed: `v6/t3_sweep2_seed.db`.  
+Plan: `WORKERS=14 TOP=628 bash v6/batch_t3_sweep.sh` on Hetzner ≈ 11.5h.
+
+---
+
 ## 2026-03-04 — §26 T3 Sweep: Score 70-79 Borderline Candidates
 
 **Goal**: T3-verify all score=70-79 T2-only candidates. h22/P682 (score=80→85 at T3) suggested score=77-79 candidates may similarly jump.
@@ -22,15 +61,17 @@ Merge: `python3 v6/merge_t3_results.py --results v6/t3_results.db`
 Post-merge: T3=37, scored=52,865, max=89.  
 **Commit**: `73ccb9d`
 
-### §26b — Score 70-79 Sweep (launched 2026-03-04)
+### §26b — Score 70-79 Sweep (2026-03-04/05, Hetzner)
 
 Generated `v6/t3_sweep_seed.db` — 928 T2-only entries at score 70-79 (no T3 entries; avoids re-processing already-verified candidates).
 
 Launched `WORKERS=14 TOP=300 bash v6/batch_t3_sweep.sh` on Hetzner.  
-Targets: all score 75-79 (241 candidates) + top-59 score-74 entries ≈ 8 hours.  
-Results in `v6/t3_sweep_results.db` for merge.
+Completed 2026-03-04 22:04 UTC (5.4h). 300 of 928 processed (all score≥74 + top-59 score-74).  
+2 new ≥80 at T3: **h23/P36** (79→81), **h21/P9085** (79→80).  
+Merge: `python3 v6/merge_t3_results.py --results v6/t3_sweep_results.db`  
+Post-merge: T3 37→337.
 
-**Commit**: (pending — this entry)
+**Commit**: `0f2fde1`
 
 ---
 

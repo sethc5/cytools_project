@@ -70,17 +70,32 @@ def merge(results_db: str, local_db: str, dry_run: bool = False):
     con.execute("BEGIN")
     con.execute(sql)
 
-    # Merge fibrations (INSERT OR IGNORE — don't clobber existing)
-    fib_cols = [row[1] for row in con.execute("PRAGMA table_info(fibrations)")]
+    # Merge fibrations — strip auto-generated 'id', deduplicate on (h11, poly_idx, fiber_type)
+    # Bug fix: result DBs assign id starting at 1; INSERT OR IGNORE with id silently drops
+    # everything when those ids already exist in the main DB.  Solution: exclude id column
+    # and check for existing (h11, poly_idx, fiber_type) tuples before inserting.
+    all_fib_cols = [row[1] for row in con.execute("PRAGMA table_info(fibrations)")]
+    fib_cols = [c for c in all_fib_cols if c != 'id']  # exclude auto-pk
+    col_idx = {c: i for i, c in enumerate(all_fib_cols)}
     fib_list = ', '.join(fib_cols)
     fib_ph = ', '.join(['?'] * len(fib_cols))
-    new_fibs = con.execute("SELECT * FROM r.fibrations").fetchall()
-    if new_fibs:
-        con.executemany(
-            f"INSERT OR IGNORE INTO fibrations ({fib_list}) VALUES ({fib_ph})",
-            new_fibs
-        )
-        print(f"  Fibrations: {len(new_fibs)} inserted (INSERT OR IGNORE)")
+    new_fibs_raw = con.execute("SELECT * FROM r.fibrations").fetchall()
+    if new_fibs_raw:
+        existing = {
+            row for row in con.execute("SELECT h11, poly_idx, fiber_type FROM fibrations")
+        }
+        to_insert = []
+        for row in new_fibs_raw:
+            key = (row[col_idx['h11']], row[col_idx['poly_idx']], row[col_idx['fiber_type']])
+            if key not in existing:
+                existing.add(key)  # prevent duplicate within batch
+                to_insert.append(tuple(row[col_idx[c]] for c in fib_cols))
+        if to_insert:
+            con.executemany(
+                f"INSERT INTO fibrations ({fib_list}) VALUES ({fib_ph})",
+                to_insert
+            )
+        print(f"  Fibrations: {len(new_fibs_raw)} in file, {len(to_insert)} new inserted")
 
     con.execute("COMMIT")
     elapsed = time.time() - t0

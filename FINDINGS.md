@@ -11,7 +11,7 @@ Standard Model–like compactifications. For the quick summary, see
 **Database**: `v6/cy_landscape_v6.db` — **3.11M polytopes** (h13–h40), **52,865** fully scored (yukawa + n_clean computed).  
 **Pipeline**: v6 (yukawa-fix, `--local-ks`, `--offset`). **Scoring**: 100-point SM composite (10 components). Score range 25–89.  
 **Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h21 exhaustively scanned (100%). h22–h24 nearly exhaustive (~99.5%). h25 fully exhausted. h26 at ~49%. h27–h30 at 100–200K. h31–h40 at 50K.  
-*Updated 2026-03-05 post §26b Hetzner T3 sweep (score 70-79). T3-verified: 37→337. ≥80: 35→37.*
+*Updated 2026-03-05 post §26 DB audit + fibration re-merge fix. T3: 337. Fibrations: 1,604 (278/337 T3 covered). Remaining score≥70 T2-only: 628.*
 
 ### Current Champions (v6 scoring, post §26b T3 sweep)
 
@@ -82,6 +82,8 @@ reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivale
 - **h22/P682**: score **85** (jumped from T2=80), n_clean=**84** — record n_clean in ≥80 tier; gauge su(3) × su(14) × U(1)^5
 - **§26b T3 sweep (score 70-79)**: 300/928 candidates run; 2 crossed ≥80 — h23/P36 (79→**81**) and h21/P9085 (79→**80**). Both no-SM. Score jumps at T3 are real: T2 is a lower bound.
 - **T3-verified count**: 337 total; 37 at score≥80, 273 at score≥75
+- **Fibrations DB** (post §26 audit): **1,604 total fibrations** across 278/337 T3-verified entries. 59 T3 entries have 0 fibrations (genuine no-SM polytopes: `has_SM=False`). Pre-fix count was artificially low (936) due to id-collision bug in `merge_t3_results.py` (INSERT OR IGNORE dropped rows when result-file ids conflicted with production-DB ids). Fixed 2026-03-05; `merge_t3_results.py` now strips id column and deduplicates on `(h11, poly_idx, fiber_type)`.
+- **Remaining T2-only score≥70**: 628 candidates (score=73: 46, 72: 147, 71: 67, 70: 368) — planned §27 Hetzner sweep
 
 ---
 
