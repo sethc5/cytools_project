@@ -11,11 +11,11 @@ Standard Model–like compactifications. For the quick summary, see
 **Database**: `v6/cy_landscape_v6.db` — **3.11M polytopes** (h13–h40), **52,865** fully scored (yukawa + n_clean computed).  
 **Pipeline**: v6 (yukawa-fix, `--local-ks`, `--offset`). **Scoring**: 100-point SM composite (10 components). Score range 25–89.  
 **Landscape**: Kreuzer-Skarke χ = −6 polytopes — **6,122,441 total** (h¹¹ = 13–119). Active scan window h¹¹ = 13–40 (5.80M, 94.7% of total). h13–h21 exhaustively scanned (100%). h22–h24 nearly exhaustive (~99.5%). h25 fully exhausted. h26 at ~49%. h27–h30 at 100–200K. h31–h40 at 50K.  
-*Updated 2026-03-04 post §26 Hetzner T3 batch (all 35 ≥80 entries now T3-verified).*
+*Updated 2026-03-05 post §26b Hetzner T3 sweep (score 70-79). T3-verified: 37→337. ≥80: 35→37.*
 
-### Current Champions (v6 scoring, post §26 T3 batch)
+### Current Champions (v6 scoring, post §26b T3 sweep)
 
-*All 35 entries ≥80 are T3-verified (SM/GUT classification, gauge group, c2 stability). §26 Hetzner batch 2026-03-04 completed T3 on all 17 previously pending score=80 candidates. 2 confirmed below 80.*
+*All 37 entries ≥80 are T3-verified. §26b sweep (2026-03-04/05 Hetzner, 14 workers, 5.4h) ran T3 on 300 score=70-79 candidates — 2 crossed into ≥80 at T3. ≥75: 273 T3-verified. Total T3: 337.*
 
 | Rank | ID | Score | SM | GUT | n_clean | max_h0 | Tier | Note |
 |------|----|-------|----|-----|---------|--------|------|------|
@@ -53,7 +53,8 @@ Standard Model–like compactifications. For the quick summary, see
 | 32 | **h26/P30513** | **80** | ✓ | ✓ | 22 | 3 | T3 | **NEW §26** |
 | 33 | **h28/P1937** | **80** | ✓ | ✓ | 20 | 3 | T3 | **NEW §26** |
 | 34 | **h27/P28704** | **80** | ✓ | ✓ | 20 | 7 | T3 | **NEW §26** |
-| 35 | **h27/P26021** | **80** | ✓ | ✓ | 20 | 9 | T3 | **NEW §26** |
+| 36 | **h27/P26021** | **80** | ✓ | ✓ | 20 | 9 | T3 | **NEW §26** |
+| 37 | **h21/P9085** | **80** | ✗ | ✗ | 66 | — | T3 | **★ NEW §26b** — score 79→80 at T3; no SM/GUT |
 
 **Prior invalidations (§21)**: h23/P37201 (prev. 87), h27/P240 (82), h27/P239 (82), h22/P302 (81), h21/P270 (80), h21/P55 (80), h27/P9181 (80), h30/P289 (80) — confirmed partial-score artifacts by 2026-03-02 fresh scan.
 
@@ -71,16 +72,16 @@ reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivale
 - **h13–h21 exhaustively scanned** (100% of ~258K polytopes)
 - **h22–h24 nearly exhaustive** (~99.5%; h24 fully exhausted: 438K/438K); **h25 fully exhausted** (424K/424K); **h26** at ~49% (200K of 412K)
 - **h27–h28** at ~18.5% (200K of 1.08M); **h29–h30** at ~24% (200K of 833K)
-- **52,865** fully scored (yukawa + n_clean) — T2: **54,911** total | T3: **37**
+- **52,865** fully scored (yukawa + n_clean) — T2: **54,911** total | T3: **337**
 - **89** = highest v6 score achieved (**h26/P11670** — champion, stable across all batches)
-- **≥80: 35 polytopes (all T3-verified). ≥75: 278 polytopes. ≥70: 965 polytopes.**
-- **Score distribution (top)**: 89×1, 87×4, 85×6, 83×1, 82×4, 81×4, 80×15
+- **≥80: 37 polytopes (all T3-verified). ≥75: 273 T3-verified. ≥70: 965 polytopes.**
+- **Score distribution (T3, top)**: 89×1, 87×4, 85×6, 83×1, 82×4, 81×5, 80×16, 79×27, 78×10, 77×70, 76×21, 75×108
 - **T0 wall confirmed**: h24 back half (350K–438K) and h25 back half (362K–424K) each returned 0 T0 passes — KS polytope ordering concentrates all viable geometry at the front
 - **h11_eff=22 is the sweet spot**: consistent across top entries; h11=27–29 contributes 9 of top-20 SM+GUT entries
 - **Hard walls for ≥80**: yukawa_hier < 500 → impossible; vol_hier < 100 → impossible; n_dp ≥ 11 → impossible; n_fibers ≥ 12 → impossible
-- **h22/P682**: score **85** (jumped from T2=80), n_clean=**84** — record n_clean in entire ≥80 tier; gauge su(3) × su(14) × U(1)^5
-- **2 score=80 T2 candidates confirmed below 80** at T3 (expected: T2 scoring is a lower bound)
-- **T3-verified count**: 37 total entries at tier T3; 35 at score≥80, 2 below 80
+- **h22/P682**: score **85** (jumped from T2=80), n_clean=**84** — record n_clean in ≥80 tier; gauge su(3) × su(14) × U(1)^5
+- **§26b T3 sweep (score 70-79)**: 300/928 candidates run; 2 crossed ≥80 — h23/P36 (79→**81**) and h21/P9085 (79→**80**). Both no-SM. Score jumps at T3 are real: T2 is a lower bound.
+- **T3-verified count**: 337 total; 37 at score≥80, 273 at score≥75
 
 ---
 
