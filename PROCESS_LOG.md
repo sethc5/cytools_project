@@ -5,6 +5,44 @@
 
 ---
 
+## 2026-03-07 — B-42 Champion Deep Physics: Kodaira + Bundles + Monads
+
+**Goal**: Execute B-42 (champion deep physics) for h26/P11670 (score=89). Deploy analysis scripts on Hetzner.
+
+**Steps executed**:
+
+1. **Kodaira analysis** (`champion_kodaira.py`, ~3 min, Hetzner):
+   - 11 fibrations classified. F11 fiber = su(10) carrier at [1,1] → **best SU(5)×U(1)_Y GUT candidate**.
+   - F8 fiber ambiguity: I₈ (su(8)) vs III* (e₇) at [1,1] — needs Weierstrass model resolution.
+   - F10 fiber: su(6)×su(4) structure, MW rank=1 (U(1) available for hypercharge breaking).
+   - Output: `results/champion_kodaira.json` (3.7K). Commit `a342a8a`.
+
+2. **Figures** (`figures.py`, ~2 min, local — container DB is 0 bytes):
+   - 9 PNG figures generated from 827MB local DB (`results/figures/fig{1-9}.png`). Commit `a342a8a`.
+   - matplotlib not in container → auto-skipped on Hetzner via DB size check.
+
+3. **Direct-sum bundle scan** (`champion_bundles.py`, ~14 min, Hetzner):
+   - SU(4): 500K random line-bundle direct sums → **0 Hoppe-stable** (expected).
+   - SU(5): 300K random samples → 161 with |χ|=3 → **0 Hoppe-stable** (expected).
+   - Direct sums are polystable (μ=0 everywhere), never slope-stable. Correct result.
+   - Output: `results/champion_bundles.json`. Commits `742b54d`–`2c30cd0`.
+   - **Bugs fixed en route**: `p.n_vertices()` → `len(p.vertices())`; `p.get_cy()` → `p.triangulate().get_cy()`; missing `in_basis=True` for `second_chern_class()` and `intersection_numbers()`; OOM kill from `list(product(range(-2,3), repeat=28))` (3²⁸ ≈ 22T tuples) → replaced with `rng.integers()` direct sampling; matplotlib install.
+
+4. **Monad scan k=2** (`champion_monads.py`, ~28 min total, Hetzner):
+   - SU(4) monad 0→V→B→C→0 with configs (n_B,n_C) = (5,1),(6,2),(7,3), k_max=2, 1M trials/config.
+   - Slope filter: ∃J in Kähler cone with μ(O(bᵢ))<0 ∀i AND μ(O(cⱼ))>0 ∀j (30 random J samples).
+   - Config (5,1): **DONE** — 1,084 χ=±3 candidates → **0 slope-stable**.
+   - Config (6,2): in progress at 500K/1M (1,391/s, eta ~6 min from check).
+   - Config (7,3): pending.
+   - Output: `results/champion_monads.json`, `results/champion_monads_top.txt`. Commits `fc94a74`, `0c47a6b`.
+   - **Bug fixed**: stdout buffering in `docker exec -d` (Python block-buffered) → relaunched with `python3 -u`.
+
+**Status**: In progress. Stage 6 (k_max=3, 2M/config) queued as B-45. See FINDINGS.md §28 for results table.
+
+**Commits**: `a342a8a`, `742b54d`–`2c30cd0`, `fc94a74`, `0c47a6b`, `d9ea78f`, `348eb75`, `3d56293`
+
+---
+
 ## 2026-03-06 — §27 T3 Sweep Complete: Score 70-73
 
 **Goal**: T3-verify all remaining 628 score=70-73 T2-only candidates (score 74-79 all done in §26b).
