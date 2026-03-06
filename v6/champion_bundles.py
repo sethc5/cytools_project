@@ -39,6 +39,7 @@ Output:
 import argparse
 import itertools
 import json
+import math
 import multiprocessing as mp
 import os
 import sys
@@ -166,7 +167,7 @@ def hoppe_check(Ds, cy, h11_eff):
 #  Direct-sum bundle scan
 # ══════════════════════════════════════════════════════════════════════════════
 
-def scan_direct_sums(cy, c2, K, h11_eff, rank=4, k_max=3, chi_target=3, max_results=500):
+def scan_direct_sums(cy, c2, K, h11_eff, rank=4, k_max=3, chi_target=3, n_sample=500_000, max_results=500):
     """
     Scan SU(rank) direct-sum bundles V = L₁⊕...⊕Lᵣ.
 
@@ -179,25 +180,17 @@ def scan_direct_sums(cy, c2, K, h11_eff, rank=4, k_max=3, chi_target=3, max_resu
     import numpy as np
 
     basis_range = range(-k_max, k_max + 1)
+    n_choices = 2 * k_max + 1  # choices per dimension
     n_checked = 0
     candidates = []
 
+    search_size_log10 = (rank - 1) * h11_eff * math.log10(n_choices) if h11_eff > 0 else 0
     print(f"\nScanning SU({rank}) direct sums, k_max={k_max}, h11_eff={h11_eff}...")
-    print(f"  Search space: ({2*k_max+1})^{(rank-1)*h11_eff} ~ "
-          f"{(2*k_max+1)**((rank-1)*h11_eff):.2e} total")
+    print(f"  Search space: ~10^{search_size_log10:.1f} (random sampling {n_sample:,} trials)")
 
-    # For tractability: iterate over h11_eff-dim vectors for L1...L(r-1)
-    # Lr = -(L1+...+L(r-1)) enforces c1=0
-    r_minus_1 = rank - 1
-    per_D = list(itertools.product(basis_range, repeat=h11_eff))
-    print(f"  Iterating {len(per_D)^{r_minus_1}:,} combinations "
-          f"({len(per_D):,}^{r_minus_1})...")
-
-    # For large h11_eff, per_D is huge — use random sampling
+    # Use random sampling — exhaustive is impossible for h11_eff >= 10
     rng = np.random.default_rng(42)
-    n_sample = min(500_000, len(per_D) ** r_minus_1)
-    print(f"  Random sampling {n_sample:,} combinations (h11_eff={h11_eff} too large for exhaustive)")
-
+    r_minus_1 = rank - 1
     t0 = time.time()
     for trial in range(n_sample):
         if trial % 50000 == 0 and trial > 0:
@@ -306,6 +299,7 @@ def main():
         rank=args.rank,
         k_max=args.k_max,
         chi_target=args.chi_target,
+        n_sample=args.n_sample,
         max_results=1000,
     )
 
