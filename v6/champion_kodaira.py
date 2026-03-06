@@ -110,13 +110,14 @@ def get_cy_and_divisors(p):
 
     print("Triangulating (FRST)...")
     t0 = time.time()
-    cy = p.get_cy()
+    tri = p.triangulate()
+    cy = tri.get_cy()
     print(f"  Done in {time.time()-t0:.1f}s. h11={cy.h11()}, h21={cy.h21()}")
 
-    divs = cy.get_toric_divisors()
-    c2 = cy.second_chern_class()
-    intnums = cy.intersection_numbers()
-    print(f"  Divisors: {len(divs)}, c2 nonzero: {sum(1 for x in c2 if x != 0)}")
+    divs = cy.divisors() if hasattr(cy, 'divisors') else list(range(cy.h11()))
+    c2 = list(cy.second_chern_class(in_basis=True))
+    intnums = dict(cy.intersection_numbers(in_basis=True))
+    print(f"  h11={cy.h11()}, c2 nonzero: {sum(1 for x in c2 if x != 0)}, kappa terms: {len(intnums)}")
 
     return cy, divs, c2, intnums
 
@@ -291,14 +292,14 @@ def analyze_discriminant_toric(p, cy):
 
     # Get intersection numbers to compute fiber class
     try:
-        intnums = cy.intersection_numbers()
+        intnums = dict(cy.intersection_numbers(in_basis=True))
         print(f"  Intersection numbers: {len(intnums)} nonzero entries")
     except Exception as e:
         print(f"  Intersection numbers: {e}")
 
     # Check c2 vector for constraint on fiber class
     try:
-        c2 = cy.second_chern_class()
+        c2 = list(cy.second_chern_class(in_basis=True))
         c2_vals = list(c2)
         print(f"  c₂·Dᵢ range: [{min(c2_vals)}, {max(c2_vals)}]")
         print(f"  K3-like divisors (c₂·D≥24): {sum(1 for v in c2_vals if v >= 24)}")

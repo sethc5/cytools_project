@@ -76,12 +76,13 @@ def load_cy_data(h11, poly_idx):
 
     print("Triangulating...")
     t0 = time.time()
-    cy = p.get_cy()
+    tri = p.triangulate()
+    cy = tri.get_cy()
     h11_eff = cy.h11()
     print(f"  h11_eff={h11_eff}, h21={cy.h21()} in {time.time()-t0:.1f}s")
 
-    c2  = list(cy.second_chern_class())         # length h11_eff
-    intnums = cy.intersection_numbers()         # {(a,b,c): κ_abc}
+    c2  = list(cy.second_chern_class(in_basis=True))     # length h11_eff
+    intnums = dict(cy.intersection_numbers(in_basis=True))  # {(a,b,c): κ_abc}
 
     return p, cy, c2, intnums, h11_eff
 
@@ -140,7 +141,7 @@ def hoppe_check(Ds, cy, h11_eff):
         return all(r == 0 for r in results if r is not None), {"fallback": True}
 
     try:
-        c2 = list(cy.second_chern_class())
+        c2 = list(cy.second_chern_class(in_basis=True))
         # Find K3 divisor as "hyperplane" (index with max c₂·D)
         h_idx = int(np.argmax(c2))
         H = np.zeros(h11_eff)

@@ -30,9 +30,14 @@ echo "[$(date -u)] Stage 1: champion_kodaira.py" | tee -a "$LOG"
 python3 champion_kodaira.py 2>&1 | tee -a "$LOG"
 echo "" | tee -a "$LOG"
 
-# ── Stage 2: Figures ─────────────────────────────────────────────────────────
-echo "[$(date -u)] Stage 2: figures.py (all 8 figures)" | tee -a "$LOG"
-python3 figures.py --out-dir results/figures 2>&1 | tee -a "$LOG"
+# ── Stage 2: Figures (requires populated DB — local machine only) ─────────────
+DB_SIZE=$(stat -c%s cy_landscape_v6.db 2>/dev/null || echo 0)
+if [[ "$DB_SIZE" -gt 1000000 ]]; then
+    echo "[$(date -u)] Stage 2: figures.py (all 8 figures)" | tee -a "$LOG"
+    python3 figures.py --out-dir results/figures 2>&1 | tee -a "$LOG"
+else
+    echo "[$(date -u)] Stage 2: SKIPPED — DB is empty/missing ($DB_SIZE bytes). Run figures.py locally." | tee -a "$LOG"
+fi
 echo "" | tee -a "$LOG"
 
 # ── Stage 3: SU(4) bundle scan ───────────────────────────────────────────────
