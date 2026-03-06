@@ -62,6 +62,26 @@ python3 champion_bundles.py \
     2>&1 | tee -a results/batch_champion_su5.log
 echo "" | tee -a "$LOG"
 
+# ── Stage 5: SU(4) monad scan (k_max=2, 1M samples) ─────────────────────────
+echo "[$(date -u)] Stage 5: champion_monads.py (SU(4), k_max=2, n=1M)" | tee -a "$LOG"
+python3 champion_monads.py \
+    --rank 4 \
+    --k-max 2 \
+    --n-sample 1000000 \
+    --j-tries 30 \
+    2>&1 | tee -a "$LOG"
+echo "" | tee -a "$LOG"
+
+# ── Stage 6: SU(4) monad k_max=3 (larger space, log to separate file) ────────
+echo "[$(date -u)] Stage 6: champion_monads.py (SU(4), k_max=3, n=2M)" | tee -a "$LOG"
+python3 champion_monads.py \
+    --rank 4 \
+    --k-max 3 \
+    --n-sample 2000000 \
+    --j-tries 50 \
+    2>&1 | tee -a results/batch_champion_monads3.log
+echo "" | tee -a "$LOG"
+
 echo "=== CHAMPION BATCH COMPLETE: $(date -u) ===" | tee -a "$LOG"
 echo "Outputs:" | tee -a "$LOG"
 echo "  results/champion_kodaira.json" | tee -a "$LOG"
