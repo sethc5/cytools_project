@@ -392,7 +392,7 @@ def main():
     out = {
         "h11": H11, "poly_idx": POLY_IDX,
         "cy_h11": cy.h11(), "cy_h21": cy.h21(), "cy_chi": cy.chi(),
-        "n_vertices": p.n_vertices(), "n_points": p.n_points(),
+        "n_vertices": len(p.vertices()), "n_points": len(p.points()),
         "c2_range": [int(min(c2)), int(max(c2))],
         "n_k3_div": sum(1 for v in c2 if v >= 24),
         "n_dp_div": sum(1 for v in c2 if 12 <= v < 24),
