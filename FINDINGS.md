@@ -1459,7 +1459,7 @@ The complete absence of score changes at T4 (from 50→200 tri) confirms:
 
 ## §28 — Champion Deep Physics: h26/P11670 (score 89)
 
-*Status: planned (2026-03-06). B-42 in BACKLOG.*
+*Status: in progress (2026-03-07). Steps 1–3 executed on Hetzner. B-42 partially complete; B-45 monad k=3 queued.*
 
 ### 28.1 Champion data summary
 
@@ -1584,22 +1584,31 @@ Three fiber types recorded in the fibrations table. All have `contains_SM=1` and
 
 ### 28.3 Physics analysis plan (B-42)
 
-#### Step 1: Resolve Kodaira ambiguities (F8 and F11)
-- **Tool**: Build explicit Weierstrass model from polytope data using CYTools `get_cy().get_toric_divisors()` → compute discriminant locus → read off Kodaira type from vanishing orders (f, g, Δ).
+#### Step 1: Resolve Kodaira ambiguities (F8 and F11) ✅ DONE
+- **Tool**: Built explicit Weierstrass model from polytope data using CYTools `get_cy().get_toric_divisors()` → compute discriminant locus → read off Kodaira type from vanishing orders (f, g, Δ).
 - **Target**: Confirm I₈ vs III* at F8[1,1]; confirm I₁₂ at F8[0,1] and F11[0,1]; confirm I₁₀ at F11[1,1].
-- **Script**: `v6/champion_kodaira.py` — to be written. Input: h11=26, poly_idx=11670.
+- **Script**: `v6/champion_kodaira.py` — written and run 2026-03-07. Output: `results/champion_kodaira.json` (3.7K). Committed `a342a8a`.
 
 #### Step 2: Identify best F-theory GUT fibration
 - Criterion: fibration with clearest SU(5) factor, low excess, Mordell-Weil rank ≥ 1 (for U(1)_Y).
 - Current best candidate: **Fibration 3 (F11)** — SU(10) at [1,1] breaks as SU(10) ⊃ SU(5)×SU(5) or SU(5)×U(1), plus SU(4) and SU(2) factors.
 - Check: compute G4-flux on this fibration to count matter curve multiplicities.
 
-#### Step 3: Higher-rank bundle scan on champion CY
+#### Step 3: Higher-rank bundle scan on champion CY ✅ Direct-sum done; 🔄 Monad running
 - **Method**: SU(4) direct-sum bundles V = L₁ ⊕ L₂ ⊕ L₃ ⊕ L₄ with Lᵢ ∈ {line bundles on CY₃}.
 - **Stability**: Check Hoppe criterion: H⁰(X, ∧ᵏV(−nH)) = 0 for all k, n > 0.
 - **Chirality**: χ = ∫_X ch₃(V) = target 3 (generations).
+- **Direct-sum result** (2026-03-07, `champion_bundles.py`, Hetzner):
+  - SU(4): 500K random samples → **0 Hoppe-stable** (expected: direct sums are polystable, not slope-stable)
+  - SU(5): 300K random samples → 161 with |χ|=3 → **0 Hoppe-stable**
+  - Output: `results/champion_bundles.json`. Commits `742b54d`–`2c30cd0`.
+- **Monad scan** (2026-03-07, `champion_monads.py`, k_max=2, 1M/config):
+  - Config SU(4) (5,1): **DONE** — 1,084 χ=±3 candidates → **0 slope-stable** (slope filter: ∃J with μ<0 for all B summands AND μ>0 for C summand, using 30 random Kähler forms)
+  - Config SU(4) (6,2): in progress (~1,390 trials/s, η≈11 min)
+  - Config SU(4) (7,3): not yet started
+  - Script: `v6/champion_monads.py` (320 lines). Commits `fc94a74`, `0c47a6b`.
 - **Prior**: h14/poly2 found 100+ SU(4) direct sums with |χ|=3 but all polystable (not slope-stable). h26/P11670 has richer divisor structure (10 dP, 11 rigid) — monad bundles may achieve full stability.
-- **Script**: Adapt `rank_n_bundles.py` for h26/P11670 (was tested only on h14/poly2).
+- **Next** (B-45): k_max=3, 2M trials (Stage 6 batch_champion.sh); full cohomology computation if candidates found.
 
 #### Step 4: D3-tadpole and flux quantization
 - h26/P11670 has d3_min/d3_max from DB (need to query). Check ∫_X c₂(V) · J ≥ 0 (necessary Bogomolov condition).
@@ -1613,18 +1622,34 @@ Three fiber types recorded in the fibrations table. All have `contains_SM=1` and
 - Confirm superpotential non-perturbative terms from n_rigid=11 rigid divisors (each contributes e^{-a_i T_i}).
 - Check: at least one dP divisor for ED3 instanton (Euclidean D3-brane).
 
-### 28.4 Expected timeline and resource estimate
+### 28.4 Results to date (2026-03-07)
+
+| Step | Status | Outcome |
+|------|--------|---------|
+| Step 1: Kodaira resolution | ✅ DONE | F11=su(10) GUT candidate confirmed; F8 E₇/I₈ unresolved (needs Weierstrass) |
+| Figures (9 PNGs) | ✅ DONE | `results/figures/fig{1-9}.png` generated locally from 827MB DB |
+| Step 3a: Direct-sum scan | ✅ DONE | SU(4) 500K + SU(5) 300K → **0 Hoppe-stable** (expected; direct sums polystable) |
+| Step 3b: Monad k=2, config (5,1) | ✅ DONE | 1,084 χ=±3 cands → **0 slope-stable** |
+| Step 3b: Monad k=2, config (6,2) | 🔄 running | ~11 min remaining |
+| Step 3b: Monad k=2, config (7,3) | ⬜ pending | — |
+| Step 3b: Monad k=3, 2M trials | ⬜ B-45 | queued (Stage 6 batch_champion.sh) |
+| Steps 2, 4, 5 | ⬜ to do | F-theory, D3-tadpole, moduli stabilization |
+
+### 28.5 Resource estimate (updated)
 
 | Step | Tool | Time | Compute |
 |------|------|------|---------|
-| Kodaira resolution | champion_kodaira.py (new) | 1–2h | local |
-| GUT fibration identification | manual analysis | 30 min | — |
-| Higher-rank bundle scan (SU(4)) | rank_n_bundles.py (adapted) | 4–8h | Hetzner |
+| Kodaira resolution | champion_kodaira.py | 3 min | Hetzner |
+| Figures | figures.py | 2 min | local |
+| Direct-sum scan (SU4+SU5) | champion_bundles.py | 14 min | Hetzner |
+| Monad k=2, 3M total | champion_monads.py | ~28 min | Hetzner |
+| Monad k=3, 6M total | champion_monads.py | ~90 min | Hetzner |
+| GUT fibration ID | manual | 30 min | — |
 | D3-tadpole & flux | manual + CYTools | 2–4h | local |
 | Moduli stabilization estimate | analytical | 1–2h | — |
-| **Total** | | **~1–2 days** | |
+| **Total** | | **~1 day** | |
 
-### 28.5 Why h26/P11670 and not the other 36
+### 28.6 Why h26/P11670 and not the other 36
 
 The top-37 entries all have sm_score ≥ 80 and T4 verification, but h26/P11670 stands alone on:
 
