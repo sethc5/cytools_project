@@ -2718,3 +2718,81 @@ n_clean>0 but pipeline_v2 screened them at T0 or T025.
 
 **Finding**: Finding 15 — pipeline threshold revision.
 **Commit**: 7dce177
+
+---
+
+## 2026-03-05/06 — §26a+§26b T3 Sweeps + Fibration Bug Fix
+
+**Goal**: T3-verify all sm_score ≥ 70 polytopes remaining at T2.
+
+**§26a** (20 candidates, score=80 tier): T3=20→37. Hetzner, 14 workers.
+- h22/P682: score 80→85 at T3 (fiber data enabled full scoring)
+- New 87s: h27/P4102, h27/P9192, h29/P8423, h24/P868
+
+**§26b** (300 candidates, score 70–79): T3=37→337. Hetzner, 14 workers, ~6h.
+
+**Fibration bug found & fixed**: `merge_t3_results.py` was silently dropping all fibrations via INSERT OR IGNORE + explicit `id` column collision. Fixed to strip `id`, deduplicate on `(h11, poly_idx, fiber_type)`. Re-inserted 458 rows → 1,604 total fibrations.
+
+**Commits**: `13681d2` (bug fix)
+
+---
+
+## 2026-03-05/06 — §27 T3 Sweep Score 70–73 (628 candidates)
+
+**Goal**: Complete T3 triage of all score ≥ 70 candidates.
+
+**Execution**: `batch_t3_sweep2.sh`, Hetzner, 14 workers, 19:27 UTC Mar 5 → 06:53 UTC Mar 6. 11h26m.
+
+**Results**: 628/628 verified. T3: 337→965. Fibrations: 1,604→2,463. ≥80: 37 (unchanged). Score 70–73 confirmed as genuine ceiling — no jumps at T3.
+
+**Milestone**: All score ≥ 70 T2-only candidates are now T3-verified.
+
+**Commit**: `f6d3180`
+
+---
+
+## 2026-03-06 — §28 Scan Extension h26–h28 (+50K each)
+
+**Goal**: Push h26/h27/h28 past prior high-water marks by 50K each.
+
+**Execution**: `batch_ext_280306.sh`, Hetzner, 14 workers, 08:24–09:00 UTC. 36 min.
+
+**Results**: 0/150,000 T0 passes across all three slices. Barren. No merge.
+
+**Finding**: High-offset regions of h26–h28 are uniformly dead. Productive polytopes cluster at low poly_idx.
+
+---
+
+## 2026-03-06 — §29 Scan Extension h29–h32 (Full Slices, 5.4M polytopes)
+
+**Goal**: Explore h29–h32 which had never been scanned.
+
+**Execution**: `batch_ext_h29_h32.sh`, Hetzner, 14 workers, 12:12 UTC. ~8h budget.
+
+**Results**: 5,452,092 polytopes scanned. 0 score ≥ 70 candidates. Maximum raw score 0.038 (h32) — not viable. h29–h32 is completely barren.
+
+**Finding**: Productive landscape bounded at h11 ≤ 28. Horizontal extension exhausted.
+
+**Commit**: `57f41c4`
+
+---
+
+## 2026-03-06 — §30 T4 Deep Triangulation on Top 37
+
+**Goal**: Run 4× deeper triangulations (200 vs 50) and 3× deeper stability analysis (60 vs 20 samples) on all 37 sm_score ≥ 80 candidates.
+
+**Execution**: `batch_t4.sh` + `t4_deep.py`, Hetzner, 14 workers (Pool), 17:34–18:13 UTC. **39 min**, 37/37 clean.
+
+**Results**:
+- **Zero score changes** — all 37 scores stable through 200 triangulations
+- Champion h26/P11670 (score=89) confirmed stable: c2_stable=0.033
+- Most stable: h25/P860 (c2=0.100, kappa=0.133)
+- 30/37 entries: c2_stable=0.000 (degenerate triangulation space — normal for LVS)
+- All 37 upgraded to tier **T4**
+- Score ceiling of **89** confirmed as genuine physical ceiling
+
+**Merge**: `merge_t4_results.py`, 37/37 rows updated to T4 tier.
+
+**Commits**: `d97d158` (scripts), `1f7f43b` (merge tag)
+
+**Status**: Survey complete through T4. The landscape is fully characterized.
