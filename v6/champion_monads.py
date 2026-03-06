@@ -415,9 +415,9 @@ def main():
     cy, c2, intnums, h11_eff = load_cy_data()
     K = build_kappa_tensor(intnums, h11_eff)
 
-    # Sanity: χ(O) = 1
+    # Sanity: χ(O_X) = 0 on CY3 (h^0-h^1+h^2-h^3 = 1-0+0-1 = 0)
     chi_O = chi_lb(np.zeros(h11_eff), c2, K)
-    print(f"\nSanity check: χ(O) = {chi_O:.4f} (should be 1.0)")
+    print(f"\nSanity check: χ(O_X) = {chi_O:.4f} (CY3 → 0 is correct)")
 
     # Build config list
     if args.nb is not None and args.nc is not None:
