@@ -72,7 +72,7 @@ def load_cy_data(h11, poly_idx):
     t0 = time.time()
     polys = load_h11_polytopes(h11, limit=poly_idx + 1)
     p = polys[poly_idx]
-    print(f"  Loaded {p.n_vertices()} verts, {p.n_points()} pts in {time.time()-t0:.1f}s")
+    print(f"  Loaded {len(p.vertices())} verts, {len(p.points())} pts in {time.time()-t0:.1f}s")
 
     print("Triangulating...")
     t0 = time.time()

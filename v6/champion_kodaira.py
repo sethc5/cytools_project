@@ -97,8 +97,8 @@ def load_champion():
     t0 = time.time()
     polys = load_h11_polytopes(H11, limit=POLY_IDX + 1)
     p = polys[POLY_IDX]
-    print(f"  Loaded in {time.time()-t0:.1f}s. Polytope: {p.n_vertices()} vertices, "
-          f"{p.n_points()} points")
+    print(f"  Loaded in {time.time()-t0:.1f}s. Polytope: {len(p.vertices())} vertices, "
+          f"{len(p.points())} points")
     return p
 
 
