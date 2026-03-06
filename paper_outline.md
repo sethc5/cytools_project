@@ -5,7 +5,7 @@ Geometry, Scoring, and a T4-Verified Champion Cluster*
 
 **Target journal**: Journal of High Energy Physics (JHEP) or Communications in Mathematical Physics  
 **Target length**: 35–50 pages (JHEP style) + appendices  
-**Status**: Outline draft, 2026-03-06  
+**Status**: Outline draft, 2026-03-07  
 
 ---
 
@@ -302,14 +302,18 @@ Full results table — **zero score changes from T3 → T4**:
 - h¹¹ = h¹¹(B₃) + 1 in the F-theory lift (elliptic fibration over B₃).
 - Champions with has_GUT and h¹¹ = 24–27 are natural F-theory SU(5) candidates.
 - Fibration count in DB: 2,463 total (805/965 T3 entries have ≥1 fibration).
-- Next step: Kodaira classification on h26/P11670 to identify GUT fiber type.
+- **Kodaira classification h26/P11670** (2026-03-07, `champion_kodaira.py`):
+  - F11 fibration: su(10) at [1,1] → **best SU(5)×U(1)_Y GUT candidate** (SU(10)⊃SU(5)×U(1)).
+  - F8 fibration: I₈ vs III* ambiguity at [1,1] (su(8) or e7) — requires Weierstrass model.
+  - F10 fibration: su(6)×su(4) structure, MW rank=1 (U(1) available for hypercharge).
 
 ### 7.4 Open questions
 1. Can the champion h26/P11670 be completed to a full heterotic vacuum?
-2. Are there SU(4)/SU(5) monad bundles with stable rank-4 bundle and χ=3 chirality?
+2. Are there SU(4)/SU(5) monad bundles with stable rank-4 bundle and χ=3 chirality? *(Monad scan k_max=2 in progress on Hetzner: config (5,1) done — 0 slope-stable from 1,084 χ-cands; configs (6,2) and (7,3) running. k_max=3 scan queued as B-45.)*
 3. Does the landscape boundary shift if EFF_MAX raised to 25? (Estimated 10× compute.)
 4. What is the geometric relationship between the 37 top-tier polytopes — is there a KS graph structure?
 5. Are there zero-mode obstructions (H¹(X, End V) ≠ 0) that invalidate the line-bundle models?
+6. Is the F8 ambiguity (su(8) or e7?) resolvable via explicit Weierstrass model computation?
 
 ---
 
