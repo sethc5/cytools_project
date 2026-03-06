@@ -78,11 +78,12 @@ def load_cy_data(h11, poly_idx):
     t0 = time.time()
     tri = p.triangulate()
     cy = tri.get_cy()
-    h11_eff = cy.h11()
-    print(f"  h11_eff={h11_eff}, h21={cy.h21()} in {time.time()-t0:.1f}s")
+    print(f"  cy.h11()={cy.h11()}, h21={cy.h21()} in {time.time()-t0:.1f}s")
 
-    c2  = list(cy.second_chern_class(in_basis=True))     # length h11_eff
+    c2  = list(cy.second_chern_class(in_basis=True))     # length = basis dim
     intnums = dict(cy.intersection_numbers(in_basis=True))  # {(a,b,c): κ_abc}
+    h11_eff = len(c2)  # use c2 length as authoritative basis dimension
+    print(f"  h11_eff (basis dim)={h11_eff}")
 
     return p, cy, c2, intnums, h11_eff
 
