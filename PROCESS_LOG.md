@@ -5,6 +5,37 @@
 
 ---
 
+## 2026-03-06 — §27 T3 Sweep Complete: Score 70-73
+
+**Goal**: T3-verify all remaining 628 score=70-73 T2-only candidates (score 74-79 all done in §26b).
+
+**Execution**: `WORKERS=14 TOP=628 bash v6/batch_t3_sweep2.sh` on Hetzner `funny_davinci`.  
+Started: 2026-03-05 19:27 UTC. Completed: 2026-03-06 06:53 UTC (11h26m).  
+Rate: ~61 candidates/hr (1.0–1.2 min/candidate — faster than §26b due to more quick no-fiber fails at low scores).
+
+**Results**:
+- All 628 T3-verified. No new entries crossed ≥74 at T3. Score 70-73 is a genuine ceiling — no T2 underestimation artifacts at this tier.
+- Score distribution (final T3 scores): 73×56, 72×142, 71×68, 70×352
+- SM+GUT hit rate: ~84% of processed (high even at score=70 — SM fiber geometry is present even at low overall scores)
+- Export: 628 T3 rows, 1,079 fib rows → `t3_sweep2_results.db` (864 KB)
+
+**Merge**:
+```
+python3 v6/merge_t3_results.py --results v6/t3_sweep2_results.db
+```
+- T3: 337 → **965**
+- Fibrations: 1,604 → **2,463** (859 new)
+- T3 with fibrations: 278 → **805/965** (160 genuine no-SM)
+- ≥80: **37 (unchanged)**. Champion h26/P11670 = 89 stable.
+
+**Milestone**: All score≥70 T2-only candidates are now T3-verified. The entire scored population (52,865 rows) has been triaged through the score threshold. Next work is either:
+1. **T4** — deeper triangulation analysis on top 37 (≥80)
+2. **Scan extension** — push h26–h28 from ~200K to 500K+ to find new high-score candidates
+
+**Commit**: (this entry)
+
+---
+
 ## 2026-03-05 — §26 DB Audit + Fibration Re-merge Fix
 
 **Context**: Post §26a+§26b merge. Comprehensive DB audit triggered by discrepancy in fibration counts.
