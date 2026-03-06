@@ -1,11 +1,14 @@
 # BACKLOG — χ = −6 CY Landscape Scanner
 
-> Ordered by priority. Top = do next. Updated: 2026-03-06.
+> Ordered by priority. Top = do next. Updated: 2026-03-07.
 >
 > **Project state**: Pipeline v6 (yukawa-fix, --local-ks). **3.11M polytopes** scanned (h13–h40).
 > **965 T3-verified** (all score≥70). **37 T4-verified** (score≥80, T4 confirmed stable
 > at 200/60 samples — zero score changes). Champion: **h26/P11670 (sm=89)**.
 > Landscape boundary confirmed: h11≤28 productive; h29-h32 full (5.45M) barren.
+> **Champion deep physics** (B-42): Kodaira ✅ (F11=su(10) best GUT), figures ✅ (9 PNGs),
+> direct-sum bundles ✅ (SU4+SU5, 800K trials, 0 Hoppe-stable — expected),
+> monad scan running (k_max=2, 1M/config; config (5,1): 0 slope-stable from 1084 χ-cands).
 > Database: `v6/cy_landscape_v6.db` (827MB). Hetzner (16-core i9, 128GB).
 > See [README.md](README.md) and [FINDINGS.md](FINDINGS.md).
 
@@ -21,11 +24,17 @@
 
 ### B-42: Champion deep physics — h26/P11670
 - **Why**: sm=89 globally optimal under v6 scoring. T4-verified (200 triangulations, c2_stable=0.033). Next is physics content: fibration structure, gauge algebra, higher-rank bundle candidates.
-- **What**:
-  1. **Fibration/Kodaira analysis** — run `fibration_analysis.py` on h26/P11670. The DB already shows it has SM+GUT fibrations (from T3 screening). Classify Kodaira types, tabulate gauge content, identify G4-flux candidates.
-  2. **Higher-rank bundles** — SU(4)/SU(5) direct-sum and monad scanner (was `rank_n_bundles.py`, tested on h14/poly2). Check Hoppe stability + ∧²V, compute chiral index, Higgs doublet count.
-  3. **F-theory discriminant locus** — elliptic fibrations with ADE monodromy give non-Abelian gauge sectors; compare with SM gauge algebra target.
-- **Acceptance**: Fibration table complete; at least one SU(4)/SU(5) bundle checked for stability.
+- **What** (status):
+  1. ✅ **Fibration/Kodaira analysis** — `champion_kodaira.py` complete. 11 fibrations classified. **F11 = su(10)/I₁₀** fiber → best SU(5)×U(1)_Y GUT candidate. F8 E₇ ambiguity (I₈ vs III*) requires Weierstrass model to resolve. Output: `results/champion_kodaira.json`. Committed `a342a8a`.
+  2. ✅ **Figures** — `figures.py` complete (local, 827MB DB). 9 PNGs generated in `results/figures/`. Figures 1–8 + supplementary score-vs-stability plot. Committed `a342a8a`.
+  3. ✅ **Direct-sum bundle scan** — `champion_bundles.py` complete on Hetzner. SU(4): 500K trials → 0 Hoppe-stable. SU(5): 300K trials → 161 χ=±3 → 0 Hoppe-stable. Result expected: direct sums are polystable (not slope-stable). Output: `results/champion_bundles.json`. Commits `742b54d`–`2c30cd0`.
+  4. 🔄 **Monad scan** — `champion_monads.py` running on Hetzner (k_max=2, 1M trials/config). 
+     - Config (5,1): **DONE** — 1,084 χ=±3 candidates → **0 slope-stable** 
+     - Config (6,2): in progress (~550s remaining)
+     - Config (7,3): not started (~550s after (6,2))
+     Output: `results/champion_monads.json`. Commits `fc94a74`, `0c47a6b`.
+  5. ⬜ **F-theory discriminant locus** — elliptic fibrations with ADE monodromy give non-Abelian gauge sectors; compare with SM gauge algebra target. (Partially addressed by Kodaira; Weierstrass model for F8 remains.)
+- **Acceptance**: Fibration table complete ✅; at least one SU(4)/SU(5) bundle checked for stability (monad scan pending).
 - **Estimate**: Medium-Large (research + computation). Detailed plan in [FINDINGS.md §28](FINDINGS.md).
 
 ### B-36: Documentation cleanup sprint ✅ DONE
@@ -40,26 +49,16 @@
   - ✅ CATALOGUE.md: Updated coverage, funnel, leaderboard, deep results (commit `a49622e`)
   - ✅ BACKLOG.md: This update
 
----
-
-## NEXT — Ready to Start
-
-### B-37: Low-h¹¹ rescore under v5.2
-- **Why**: h13–h19 legacy candidates were scored with the old 26-point system (v3–v4). Some may rank competitively under the 100-point SM composite, especially those with strong Yukawa or LVS metrics.
-- **What**: Ingest legacy polytopes into `cy_landscape_v4.db`, run T2 scoring with v5.2 pipeline. Compare rankings.
-- **Acceptance**: All legacy top-20 candidates have v5.2 scores. Any scoring ≥75 get T3 deep analysis.
-
-### B-38: GL=12/D₆ — full 6-parameter prepotential
-- **Why**: The 1-parameter slice (z₁-axis = Hesse pencil) is solved. The full CY3 prepotential requires the 6-parameter PDE system in Mori coordinates.
-- **What**: Solve the coupled PF system □₁–□₆ for the full period vector. Extract genus-0 GW invariants. Compare with existing literature (AESZ database, OEIS).
-- **Acceptance**: Genus-0 GW invariants for at least one non-trivial class.
-- **Estimate**: Hard (multi-parameter PDE solving).
-
-### B-39: F-theory discriminant locus on h28 champions
-- **Why**: h28 champions may have elliptic fibrations with interesting gauge algebras. Legacy champion h17/poly25 had 15 elliptic fibrations (record) with SU(5) GUT candidates.
-- **What**: Run `fibration_analysis.py` on h26/P11670 (champion). Classify Kodaira types. Determine gauge content.
-  - *Updated from B-39 (h28/P874,P186,P187) — h28 champions rescored under v6 to sm<80; h26/P11670 is now the clear target.*
-- **Acceptance**: Gauge algebra tabulated for all fibrations of h26/P11670; SU(5) GUT fibrations identified.
+### B-45: Monad scan follow-up — k_max=3 and cohomology
+- **Why**: k_max=2 monad scan on champion found 0 slope-stable bundles across configs (5,1), (6,2), (7,3). Two explanations: (a) search space too small — k_max=3 opens much larger lattice; (b) h11_eff=28 makes slope stability constraints very tight with random Kähler sampling.
+- **What**:
+  1. Run k_max=3, 2M trials (`batch_champion.sh` Stage 6) overnight on Hetzner.
+  2. If candidates found: compute line bundle cohomology h^k(X, O(bᵢ)) for each summand via `cy.line_bundle_cohomologies()`; compute net chiral spectrum χ(V⊗V*) for matter curves; verify D3 tadpole N_D3=χ(X)/24 − c₂(V)·J/2 ≥ 0.
+  3. If k_max=3 still 0: try asymmetric Kähler sampling (near-boundary of Kähler cone), or config (8,4).
+  4. Update FINDINGS.md §29 with full monad results.
+- **Acceptance**: Monad k=3 scan complete; if any slope-stable candidates found, full cohomology computed.
+- **Estimate**: Medium. Stage 6 (2M trials) ~20 min on Hetzner.
+- **Status**: Waiting on k=2 completion (configs (6,2) and (7,3) still running).
 
 ---
 
