@@ -19,45 +19,13 @@ LIMIT=${LIMIT:-50000}
 
 mkdir -p results
 
-# Bootstrap fresh DB (schema only — offset means no overlap with production DB)
-if [ ! -f "$DB" ]; then
-    python3 - "$DB" <<'PYEOF'
-import sqlite3, sys
-con = sqlite3.connect(sys.argv[1])
-con.executescript("""
-CREATE TABLE IF NOT EXISTS polytopes (
-    h11 INTEGER, poly_idx INTEGER, h11_eff INTEGER,
-    gap INTEGER, sym_order INTEGER, n_vertices INTEGER,
-    chi INTEGER, n_dp INTEGER, n_fibers INTEGER,
-    max_h0 INTEGER, max_h0_t2 INTEGER, h0_ge3 INTEGER,
-    n_bundles_checked INTEGER, n_clean INTEGER, n_clean_est INTEGER,
-    n_computed INTEGER, n_chi3 INTEGER,
-    yukawa_rank INTEGER, n_kappa_entries INTEGER,
-    yukawa_hierarchy REAL, vol_hierarchy REAL,
-    sm_score REAL, has_SM INTEGER, has_GUT INTEGER,
-    best_gauge TEXT, fiber_idx INTEGER,
-    tier_reached TEXT, status TEXT, error TEXT,
-    n_fibrations INTEGER, has_instanton INTEGER, c2_stable REAL,
-    n_triangulations INTEGER, kappa_stable REAL,
-    PRIMARY KEY (h11, poly_idx)
-);
-CREATE TABLE IF NOT EXISTS fibrations (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    h11 INTEGER, poly_idx INTEGER, fiber_type TEXT,
-    n_sections INTEGER, is_SM INTEGER, is_GUT INTEGER,
-    gauge_group TEXT
-);
-CREATE TABLE IF NOT EXISTS scan_log (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    h11 INTEGER, tier TEXT, mode TEXT,
-    n_processed INTEGER, n_passed INTEGER,
-    started_at TEXT, finished_at TEXT, elapsed_s REAL
-);
-""")
-con.commit()
-print(f"Created fresh DB: {sys.argv[1]}")
-PYEOF
+# Bootstrap: let pipeline_v6.py initialize the DB with the correct full schema
+# on first run. Just ensure a clean start.
+if [ -f "$DB" ]; then
+    echo "Removing stale $DB for clean start"
+    rm -f "$DB"
 fi
+echo "DB will be created by pipeline on first run: $DB"
 
 echo "=== EXT SCAN §28 START: $(date -u) ===" | tee "$LOG"
 echo "Host: $(hostname) | Workers: $WORKERS | Limit per h11: $LIMIT" | tee -a "$LOG"
