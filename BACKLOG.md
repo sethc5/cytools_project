@@ -1,34 +1,32 @@
 # BACKLOG — χ = −6 CY Landscape Scanner
 
-> Ordered by priority. Top = do next. Updated: 2026-02-26.
+> Ordered by priority. Top = do next. Updated: 2026-03-06.
 >
-> **Project state**: Pipeline v5.2. 70,000 polytopes scanned (h20–h40).
-> 1,787 T2-scored with 100-point SM composite. Champions: h28/P874,
-> h28/P186 (score 87). Database: `v4/cy_landscape_v4.db`. Hetzner (16-core).
-> See [README.md](README.md) and [CATALOGUE.md](CATALOGUE.md).
+> **Project state**: Pipeline v6 (yukawa-fix, --local-ks). **3.11M polytopes** scanned (h13–h40).
+> **965 T3-verified** (all score≥70). **37 T4-verified** (score≥80, T4 confirmed stable
+> at 200/60 samples — zero score changes). Champion: **h26/P11670 (sm=89)**.
+> Landscape boundary confirmed: h11≤28 productive; h29-h32 full (5.45M) barren.
+> Database: `v6/cy_landscape_v6.db` (827MB). Hetzner (16-core i9, 128GB).
+> See [README.md](README.md) and [FINDINGS.md](FINDINGS.md).
 
 ---
 
 ## NOW — Active Sprint
 
-### B-33: Stage 5 — Higher-rank bundles on h28 champions
-- **Why**: Line bundles only give U(1). Standard Model needs SU(3)×SU(2)×U(1), requiring rank 4 or 5 vector bundles. `rank_n_bundles.py` has been tested on h14/poly2 only — the h28 champions (P874, P186, P187) are untested.
-- **What**: Run SU(4)/SU(5) direct-sum and monad scanners on all three h28 Tier A candidates. Check stability (Hoppe criterion + ∧²V), compute chiral index and Higgs doublet count.
-- **Prior results (h14/poly2)**: 100+ SU(4) direct sums with |χ|=3, 100+ SU(5) with |χ(∧²V)|=3, 3 Hoppe-stable monads. All direct sums polystable (never truly stable).
-- **Acceptance**: At least one stable rank-n bundle with net chirality = 3 on any h28 champion.
-- **Estimate**: Large (research + computation).
+### B-41: Paper draft
+- **Why**: The v6 scan is publishable. 3.11M polytopes through a T4-verified pipeline, boundary confirmation (barren past h11=28), a clear champion cluster, and T4 triangulation stability tables are a methodological contribution regardless of full SM vacuum construction.
+- **What**: Draft in [paper_outline.md](paper_outline.md). Key sections: motivation (chi=−6 generation counting), pipeline methodology (T0→T4 stages, 100-pt scoring), landscape statistics (funnel, T0-wall, h11 trend), champion cluster (h26/P11670 geometry), boundary confirmation (§29 h29-h32 barren), triangulation stability (T4 results table), discussion (what score means, path to vacuum).
+- **Acceptance**: Complete draft with abstract, 6 sections, figures described, tables, bibliography skeleton.
+- **Estimate**: Large. See [paper_outline.md](paper_outline.md) for current state.
 
-### B-34: Triangulation stability — expand FRST sampling
-- **Why**: Top-20 T3 deep analysis used 50 random FRSTs per candidate. Stability percentages (e.g. P874 at 50%, P187 at 55%) have wide confidence intervals at n=50.
-- **What**: Expand to 200+ FRSTs for all Tier A candidates. Report c₂ hash and κ hash distributions, refine stability confidence intervals.
-- **Acceptance**: 200+ FRST samples per Tier A candidate with ≤5% CI on stability fraction.
-- **Estimate**: Small–Medium (computation only, infrastructure exists).
-
-### B-35: Paper draft
-- **Why**: Tier A candidates (P874, P186, P187) + pipeline methodology + triangulation stability + catalogue of negative results are paper-ready. The v5.2 pipeline, 70K-polytope scan, and scoring system are a contribution regardless of SM discovery.
-- **What**: Draft structure in [paper_outline.md](paper_outline.md). Key sections: methodology (pipeline stages), landscape statistics, champion cluster geometry, triangulation stability, CYTools gotchas.
-- **Acceptance**: Complete draft with figures, tables, and bibliography.
-- **Estimate**: Large.
+### B-42: Champion deep physics — h26/P11670
+- **Why**: sm=89 globally optimal under v6 scoring. T4-verified (200 triangulations, c2_stable=0.033). Next is physics content: fibration structure, gauge algebra, higher-rank bundle candidates.
+- **What**:
+  1. **Fibration/Kodaira analysis** — run `fibration_analysis.py` on h26/P11670. The DB already shows it has SM+GUT fibrations (from T3 screening). Classify Kodaira types, tabulate gauge content, identify G4-flux candidates.
+  2. **Higher-rank bundles** — SU(4)/SU(5) direct-sum and monad scanner (was `rank_n_bundles.py`, tested on h14/poly2). Check Hoppe stability + ∧²V, compute chiral index, Higgs doublet count.
+  3. **F-theory discriminant locus** — elliptic fibrations with ADE monodromy give non-Abelian gauge sectors; compare with SM gauge algebra target.
+- **Acceptance**: Fibration table complete; at least one SU(4)/SU(5) bundle checked for stability.
+- **Estimate**: Medium-Large (research + computation). Detailed plan in [FINDINGS.md §28](FINDINGS.md).
 
 ### B-36: Documentation cleanup sprint ✅ DONE
 - **Why**: Docs were frozen at early project state (Polytope 40 era, 1,025 polytopes, 26-point scoring). Needed updating to reflect v5.2 pipeline, 70K polytopes, h28 champions.
@@ -59,8 +57,30 @@
 
 ### B-39: F-theory discriminant locus on h28 champions
 - **Why**: h28 champions may have elliptic fibrations with interesting gauge algebras. Legacy champion h17/poly25 had 15 elliptic fibrations (record) with SU(5) GUT candidates.
-- **What**: Run `fiber_analysis.py` on h28/P874, P186, P187. Classify Kodaira types. Determine gauge content.
-- **Acceptance**: Gauge algebra tabulated for all fibrations of all three h28 Tier A candidates.
+- **What**: Run `fibration_analysis.py` on h26/P11670 (champion). Classify Kodaira types. Determine gauge content.
+  - *Updated from B-39 (h28/P874,P186,P187) — h28 champions rescored under v6 to sm<80; h26/P11670 is now the clear target.*
+- **Acceptance**: Gauge algebra tabulated for all fibrations of h26/P11670; SU(5) GUT fibrations identified.
+
+---
+
+## NEXT — Ready to Start
+
+### B-37: Low-h¹¹ rescore under v6
+- **Why**: h13–h19 legacy candidates were scored with the old v4/v5 pipeline. Some may rank competitively under v6's 100-point SM composite.
+- **What**: Ingest legacy polytopes into `cy_landscape_v6.db`, run T2 scoring with v6 pipeline. Compare rankings.
+- **Acceptance**: All legacy top-20 candidates have v6 scores. Any scoring ≥75 get T3 deep analysis.
+
+### B-38: GL=12/D₆ — full 6-parameter prepotential
+- **Why**: The 1-parameter slice (z₁-axis = Hesse pencil) is solved. The full CY3 prepotential requires the 6-parameter PDE system in Mori coordinates.
+- **What**: Solve the coupled PF system □₁–□₆ for the full period vector. Extract genus-0 GW invariants. Compare with AESZ database.
+- **Acceptance**: Genus-0 GW invariants for at least one non-trivial class.
+- **Estimate**: Hard (multi-parameter PDE solving).
+
+### B-43: h30+h31 full scan (optional closure)
+- **Why**: h30 is ~7% covered (100K / 1.43M), h31 is ~4% (50K / 1.26M). Coverage gaps are real, though trend is strongly negative (max_sm=75 at 7% coverage). Marginal probability of new sm≥80 is low.
+- **What**: Copy `batch_ext_h29_h32.sh`, trim to h30/h31, offset=0, limit=9999999. ~4h on Hetzner.
+- **Acceptance**: h30/h31 exhausted; any new sm≥80 T3-verified and merged.
+- **Estimate**: Small (infrastructure exists). Verdict: skip unless closure is required before paper submission.
 
 ---
 
@@ -69,7 +89,7 @@
 ### B-06: Ample Champion orbifold resolution
 - **Why**: The full Z₃×Z₃ quotient is singular. Could resolve and check if χ changes to −6.
 - **What**: Compute resolved Hodge numbers for the Z₃×Z₃ orbifold.
-- **Status**: Parked. h28 champions (score 87) are far stronger paths.
+- **Status**: Parked. h26/P11670 (sm=89) is the far stronger path.
 
 ### B-09: Self-mirror polytope (h11=20, h21=20) deep analysis
 - **Why**: Novel self-mirror CY with χ = 0. Rich fibration structure. Undocumented.
@@ -77,9 +97,14 @@
 - **Status**: Parked. Math curiosity, not a 3-generation candidate.
 
 ### B-40: Raise EFF_MAX beyond 22
-- **Why**: h37+ is barren at EFF_MAX=22. Raising the ceiling could unlock new populations but at significant computational cost (more bundles to check per polytope).
+- **Why**: h37+ is barren at EFF_MAX=22. Raising the ceiling could unlock new populations.
 - **What**: Test EFF_MAX=25 or 28 at h35–h40. Measure T0 pass rate vs compute time.
-- **Status**: Low priority — h28 sweet spot already found.
+- **Status**: Very low priority — §29 full scan (5.45M) confirmed barren past h11=28 even at current EFF_MAX.
+
+### B-44: hetzner2 provisioning
+- **Why**: W-2295/256GB at 144.76.222.125 still in rescue mode. Would provide 32 cores for heavier compute.
+- **What**: `installimage` → Debian 12, rsync chi6 files + DB, rebuild devcontainer.
+- **Status**: Parked pending need.
 
 ---
 
@@ -87,9 +112,15 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-47 | §30 T4 deep triangulation — 37/37 top candidates, 200/60 samples, 39 min, zero score changes | 2026-03-06 |
+| D-46 | §29 scan — h29-h32 full (5.45M polytopes, barren, landscape boundary h11≤28 confirmed) | 2026-03-06 |
+| D-45 | §28 scan — h26-h28 +50K each (barren, 0/150K T0 passes) | 2026-03-06 |
+| D-44 | §27 T3 sweep — all score≥70 T2-only candidates T3-verified (628 entries, zero crossed ≥74) | 2026-03-05 |
+| D-43 | §26b T3 sweep — score 70-79 tier, 300 candidates, 2 crossed ≥80 | 2026-03-04 |
+| D-42 | §26a T3 sweep — score=80 T2-only, 27 candidates, fibration bug fixed (merge_t3_results.py) | 2026-03-04 |
 | D-41 | B-36: Documentation cleanup sprint — FINDINGS, PROCESS_LOG, VERSIONS, MATH_SPEC, FRAMEWORK, CATALOGUE, BACKLOG | 2026-02-26 |
 | D-40 | v5.2 MONOTONIC_MAX score drift bug fix — post-upsert rescore | 2026-02-26 |
-| D-39 | T3 Deep Analysis — top 20 candidates, 50 FRSTs each, tier A/B/C assignments | 2026-02-26 |
+| D-39 | B-34: T3 Deep Analysis — top candidates, T4 now supersedes (200/60 samples, commit d97d158) | 2026-02-26 / 2026-03-06 |
 | D-38 | 50K h28 deep coverage scan — P1040 (score=80) found, champions not displaced | 2026-02-26 |
 | D-37 | v5.1 KS `limit` bug discovery and fix (`--limit N` CLI argument) | 2026-02-26 |
 | D-36 | v5.0 scoring overhaul — 100-point SM composite, 12 components, yukawa_rank bug fix | 2026-02-26 |

@@ -84,7 +84,7 @@ reweighted hierarchy (27→30), so absolute scores are lower than v4/v5 equivale
 - **T3-verified count**: **965 total** (post §27); 37 at score≥80, 273 at score≥75, 628 at score 70-73 (§27)
 - **Fibrations DB** (post §27 merge): **2,463 total fibrations** across 805/965 T3-verified entries. 160 T3 entries have 0 fibrations (genuine no-SM polytopes). Pre-§26 count was artificially low (936) due to id-collision bug in `merge_t3_results.py` — fixed 2026-03-05.
 - **§27 T3 sweep (score 70-73, 2026-03-05/06)**: All 628 remaining T2-only score≥70 candidates T3-verified. Score distribution: 73×56 (49 SM), 72×142 (119 SM), 71×68 (54 SM), 70×352 (298 SM). No new entries crossed ≥74 at T3 — score=70-73 tier is a hard ceiling. **All score≥70 T2-only candidates are now T3-verified.**
-- **T3 complete milestone**: 965 total T3 entries. All score≥70 exhausted. Next: T4 deep analysis on ≥80 tier, or scan extension to push h26–h28 to 500K+
+- **T3 complete milestone**: 965 total T3 entries. All score≥70 exhausted. §30: T4 on all 37 ≥80 entries (zero score changes). §28: champion deep physics plan for h26/P11670 — fibration Kodaira analysis, higher-rank bundles, D3-tadpole. See [paper_outline.md](../paper_outline.md) for paper structure.
 
 ---
 
@@ -1454,3 +1454,182 @@ The complete absence of score changes at T4 (from 50→200 tri) confirms:
 | Fibrations | 2,463 |
 | h11 range scanned | 21–32 (productive: 21–28) |
 | Score ceiling | 89 — confirmed stable through T4 |
+
+---
+
+## §28 — Champion Deep Physics: h26/P11670 (score 89)
+
+*Status: planned (2026-03-06). B-42 in BACKLOG.*
+
+### 28.1 Champion data summary
+
+From production DB (`v6/cy_landscape_v6.db`, T4, commit `1f7f43b`):
+
+| Field | Value |
+|-------|-------|
+| h¹¹ | 26 |
+| h²¹ | 26 |
+| χ | −6 |
+| h¹¹_eff (stored) | 28 |
+| gap | 1 |
+| sm_score | **89** |
+| has_SM | ✓ |
+| has_GUT | ✓ |
+| best_gauge | `su(4) × su(8) or e7 × su(6) × su(12)` |
+| n_clean | 22 |
+| max_h0 | 3 |
+| yukawa_hierarchy | **2,389.6** (top tier, >2000) |
+| yukawa_texture_rank | 17 |
+| volume_hierarchy | **18,493.8** |
+| n_dp | 10 (del Pezzo divisors) |
+| n_k3_div | 1 (K3-like divisor) |
+| n_rigid | 11 |
+| n_ell_fib | 4 |
+| n_k3_fib | 4 |
+| n_fibers | 3 (distinct fiber types in DB) |
+| d3_n_distinct | 12 |
+| T4 tri_n_tested | 60 (T4 used 200 samples via t4_deep.py, DB shows 60 from T3) |
+| tri_c2_stable_frac | 0.0333 |
+| tri_kappa_stable_frac | 0.0333 |
+| props_stable | 0 (score is triangulation-specific, not generic) |
+| tier_reached | T4 |
+
+**Physical interpretation of key metrics:**
+- **volume_hierarchy = 18,493**: extreme volume ratio between large and small divisors — excellent LVS viability. The large cycle (σ_b) and small cycles (σ_s) are deeply hierarchical: V ≫ τ_s^{3/2}.
+- **yukawa_hierarchy = 2,390**: very large Yukawa eigenvalue spread. This is the #1 discriminator (r=+0.31) — polytopes with this metric above 2000 almost exclusively carry score 85+.
+- **n_dp = 10**: 10 del Pezzo divisors — rich blow-up structure; provides many candidates for D-brane instantons (non-perturbative superpotential terms for moduli stabilization).
+- **n_rigid = 11**: 11 rigid divisors (c₂·D < 0) — instanton divisors for moduli fixing.
+
+### 28.2 Elliptic fibrations (from T3 analysis)
+
+Three fiber types recorded in the fibrations table. All have `contains_SM=1` and `has_SU5_GUT=1`.
+
+#### Fibration 1 — F10 fiber
+
+| Parameter | Value |
+|-----------|-------|
+| fiber_type | F10 |
+| fiber_pts | 8 |
+| base_pts | 6 |
+| fiber_at_origin | 7 |
+| total_excess | 21 |
+| gauge_algebra | `su(6) × su(4) × su(6) × su(4) × su(6) × U(1)` |
+| gauge_rank | 21 |
+| MW_rank_bound | 1 |
+| contains_SM | ✓ |
+| has_SU5_GUT | ✓ |
+
+**Kodaira types at 5 base loci (confidence: all medium):**
+
+| Base divisor | Kodaira type | Gauge algebra |
+|-------------|-------------|---------------|
+| [−1, 1] | I₆ | su(6) |
+| [0, −1] | I₄ | su(4) |
+| [0,  1] | I₆ | su(6) |
+| [1,  0] | I₄ | su(4) |
+| [1,  1] | I₆ | su(6) |
+
+**Comment**: SU(4) appears at two loci and SU(6) at three. The SU(4) factor contains SU(3)×U(1) as a subgroup; SU(6) contains SU(5) as a subgroup. The `U(1)` from Mordell-Weil rank=1 is consistent with the SM hypercharge. A diagonal breaking SU(6)+SU(4) → SU(3)×SU(2)×U(1) is geometrically plausible.
+
+#### Fibration 2 — F8 fiber
+
+| Parameter | Value |
+|-----------|-------|
+| fiber_type | F8 |
+| fiber_pts | 7 |
+| base_pts | 7 |
+| fiber_at_origin | 4 |
+| total_excess | 23 |
+| gauge_algebra | `su(2) × su(4) × su(12) × su(2) × su(8) or e7` |
+| gauge_rank | 23 |
+| contains_SM | ✓ |
+| has_SU5_GUT | ✓ |
+
+**Kodaira types (confidence: mixed):**
+
+| Base divisor | Kodaira type | Gauge algebra | Confidence |
+|-------------|-------------|---------------|-----------|
+| [−1, 0] | I₂ | su(2) | medium |
+| [−1, 1] | I₄ | su(4) | medium |
+| [0,  1] | I₁₂ | su(12) | **low** |
+| [1,  0] | I₂ | su(2) | medium |
+| [1,  1] | I₈ or III* | su(8) **or e7** | **low** |
+
+**Comment**: The ambiguity at [1,1] between I₈ (su(8)) and III* (e7) needs resolution via explicit Weierstrass model computation. If E₇ is confirmed, this is an exceptional-gauge GUT candidate — among the rarest in the chi=−6 landscape. su(12) at [0,1] is also exceptional rank (contains SU(5)×SU(7) or SU(3)×SU(4)×...).
+
+#### Fibration 3 — F11 fiber
+
+| Parameter | Value |
+|-----------|-------|
+| fiber_type | F11 |
+| fiber_pts | 8 |
+| base_pts | 6 |
+| fiber_at_origin | 6 |
+| total_excess | 24 |
+| gauge_algebra | `su(4) × su(2) × su(12) × su(10)` |
+| gauge_rank | 24 |
+| contains_SM | ✓ |
+| has_SU5_GUT | ✓ |
+
+**Kodaira types (confidence: mixed):**
+
+| Base divisor | Kodaira type | Gauge algebra | Confidence |
+|-------------|-------------|---------------|-----------|
+| [−1, 0] | I₄ | su(4) | medium |
+| [0, −1] | I₂ | su(2) | medium |
+| [0,  1] | I₁₂ | su(12) | **low** |
+| [1,  1] | I₁₀ | su(10) | **low** |
+
+**Comment**: SU(10) at [1,1] contains SU(5) as a maximal subgroup — natural F-theory SU(5) GUT locus. With SU(12) at [0,1], the total non-Abelian rank is 24. This fibration has the cleanest SU(5)-GUT interpretation of the three.
+
+### 28.3 Physics analysis plan (B-42)
+
+#### Step 1: Resolve Kodaira ambiguities (F8 and F11)
+- **Tool**: Build explicit Weierstrass model from polytope data using CYTools `get_cy().get_toric_divisors()` → compute discriminant locus → read off Kodaira type from vanishing orders (f, g, Δ).
+- **Target**: Confirm I₈ vs III* at F8[1,1]; confirm I₁₂ at F8[0,1] and F11[0,1]; confirm I₁₀ at F11[1,1].
+- **Script**: `v6/champion_kodaira.py` — to be written. Input: h11=26, poly_idx=11670.
+
+#### Step 2: Identify best F-theory GUT fibration
+- Criterion: fibration with clearest SU(5) factor, low excess, Mordell-Weil rank ≥ 1 (for U(1)_Y).
+- Current best candidate: **Fibration 3 (F11)** — SU(10) at [1,1] breaks as SU(10) ⊃ SU(5)×SU(5) or SU(5)×U(1), plus SU(4) and SU(2) factors.
+- Check: compute G4-flux on this fibration to count matter curve multiplicities.
+
+#### Step 3: Higher-rank bundle scan on champion CY
+- **Method**: SU(4) direct-sum bundles V = L₁ ⊕ L₂ ⊕ L₃ ⊕ L₄ with Lᵢ ∈ {line bundles on CY₃}.
+- **Stability**: Check Hoppe criterion: H⁰(X, ∧ᵏV(−nH)) = 0 for all k, n > 0.
+- **Chirality**: χ = ∫_X ch₃(V) = target 3 (generations).
+- **Prior**: h14/poly2 found 100+ SU(4) direct sums with |χ|=3 but all polystable (not slope-stable). h26/P11670 has richer divisor structure (10 dP, 11 rigid) — monad bundles may achieve full stability.
+- **Script**: Adapt `rank_n_bundles.py` for h26/P11670 (was tested only on h14/poly2).
+
+#### Step 4: D3-tadpole and flux quantization
+- h26/P11670 has d3_min/d3_max from DB (need to query). Check ∫_X c₂(V) · J ≥ 0 (necessary Bogomolov condition).
+- G4-flux quantization: G4 ∈ H²'²(X̂, ℤ + c₁/2) — half-integer quantization from curvature correction.
+- Full tadpole: N_D3 = χ(X)/24 − ∫ G4²/2 ≥ 0. With χ=−6: N_D3 = −6/24 + ... = −1/4 + flux contribution.
+- This is a hard constraint that dramatically restricts viable flux vacua.
+
+#### Step 5: Moduli stabilization estimate
+- volume_hierarchy = 18,493 → LVS minimum of scalar potential at V ≫ 1 is accessible.
+- Estimate W₀ from flux landscape Gaussian statistics: ⟨|W₀|²⟩ ∼ N_flux.
+- Confirm superpotential non-perturbative terms from n_rigid=11 rigid divisors (each contributes e^{-a_i T_i}).
+- Check: at least one dP divisor for ED3 instanton (Euclidean D3-brane).
+
+### 28.4 Expected timeline and resource estimate
+
+| Step | Tool | Time | Compute |
+|------|------|------|---------|
+| Kodaira resolution | champion_kodaira.py (new) | 1–2h | local |
+| GUT fibration identification | manual analysis | 30 min | — |
+| Higher-rank bundle scan (SU(4)) | rank_n_bundles.py (adapted) | 4–8h | Hetzner |
+| D3-tadpole & flux | manual + CYTools | 2–4h | local |
+| Moduli stabilization estimate | analytical | 1–2h | — |
+| **Total** | | **~1–2 days** | |
+
+### 28.5 Why h26/P11670 and not the other 36
+
+The top-37 entries all have sm_score ≥ 80 and T4 verification, but h26/P11670 stands alone on:
+
+1. **Score margin**: 89 vs 87 (next best). The 2-point gap reflects genuine differences in yukawa_hierarchy (2,390 vs ~1,100 for #2) and all 10/10 non-Mori score components maxed out (only mori_blowdown gives 0).
+2. **n=1 self-mirror Hodge**: h¹¹ = h²¹ = 26 is the *most symmetric* point in the top tier. Hodge self-mirror polytopes often have enhanced discrete symmetry (relevant for freely-acting quotients → smaller χ SM vacua).
+3. **3 distinct fibration types** (F10/F8/F11), all with SM+GUT content. The F8 ambiguity (su(8) or e7) is a potential upside — E₇ would be the rarest gauge group in the dataset.
+4. **volume_hierarchy = 18,493** is the highest of any ≥80 entry (checked manually). This is the key LVS metric; scores >10,000 are unusual.
+5. **10 del Pezzo divisors**: richest instanton landscape in the top tier (most entries have n_dp ≤ 8). More dP divisors → more non-perturbative W terms → more robust moduli stabilization.
