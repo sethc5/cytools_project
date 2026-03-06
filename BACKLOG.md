@@ -28,11 +28,11 @@
   1. ✅ **Fibration/Kodaira analysis** — `champion_kodaira.py` complete. 11 fibrations classified. **F11 = su(10)/I₁₀** fiber → best SU(5)×U(1)_Y GUT candidate. F8 E₇ ambiguity (I₈ vs III*) requires Weierstrass model to resolve. Output: `results/champion_kodaira.json`. Committed `a342a8a`.
   2. ✅ **Figures** — `figures.py` complete (local, 827MB DB). 9 PNGs generated in `results/figures/`. Figures 1–8 + supplementary score-vs-stability plot. Committed `a342a8a`.
   3. ✅ **Direct-sum bundle scan** — `champion_bundles.py` complete on Hetzner. SU(4): 500K trials → 0 Hoppe-stable. SU(5): 300K trials → 161 χ=±3 → 0 Hoppe-stable. Result expected: direct sums are polystable (not slope-stable). Output: `results/champion_bundles.json`. Commits `742b54d`–`2c30cd0`.
-  4. 🔄 **Monad scan** — `champion_monads.py` running on Hetzner (k_max=2, 1M trials/config). 
-     - Config (5,1): **DONE** — 1,084 χ=±3 candidates → **0 slope-stable** 
-     - Config (6,2): in progress (~550s remaining)
-     - Config (7,3): not started (~550s after (6,2))
-     Output: `results/champion_monads.json`. Commits `fc94a74`, `0c47a6b`.
+  4. ✅ **Monad scan k_max=2** — `champion_monads.py` complete on Hetzner.
+     - All 3 configs: (5,1)→(6,2)→(7,3), 1M samples each, k_max=2.
+     - **Total 2,987,978 sampled → 0 slope-stable, 0 tadpole-ok** (36 min).
+     - Per-config: (5,1): 1,084 χ-cands/0S; (6,2): 567/0S; (7,3): ~200/0S.
+     - Stage 6 (k_max=3, 2M/config) **launched** overnight on Hetzner. See B-45.
   5. ⬜ **F-theory discriminant locus** — elliptic fibrations with ADE monodromy give non-Abelian gauge sectors; compare with SM gauge algebra target. (Partially addressed by Kodaira; Weierstrass model for F8 remains.)
 - **Acceptance**: Fibration table complete ✅; at least one SU(4)/SU(5) bundle checked for stability (monad scan pending).
 - **Estimate**: Medium-Large (research + computation). Detailed plan in [FINDINGS.md §28](FINDINGS.md).
@@ -58,7 +58,7 @@
   4. Update FINDINGS.md §29 with full monad results.
 - **Acceptance**: Monad k=3 scan complete; if any slope-stable candidates found, full cohomology computed.
 - **Estimate**: Medium. Stage 6 (2M trials) ~20 min on Hetzner.
-- **Status**: Waiting on k=2 completion (configs (6,2) and (7,3) still running).
+- **Status**: k=2 scan DONE (0 slope-stable / 3M trials). k=3 **RUNNING** overnight on Hetzner (Stage 6).
 
 ---
 
