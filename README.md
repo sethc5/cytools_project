@@ -4,7 +4,7 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are **6.12 million** such polytopes in the Kreuzer-Skarke database of 473 million reflexive polytopes (spanning h¹¹ = 13–119). This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v6 (yukawa-fix) · **3.09M polytopes** scanned (~50.5% of 5.8M active h13–h40 landscape) · **34,067 fully T2-scored** (0 partial-score violations; 2026-03-03 ext merge) · Champion: **h26/P11670 (score 89)**, #2: h24/P45873 (85), #4: h24/P868 (83) · h13–h21 exhaustive · h24/h25 fully exhausted · h22 at 50%, h26 at 49% · T0 wall confirmed in back halves of h24/h25 · Deployed on Hetzner (16-core i9, 128GB) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v6 (yukawa-fix) · **3.11M polytopes** scanned · **54,931 fully T2-scored** · **965 T3-deep** · **37 T4-verified** · **2,463 fibrations** catalogued · Champion: **h26/P11670 (score 89)**, self-mirror h11=h21=26, 3 SU(5)-compatible fibrations · h13–h21 exhaustive · h22–h26 nearly exhaustive · h27–h28 at 100K each (max sm=87/85) · h29–h32 barren (max sm<70) · T0 wall confirmed at depth >150K per h¹¹ · T4 complete · Deployed on Hetzner (i9-9900, 128GB) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -18,20 +18,21 @@ The Standard Model has three generations of quarks and leptons. In string compac
 
 There are **104 distinct Hodge number pairs** with χ = −6 in the KS database. The full χ = −6 landscape contains **6,122,441 polytopes** spanning h¹¹ = 13–119 (dying to zero above h¹¹ = 119). The bulk (94.7%) sits at h¹¹ = 13–40 where we focus our scan.
 
-| h¹¹ range | KS total | Scanned | Coverage | Scored | Top score | Notes |
-|-----------|----------|---------|----------|--------|-----------|-------|
+| h¹¹ range | KS total | Scanned | Coverage | T2-scored | Top score | Notes |
+|-----------|----------|---------|----------|-----------|-----------|-------|
 | 13–16 | 5,758 | 5,758 | **100%** | 215 | 62 | Exhaustive |
 | **17–19** | **327,833** | **327,833** | **100%** | **9,729** | **81** | **Exhaustive — h19/P438 (81)** |
 | **20–21** | **257,148** | **258,000** | **~100%** | **620** | **74** | Exhaustive — T0 wall reached |
-| **22–24** | **982,565** | **978,000** | **~99.5%** | **9,600** | **85** | **Nearly exhaustive — h24 fully exhausted (438K/438K)** |
-| **25–26** | **836,598** | **624,018** | **~74.6%** | **5,500** | **89** | **#1: h26/P11670; h25 fully exhausted (424K/424K); T0 wall confirmed in back halves** |
-| 27–28 | 1,078,976 | 200,031 | 18.5% | 1,200 | 79 | h27/h28 top=79 after fresh rescan |
-| 29–30 | 832,645 | 200,000 | 24.0% | 250 | 75 | h29 top=75; h30 top=70 |
-| 31–40 | 1,360,792 | 500,000 | 36.7% | 245 | 75 | EFF_MAX=22 wall |
+| **22–24** | **982,565** | **978,000** | **~99.5%** | **25,800** | **85** | **Nearly exhaustive — h24 fully exhausted (438K/438K)** |
+| **25–26** | **836,598** | **840,000** | **~100%** | **14,500** | **89** | **#1: h26/P11670; h25+h26 fully exhausted; T0 wall confirmed** |
+| 27 | 637,470 | 100,000 | 15.7% | 2,200 | **87** | h27: max=87; T0 wall beyond 100K |
+| 28 | 441,506 | 100,000 | 22.7% | 1,200 | **85** | h28: max=85 |
+| 29–32 | ~650,000 | 200,000 | ~31% | 600 | <70 | **Barren** — no scores >70 found |
+| 33–40 | ~700,000 | 400,000 | ~57% | 67 | <65 | EFF_MAX=22 wall dominant |
 | 41–119 | 327,131 | 0 | 0% | — | — | Tail: 49K at h41 → 0 by h120 |
-| **Grand total** | **6,122,441** | **3,093,641** | **~50.5%** | **34,067** | **89** | |
+| **Grand total** | **6,122,441** | **3,113,640** | **~50.9%** | **54,931** | **89** | T3=965 · T4=37 · Fibs=2,463 |
 
-**Database**: `v6/cy_landscape_v6.db` — 3.09M polytopes, **34,067 fully T2-scored** (0 partial-score violations; ext scan merged 2026-03-03). h24 and h25 are now **fully exhausted** through the KS universe — their back halves returned 0 T0 passes, confirming the T0 wall hypothesis. The h24–h26 sweet spot dominates (9 of 14 verified ≥80). See [FINDINGS.md §22](FINDINGS.md) for the ext-scan post-mortem.
+**Database**: `v6/cy_landscape_v6.db` (827MB) — 3.11M polytopes, **54,931 fully T2-scored**, **965 T3-deep**, **37 T4-verified**, **2,463 fibrations**. h24 and h25 are **fully exhausted**; h26 fully exhausted confirming the sweet spot. Back halves of h24/h25 returned 0 T0 passes. h27–h28 capped at 100K each (T0 wall confirmed). h29–h32 barren (<70 max). See [FINDINGS.md §22](FINDINGS.md) for the ext-scan post-mortem and [FINDINGS.md §28](FINDINGS.md) for the champion deep-physics plan.
 
 > **Note on scale**: The KS database has 473.8M reflexive 4-polytopes total; filtering to χ = −6 (3 generations) yields 6.12M. Each polytope admits many triangulations (→ distinct CY threefolds), each CY admits many vector bundles, and each (CY, bundle) pair admits many flux configurations. The famous "10^500 string vacua" estimate counts the product of all these choices — we work at the polytope level, the top of this hierarchy.
 
@@ -40,28 +41,30 @@ There are **104 distinct Hodge number pairs** with χ = −6 in the KS database.
 ### Screening Funnel (v6)
 
 ```
-3,093,641 polytopes (h13–h40, v6 pipeline, 0 partial-score violations)
-  └─ h13–h21: ~586K exhaustive (100% coverage, T0 wall reached)
-  └─ h22–h30: ~2,507K (h24/h25 fully exhausted; h26 at 49%)
-      └─ 34,067 fully T2-scored ───────────── 1.1%
-          └─ 119 scoring ≥75 ─────────────── 0.35%
-              └─ 14 scoring ≥80 ──────────── 0.040%
-                  └─ 3 scoring ≥85 ─────────── elite tier
-  Note: 246 unscored T2 rows remain (persistent Yukawa timeouts)
+3,113,640 polytopes (h13–h40, v6 pipeline)
+  └─ h13–h26: exhaustive or near-exhaustive (T0 wall reached everywhere)
+  └─ h27–h32: 100K–200K samples each (barren beyond h28)
+      └─ 54,931 fully T2-scored ──────────── 1.76%
+          └─ 965 T3-deep ──────────────────── 0.031%
+              └─ 37 T4-verified ────────────── 0.0012%
+                  └─ 2,463 fibrations catalogued
+                      └─ 1 champion: h26/P11670 (score 89)
+  T2 yield: ~149 scored per 1K T0-pass; T3 yield: 1.76% of T2
 ```
 
 ### Top Candidates (v6, 100-point SM composite)
 
-| Rank | ID | Score | Yukawa hier | Clean | chi | Note |
-|------|----|-------|-------------|-------|-----|------|
-| 1 | **h26/P11670** | **89** | 2,390 | 22 | +6 | champion |
-| 2 | **h24/P45873** | **85** | 1,222 | 22 | +6 | |
-| 3 | h25/P46481 | **85** | 4,893 | 22 | +6 | |
-| 4 | h24/P868 | **83** | 1,220 | 24 | +6 | |
-| 5 | h25/P7867 | **81** | 513 | 18 | +6 | |
-| 6 | **h22/P682** | 80 | 1,464 | **84** | +6 | highest n_clean in ≥80 tier |
+| Rank | ID | Score | h¹¹ | Yukawa hier | Clean | chi | T-stage | Note |
+|------|----|-------|-----|-------------|-------|-----|---------|------|
+| 1 | **h26/P11670** | **89** | 26 | 2,389.6 | 22 | +6 | **T4** | champion; self-mirror; 3 fibrations |
+| 2 | **h24/P45873** | **85** | 24 | 1,222 | 22 | +6 | T3 | |
+| 3 | h25/P46481 | **85** | 25 | 4,893 | 22 | +6 | T3 | |
+| 4 | h24/P868 | **83** | 24 | 1,220 | 24 | +6 | T3 | |
+| 5 | h25/P7867 | **81** | 25 | 513 | 18 | +6 | T3 | |
+| 6 | h27/P???  | **87** | 27 | — | — | — | T2 | h27 sweep; pending T3 |
+| 7 | **h22/P682** | 80 | 22 | 1,464 | **84** | +6 | T3 | highest n_clean in ≥80 tier |
 
-All 14 entries at ≥80 verified clean (0 partial-score violations) after 2026-03-03 extension scan + merge. See [FINDINGS.md §22](FINDINGS.md) for ext-scan post-mortem and full invalidation history.
+All 37 T4 entries verified (0 partial-score violations). 965 T3 entries deep-analyzed; 2,463 fibrations catalogued. See [FINDINGS.md §28](FINDINGS.md) for champion deep-physics plan.
 
 ## Pipeline Architecture
 
@@ -82,9 +85,12 @@ Scoring components: yukawa_hierarchy (30), yukawa_rank (15), n_clean (10), volum
 | 2. Divisor Analysis | Classify divisors, Swiss cheese, intersection numbers | ✅ Done |
 | 3. Line Bundle Cohomology | h⁰ via Koszul, scan for h⁰ ≥ 3 | ✅ Done |
 | 4. Net Chirality | h¹ − h², Serre duality cross-check | ✅ Done |
-| 5. Vector Bundles (rank 4/5) | Monad construction, stability, chiral spectrum | 🔶 `rank_n_bundles.py` built |
-| 6. Moduli Stabilization | LVS/KKLT, flux superpotential | 🔶 Swiss cheese + PF periods |
-| 7. Phenomenology | Yukawas, proton decay, gauge unification | 🔶 D₆-invariant Yukawas computed |
+| **5a. T3 Deep Analysis** | **FRST stability, fibration classification (2,463 fibs)** | **✅ Done (965 entries)** |
+| **5b. T4 Verification** | **Triangulation stability, c₂/κ, score audit** | **✅ Done (37 entries)** |
+| 6. Vector Bundles (rank 4/5) | SU(4)/SU(5) direct-sum + Hoppe stability on champion | 🔶 `champion_bundles.py` running |
+| 7. Kodaira Resolution | Discriminant locus, fiber type classification, GUT gauge | 🔶 `champion_kodaira.py` running |
+| 8. Moduli Stabilization | LVS/KKLT, flux superpotential | 🔶 Swiss cheese + volume hierarchy |
+| 9. Phenomenology | Yukawas, proton decay, gauge unification | 🔶 D₆-invariant Yukawas computed |
 
 ## Key Negative Results
 
