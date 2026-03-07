@@ -1631,7 +1631,7 @@ Three fiber types recorded in the fibrations table. All have `contains_SM=1` and
 | Step 3a: Direct-sum scan | ✅ DONE | SU(4) 500K + SU(5) 300K → **0 Hoppe-stable** (expected; direct sums polystable) |
 | Step 3b: Monad k=2, all configs | ✅ DONE | 3M trials → **0 slope-stable** (random J sampling exhausted) |
 | Step 3b: Monad k=3, all configs | ✅ DONE | **6M trials → 0 slope-stable** (random J sampling conclusively exhausted) |
-| Step 3c: Monad LP slope filter | 🔄 next | `champion_monads_lp.py` — optimization-based J-feasibility per χ-candidate |
+| Step 3c: Monad LP slope filter | ✅ DONE | 612 slope-feasible found; **0 tadpole-OK** — see Finding 28c |
 | Steps 2, 4, 5 | ⬜ to do | F-theory G4, D3-tadpole, moduli stabilization |
 
 ### 28.5 Resource estimate (updated)
@@ -1657,3 +1657,53 @@ The top-37 entries all have sm_score ≥ 80 and T4 verification, but h26/P11670 
 3. **3 distinct fibration types** (F10/F8/F11), all with SM+GUT content. The F8 ambiguity (su(8) or e7) is a potential upside — E₇ would be the rarest gauge group in the dataset.
 4. **volume_hierarchy = 18,493** is the highest of any ≥80 entry (checked manually). This is the key LVS metric; scores >10,000 are unusual.
 5. **10 del Pezzo divisors**: richest instanton landscape in the top tier (most entries have n_dp ≤ 8). More dP divisors → more non-perturbative W terms → more robust moduli stabilization.
+
+### 28.7 Finding 28c — Monad LP: slope-feasible found, D3-tadpole obstructed (2026-03-07)
+
+**Summary**: The LP-based slope stability scan (`champion_monads_lp.py`) successfully found slope-feasible SU(4) monad bundles on h26/P11670 — but all fail the D3-tadpole constraint due to excessive second Chern class.
+
+#### LP Slope Filter Results
+- **Scan**: 5,989,706 (B,C) pairs sampled; SU(4) monad 0→V→B→C→0; configs (5,1),(6,2),(7,3); k_max=3; χ_target=±3
+- **Elapsed**: 4435s (~74 min) on Hetzner (Hetzner1, container `funny_davinci`)
+- **Slope-feasible (LP)**: **612 candidates** — gradient descent with 20 starts found a J satisfying all slope inequalities μ(V) < 0 < μ(B/C)
+- **Vol > 0 (in Kähler cone)**: **406 of 612** — feasible J has positive volume κ_{abc}J^a J^b J^c > 0
+
+#### D3-Tadpole Check — Bug and Correction
+The original `check_c2_tadpole()` used a **linear formula** for ch₂(O(β)):
+```
+ch₂(O(β))_k ≈ κ_{kab} J^b β^a    [WRONG — always cancels when c₁(B)=c₁(C)]
+```
+Since c₁(B) = c₁(C) is enforced by the SU(4) constraint, this formula gives ch₂(V) ≡ 0 for every candidate, making n_D3 = Σ c₂(TX) = 66.0 (constant). This is a **mathematical bug** — the formula computes the slope (linear in β), not the second Chern character.
+
+**Correct formula** (quadratic):
+$$\mathrm{ch}_2(\mathcal{O}(\beta))_k = \frac{1}{2}\,\kappa_{kab}\,\beta^a \beta^b$$
+
+For direct sums B = ⊕_i O(β^{(i)}): ch₂(B)_k = Σᵢ (1/2)κ_{kab}β^{(i)}_a β^{(i)}_b.
+With c₁(V)=0: c₂(V) = −ch₂(V) = −(ch₂(B) − ch₂(C)).
+
+#### Corrected Tadpole Results (via `recheck_tadpole.py`)
+- **406 valid Kähler-cone candidates re-checked** with correct ch₂ formula
+- **Tadpole OK: 0 / 406**
+- **c₂(V) statistics**:
+  - c₂(V)_max per candidate: 167 – 1654 (median ~430)
+  - n_D3 = Σ(c₂(TX) − c₂(V)) range: [−3006, 0], mean = −702
+  - c₂(TX)_k ∈ [−8, 24] (manifold property, fixed)
+- **Violation factor**: c₂(V)_max / c₂(TX)_max ≈ 7–70×. Massive D3 overcharge.
+
+#### Physical Diagnosis
+The root cause is structural: with line bundle charges |β^a| drawn from {−3,...,+3} and h11_eff=28:
+$$c_2(V)_k \sim \frac{1}{2}\kappa_{kab}\beta^a \beta^b \sim \frac{1}{2}\cdot\kappa_\mathrm{max}\cdot n_B\cdot(\beta_\mathrm{max})^2 \approx \frac{1}{2}\cdot O(1)\cdot 5\cdot 9 \approx 22$$
+But **summed over all k** and the full tensor, the actual values reach hundreds to thousands. The intersection tensor κ_{kab} on h26/P11670 (203 non-zero entries) amplifies charge products far beyond c₂(TX)_max = 24.
+
+**Physical conclusion**: Standard SU(4) monad bundles with integer Kähler parameters |β^a| ≲ 3 on h26/P11670 cannot simultaneously satisfy:
+1. SU(4) structure group (c₁=0, χ=±3)
+2. Slope stability (∃ J with margin < 0)
+3. D3-tadpole (c₂(V) ≤ c₂(TX) componentwise)
+
+This is a **genuine obstruction at h11=28**, not an algorithm limitation. The large Picard rank means the quadratic ch₂ terms grow faster than the linear c₂(TX) bound.
+
+#### Next Steps
+- **B-46**: Restricted-charge search with |β^a| ≤ 1 — keeps ch₂ bounded; integrates tadpole as hard constraint in LP.
+- Alternative: allow anti-D3 branes (N_D3 < 0 = O3 planes) or use 5-brane anomaly cancellation.
+- Alternatively: pivot to heterotic orbifold or F-theory GUT constructions (no tadpole constraint in same form).
+

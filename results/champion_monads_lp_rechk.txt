@@ -1,0 +1,5 @@
+Champion Monad LP -- Corrected D3-Tadpole Re-check
+============================================================
+vol>0 candidates: 406
+Tadpole OK (corrected): 0
+

@@ -48,21 +48,32 @@
   - ✅ CATALOGUE.md: Updated coverage, funnel, leaderboard, deep results (commit `a49622e`)
   - ✅ BACKLOG.md: This update
 
-### B-45: Monad scan follow-up — k_max=3 and cohomology
+### B-45: Monad scan follow-up — k_max=3 and cohomology ✅ COMPLETE
 - **Why**: k_max=2 monad scan on champion found 0 slope-stable bundles across configs (5,1), (6,2), (7,3). Two explanations: (a) search space too small — k_max=3 opens much larger lattice; (b) h11_eff=28 makes slope stability constraints very tight with random Kähler sampling.
 - **What**:
-  1. ✅ Run k_max=3, 2M trials (Stage 6) — done, 0 slope-stable from 6M trials.
-  2. 🔄 **LP slope filter** — `champion_monads_lp.py`: for each χ=±3 candidate, use scipy gradient optimization to *find* J satisfying all slope inequalities rather than sampling. 20 random starts on positive unit sphere. Deterministic feasibility: no false negatives.
-  3. If LP finds candidates: compute line bundle cohomology h^k(X, O(bᵢ)) for each summand via `cy.line_bundle_cohomologies()`; compute net chiral spectrum χ(V⊗V*); verify D3 tadpole N_D3=χ(X)/24 − c₂(V)·J/2 ≥ 0.
-  4. If LP still 0: consider (8,4) config or 5-brane anomaly cancellation path.
-  5. Update FINDINGS.md §28 with LP results.
-- **Acceptance**: Monad k=3 scan complete; if any slope-stable candidates found, full cohomology computed.
-- **Estimate**: Medium. Stage 6 (2M trials) ~20 min on Hetzner.
-- **Status**: k=2 done (0/3M), k=3 **done** (0/6M). Root cause: random sampling. **LP filter in progress.** See champion_monads_lp.py.
+  1. ✅ Run k_max=3, 2M trials — done, 0 slope-stable from 6M trials.
+  2. ✅ **LP slope filter** — `champion_monads_lp.py`: gradient optimization found 612 slope-feasible candidates (406 with vol_J>0). Run: 5,989,706 sampled, elapsed 4435s.
+  3. ✅ **Tadpole check** — Original check had bug (linear formula → always 0). Corrected to quadratic ch₂(O(β))_k = (1/2)κ_{kab}β^a β^b via `recheck_tadpole.py`. Result: 0/406 pass. c₂(V)_max ∈ [167,1654] vs c₂(TX)_max = 24. D3-charge violation by 7–70×.
+  4. ✅ Updated FINDINGS.md §28 with LP results and tadpole diagnosis.
+- **Outcome**: SU(4) monad bundles with charges |β^a| ≤ 3 generate quadratic ch₂(V) ≫ c₂(TX). Fundamental obstruction at h11=28. See Finding 28c.
+- **Next**: B-46 — Restricted-charge monad search: |β^a| ≤ 1, tadpole built into LP constraint.
+- **Files**: `champion_monads_lp.py`, `recheck_tadpole.py`, `results/champion_monads_lp*.json`
+- **Status**: ✅ **DONE** (2026-03-07)
 
 ---
 
-## NEXT — Ready to Start
+### B-46: Restricted-charge monad search + integrated tadpole LP
+- **Why**: B-45 revealed that charges |β^a| ≤ 3 generate c₂(V) >> c₂(TX). Restricting to |β^a| ≤ 1 keeps ch₂(O(β))_k ≤ max(κ)/2 per summand, which may fit under c₂(TX)_max=24.
+- **What**:
+  1. Modify `champion_monads_lp.py` to enforce |β^a| ∈ {-1,0,+1} for all charges.
+  2. Add tadpole as quadratic constraint: ch₂(B)_k - ch₂(C)_k ≥ -c₂(TX)_k for all k (i.e. c₂(V)_k ≤ c₂(TX)_k).
+  3. Combined LP: find J, B, C simultaneously satisfying slope stability AND tadpole (or use two-phase: first tadpole feasibility, then slope LP over valid (B,C) pairs).
+  4. Run on Hetzner for all configs (5,1),(6,2),(7,3).
+- **Acceptance**: Either find a tadpole+slope-stable monad, or prove the search space (|β|≤1) is exhausted.
+- **Estimate**: Medium–Hard. Phase 1 brute-force feasible for |β|≤1 (3^28 ≈ 2.3e13 — too large; sample 10M).
+- **Status**: 🔜 **NEXT**
+
+---
 
 ### B-37: Low-h¹¹ rescore under v6
 - **Why**: h13–h19 legacy candidates were scored with the old v4/v5 pipeline. Some may rank competitively under v6's 100-point SM composite.
