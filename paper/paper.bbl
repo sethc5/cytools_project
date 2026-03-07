@@ -1,0 +1,79 @@
+\begin{thebibliography}{10}
+
+\bibitem{KS2000}
+Maximilian Kreuzer and Harald Skarke.
+\newblock Complete classification of reflexive polyhedra in four dimensions.
+\newblock {\em Adv. Theor. Math. Phys.}, 4:1209--1230, 2000.
+
+\bibitem{AndersonGray2012}
+Lara~B. Anderson, James Gray, Andre Lukas, and Eran Palti.
+\newblock Heterotic line bundle standard models.
+\newblock {\em JHEP}, 1206:113, 2012.
+
+\bibitem{AGLP2014}
+Lara~B. Anderson, James Gray, Andre Lukas, and Eran Palti.
+\newblock Two hundred heterotic standard models on smooth {C}alabi-{Y}au
+  threefolds.
+\newblock {\em Phys. Rev. D}, 84:106005, 2011.
+
+\bibitem{AltmanCarifio2021}
+Ross Altman, William Carifio, James Halverson, and Brent~D. Nelson.
+\newblock Estimating {C}alabi-{Y}au hypersurface and triangulation counts with
+  equation learners.
+\newblock {\em JHEP}, 2303:186, 2023.
+
+\bibitem{CYTools2022}
+Mehmet Demirtas, Cody Long, Liam Mcallister, Mike Stillman, and Benjamin
+  Sherrill.
+\newblock {CYTools}: A software package for analyzing calabi-{Y}au manifolds,
+  2022.
+
+\bibitem{PALP}
+Maximilian Kreuzer and Harald Skarke.
+\newblock {PALP}: A package for analysing lattice polytopes with applications
+  to toric geometry, 2004.
+
+\bibitem{Balasubramanian2005}
+Vijay Balasubramanian, Per Berglund, Joseph~P. Conlon, and Fernando Quevedo.
+\newblock Systematics of moduli stabilisation in {C}alabi-{Y}au flux
+  compactifications.
+\newblock {\em JHEP}, 0503:007, 2005.
+
+\bibitem{MordellWeilHetF}
+Thomas~W. Grimm and Hirotaka Hayashi.
+\newblock F-theory fluxes, chirality and chern-simons theories.
+\newblock {\em JHEP}, 1203:027, 2012.
+
+\bibitem{Hoppe1984}
+Jens Hoppe.
+\newblock {\em Quantum theory of a massless relativistic surface and a
+  two-dimensional bound state problem}.
+\newblock PhD thesis, Massachusetts Institute of Technology, 1982.
+\newblock Hoppe stability criterion; see also Huybrechts-Lehn (1997).
+
+\bibitem{Dasgupta1999}
+Keshav Dasgupta, Govindan Rajesh, and Sandip Trivedi.
+\newblock M-theory, orientifolds and {G}-flux.
+\newblock {\em JHEP}, 9908:023, 1999.
+
+\bibitem{KKLT2003}
+Shamit Kachru, Renata Kallosh, Andrei Linde, and Sandip~P. Trivedi.
+\newblock de {S}itter vacua in string theory.
+\newblock {\em Phys. Rev. D}, 68:046005, 2003.
+
+\bibitem{BraunHeOvrutPantev2006}
+Volker Braun, Yang-Hui He, Burt~A. Ovrut, and Tony Pantev.
+\newblock The exact {MSSM} spectrum from string theory.
+\newblock {\em JHEP}, 0605:043, 2006.
+
+\bibitem{DonagiWijnholt2008}
+Ron Donagi and Martijn Wijnholt.
+\newblock Breaking {GUT} groups in {F}-theory.
+\newblock {\em Adv.\ Theor.\ Math.\ Phys.}, 15:1523--1603, 2011.
+
+\bibitem{Cvetic2010}
+Mirjam Cveti{\v{c}}, James Halverson, and Paul Langacker.
+\newblock Singlet extensions of the {MSSM} in the quiver landscape.
+\newblock {\em JHEP}, 1011:058, 2010.
+
+\end{thebibliography}

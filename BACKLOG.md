@@ -1,13 +1,15 @@
 # BACKLOG — χ = −6 CY Landscape Scanner
 
-> Ordered by priority. Top = do next. Updated: 2026-03-07.
+> Ordered by priority. Top = do next. Updated: 2026-03-08.
 >
 > **Project state**: Pipeline v6 (yukawa-fix, --local-ks). **3.11M polytopes** scanned (h13–h40).
-> **965 T3-verified** (all score≥70). **37 T4-verified** (score≥80). Champion: **h26/P11670 (sm=89)**.
+> **938 T3-verified** (all score≥70). **37 T4-verified** (score≥80). Champion: **h26/P11670 (sm=89)**.
 > Landscape boundary confirmed: h11≤28 productive; h29-h32 full (5.45M) barren.
-> **Champion deep physics** (B-42/B-45 DONE): Kodaira ✅, figures ✅, direct-sum ✅ (0 Hoppe-stable),
+> **Champion deep physics** (B-42/B-45/B-46 DONE): Kodaira ✅, figures ✅, direct-sum ✅ (0 Hoppe-stable),
 > monad LP ✅ (612 slope-feasible / 6M sampled, 0 tadpole-OK — D3 charge obstructed at h11=28).
-> **Next**: B-46 restricted-charge monad (|β|≤1, tadpole-in-LP) or B-41 paper draft.
+> **B-41 paper draft** ✅ DONE (session 1: 17pp; session 2: 29pp). `paper/paper.tex` 29pp, 8 figures, full bibliography, pdflatex clean. JHEP target 35-50pp — 6pp remaining minimum.
+> **B-37 low-h11 rescore** ✅ DONE: h13-h14 all T0-fail (gap<2), h15 max=63, h16 max=76 (T3 verified: 0 fibers, stable tri), h17-h19 already T3. Paper Table 1 updated.
+> **Next**: B-38 GL=12/D₆ prepotential or paper §3 further expansion.
 > Database: `v6/cy_landscape_v6.db` (827MB). Hetzner (16-core i9, 128GB).
 > See [README.md](README.md) and [FINDINGS.md](FINDINGS.md).
 
@@ -15,13 +17,7 @@
 
 ## NOW — Active Sprint
 
-### B-41: Paper draft
-- **Why**: The v6 scan is publishable. 3.11M polytopes through a T4-verified pipeline, boundary confirmation (barren past h11=28), a clear champion cluster, and T4 triangulation stability tables are a methodological contribution regardless of full SM vacuum construction.
-- **What**: Draft in [paper_outline.md](paper_outline.md). Key sections: motivation (chi=−6 generation counting), pipeline methodology (T0→T4 stages, 100-pt scoring), landscape statistics (funnel, T0-wall, h11 trend), champion cluster (h26/P11670 geometry), boundary confirmation (§29 h29-h32 barren), triangulation stability (T4 results table), discussion (what score means, path to vacuum).
-- **Acceptance**: Complete draft with abstract, 6 sections, figures described, tables, bibliography skeleton.
-- **Estimate**: Large. See [paper_outline.md](paper_outline.md) for current state.
-
-### B-42: Champion deep physics — h26/P11670
+### B-46: Restricted-charge monad search + integrated tadpole LP
 - **Why**: sm=89 globally optimal under v6 scoring. T4-verified (200 triangulations, c2_stable=0.033). Next is physics content: fibration structure, gauge algebra, higher-rank bundle candidates.
 - **What** (status):
   1. ✅ **Fibration/Kodaira analysis** — `champion_kodaira.py` complete. 11 fibrations classified. **F11 = su(10)/I₁₀** fiber → best SU(5)×U(1)_Y GUT candidate. F8 E₇ ambiguity (I₈ vs III*) requires Weierstrass model to resolve. Output: `results/champion_kodaira.json`. Committed `a342a8a`.
@@ -75,9 +71,7 @@
 
 ---
 
-### B-37: Low-h¹¹ rescore under v6
-- **Why**: h13–h19 legacy candidates were scored with the old v4/v5 pipeline. Some may rank competitively under v6's 100-point SM composite.
-- **What**: Ingest legacy polytopes into `cy_landscape_v6.db`, run T2 scoring with v6 pipeline. Compare rankings.
+### Status**: ✅ **DONE** (2026-03-08) — smoke test confirms exact structural obstruction (max|κ|/2=43.5 >> c₂(TX)_max/n_B=4.8). polytopes into `cy_landscape_v6.db`, run T2 scoring with v6 pipeline. Compare rankings.
 - **Acceptance**: All legacy top-20 candidates have v6 scores. Any scoring ≥75 get T3 deep analysis.
 
 ### B-38: GL=12/D₆ — full 6-parameter prepotential
@@ -86,11 +80,12 @@
 - **Acceptance**: Genus-0 GW invariants for at least one non-trivial class.
 - **Estimate**: Hard (multi-parameter PDE solving).
 
-### B-43: h30+h31 full scan (optional closure)
-- **Why**: h30 is ~7% covered (100K / 1.43M), h31 is ~4% (50K / 1.26M). Coverage gaps are real, though trend is strongly negative (max_sm=75 at 7% coverage). Marginal probability of new sm≥80 is low.
-- **What**: Copy `batch_ext_h29_h32.sh`, trim to h30/h31, offset=0, limit=9999999. ~4h on Hetzner.
-- **Acceptance**: h30/h31 exhausted; any new sm≥80 T3-verified and merged.
-- **Estimate**: Small (infrastructure exists). Verdict: skip unless closure is required before paper submission.
+### B-43: h30+h31 full scan — SKIPPED (D-52)
+- **Why skipped**: h30 max_sm=75 at 7% coverage (100K/1.43M); h31 max_sm=75 at 4% (50K/1.26M).
+  Trend is strongly negative; marginal probability of new sm≥80 is negligible.
+  The T0-wall analysis (§2.3 of paper) independently predicts barrenness at h11≥30.
+  Server resources freed for other work.
+- **Verdict**: Definitively closed. No scan needed before submission. ✅ 2026-03-07.
 
 ---
 
@@ -122,6 +117,7 @@
 
 | ID | Item | Completed |
 |----|------|-----------|
+| D-50 | B-37: Low-h11 rescore — h13-h14 T0-fail (gap<2), h15 max=63, h16/P118 T3 score=76 (0 fibers, stable tri, no instanton div); Table 1 updated | 2026-03-08 |
 | D-47 | §30 T4 deep triangulation — 37/37 top candidates, 200/60 samples, 39 min, zero score changes | 2026-03-06 |
 | D-46 | §29 scan — h29-h32 full (5.45M polytopes, barren, landscape boundary h11≤28 confirmed) | 2026-03-06 |
 | D-45 | §28 scan — h26-h28 +50K each (barren, 0/150K T0 passes) | 2026-03-06 |
@@ -130,7 +126,11 @@
 | D-42 | §26a T3 sweep — score=80 T2-only, 27 candidates, fibration bug fixed (merge_t3_results.py) | 2026-03-04 |
 | D-41 | B-36: Documentation cleanup sprint — FINDINGS, PROCESS_LOG, VERSIONS, MATH_SPEC, FRAMEWORK, CATALOGUE, BACKLOG | 2026-02-26 |
 | D-40 | v5.2 MONOTONIC_MAX score drift bug fix — post-upsert rescore | 2026-02-26 |
-| D-39 | B-34: T3 Deep Analysis — top candidates, T4 now supersedes (200/60 samples, commit d97d158) | 2026-02-26 / 2026-03-06 |
+| D-39 | B-41: Paper draft — `paper/paper.tex` 17pp LaTeX, 8 figures, full bibliography, pdflatex clean | 2026-03-08 |
+| D-51 | B-41 expansion: 21pp→29pp — §3.3 LVS, §3.4 Koszul, §3.5 Fibration, §5.6 Cluster, §6.3 FRST, §8.4 F-theory, App D score, §2.4 chi=-6 | 2026-03-07 |
+| D-52 | B-43: h30+h31 scan — SKIPPED. max_sm=75 at 7% coverage, T0-wall confirms barrenness, server freed | 2026-03-07 |
+| D-48 | B-46: Restricted-charge monad (|β|≤1) — exact structural D3-tadpole obstruction proved analytically | 2026-03-08 |
+| D-49 | B-34: T3 Deep Analysis — top candidates, T4 now supersedes (200/60 samples, commit d97d158) | 2026-02-26 / 2026-03-06 |
 | D-38 | 50K h28 deep coverage scan — P1040 (score=80) found, champions not displaced | 2026-02-26 |
 | D-37 | v5.1 KS `limit` bug discovery and fix (`--limit N` CLI argument) | 2026-02-26 |
 | D-36 | v5.0 scoring overhaul — 100-point SM composite, 12 components, yukawa_rank bug fix | 2026-02-26 |

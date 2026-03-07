@@ -28,6 +28,14 @@ dist/
 build/
 *.egg-info/
 
+# LaTeX build artifacts
+*.aux
+*.blg
+*.out
+*.synctex.gz
+*.toc
+paper/paper.log
+
 # Large binary cache files
 *.pkl
 
