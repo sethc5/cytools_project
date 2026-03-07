@@ -3,12 +3,11 @@
 > Ordered by priority. Top = do next. Updated: 2026-03-07.
 >
 > **Project state**: Pipeline v6 (yukawa-fix, --local-ks). **3.11M polytopes** scanned (h13–h40).
-> **965 T3-verified** (all score≥70). **37 T4-verified** (score≥80, T4 confirmed stable
-> at 200/60 samples — zero score changes). Champion: **h26/P11670 (sm=89)**.
+> **965 T3-verified** (all score≥70). **37 T4-verified** (score≥80). Champion: **h26/P11670 (sm=89)**.
 > Landscape boundary confirmed: h11≤28 productive; h29-h32 full (5.45M) barren.
-> **Champion deep physics** (B-42): Kodaira ✅ (F11=su(10) best GUT), figures ✅ (9 PNGs),
-> direct-sum bundles ✅ (SU4+SU5, 800K trials, 0 Hoppe-stable — expected),
-> monad scan running (k_max=2, 1M/config; config (5,1): 0 slope-stable from 1084 χ-cands).
+> **Champion deep physics** (B-42/B-45 DONE): Kodaira ✅, figures ✅, direct-sum ✅ (0 Hoppe-stable),
+> monad LP ✅ (612 slope-feasible / 6M sampled, 0 tadpole-OK — D3 charge obstructed at h11=28).
+> **Next**: B-46 restricted-charge monad (|β|≤1, tadpole-in-LP) or B-41 paper draft.
 > Database: `v6/cy_landscape_v6.db` (827MB). Hetzner (16-core i9, 128GB).
 > See [README.md](README.md) and [FINDINGS.md](FINDINGS.md).
 
@@ -31,10 +30,11 @@
   4. ✅ **Monad scan k_max=2** — 3M trials / 3 configs → **0 slope-stable**.
   5. ✅ **Monad scan k_max=3** — 6M trials / 3 configs → **0 slope-stable** (73 min, Hetzner).
      Root cause identified: random Kähler sampling fails for h11_eff=28 (exponentially small probability any random J satisfies all slope inequalities simultaneously).
-  6. 🔄 **LP slope filter** — `champion_monads_lp.py` being written. Optimization-based: for each χ=±3 candidate, use gradient descent to *find* viable J rather than sampling.
-  5. ⬜ **F-theory discriminant locus** — elliptic fibrations with ADE monodromy give non-Abelian gauge sectors; compare with SM gauge algebra target. (Partially addressed by Kodaira; Weierstrass model for F8 remains.)
-- **Acceptance**: Fibration table complete ✅; at least one SU(4)/SU(5) bundle checked for stability (monad scan pending).
-- **Estimate**: Medium-Large (research + computation). Detailed plan in [FINDINGS.md §28](FINDINGS.md).
+  6. ✅ **LP slope filter** — `champion_monads_lp.py` complete. 612 slope-feasible / 5.99M sampled; 0 tadpole-OK after corrected ch₂ formula (Finding 28c). See B-45.
+  7. ⬜ **F-theory Weierstrass model** — F8 fiber I₈ vs III*/E₇ ambiguity; requires explicit Weierstrass computation (non-blocking for paper).
+- **Acceptance**: Fibration table ✅; slope/tadpole analysis ✅ (0 candidates — obstruction documented).
+- **Outcome**: D3-tadpole obstruction at h11=28 with |β|≤3. See B-46 for restricted-charge follow-up.
+- **Status**: ✅ **DONE** except Weierstrass F8 (deferred to B-47).
 
 ### B-36: Documentation cleanup sprint ✅ DONE
 - **Why**: Docs were frozen at early project state (Polytope 40 era, 1,025 polytopes, 26-point scoring). Needed updating to reflect v5.2 pipeline, 70K polytopes, h28 champions.
