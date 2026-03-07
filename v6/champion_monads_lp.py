@@ -208,6 +208,7 @@ def find_feasible_kahler(M_B, M_C, h11_eff, n_starts=20, alpha=10.0, rng=None):
 
         res = minimize(
             slope_margin_and_grad, v0,
+            args=(M_B, M_C, alpha),
             jac=True,
             method='L-BFGS-B',
             options={'maxiter': 300, 'ftol': 1e-12, 'gtol': 1e-8},
