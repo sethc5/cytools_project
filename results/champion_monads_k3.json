@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-03-06T23:27:52.222247+00:00",
+  "polytope": "h26/P11670",
+  "rank": 4,
+  "k_max": 3,
+  "n_sample": 2000000,
+  "chi_target": 3,
+  "total_checked": 5989397,
+  "n_slope_stable": 0,
+  "n_tadpole_ok": 0,
+  "elapsed_s": 4361.195758342743,
+  "h11_eff": 28,
+  "chi_O": 0.0,
+  "configs": [
+    [
+      5,
+      1
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      7,
+      3
+    ]
+  ],
+  "candidates": []
+}

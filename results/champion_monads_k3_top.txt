@@ -1,0 +1,8 @@
+Champion Monad Scan — h26/P11670
+Run at: 2026-03-06T23:27:52.234627+00:00 UTC
+SU(4), k_max=3, χ_target=±3
+h11_eff=28, configs=[(5, 1), (6, 2), (7, 3)]
+Sampled=5,989,397, slope-stable=0, tadpole_ok=0
+
+No slope-stable monad candidates found.
+Recommend monad scan with k_max=3 or larger (n_B, n_C).

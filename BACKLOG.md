@@ -28,11 +28,10 @@
   1. ✅ **Fibration/Kodaira analysis** — `champion_kodaira.py` complete. 11 fibrations classified. **F11 = su(10)/I₁₀** fiber → best SU(5)×U(1)_Y GUT candidate. F8 E₇ ambiguity (I₈ vs III*) requires Weierstrass model to resolve. Output: `results/champion_kodaira.json`. Committed `a342a8a`.
   2. ✅ **Figures** — `figures.py` complete (local, 827MB DB). 9 PNGs generated in `results/figures/`. Figures 1–8 + supplementary score-vs-stability plot. Committed `a342a8a`.
   3. ✅ **Direct-sum bundle scan** — `champion_bundles.py` complete on Hetzner. SU(4): 500K trials → 0 Hoppe-stable. SU(5): 300K trials → 161 χ=±3 → 0 Hoppe-stable. Result expected: direct sums are polystable (not slope-stable). Output: `results/champion_bundles.json`. Commits `742b54d`–`2c30cd0`.
-  4. ✅ **Monad scan k_max=2** — `champion_monads.py` complete on Hetzner.
-     - All 3 configs: (5,1)→(6,2)→(7,3), 1M samples each, k_max=2.
-     - **Total 2,987,978 sampled → 0 slope-stable, 0 tadpole-ok** (36 min).
-     - Per-config: (5,1): 1,084 χ-cands/0S; (6,2): 567/0S; (7,3): ~200/0S.
-     - Stage 6 (k_max=3, 2M/config) **launched** overnight on Hetzner. See B-45.
+  4. ✅ **Monad scan k_max=2** — 3M trials / 3 configs → **0 slope-stable**.
+  5. ✅ **Monad scan k_max=3** — 6M trials / 3 configs → **0 slope-stable** (73 min, Hetzner).
+     Root cause identified: random Kähler sampling fails for h11_eff=28 (exponentially small probability any random J satisfies all slope inequalities simultaneously).
+  6. 🔄 **LP slope filter** — `champion_monads_lp.py` being written. Optimization-based: for each χ=±3 candidate, use gradient descent to *find* viable J rather than sampling.
   5. ⬜ **F-theory discriminant locus** — elliptic fibrations with ADE monodromy give non-Abelian gauge sectors; compare with SM gauge algebra target. (Partially addressed by Kodaira; Weierstrass model for F8 remains.)
 - **Acceptance**: Fibration table complete ✅; at least one SU(4)/SU(5) bundle checked for stability (monad scan pending).
 - **Estimate**: Medium-Large (research + computation). Detailed plan in [FINDINGS.md §28](FINDINGS.md).
@@ -52,13 +51,14 @@
 ### B-45: Monad scan follow-up — k_max=3 and cohomology
 - **Why**: k_max=2 monad scan on champion found 0 slope-stable bundles across configs (5,1), (6,2), (7,3). Two explanations: (a) search space too small — k_max=3 opens much larger lattice; (b) h11_eff=28 makes slope stability constraints very tight with random Kähler sampling.
 - **What**:
-  1. Run k_max=3, 2M trials (`batch_champion.sh` Stage 6) overnight on Hetzner.
-  2. If candidates found: compute line bundle cohomology h^k(X, O(bᵢ)) for each summand via `cy.line_bundle_cohomologies()`; compute net chiral spectrum χ(V⊗V*) for matter curves; verify D3 tadpole N_D3=χ(X)/24 − c₂(V)·J/2 ≥ 0.
-  3. If k_max=3 still 0: try asymmetric Kähler sampling (near-boundary of Kähler cone), or config (8,4).
-  4. Update FINDINGS.md §29 with full monad results.
+  1. ✅ Run k_max=3, 2M trials (Stage 6) — done, 0 slope-stable from 6M trials.
+  2. 🔄 **LP slope filter** — `champion_monads_lp.py`: for each χ=±3 candidate, use scipy gradient optimization to *find* J satisfying all slope inequalities rather than sampling. 20 random starts on positive unit sphere. Deterministic feasibility: no false negatives.
+  3. If LP finds candidates: compute line bundle cohomology h^k(X, O(bᵢ)) for each summand via `cy.line_bundle_cohomologies()`; compute net chiral spectrum χ(V⊗V*); verify D3 tadpole N_D3=χ(X)/24 − c₂(V)·J/2 ≥ 0.
+  4. If LP still 0: consider (8,4) config or 5-brane anomaly cancellation path.
+  5. Update FINDINGS.md §28 with LP results.
 - **Acceptance**: Monad k=3 scan complete; if any slope-stable candidates found, full cohomology computed.
 - **Estimate**: Medium. Stage 6 (2M trials) ~20 min on Hetzner.
-- **Status**: k=2 scan DONE (0 slope-stable / 3M trials). k=3 **RUNNING** overnight on Hetzner (Stage 6).
+- **Status**: k=2 done (0/3M), k=3 **done** (0/6M). Root cause: random sampling. **LP filter in progress.** See champion_monads_lp.py.
 
 ---
 

@@ -37,9 +37,15 @@
    - Output: `results/champion_monads.json`, `results/champion_monads_top.txt`. Commits `fc94a74`, `0c47a6b`.
    - **Bug fixed**: stdout buffering in `docker exec -d` (Python block-buffered) → relaunched with `python3 -u`.
 
-**Status**: In progress. Stage 6 (k_max=3, 2M/config) queued as B-45. See FINDINGS.md §28 for results table.
+4. **Monad scan k_max=3** (`champion_monads.py --k-max 3 --n-sample 2000000 --j-tries 50`, ~73 min, Hetzner):
+   - 3 configs: (5,1): 784 χ-cands/0S; (6,2): ~500/0S; (7,3): ~300/0S.
+   - **6M additional trials → 0 slope-stable, 0 tadpole-ok.** Combined k=2+k=3: ~9M trials, 0 candidates.
+   - **Root cause confirmed**: Random Kähler sampling is the bottleneck, not the search space size. With h11_eff=28, probability that a random interior J satisfies ALL of μ(b_i)<0 and μ(c_j)>0 simultaneously is exponentially suppressed in the number of summands. Even 50 independent J samples per candidate is vastly insufficient for the ≥6-constraint system.
+   - **Next action**: `champion_monads_lp.py` — for each χ=±3 candidate, use gradient optimization to explicitly *find* a feasible J rather than sampling. Deterministic feasibility check (no false negatives from sampling luck).
 
-**Commits**: `a342a8a`, `742b54d`–`2c30cd0`, `fc94a74`, `0c47a6b`, `d9ea78f`, `348eb75`, `3d56293`
+**Status**: k=2 DONE (0/3M), k=3 DONE (0/6M). LP variant being written.
+
+**Commits**: `a342a8a`, `742b54d`–`2c30cd0`, `fc94a74`, `0c47a6b`, `d9ea78f`, `348eb75`, `3d56293`, `8cbb0e4`, `0d5e608`
 
 ---
 

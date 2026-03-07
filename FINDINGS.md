@@ -1629,8 +1629,9 @@ Three fiber types recorded in the fibrations table. All have `contains_SM=1` and
 | Step 1: Kodaira resolution | ✅ DONE | F11=su(10) GUT candidate confirmed; F8 E₇/I₈ unresolved (needs Weierstrass) |
 | Figures (9 PNGs) | ✅ DONE | `results/figures/fig{1-9}.png` generated locally from 827MB DB |
 | Step 3a: Direct-sum scan | ✅ DONE | SU(4) 500K + SU(5) 300K → **0 Hoppe-stable** (expected; direct sums polystable) |
-| Step 3b: Monad k=2, all configs | ✅ DONE | **3M total trials, 0 slope-stable** (configs (5,1),(6,2),(7,3) all exhausted) |
-| Step 3b: Monad k=3, 2M/config | 🔄 running | Stage 6 launched on Hetzner; log: `results/batch_monads_k3.log` |
+| Step 3b: Monad k=2, all configs | ✅ DONE | 3M trials → **0 slope-stable** (random J sampling exhausted) |
+| Step 3b: Monad k=3, all configs | ✅ DONE | **6M trials → 0 slope-stable** (random J sampling conclusively exhausted) |
+| Step 3c: Monad LP slope filter | 🔄 next | `champion_monads_lp.py` — optimization-based J-feasibility per χ-candidate |
 | Steps 2, 4, 5 | ⬜ to do | F-theory G4, D3-tadpole, moduli stabilization |
 
 ### 28.5 Resource estimate (updated)
