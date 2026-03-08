@@ -2965,3 +2965,39 @@ n_clean>0 but pipeline_v2 screened them at T0 or T025.
 **Status**: Full top-37 LP scan ongoing (B-46b) — will cover remaining 33 entries in background.
 
 **Next**: B-47 — Assess k_max=1 charges as tadpole-safe regime, or pivot to F-theory Weierstrass construction.
+
+## 2026-03-08 — §32 k_max=1 Priority Monad LP Scan (B-47a)
+
+**Goal**: Test the k_max=1 charge regime (β^a ∈ {-1,0,+1}) identified in B-46 as the only structurally viable window for D3 tadpole satisfaction. Run 5M-sample LP scan on all 4 priority T4 entries.
+
+**Command launched** (2026-03-07 20:29 UTC, Hetzner hetzner1 `funny_davinci` container):
+```
+python3 v6/monad_scan_top37.py --k-max 1 --n-sample 5000000 --only-priority --force
+```
+
+**Per-entry results**:
+
+| Entry | h11_eff | κ_max | c₂_max | Elapsed | Slope-feasible | Tadpole-OK |
+|-------|---------|-------|--------|---------|----------------|------------|
+| h22/P682  | 19 | 21 | 36 | 9351s (2.60h) | 21,845 | **0** |
+| h23/P36   | 19 | 28 | 24 | 9015s (2.50h) | 21,442 | **0** |
+| h21/P9085 | 19 | 24 | 36 | 9589s (2.66h) | 23,034 | **0** |
+| h25/P860  | 20 | 40 | 52 | 7966s (2.21h) | 13,972 | **0** |
+
+**Total wall time**: 35,921s (9.98h, 2026-03-07 20:29 → 2026-03-08 07:28 UTC)
+
+**Key observation**: At k_max=1, slope stability is achievable at high rates (13,972–23,034 slope-feasible per entry vs ~180 at k_max=3). The Kähler cone LP is flexible enough. However ALL 80,293 slope-feasible candidates fail D3 tadpole. The obstruction is physical, not an LP sampling artifact.
+
+**Structural diagnosis**: Even at minimum charges |β^a|=1, the worst-case ch₂ contribution per component `n_B×κ_max/2` exceeds c₂(TX)_max by 1.5–2.9× across all 4 entries.
+
+**Combined totals (B-45 + B-46 + B-47a):**
+- 82,242 slope-feasible candidates checked across all entries and k_max∈{1,2,3}
+- 0 pass D3 tadpole cancellation
+
+**DB update**: Added 5 columns `monad_lp_k1_*` to `polytopes` table; 4 rows written (h22/682, h23/36, h21/9085, h25/860). h26/P11670 excluded (already covered by B-45 at k_max=3 only).
+
+**Log**: `v6/results/monad_scan_k1_priority.log` (6.3MB)
+
+**Status**: ✅ COMPLETE (Finding §32 appended to FINDINGS.md)
+
+**Next**: B-47b — Paper §9 monad no-go section incorporating §30 + §32 data
