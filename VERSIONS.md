@@ -383,6 +383,77 @@ Same 4-tier structure as v4. T3 now includes triangulation stability.
 
 ---
 
+## v6 — KS Landscape Deep Scan + Monad Obstruction
+
+**Folder**: `v6/`  
+**Era**: h13–h40 full KS scan + priority cluster monad analysis (Feb–Mar 2026)  
+**Question**: *"Does any χ=−6 polytope admit a heterotic SM via perturbative monads?"*
+
+### What changed from v5
+
+1. **Local KS index** (`--local-ks`): caches the full KS polytope set locally — eliminates web fetch bottleneck, enables reproducible offline scans
+2. **T4 tier**: 37 polytopes (score≥80) fully verified via direct triangulation + deep physics; 5 priority entries confirmed
+3. **Monad LP scanner** (`monad_scan_top37.py`): random-charge LP feasibility check for slope stability + D3 tadpole — `--rank`, `--k-max`, `--n-sample`, `--only-priority`, `--force` flags
+4. **Champion deep physics**: h26/P11670 (sm=89) — Kodaira ✅, figures ✅, direct-sum ✅ (0 Hoppe-stable), monad LP ✅
+5. **Paper** (`paper/paper.tex`): 31pp draft, JHEP target
+
+### Scan Coverage
+
+- **3.11M polytopes** scanned (h13–h40) — full KS landscape in range
+- **938 T3-verified** (score≥70), **37 T4-verified** (score≥80)
+- **Champion**: h26/P11670, sm=89
+- **Landscape boundary**: h11≤28 productive; h29–h40 barren
+
+### Monad Results (Findings §30–33)
+
+| Scan | Rank | k_max | Entries | Slope-feasible | Tadpole-OK |
+|------|------|-------|---------|----------------|-----------|
+| B-45 | SU(4) | 3 | h26/P11670 | 612 | 0 |
+| B-46 | SU(4) | 3 | 4 priority | 725 | 0 |
+| B-47a | SU(4) | 1 | 4 priority | 80,293 | 0 |
+| B-48 | SU(5) | 1 | 4 priority | 22,515 | 0 |
+| **Total** | | | 5 | **104,145** | **0** |
+
+**Finding**: Universal D3 tadpole obstruction for all perturbative SU(n≥4)
+monads at integer charges on all five priority entries. The obstruction is
+physical (not a sampling artefact) and strengthens monotonically with rank.
+
+### Key Files
+
+- `v6/monad_scan_top37.py` — monad LP scanner
+- `v6/cy_compute_v6.py` — core physics (inherits v5)
+- `v6/db_utils_v6.py` — DB schema (18 monad columns added)
+- `v6/cy_landscape_v6.db` — 827MB, full landscape
+- `paper/paper.tex` — 31pp draft (Theorem 1 + Corollary 1)
+
+---
+
+## v7 — Beyond the Standard Model Archetype
+
+**Folder**: `v7/`  
+**Era**: Mar 2026–  
+**Question**: *"What does this geometry predict — and are we discarding better candidates because they don't fit the SM template?"*
+
+### Motivation
+
+v6 proved a universal tadpole obstruction for perturbative monads. Two paths forward:
+
+1. **Track A — Non-perturbative completion**: H-flux tadpole cancellation, extension bundles, spectral covers. Relax perturbativity, allow flux quanta to cancel the D3 excess.
+2. **Track B — Observable-first discovery**: Stop asking "does it look like the SM" and start asking "what does it predict?" Score candidates on dark matter mass, proton decay rate, and neutrino mass hierarchy.
+
+### Key Shifts
+
+| Dimension | v6 | v7 |
+|-----------|----|----||
+| Tadpole | Bundle alone | Bundle + H-flux: $n_{D3}^{\rm bundle} + n_{D3}^{\rm flux} \leq \chi/24$ |
+| Gauge group | SU(4)/SU(5) required | Any stable bundle; gauge group is an output |
+| Bundle class | Perturbative monads | Extension bundles, spectral covers |
+| Scoring | Group-theoretic SM-match | Physical observables (DM mass, Γ_p, Δm²_ν) |
+
+See `v7/README.md` for full architecture and scoring spec.
+
+---
+
 ## Version Inheritance
 
 ```

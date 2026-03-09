@@ -15,6 +15,55 @@
 
 ---
 
+## v7 Sprint — Observable-First Discovery
+
+> **Intent**: Stop asking "does it match the SM?" — start asking "what does it predict?"  
+> See `v7/README.md` for full architecture. Two parallel tracks: non-perturbative
+> completion (Track A) and observable-first scoring (Track B).
+
+### B-49 (Track A): H-flux tadpole cancellation scan — h22/P682
+
+**Goal**: The D3 excess is $\Delta n_{D3} \approx 90$ for all priority entries
+(B-47a/B-48). Compute the H-flux lattice for h22/P682 and find integer flux
+quanta $H_{abc}$ such that $n_{D3}^{\rm flux} \geq -90$, then check remaining
+consistency (Bianchi identity, flux quantization).
+
+**Steps**:
+- [ ] Extract intersection form $\kappa_{abc}$ for h22/P682 from v6 DB
+- [ ] Compute $n_{D3}^{\rm flux} = -\frac{1}{2} H_{abc} H^{abc}$ over flux lattice
+- [ ] Find minimal flux quanta that cancel excess
+- [ ] Check Bianchi identity: $dH = \text{tr}(R \wedge R) - \text{tr}(F \wedge F)$
+- [ ] Write `v7/flux_tadpole_scan.py`
+
+### B-50 (Track A): Extension bundle construction — h22/P682
+
+**Goal**: Build rank-4 bundles as extensions $0 \to L_1 \to V \to E \to 0$
+where $E$ is rank-3. More flexible than monads; may avoid the tadpole obstruction.
+
+**Steps**:
+- [ ] Enumerate line bundle pairs $(L_1, L_2)$ with $c_1(L_1) + c_1(L_2) = 0$
+- [ ] Check $\text{Ext}^1(E, L_1) \neq 0$ (non-trivial extension exists)
+- [ ] LP slope stability check (reuse v6 LP infrastructure)
+- [ ] Tadpole check
+
+### B-51 (Track B): Observable scoring — rescore v6 T4 cluster
+
+**Goal**: Compute v7 observable scores for all 37 T4-verified polytopes.
+Implement `v7/observable_score.py` with the scoring spec from `v7/README.md`.
+
+**Observables**:
+- [ ] DM mass estimate: $m_{\rm DM} \sim m_{3/2}$ from SUSY breaking scale
+- [ ] Proton decay: $M_{\rm GUT}$ from gauge coupling unification at $k_{abc}$
+- [ ] Gauge unification check: $\alpha_{\rm GUT}$ from intersection numbers
+- [ ] Write results to `v7/cy_landscape_v7.db`
+
+### B-52 (Track B): Relax gauge group filter — find non-SU(5) 3-generation vacua
+
+**Goal**: Scan for stable bundles with net 3 generations regardless of gauge group.
+Ask what gauge group they break to, rather than requiring SU(5) or SU(4) as input.
+
+---
+
 ## NOW — Active Sprint
 
 ### B-46: Restricted-charge monad search + integrated tadpole LP
