@@ -10,9 +10,10 @@
 > **B-46 numerical run** ✅ (2026-03-09, local): |β|≤1 confirmed obstructed (3.6M sampled, 0 tadpole pre-OK). c₂(V)_max≈350 >> c₂(TX)_max=56 even at minimal charges. Structural D3-tadpole obstruction fully proved.
 > **B-49 H-flux** ✅ (2026-03-09): flux tadpole scan on h22/P682. Best monad Δn_D3=53, minimal flux N=[9,5,0,...], Bianchi n_M5=0 ✓.
 > **B-50 Extension bundles** ✅ (2026-03-09): 3M samples, 3 scalar-Δ≤0 candidates found, all with component-wise violations 41-108 >> c₂(TX)_max=26. Same geometric obstruction as monads confirmed.
+> **B-51 Observable scoring** ✅ (2026-03-10): v7 scores for all 37 T4 entries. h27/P9192 is v7 champion (89/100, τ=150); h26/P11670 drops to rank-9 (75/100, non-physical τ). v7 DB: `v7/cy_landscape_v7.db`.
 > **B-41 paper draft** ✅ DONE (session 1: 17pp; session 2: 29pp). `paper/paper.tex` 29pp, 8 figures, full bibliography, pdflatex clean. JHEP target 35-50pp — 6pp remaining minimum.
 > **B-37 low-h11 rescore** ✅ DONE: h13-h14 all T0-fail (gap<2), h15 max=63, h16 max=76 (T3 verified: 0 fibers, stable tri), h17-h19 already T3. Paper Table 1 updated.
-> **Next**: B-51 observable scoring or B-53 (larger |β|≥3 or spectral covers on h22/P682).
+> **Next**: B-52 (relax gauge group filter) or B-53 (larger |β|≥3 or spectral covers on h22/P682).
 > Database: `v6/cy_landscape_v6.db` (827MB). Hetzner (16-core i9, 128GB).
 > See [README.md](README.md) and [FINDINGS.md](FINDINGS.md).
 
@@ -76,11 +77,15 @@ where $E$ is rank-3. More flexible than monads; may avoid the tadpole obstructio
 **Goal**: Compute v7 observable scores for all 37 T4-verified polytopes.
 Implement `v7/observable_score.py` with the scoring spec from `v7/README.md`.
 
-**Observables**:
-- [ ] DM mass estimate: $m_{\rm DM} \sim m_{3/2}$ from SUSY breaking scale
-- [ ] Proton decay: $M_{\rm GUT}$ from gauge coupling unification at $k_{abc}$
-- [ ] Gauge unification check: $\alpha_{\rm GUT}$ from intersection numbers
-- [ ] Write results to `v7/cy_landscape_v7.db`
+**Status**: ✅ **DONE** (2026-03-10, local).
+- **Script**: `v7/observable_score.py` — 10-component observable scoring, 100 pts total
+- **Score range**: 25–89 / 100. Median: 72 pts.
+- **v7 champion**: h27/P9192 (v7=89, v6=87) — τ=150 (ideal LVS), E7/E8 gauge, yh=3261
+- **v6 champion drops**: h26/P11670 (v6=89 → v7=75, rank 1→9) — non-physical LVS τ
+- **All 37 pass tadpole** (d3_min ≤ 0 universally) — flux can cancel D3 deficit
+- **8 / 37 have physical LVS τ** (τ ∈ (1, 50K)); these avg v7=78.4 vs others 62.1
+- **Results**: `v7/results/observable_scores.json` / `.txt` / `v7/cy_landscape_v7.db`
+- **Finding 34** added to FINDINGS.md
 
 ### B-52 (Track B): Relax gauge group filter — find non-SU(5) 3-generation vacua
 

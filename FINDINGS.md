@@ -2051,3 +2051,97 @@ The obstruction worsens at SU(5) vs SU(4) — the extra n_C=1 summand in C doesn
 2. **Higher rank (SU(6), SU(7))**: n_B grows, making ch₂ worse — the obstruction strengthens monotonically.
 3. **The obstruction is a landscape feature**: It holds across h11_eff=19–28, both low-κ and high-κ entries.
 4. **Paths forward**: Remain F-theory G4 flux (no perturbative bundle needed), spectral cover, or non-monad heterotic constructions.
+
+---
+
+## §34 — B-51: Observable Scoring of 37 T4-Verified Polytopes (2026-03-10)
+
+**Script**: `v7/observable_score.py` — reads v6 DB, scores all 37 T4-verified entries on 10 observable-first criteria, writes `v7/cy_landscape_v7.db` and `v7/results/observable_scores.{json,txt}`.
+
+### 34.1 Scoring Summary
+
+All 37 T4-verified entries (v6 `tier_reached='T4'`, sm_score ≥ 80) were rescored under the v7 observable-first scheme (100 pts total, 10 components). See `v7/README.md` for full spec.
+
+**Score range**: 25–89 / 100. **Median**: 72 pts.
+
+**Top 10 by v7 score:**
+
+| Rank | Entry | v7 | v6 | tau | SM | GUT | nell | nk3 | yh | best_gauge |
+|------|-------|----|----|-----|----|-----|------|-----|----|-----------|
+| 1 | h27/P9192 | **89** | 87 | 150 | ✓ | ✓ | 0 | 1 | 3261 | su(8) or e7 × su(9) or e8 |
+| 2 | h27/P45013 | 83 | 85 | 600 | ✓ | ✓ | 3 | 3 | 1090 | su(3)×su(6)×su(2)×su(10)×su(10) |
+| 3 | h26/P30513 | 83 | 80 | 1400 | ✓ | ✓ | 4 | 4 | 1760 | su(4)×su(2)×su(3)×su(7)×su(12) |
+| 4 | h25/P38242 | 82 | 80 | 2755 | ✓ | ✓ | 1 | 2 | 520 | su(2)×su(3)×su(6)×su(4)×su(7)×su(8) or e7 |
+| 5 | h29/P8423 | 80 | 87 | non-phys | ✓ | ✓ | 4 | 4 | 2284 | su(8) or e7 × su(10) × su(13) |
+| 6 | h25/P18950 | 80 | 80 | 800 | ✓ | ✓ | 3 | 3 | 622 | su(3)×su(4)×su(3)×su(8)×su(9) |
+| 7 | h28/P1937 | 78 | 80 | 20000 | ✓ | ✓ | 4 | 4 | 617 | su(4)×su(2)×su(8)×su(2)×su(13) |
+| 8 | h25/P860 | 76 | 81 | non-phys | ✓ | ✓ | 3 | 3 | 1187 | su(3)×su(4)×su(3)×su(8)×su(9) |
+| 9 | h26/P11670 | 75 | 89 | non-phys | ✓ | ✓ | 4 | 4 | 2390 | su(4)×su(8) or e7×su(6)×su(12) |
+| 10 | h25/P46481 | 75 | 85 | non-phys | ✓ | ✓ | 3 | 3 | 4893 | su(2)×su(4)×su(4)×su(8) or e7×su(9) or e8 |
+
+### 34.2 Component Averages
+
+| Observable component | Max | Avg | Non-zero | Notes |
+|---------------------|-----|-----|----------|-------|
+| t4_verified | 10 | 10.0 | 37/37 | All T4 by construction |
+| tri_stable | 5 | 0.3 | 4/37 | ~0% stability; only h29/P8423 (c2sf=0.35) significant |
+| net_gen_3 | 15 | 13.0 | 32/37 | 32 entries have SM gauge group |
+| vector_like_light | 5 | 4.3 | 32/37 | n_rigid≥6 common in SM entries |
+| tadpole_flux_ok | 15 | 15.0 | 37/37 | **All** 37 have d3_min ≤ 0 — flux can cancel D3 deficit |
+| dm_mass_window | 15 | 2.3 | 8/37 | Physical LVS tau: h27/P9192(150), h27/P45013(600), h26/P30513(1400), etc. |
+| proton_decay_rate | 10 | 6.6 | 32/37 | Most have nell+nk3≥2 → M_GUT constraint |
+| neutrino_mass_hier | 10 | 7.5 | 32/37 | Mean yh=1463 → hierarchical spectrum |
+| gauge_unification | 10 | 7.0 | 32/37 | Many E7/E8 entries → automatic unification |
+| susy_breaking_scale | 5 | 0.7 | 8/37 | Same LVS proxy as dm_mass_window |
+
+### 34.3 Key Findings
+
+1. **h27/P9192 is the v7 champion** (v7=89, v6=87). It rises from rank #4 in v6 to rank #1 in v7
+   because its Swiss-cheese small cycle τ=150 falls in the ideal LVS range (1–200),
+   scoring full DM mass window (15 pts) and SUSY breaking scale (5 pts). Its gauge group
+   `su(8) or e7 × su(9) or e8` contains exceptional factors granting automatic gauge unification (10 pts).
+
+2. **v6 champion h26/P11670 drops to rank #9** (v7=75). Despite the highest v6 score (89),
+   its best_swiss_tau is non-physical (τ = −1,996,337), indicating no viable LVS minimum.
+   It scores 0 pts on dm_mass_window and susy_breaking_scale.
+
+3. **Tadpole is universally satisfied** (all 37 have d3_min ≤ 0). This reflects the T4
+   selection criterion: T4 requires at least one slope-feasible configuration within the
+   tadpole bound. Combined with B-49 (H-flux cancels the residual deficit), the tadpole
+   constraint is not an obstruction at T4 level.
+
+4. **Triangulation stability is universally low** (avg c₂ stab = 0.9%, 4/37 non-zero).
+   At T4 (200 reference triangulations), only h29/P8423 achieves 35% stability. The
+   non-physical tau values dominating most entries may reflect this: the LVS minimum
+   is triangulation-dependent and averages to non-physical values when unstable.
+
+5. **8 / 37 entries have physical LVS tau** (τ ∈ (1, 50000)). These define the
+   sub-cluster with viable SUSY breaking phenomenology. The physical tau entries have
+   significantly higher average v7 score (78.4) vs non-physical tau entries (62.1).
+
+6. **Yukawa hierarchy is high** (mean = 1463): 20 / 37 entries have yh ≥ 1000.
+   This translates to full neutrino hierarchy points (10 pts) for SM entries — a
+   near-universal structural feature of the T4 cluster.
+
+### 34.4 Ranking Reorder: v6 vs v7 Top-5
+
+| v6 Rank | Entry | v6 | v7 Rank | v7 | Δ rank |
+|---------|-------|----|---------|----|--------|
+| 1 | h26/P11670 | 89 | 9 | 75 | −8 |
+| 2 | h29/P8423 | 87 | 5 | 80 | −3 |
+| 3 | h24/P868 | 87 | 12 | 73 | −9 |
+| 4 | h27/P9192 | 87 | 1 | 89 | **+3** |
+| 5 | h27/P4102 | 87 | 20 | 65 | −15 |
+
+The v7 scoring performs a **substantial reranking**: v6 rank-1 drops to rank-9,
+while v6 rank-4 rises to rank-1. This is precisely the intent of Track B: identify
+candidates with better observable predictions even if they score lower on
+group-theoretic SM matching.
+
+### 34.5 Recommended Priority Entries for Further Study (v7)
+
+1. **h27/P9192** (v7=89): Ideal LVS tau=150, E7/E8 gauge group, yh=3261 → top observable candidate.
+2. **h27/P45013** (v7=83): Physical tau=600, 3 elliptic + 3 K3 fibrations, good hierarchy.
+3. **h26/P30513** (v7=83): Physical tau=1400, 4+4 fibrations, yh=1760.
+4. **h25/P38242** (v7=82): Physical tau=2755, contains E7 in gauge group.
+5. **h25/P18950** (v7=80): Physical tau=800, 3+3 fibrations, yh=622.
