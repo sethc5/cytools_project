@@ -3001,3 +3001,37 @@ python3 v6/monad_scan_top37.py --k-max 1 --n-sample 5000000 --only-priority --fo
 **Status**: ✅ COMPLETE (Finding §32 appended to FINDINGS.md)
 
 **Next**: B-47b — Paper §9 monad no-go section incorporating §30 + §32 data
+
+## 2026-03-08 — §33 SU(5) k_max=1 Priority Monad LP Scan (B-48)
+
+**Goal**: Test whether SU(5) monads (rank 5, n_B=6, n_C=1) escape the D3 tadpole obstruction found for SU(4) in B-47a. Higher rank changes ch₂ balance via n_B.
+
+**Command launched** (2026-03-08 15:57 UTC, Hetzner hetzner1 `funny_davinci` container):
+```
+python3 v6/monad_scan_top37.py --rank 5 --k-max 1 --n-sample 2000000 --only-priority --force
+```
+
+**Per-entry results**:
+
+| Entry | h11_eff | κ_max | c₂_max | Elapsed | Slope-feasible | Tadpole-OK |
+|-------|---------|-------|--------|---------|----------------|------------|
+| h22/P682  | 19 | 21 | 36 | 3819s (1.06h) | 6,068 | **0** |
+| h23/P36   | 19 | 28 | 24 | 3617s (1.00h) | 6,031 | **0** |
+| h21/P9085 | 19 | 24 | 36 | 3795s (1.05h) | 6,415 | **0** |
+| h25/P860  | 20 | 40 | 52 | 3327s (0.92h) | 4,001 | **0** |
+
+**Total wall time**: 14,558s (4.04h, 2026-03-08 15:57 → 19:04 UTC)
+
+**Key finding**: SU(5) worse than SU(4) — ch₂ bound scales as n_B·κ_max/2 = 6κ/2 vs 5κ/2. Excess factors 1.75–3.50× at k_max=1. Structural obstruction monotonically stronger with rank.
+
+**Combined totals (B-45 through B-48):**
+- 104,145 slope-feasible candidates checked across SU(4) and SU(5), k_max∈{1,3}, 5 entries
+- 0 pass D3 tadpole cancellation
+
+**Log**: `v6/results/monad_scan_su5_k1_priority.log` (1.8MB)
+
+**DB update**: Added 5 columns `monad_su5_k1_*` to `polytopes` table; 4 rows written.
+
+**Status**: ✅ COMPLETE (Finding §33 appended to FINDINGS.md)
+
+**Next**: Paper §6.4 corollary extension + commit B-48

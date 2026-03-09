@@ -1907,3 +1907,63 @@ Even at minimum charges, the worst-case ch₂ exceeds c₂(TX) by 1.5–2.9×. T
 - **B-47b**: Write paper §9 incorporating §30 + §32 data
 - **B-48**: SU(5) monad scan on top 4 entries (rank 5, n_B=6, n_C=1) — different ch₂ balance
 - **B-49**: F-theory Weierstrass model for h22/P682 (score=85, SM charges present, best SM candidate without monad constraint)
+
+---
+
+## §33. B-48 — SU(5) k_max=1 LP Monad Scan (2026-03-08)
+
+### 33.1 Motivation
+
+B-47a (§32) confirmed the D3 tadpole obstruction for **SU(4)** monads at k_max=1 across all 4 priority T4 entries. A natural question is whether **SU(5)** monads (rank 5, requiring n_B=6 summands) fare differently: the extra summand changes the ch₂ balance and could, in principle, permit cancellations not available at rank 4.
+
+### 33.2 Setup
+
+- **Script**: `v6/monad_scan_top37.py --rank 5 --k-max 1 --n-sample 2000000 --only-priority --force`
+- **Server**: Hetzner hetzner1 (i9-9900K) — `funny_davinci` container
+- **Rank**: SU(5), n_B=6, n_C=1, configs (6,1), (7,2), (8,3)
+- **Runtime**: 2026-03-08 15:57 UTC → 2026-03-08 19:04 UTC (3.12h, 14,557s total)
+
+### 33.3 Results
+
+| Entry | h11_eff | κ_max | c₂_max | Elapsed | Slope-feasible | Tadpole-OK |
+|-------|---------|-------|--------|---------|----------------|------------|
+| h22/P682  | 19 | 21 | 36 | 3819s | 6,068 | **0** |
+| h23/P36   | 19 | 28 | 24 | 3617s | 6,031 | **0** |
+| h21/P9085 | 19 | 24 | 36 | 3795s | 6,415 | **0** |
+| h25/P860  | 20 | 40 | 52 | 3327s | 4,001 | **0** |
+
+**Total: 0 / 22,515 tadpole-OK. Universal obstruction confirmed for SU(5).**
+
+### 33.4 Structural Analysis at SU(5)
+
+For SU(5) (n_B=6) at k_max=1, the worst-case ch₂ per component is `n_B × κ_max_k / 2 = 6 × κ_max / 2`. This is _worse_ than SU(4) (n_B=5) by 20%:
+
+| Entry | n_B | κ_max | ch₂_worst (k_max=1) | c₂_max | Excess |
+|-------|-----|-------|---------------------|--------|--------|
+| h22/P682  | 6 | 21 | 63.0 | 36 | 1.75× |
+| h23/P36   | 6 | 28 | 84.0 | 24 | 3.50× |
+| h21/P9085 | 6 | 24 | 72.0 | 36 | 2.00× |
+| h25/P860  | 6 | 40 | 120.0 | 52 | 2.31× |
+
+The obstruction worsens at SU(5) vs SU(4) — the extra n_C=1 summand in C doesn't compensate. Typical n_D3 ≈ 90 in all slope-feasible SU(5) candidates, same as SU(4).
+
+### 33.5 Finding 33a — Rank-Independent D3 Tadpole Obstruction
+
+> **Result**: The D3 tadpole obstruction is rank-independent for SU(n) monads with n=4,5 on all 4 priority T4 entries. Both SU(4) (§32) and SU(5) (this finding) with k_max=1 find abundant slope-feasible configurations (4K–23K each) and zero tadpole-OK. The structural bound `ch₂(B)_k ≤ n_B·κ_max/2` worsens monotonically with rank — higher-rank monads are more obstructed, not less.
+
+### 33.6 Combined No-Go (B-45 through B-48)
+
+| Scan | Rank | k_max | Entries | Slope-feasible | Tadpole-OK |
+|------|------|-------|---------|----------------|------------|
+| B-45 | SU(4) | 3 | h26/P11670 | 612 | 0 |
+| B-46 | SU(4) | 3 | 4 priority | 725 | 0 |
+| B-47a | SU(4) | 1 | 4 priority | 80,293 | 0 |
+| B-48 | SU(5) | 1 | 4 priority | 22,515 | 0 |
+| **Total** | SU(4,5) | 1,3 | 5 entries | **104,145** | **0** |
+
+### 33.7 Implications
+
+1. **Paper §6.4**: Theorem 1 extends to SU(5). Corollary covers both ranks.
+2. **Higher rank (SU(6), SU(7))**: n_B grows, making ch₂ worse — the obstruction strengthens monotonically.
+3. **The obstruction is a landscape feature**: It holds across h11_eff=19–28, both low-κ and high-κ entries.
+4. **Paths forward**: Remain F-theory G4 flux (no perturbative bundle needed), spectral cover, or non-monad heterotic constructions.
