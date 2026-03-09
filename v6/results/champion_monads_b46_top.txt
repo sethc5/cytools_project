@@ -1,0 +1,12 @@
+Champion Monad B-46 Scan -- h26/P11670
+Run at: 2026-03-09T22:02:39.506466+00:00 UTC
+SU(4) monad, |beta|<=1, tadpole pre-filter + LP slope
+n_starts=30, chi_target=+/-3, configs=[(5, 1), (6, 2), (7, 3)]
+
+Sampled:         3631565
+chi=+/-3 ok:     26643
+Tadpole pre-ok:  0
+Slope-feasible:  0
+Tadpole+slope:   0
+
+No slope-feasible candidates found.

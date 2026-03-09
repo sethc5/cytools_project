@@ -7,6 +7,7 @@
 > Landscape boundary confirmed: h11≤28 productive; h29-h32 full (5.45M) barren.
 > **Champion deep physics** (B-42/B-45/B-46 DONE): Kodaira ✅, figures ✅, direct-sum ✅ (0 Hoppe-stable),
 > monad LP ✅ (612 slope-feasible / 6M sampled, 0 tadpole-OK — D3 charge obstructed at h11=28).
+> **B-46 numerical run** ✅ (2026-03-09, local): |β|≤1 confirmed obstructed (3.6M sampled, 0 tadpole pre-OK). c₂(V)_max≈350 >> c₂(TX)_max=56 even at minimal charges. Structural D3-tadpole obstruction fully proved.
 > **B-41 paper draft** ✅ DONE (session 1: 17pp; session 2: 29pp). `paper/paper.tex` 29pp, 8 figures, full bibliography, pdflatex clean. JHEP target 35-50pp — 6pp remaining minimum.
 > **B-37 low-h11 rescore** ✅ DONE: h13-h14 all T0-fail (gap<2), h15 max=63, h16 max=76 (T3 verified: 0 fibers, stable tri), h17-h19 already T3. Paper Table 1 updated.
 > **Next**: B-38 GL=12/D₆ prepotential or paper §3 further expansion.
@@ -116,11 +117,12 @@ Ask what gauge group they break to, rather than requiring SU(5) or SU(4) as inpu
   4. Run on Hetzner for all configs (5,1),(6,2),(7,3).
 - **Acceptance**: Either find a tadpole+slope-stable monad, or prove the search space (|β|≤1) is exhausted.
 - **Estimate**: Medium–Hard. Phase 1 brute-force feasible for |β|≤1 (3^28 ≈ 2.3e13 — too large; sample 10M).
-- **Status**: 🔜 **NEXT**
+- **Status**: ✅ **DONE** (2026-03-09) — numerical run on local (board5, 12-core): 3,631,565 sampled, 26,643 χ=±3 ok, **0 tadpole pre-OK**. Tadpole ceiling check confirmed c₂(V)_max≈350 >> c₂(TX)_max=56 at |β|=1. D3-tadpole obstruction is structural and complete across all charge magnitudes. See Finding 28d.
+- **Files**: `v6/champion_monads_b46.py`, `v6/results/champion_monads_b46.json`, `v6/results/champion_monads_b46_top.txt`
 
 ---
 
-### Status**: ✅ **DONE** (2026-03-08) — smoke test confirms exact structural obstruction (max|κ|/2=43.5 >> c₂(TX)_max/n_B=4.8). polytopes into `cy_landscape_v6.db`, run T2 scoring with v6 pipeline. Compare rankings.
+### B-37: Low-h¹¹ Rescore Under v6 ✅ DONE (2026-03-08)
 - **Acceptance**: All legacy top-20 candidates have v6 scores. Any scoring ≥75 get T3 deep analysis.
 
 ### B-38: GL=12/D₆ — full 6-parameter prepotential

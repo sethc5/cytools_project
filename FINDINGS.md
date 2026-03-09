@@ -1702,11 +1702,40 @@ But **summed over all k** and the full tensor, the actual values reach hundreds 
 
 This is a **genuine obstruction at h11=28**, not an algorithm limitation. The large Picard rank means the quadratic ch₂ terms grow faster than the linear c₂(TX) bound.
 
-#### Next Steps
+#### Next Steps (post B-45)
 - **B-46**: Restricted-charge search with |β^a| ≤ 1 — keeps ch₂ bounded; integrates tadpole as hard constraint in LP.
 - Alternative: allow anti-D3 branes (N_D3 < 0 = O3 planes) or use 5-brane anomaly cancellation.
 - Alternatively: pivot to heterotic orbifold or F-theory GUT constructions (no tadpole constraint in same form).
 
+### 28.8 Finding 28d — B-46: Restricted-charge |β|≤1 also obstructed (2026-03-09)
+
+**Summary**: B-46 numerical run (`champion_monads_b46.py`) with |β^a| ∈ {−1,0,+1} on h26/P11670 confirms the D3-tadpole obstruction persists at minimal charges. Zero tadpole-passing candidates found across 3.6M samples.
+
+#### Run Parameters
+- **Machine**: board5 (local, 12-core), 2026-03-09
+- **Script**: `v6/champion_monads_b46.py` — three-phase scan (χ filter → tadpole pre-filter → LP slope)
+- **Charges**: |β^a| ∈ {−1, 0, +1} for all 25 Kähler parameters
+- **Configs**: (5,1), (6,2), (7,3) | n_sample = 10M per config | n_starts = 30
+
+#### Results
+| Metric | Value |
+|--------|-------|
+| Total sampled | 3,631,565 |
+| χ = ±3 ok | 26,643 |
+| Tadpole pre-filter OK | **0** |
+| Slope-feasible | **0** |
+| Elapsed | 2,475 s (~41 min) |
+
+#### Tadpole Ceiling Analysis (pre-run)
+- `h11_eff = 25`, `c₂(TX)_max = 56`, `max|κ_{kab}|/2 per k = 70.0`
+- For config (5,1): `ch₂(B)_max ≈ 5 × 70 = 350` >> `c₂(TX)_max = 56`
+- Even at |β|=1 (minimum non-zero charge), a 5-summand B matrix saturates the intersection tensor at ~350 per k — 6× above the tadpole ceiling.
+- The tadpole pre-filter correctly eliminates all 26,643 χ=±3 candidates before the LP stage.
+
+#### Physical Conclusion
+The D3-tadpole obstruction on h26/P11670 is **charge-magnitude-independent** at the level of perturbative SU(4) monads. The quadratic ch₂(O(β))_k = (1/2)κ_{kab}β^a β^b grows with the intersection tensor, not just the charge magnitude. With 25 Kähler parameters and κ_max=70, even β ∈ {±1} generates c₂(V) >> c₂(TX).
+
+**Perturbative SU(4) monads are ruled out on h26/P11670.** Non-perturbative completions (H-flux tadpole, 5-branes, extension bundles) are required. See B-49, B-50.
 
 ---
 

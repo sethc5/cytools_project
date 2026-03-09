@@ -63,13 +63,21 @@ OUT_TXT  = os.path.join(SCRIPT_DIR, "results", "champion_monads_b46_top.txt")
 def load_cy_data():
     from cytools.config import enable_experimental_features
     enable_experimental_features()
-    from ks_index import load_h11_polytopes
 
-    print("Loading h%d/P%d (%d polytopes)..." % (H11, POLY_IDX, POLY_IDX + 1),
-          flush=True)
+    print("Loading h%d/P%d via fetch_polytopes (chi=-6, limit=%d)..." % (
+          H11, POLY_IDX, POLY_IDX + 1), flush=True)
     t0 = time.time()
-    polys = load_h11_polytopes(H11, limit=POLY_IDX + 1)
-    p   = polys[POLY_IDX]
+    try:
+        # Try local KS index first (faster, works on Hetzner)
+        from ks_index import load_h11_polytopes
+        polys = load_h11_polytopes(H11, limit=POLY_IDX + 1)
+        p = polys[POLY_IDX]
+    except Exception:
+        # Fall back to online fetch from KS database
+        from cytools import fetch_polytopes
+        print("  (local KS index unavailable — fetching from web...)", flush=True)
+        polys = fetch_polytopes(h11=H11, chi=-6, limit=POLY_IDX + 1, timeout=300)
+        p = polys[POLY_IDX]
     tri = p.triangulate()
     cy  = tri.get_cy()
     print("  cy h11=%d h21=%d  %.1fs" % (cy.h11(), cy.h21(), time.time() - t0),

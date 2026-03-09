@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-03-09T22:02:39.506147+00:00",
+  "polytope": "h26/P11670",
+  "method": "B-46: restricted |beta|<=1 + tadpole pre-filter + LP slope",
+  "rank": 4,
+  "charge_range": "[-1,0,1]",
+  "n_sample_per_cfg": 10000000,
+  "n_starts": 30,
+  "alpha": 10.0,
+  "tadpole_tol": 1.0,
+  "chi_target": 3,
+  "configs": [
+    [
+      5,
+      1
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      7,
+      3
+    ]
+  ],
+  "total_sampled": 3631565,
+  "total_chi_ok": 26643,
+  "total_tadpole_pre_ok": 0,
+  "n_slope_feasible": 0,
+  "n_tadpole_slope_ok": 0,
+  "elapsed_s": 2475.4056227207184,
+  "h11_eff": 25,
+  "candidates": [],
+  "ch2_formula": "(1/2)*kappa_{kab}*beta^a*beta^b (correct quadratic)"
+}
