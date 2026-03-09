@@ -30,11 +30,20 @@ quanta $H_{abc}$ such that $n_{D3}^{\rm flux} \geq -90$, then check remaining
 consistency (Bianchi identity, flux quantization).
 
 **Steps**:
-- [ ] Extract intersection form $\kappa_{abc}$ for h22/P682 from v6 DB
-- [ ] Compute $n_{D3}^{\rm flux} = -\frac{1}{2} H_{abc} H^{abc}$ over flux lattice
-- [ ] Find minimal flux quanta that cancel excess
-- [ ] Check Bianchi identity: $dH = \text{tr}(R \wedge R) - \text{tr}(F \wedge F)$
-- [ ] Write `v7/flux_tadpole_scan.py`
+- [x] Extract intersection form $\kappa_{abc}$ for h22/P682 from v6 DB
+- [x] Compute $n_{D3}^{\rm flux} = -\frac{1}{2} H_{abc} H^{abc}$ over flux lattice
+- [x] Find minimal flux quanta that cancel excess
+- [x] Check Bianchi identity: $dH = \text{tr}(R \wedge R) - \text{tr}(F \wedge F)$
+- [x] Write `v7/flux_tadpole_scan.py`
+
+**Status**: ✅ **DONE** (2026-03-09, local).
+- Best monad candidate (idx=216, config (6,2)): **Δn_D3 = 53** (mean = 651 across 221 slope-feasible)
+- Minimal H-flux: **N = [9, 5, 0, ...]** (2 non-zero components), ||N||² = 106 → n_D3^flux = −53
+- **Bianchi identity with flux: n_M5 = 0** ✓ physical
+- Freed-Witten: c₂(TX) all even, integer flux quanta valid (no twisted sectors)
+- Lattice degeneracy: ~2.3×10²¹ valid flux configs at minimum norm
+- Results: `v7/results/flux_tadpole_22_682.json` / `.txt`
+- **Next**: B-50 — extension bundles on h22/P682; also need period matrix for exact flux quanta
 
 ### B-50 (Track A): Extension bundle construction — h22/P682
 

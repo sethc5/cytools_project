@@ -1,0 +1,21 @@
+B-49 H-Flux Tadpole Scan — h22/P682
+Run: 2026-03-09T22:20:26.070231+00:00 UTC
+============================================================
+
+Geometry: h11_eff=21  h21=25  b3=52
+c₂(TX): [26.0, 12.0, 16.0, 6.0, 4.0, 6.0, -4.0, 8.0, 0.0, -2.0, -4.0, 4.0, 8.0, 2.0, 6.0, -2.0, 2.0, -2.0, -4.0, -2.0, -4.0]
+
+Monad candidates: 221 slope-feasible
+Δn_D3 range: [53.0, 2059.0]
+Best Δn_D3:  53.0 (config (6,2), c₂(V)_max=141.0)
+
+H-flux analysis (unit-metric approx, N ∈ Z^25):
+  Need ||N||² ≥ 106
+  Minimal N:  [9, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  n_D3^flux ≈ −53.0
+  Bianchi OK with flux: True
+
+Freed-Witten: No half-integer flux shift needed (c₁(TX)=0 always on CY). FW condition: H ∈ H³(X,Z) ⟺ integer N^a.
+c₂(TX) all even: True
+
+Elapsed: 2.6s
