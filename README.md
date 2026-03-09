@@ -4,7 +4,7 @@
 
 The Standard Model has three generations of quarks and leptons. In string compactifications, this number comes from the topology of the extra-dimensional geometry — specifically, Calabi-Yau manifolds with Euler characteristic χ = −6 give |χ|/2 = 3 generations. There are **6.12 million** such polytopes in the Kreuzer-Skarke database of 473 million reflexive polytopes (spanning h¹¹ = 13–119). This project builds the pipeline to find and screen them.
 
-> **Status**: Pipeline v6 (yukawa-fix) · **3.11M polytopes** scanned · **54,931 fully T2-scored** · **965 T3-deep** · **37 T4-verified** · **2,463 fibrations** catalogued · Champion: **h26/P11670 (score 89)**, self-mirror h11=h21=26, 3 SU(5)-compatible fibrations · h13–h21 exhaustive · h22–h26 nearly exhaustive · h27–h28 at 100K each (max sm=87/85) · h29–h32 barren (max sm<70) · T0 wall confirmed at depth >150K per h¹¹ · T4 complete · Deployed on Hetzner (i9-9900, 128GB) · [Contributors welcome](CONTRIBUTING.md)
+> **Status**: Pipeline v6 complete · **v7 in progress** (observable-first, non-perturbative) · **3.11M polytopes** scanned · **54,931 T2-scored** · **37 T4-verified** · Champion: **h26/P11670 (score 89)** · **Universal D3 tadpole obstruction** proven for perturbative SU(4/5) monads on all 5 priority entries (0/104,145 pass, Findings §30–33) · Deployed on Hetzner (i9-9900, 128GB) · [Contributors welcome](CONTRIBUTING.md)
 
 ### What's Here
 
@@ -164,25 +164,30 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contributions right no
 
 ```
 # Active pipeline (v6)
-v6/pipeline_v6.py    — Main pipeline: --scan, --deep, --rescore, --fiber
-v6/cy_compute_v6.py  — Computational core (Koszul, Yukawa, Swiss cheese, etc.)
-v6/db_utils_v6.py    — SQLite database layer (upsert, query, rescore)
-v6/cy_landscape_v6.db — Active database (1.93M polytopes, 60K scored)
-v6/SPEC.md           — v6 scoring specification
-v6/CHANGELOG.md      — v6 change log
+v6/pipeline_v6.py       — Main pipeline: --scan, --deep, --rescore, --fiber
+v6/cy_compute_v6.py     — Computational core (Koszul, Yukawa, Swiss cheese, etc.)
+v6/db_utils_v6.py       — SQLite database layer (upsert, query, rescore)
+v6/cy_landscape_v6.db   — Active database (827MB, 3.11M polytopes, 54,931 scored)
+v6/monad_scan_top37.py  — Monad LP scanner (--rank, --k-max, --n-sample)
+v6/ks_index.py          — Indexer: extracts χ=−6 polytopes from raw KS files
+v6/CHANGELOG.md         — v6 change log
 
-# KS index (local polytope files for --local-ks)
-ks_index.py          — Indexer: extracts χ=−6 polytopes from raw KS files
-ks_raw/chi6/         — Pre-indexed h11_NNN.txt files (one per h¹¹ level)
+# v7 — Observable-first discovery track (in progress)
+v7/README.md            — Architecture: Track A (non-perturbative) + Track B (observable scoring)
+
+# Paper
+paper/paper.tex         — 31pp draft (JHEP target)
+paper/paper_outline.md  — Section outline and writing plan
 
 # Documentation
-FRAMEWORK.md         — 7-stage theoretical pipeline map
-MATH_SPEC.md         — Formulas, CYTools API contracts, bugs
-FINDINGS.md          — Detailed results and champion cluster analysis
-PROCESS_LOG.md       — Chronological investigation diary
-BACKLOG.md           — Prioritized task list + sprint tracking
-results/             — CSV + log outputs from all runs
-archive/             — Audit trail (v2–v5, early scripts, superseded docs)
+FRAMEWORK.md            — 7-stage theoretical pipeline map
+MATH_SPEC.md            — Formulas, CYTools API contracts, bugs
+FINDINGS.md             — Detailed results, champion cluster, D3 obstruction
+PROCESS_LOG.md          — Chronological investigation diary
+BACKLOG.md              — Prioritized task list + sprint tracking
+VERSIONS.md             — v2–v7 architecture history
+results/                — CSV + log outputs from all runs
+archive/                — Audit trail (v2–v5, early scripts, superseded docs)
 ```
 
 ## References

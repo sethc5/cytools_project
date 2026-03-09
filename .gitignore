@@ -64,6 +64,7 @@ receipts/.merged
 
 # Database files (large, not for git)
 *.db
+*.db.gz
 # Allowlist: small seed DB for Codespace T3 runs (640KB, committed)
 !v6/t3_seed.db
 !v6/t3_sweep_seed.db
@@ -76,3 +77,4 @@ v2/README.md
 v2/v2_hetzner.db
 v4/cy_landscape_v4.db
 v6/cy_landscape_v6.db
+results/b37_t3_low_h11.log
