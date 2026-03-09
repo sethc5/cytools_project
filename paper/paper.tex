@@ -359,16 +359,16 @@ chiral generations of quarks and leptons is determined by the
 Euler characteristic of the CY$_3$:
 \begin{equation}
   n_{\rm gen} = \frac{|\chi(X)|}{2}
-    = \frac{|h^{1,1}(X) - h^{2,1}(X)|}{1}\,.
-  \label{eq:ngen}
+    = |h^{1,1}(X) - h^{2,1}(X)|\,.
+  \label{eq:ngen_sec}
 \end{equation}
-(The factor-of-2 difference between $\chi = 2(h^{1,1}-h^{2,1})$
-and $n_{\rm gen}$ accounts for the fact that a CY$_3$ with
-$h^{1,1} > h^{2,1}$ yields $h^{1,1}-h^{2,1}$ net generations
-of the $\mathbf{27}$ of $E_6$; after the Wilson-line breaking
-$E_6 \to \mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$,
-each $\mathbf{27}$ decomposes into one SM generation plus
-vector-like exotics, and the net count is exact.)
+(Since $\chi=2(h^{1,1}-h^{2,1})$ and we are in the $\chi=-6$ slice,
+$h^{2,1}=h^{1,1}+3$ throughout.
+Each net generation corresponds to one $\mathbf{27}$ of $E_6$
+surviving Wilson-line breaking
+$E_6 \to \mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$;
+the factor of $1/2$ converts $|\chi|=2|h^{1,1}-h^{2,1}|$
+to the net multiplet count.)
 For three observed generations, $n_{\rm gen}=3$, hence
 $|\chi| = 6$.
 
@@ -869,12 +869,12 @@ of 1.09M) --- 5.45M polytopes total in 7.6~hours on the
 
 \begin{proposition}[Productive boundary]
 \label{prop:boundary}
-  No polytope with $h^{1,1} \in \{29,30,31,32\}$ achieves
-  SM composite score $\geq 70$ in the $\chi=-6$ KS database.
-  The maximum score in this band is $87$ (at $h^{1,1}=29$),
-  but all such entries have $h^{1,1}_{\rm eff} > 22$ and fail
-  the T0 geometric gate, achieving effective score $\leq 10$
-  at T2.
+  No polytope with $h^{1,1} \in \{29,30,31,32\}$ survives the
+  T0 geometric gate ($h^{1,1}_{\rm eff} \leq 22$) in a fresh scan
+  of the $\chi=-6$ KS database, and no such fresh-scan entry achieves
+  SM composite score $\geq 70$.  (Score-87 entries at $h^{1,1}=29$
+  visible in the combined database are legacy T4-promoted
+  entries predating the T0-wall identification; see text below.)
 \end{proposition}
 
 More precisely: the four entries registered at score~87 in
@@ -963,7 +963,7 @@ Pass rate & 5.9\% & 3.3\% & 1.2\% & 0.2\% & & \\
 
 The polytope h26/P11670 is the 11,671st polytope in the KS chi6
 file for $h^{1,1}=26$.
-Its Hodge numbers are $h^{1,1}=26$, $h^{2,1}=26$ (so $\chi=-6$
+Its Hodge numbers are $h^{1,1}=26$, $h^{2,1}=29$ (so $\chi=-6$
 as required) and $h^{1,1}_{\rm eff}=28$.
 Its T2 score components are given in Table~\ref{tab:champion}.
 
@@ -990,6 +990,7 @@ Bundle quality   & 1  &  3 & Combined \\
 \textbf{Total} & \textbf{89} & \textbf{100} & \\
 \bottomrule
 \end{tabular}
+\\\small\textit{Note: \texttt{rank\_sweet\_spot} (max 3 pts) contributes 0 for this entry and is omitted from the table.}
 \end{table}
 
 \paragraph{Geometry.}
@@ -1021,10 +1022,10 @@ fiber ($\mathrm{su}(8)$ or $\mathrm{e}_7$) requiring an explicit
 Weierstrass model to resolve.
 
 \paragraph{Triangulation stability (T4).}
-200 independent FRSTs are computed.
-$c_2$-stable fraction: $0.0333$ (2/60 triangulations share the modal
-$c_2$ hash in the 60-sample stability recompute).
-$\kappa$-stable fraction: $0.0333$.
+200 independent FRSTs are computed for T4 depth;
+the stability fractions are measured on a separate pool of
+60 FRST samples: $c_2$-stable $= 0.0333$ (2 of 60 share the
+modal $c_2$ hash); $\kappa$-stable $= 0.0333$.
 This low fraction reflects the geometric richness of P11670:
 distinct FRSTs generate distinct intersection structures,
 all valid CY$_3$s with $\chi=-6$.
@@ -1042,10 +1043,10 @@ This is a property of the polytope, not an instability.
 $h^{1,1}$ & poly\_idx & $h^{2,1}$ & $h_{\rm eff}$ & $n_{\rm clean}$
            & has\_SM & has\_GUT \\
 \midrule
-29 & 8423  & 26 & 24 & 30 & \checkmark & \checkmark \\
-24 & 868   & 21 & 22 & 24 & \checkmark & \checkmark \\
-27 & 9192  & 24 & 24 & 22 & \checkmark & \checkmark \\
-27 & 4102  & 24 & 24 & 22 & --         & --         \\
+29 & 8423  & 32 & 24 & 30 & \checkmark & \checkmark \\
+24 & 868   & 27 & 22 & 24 & \checkmark & \checkmark \\
+27 & 9192  & 30 & 24 & 22 & \checkmark & \checkmark \\
+27 & 4102  & 30 & 24 & 22 & --         & --         \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1306,13 +1307,18 @@ The probability that two independent random FRSTs share the same
 $c_2$ hash is
 \begin{equation}
   P(\text{same hash}) \;=\; \sum_\tau \left(\frac{N_\tau}{N_{\rm FRST}}\right)^2
-    \;\leq\; \frac{1}{N_{\rm FRST}},
+    \;\approx\; \frac{1}{K},
   \label{eq:hash_prob}
 \end{equation}
-where $N_\tau$ is the number of FRSTs with hash $\tau$.
-For $h^{1,1}=25$--28 entries with $N_{\rm FRST} \sim 10^{8}$--$10^{10}$,
-this gives expected $c_2$-stable $\approx n_{\rm T3}/N_{\rm FRST} \ll 1$,
-consistent with the 87.5\% of T3 entries having $c_2$-stable $< 0.10$.
+where $N_\tau$ is the number of FRSTs with hash $\tau$ and
+$K$ is the number of distinct hash classes.
+When hashes are approximately uniform (each of $K$ hash types
+equally likely), $P \approx 1/K$; by convexity, $P \geq 1/K$ in
+general, with equality exactly when all $N_\tau$ are equal.
+Empirically, $K$ tracks $N_{\rm FRST}$ closely because distinct FRSTs
+almost always produce distinct $c_2$ vectors, so
+$K \approx N_{\rm FRST} \sim 10^{8}$--$10^{10}$ at $h^{1,1}=25$--28
+and $P \ll 1$.
 
 The key physical implication is that the $c_2$-stable fraction
 cannot be used to define a ``canonical'' triangulation for
