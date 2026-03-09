@@ -1739,6 +1739,61 @@ The D3-tadpole obstruction on h26/P11670 is **charge-magnitude-independent** at 
 
 ---
 
+### 28.9 Finding 28e — B-50: Extension bundles also D3-obstructed on h22/P682 (2026-03-09)
+
+**Summary**: Extension bundle scan (`v7/extension_bundles.py`) on h22/P682 finds that SU(4) rank-4 extensions $0\to O(\alpha)\to V\to O(\beta_1)\oplus O(\beta_2)\oplus O(\beta_3)\to 0$ at $|\beta|\le 2$ face the same component-wise D3-tadpole obstruction as monads. The geometric origin is identified: negative intersection numbers $\kappa_{kab}<0$ at the 8 divisors with $c_2(TX)_k < 0$.
+
+#### Run Parameters
+- **Script**: `v7/extension_bundles.py` — KC-sampled slope stability + scalar and component tadpole analysis
+- **h22/P682**: h11_eff=21, h21=25, c₂(TX) ∈ [−4, 26], κ tensor 169 non-zero entries (21³=9261 total)
+- **Charges**: $\alpha$, $\beta_1$, $\beta_2 \in [-2,2]^{21}$, $\beta_3 = -\alpha-\beta_1-\beta_2$ (c₁=0)
+- **Tadpole**: scalar $\Delta n_{D3} = \Sigma_k[c_2(V)_k - c_2(TX)_k] \le 200$
+- **Slope**: μ(O(α), J) < 0 for J sampled from toric Kähler cone (1592 rays)
+
+#### Results (3M samples)
+| Metric | Value |
+|--------|-------|
+| Total sampled | 3,000,000 |
+| χ = ±3 ok | 4,082 |
+| Scalar Δn_D3 ≤ 200 | 3,016 (73.9%) |
+| Slope-feasible (μ(α)<0 in KC) | 1,647 |
+| Ext¹ estimate non-zero | 1,646 |
+| **Ideal (Δ≤0)** | **3** |
+| Δ ≤ 53 (as B-49 H-flux budget) | 84 |
+
+#### Component-wise Analysis of "Ideal" Candidates (Δ≤0)
+| Rank | Δn_D3 | c₂(V)_max | n_violations | max_excess | χ(V) |
+|------|-------|-----------|--------------|------------|------|
+| 1 | −9 | 110 | 11 / 21 | **108** | +3 |
+| 2 | −4 | 78 | 12 / 21 | **74** | +3 |
+| 3 | −1 | 53 | 10 / 21 | **41** | +3 |
+
+All three candidates with scalar Δ≤0 have **10–12 component violations** where  
+$c_2(V)_k > c_2(TX)_k$, with maximum excess 41–108 >> $c_2(TX)_{\rm max}=26$.  
+The scalar sum accidentally cancels because large positive $c_2(V)_k$ at  
+negative-$\kappa$ divisors is offset by large negative $c_2(V)_k$ elsewhere.
+
+#### Geometric Origin of Obstruction
+The κ tensor for h22/P682 has large negative entries at divisors k ∈ {6,9,10,15,17,18,19,20}
+(max|κ_{kab}| up to 14), which are exactly the 8 components with $c_2(TX)_k < 0$.
+For any line-bundle charge $\beta$ with components aligned to these negative κ entries:
+$$\mathrm{ch}_2(O(\beta))_k = \tfrac{1}{2}\kappa_{kab}\beta^a\beta^b < 0 \implies c_2(V)_k = -\mathrm{ch}_2(V)_k > 0$$
+The physical tadpole condition $c_2(V)_k \le c_2(TX)_k$ at these k requires ch₂(V)_k ≥ |c₂(TX)_k| ≥ 4,
+but the negative κ entries drive ch₂_k strongly negative instead.
+
+#### Physical Conclusion
+**SU(4) extension bundles at |β|≤2 are D3-tadpole obstructed on h22/P682.**  
+The obstruction is NOT specific to monad rank, bundle type (direct sum vs. extension),  
+or construction method — it is **geometric**: the intersection form κ_{kab} combined with  
+the topology of h22/P682 prevents any rank-4 SU bundle from satisfying the component-wise  
+D3-tadpole at small charges. Possible resolutions:
+1. **Larger charges |β|≥3**: ch₂ can change sign if more κ diversity is sampled
+2. **Spectral covers**: non-perturbative spectral data avoids the line-bundle sum formula
+3. **Different geometry**: score-85 alternative h11=22 entries with less extreme κ structure
+4. **Higher gauge rank** (SU(5)): changed gauge bundle ch₂ formula
+
+---
+
 ## §29 — B-37: Low-h¹¹ Rescore Under v6 (2026-03-08)
 
 **Goal**: Verify all chi=-6 polytopes at h11=13–19 have v6 scores; promote any ≥75 to T3 deep analysis.

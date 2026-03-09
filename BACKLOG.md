@@ -8,9 +8,11 @@
 > **Champion deep physics** (B-42/B-45/B-46 DONE): Kodaira ✅, figures ✅, direct-sum ✅ (0 Hoppe-stable),
 > monad LP ✅ (612 slope-feasible / 6M sampled, 0 tadpole-OK — D3 charge obstructed at h11=28).
 > **B-46 numerical run** ✅ (2026-03-09, local): |β|≤1 confirmed obstructed (3.6M sampled, 0 tadpole pre-OK). c₂(V)_max≈350 >> c₂(TX)_max=56 even at minimal charges. Structural D3-tadpole obstruction fully proved.
+> **B-49 H-flux** ✅ (2026-03-09): flux tadpole scan on h22/P682. Best monad Δn_D3=53, minimal flux N=[9,5,0,...], Bianchi n_M5=0 ✓.
+> **B-50 Extension bundles** ✅ (2026-03-09): 3M samples, 3 scalar-Δ≤0 candidates found, all with component-wise violations 41-108 >> c₂(TX)_max=26. Same geometric obstruction as monads confirmed.
 > **B-41 paper draft** ✅ DONE (session 1: 17pp; session 2: 29pp). `paper/paper.tex` 29pp, 8 figures, full bibliography, pdflatex clean. JHEP target 35-50pp — 6pp remaining minimum.
 > **B-37 low-h11 rescore** ✅ DONE: h13-h14 all T0-fail (gap<2), h15 max=63, h16 max=76 (T3 verified: 0 fibers, stable tri), h17-h19 already T3. Paper Table 1 updated.
-> **Next**: B-38 GL=12/D₆ prepotential or paper §3 further expansion.
+> **Next**: B-51 observable scoring or B-53 (larger |β|≥3 or spectral covers on h22/P682).
 > Database: `v6/cy_landscape_v6.db` (827MB). Hetzner (16-core i9, 128GB).
 > See [README.md](README.md) and [FINDINGS.md](FINDINGS.md).
 
@@ -51,10 +53,23 @@ consistency (Bianchi identity, flux quantization).
 where $E$ is rank-3. More flexible than monads; may avoid the tadpole obstruction.
 
 **Steps**:
-- [ ] Enumerate line bundle pairs $(L_1, L_2)$ with $c_1(L_1) + c_1(L_2) = 0$
-- [ ] Check $\text{Ext}^1(E, L_1) \neq 0$ (non-trivial extension exists)
-- [ ] LP slope stability check (reuse v6 LP infrastructure)
-- [ ] Tadpole check
+- [x] Build c₂(V) = −ch₂(V) formula (Whitney + ch additivity, verified equivalent)
+- [x] Scalar Δn_D3 = Σ[c₂(V)−c₂(TX)] criterion (consistent with B-49)
+- [x] KC-sampled slope check: μ(O(α), J) < 0 for J in toric Kähler cone (1592 rays, h11_eff=21)
+- [x] 3M samples: 4,082 χ=±3 → 3,016 Δ≤200 → 1,647 slope-feasible
+
+**Status**: ✅ **DONE** (2026-03-09, local).
+- **Scalar tadpole**: 3 candidates Δ≤0 (ideal), 84 with Δ≤53 (as per B-49 H-flux budget)
+- **Component-wise tadpole**: ALL "ideal" (Δ≤0) candidates have 10–12 component violations,
+  max excess 41–108 >> c₂(TX)_max=26. The mixed-sign κ tensor (negative entries at divisors
+  k=6,9,10,15,17,18,19,20 where c₂(TX)<0) causes c₂(V)_k >> c₂(TX)_k for those components
+  even when the scalar sum accidentally cancels.
+- **Finding 28e**: Extension bundles at |β|≤2 face the same component-wise D3-tadpole
+  obstruction as monads. The obstruction is geometric: κ_{kab} < 0 at the negative-c₂(TX)
+  divisors forces c₂(V)_k > 0 for those components regardless of rank/type of bundle.
+- Results: `v7/results/ext_bundles_22_682.json` (1,647 candidates) / `.txt`
+- Script: `v7/extension_bundles.py`
+- **Next**: B-51 (observable scoring) or B-53 (larger |β| or spectral covers)
 
 ### B-51 (Track B): Observable scoring — rescore v6 T4 cluster
 
