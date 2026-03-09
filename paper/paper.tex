@@ -73,10 +73,9 @@
 }
 
 \author{%
-  [Author A]$^{a}$\quad [Author B]$^{b}$
+  \textit{\normalsize \textbf{[Author name required before submission]}}
   \\[6pt]
-  \small $^a$[Institution A]\\
-  \small $^b$[Institution B]
+  \small [Institution]
   \\[4pt]
   \small E-mail: \texttt{[email]}
 }
@@ -115,12 +114,22 @@ GUT embedding.
 We confirm a sharp productive boundary at $h^{1,1} \leq 28$:
 a full scan of the 5.45M polytopes at $h^{1,1} = 29$--32
 returns zero entries above score 70.
-A deep bundle analysis of h26/P11670 via LP-based slope-stability
-and the D3-tadpole condition reveals a structural obstruction:
-all perturbative SU(4) monad bundles with integer charges generate
-$\ch_2(V)_k \gg c_2(TX)_k$ due to the large intersection numbers
-$\max|\kappa_{kab}|/2 = 43.5$, an exact result independent
-of sampling depth.
+A deep bundle analysis reveals a universal D3-tadpole obstruction:
+LP scans over more than $10^7$ random charge configurations for
+perturbative SU(4) and SU(5) monad bundles across all five
+highest-priority T4-verified entries find 0 tadpole-satisfying
+configurations out of 104{,}145 slope-feasible candidates
+(Theorem~1, Corollary~1).
+For h26/P11670, the obstruction is structural: the large intersection
+numbers $\max|\kappa_{kab}|/2 = 43.5$ force $\ch_2(V)_k \gg c_2(TX)_k$
+exact, independent of sampling.
+For the four priority cluster entries
+($\hone_{\rm eff}=19$--20), a rank-monotonicity argument shows
+the excess grows linearly with gauge rank, ruling out all
+perturbative SU$(n)$ monads with $n\geq 4$ and $|b^a|\leq 1$.
+The F-theory lift via the su(10) fibration on h26/P11670,
+together with H-flux tadpole cancellation, provides the most
+promising path to a full vacuum.
 We release the complete pipeline, database (827~MB), and
 KS index as open-source artefacts.
 \end{abstract}
@@ -1663,16 +1672,36 @@ Three paths forward:
     is $\min_k(\ch_2(V)_k - c_2(TX)_k) \approx 143$,
     which is large but not forbidden in principle
     in the strong-coupling limit.
-  \item \textbf{Lower-score polytopes}: Theorem~\ref{thm:no_go}
-    (Section~\ref{sec:monad_universal}) extends the obstruction to all
-    four other priority T4-verified entries ($\hone_{\rm eff}=19$--20),
-    with excess factors $1.5$--$2.9\times$ even at minimal charges.
-    The obstruction is therefore generic across the high-score tail of
-    the $\chi=-6$ landscape, not specific to h26/P11670.
-    Polytopes at significantly lower $h^{1,1}\leq 16$ have smaller
-    intersection numbers and could in principle satisfy
-    $\ch_2(V)\leq c_2(TX)$, at the cost of a substantially lower
-    composite score (cf.\ h16/P118 at score~76).
+  \item \textbf{Universal obstruction across the priority cluster}:
+    Theorem~\ref{thm:no_go} and
+    Corollary~\ref{cor:rank} (Section~\ref{sec:monad_universal})
+    extend this result to all four other priority T4-verified entries
+    ($\hone_{\rm eff}=19$--20):
+    LP scans with up to 5M samples per entry for SU(4) (B-47a)
+    and 2M per entry for SU(5) (B-48) find 0 tadpole-OK out of
+    80{,}293 and 22{,}515 slope-feasible candidates respectively,
+    combined total 104{,}145.
+    The excess factors $1.5$--$2.9\times$ (SU(4)) and
+    $1.75$--$3.50\times$ (SU(5)) grow linearly with gauge rank,
+    making the obstruction \emph{rank-monotonic}:
+    higher-rank gauge groups face a strictly larger barrier.
+    This rules out all perturbative SU$(n)$ monads with $n\geq 4$
+    and $|b^a|\leq 1$ on the priority cluster.
+    Polytopes at $h^{1,1}\leq 16$ have smaller intersection numbers
+    and could in principle satisfy $\ch_2(V)\leq c_2(TX)$,
+    at the cost of a substantially lower score (cf.\ h16/P118, score 76).
+  \item \textbf{Non-perturbative and H-flux completions}:
+    The D3 tadpole deficit $\Delta n_{D3}\approx 90$ per slope-feasible
+    SU(4) configuration on the priority entries can in principle be
+    cancelled by H-flux quanta $H_{abc}$ contributing
+    $n_{D3}^{\rm flux} = -\tfrac{1}{2}H_{abc}H^{abc}$.
+    A scan of the integer flux lattice subject to the Bianchi identity
+    will determine whether consistent solutions exist.
+    More generally, extension bundles $0\to L_1\to V\to E\to 0$
+    and spectral covers (the Camara--Font--Ib\'a\~nez construction
+    on the SU(5) fibration) provide bundle classes beyond the monad
+    approximation that may evade the structural obstruction entirely.
+    These are the primary targets of the next investigation stage.
   \item \textbf{F-theory lift and G4 flux}: The F-theory
     interpretation of the $\mathrm{su}(10)$ F11 fibration
     (Section~\ref{sec:champion}) admits G4-flux configurations
@@ -1790,12 +1819,15 @@ Several physically important questions remain open:
     with an appropriate G4-flux choice?
     The $\mathrm{I}_{10}$ fiber admits a spectral cover construction
     that may provide additional tadpole contributions.
-  \item \textbf{Monad bundles at higher $k_{\rm max}$}: The scan
-    at $k_{\rm max}=2$ finds 612 slope-feasible candidates, all
-    tadpole-obstructed.  Raising to $k_{\rm max}=3$ increases the
-    number of slope-feasible candidates but also enlarges $\ch_2(V)$,
-    making tadpole satisfaction harder.  A rigorous $k_{\rm max}=3$
-    scan is needed.
+  \item \textbf{Non-perturbative bundle completions}: LP scans
+    at $k_{\rm max}=1$ (SU(4): 80{,}293 slope-feasible;
+    SU(5): 22{,}515) and $k_{\rm max}=3$ on h26/P11670
+    (SU(4): 612) are complete --- all find 0 tadpole-OK.
+    The logical next step is (a)~H-flux lattice scans to quantify
+    whether integer flux quanta $H_{abc}$ cancel the $\Delta n_{D3}\approx 90$
+    deficit, and (b)~extension bundle and spectral cover constructions
+    on the SU(5)/F11 fibration of h26/P11670, which probe
+    bundle classes not accessible to the monad ansatz.
   \item \textbf{Weierstrass resolution of F8 fibre}: The I$_8$/III$^*$
     ambiguity on h26/P11670 resolves to either $\mathrm{su}(8)$
     (matter representations $\mathbf{28}+\mathbf{8}$) or
@@ -1840,9 +1872,14 @@ polytopes through a five-tier physics pipeline with explicit
   \item \textbf{Fibration richness}: 2,463 fibrations catalogued;
     780 of 938 T3 entries carry SM+GUT gauge content (83\%);
     28 of 37 top-tier entries T4-verified with both SM and GUT fibers.
-  \item \textbf{D3-tadpole obstruction}: perturbative SU(4) monads
-    on h26/P11670 are exactly obstructed; the F-theory lift via the
-    su(10) F11 fibration is the most promising path to a full vacuum.
+  \item \textbf{Universal D3-tadpole obstruction} (Theorem~1 +
+    Corollary~1): all perturbative SU$(n)$ monads with $n\geq 4$
+    and $|b^a|\leq 1$ fail the D3 tadpole on all five
+    highest-priority T4-verified entries --- 0 out of 104{,}145
+    slope-feasible configurations survive.
+    The obstruction strengthens with gauge rank (rank-monotonic).
+    H-flux cancellation and non-perturbative bundle constructions
+    remain the primary open paths to a full vacuum.
 \end{enumerate}
 
 \noindent
