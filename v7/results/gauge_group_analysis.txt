@@ -1,0 +1,115 @@
+==========================================================================================
+B-52: GAUGE GROUP LANDSCAPE — T4 CLUSTER (37 entries)
+==========================================================================================
+
+CLASSIFICATION
+----------------------------------------
+  Class A — SM-direct gauge group (has_SM=1):       32
+  Class B — SM-reachable (SU(N≥5) or eK, has_SM=0):   2
+  Class C — data gap (fibrations missing from DB):    3
+  Class D — no SM path found:                          0
+
+Total T4 fibration rows in DB: 72
+  Fibrations with exceptional factor (E7/E8):  33/72 (45%)
+  Exceptional factor breakdown:
+    E7: 19
+    E8: 16
+
+SU(N) RANK DISTRIBUTION (all T4 fibrations, 'or eK' counted once under SU)
+  su( 5):   2  ██
+  su( 6):   3  ███
+  su( 7):   5  █████
+  su( 8):   3  ███
+  su( 9):   6  ██████
+  su(10):  10  ██████████
+  su(11):   7  ███████
+  su(12):  12  ████████████
+  su(13):   4  ████
+  su(14):  10  ██████████
+  su(15):   4  ████
+  su(16):   3  ███
+  su(17):   2  ██
+  su(18):   1  █
+
+
+ENTRY DETAIL TABLE
+------------------------------------------------------------------------------------------
+Entry            sm  [cl]  SM  GUT  nell  nfib  max_su  exceptional       breaking_chain
+------------------------------------------------------------------------------------------
+h26/P11670     89  [A]   1    1     4     4      12  E7                E7 → SU(5)×U(1)^2 → SM
+h24/P868       87  [A]   1    1     1     2      15  -                 SU(15) → SU(5) → SM
+h27/P4102      87  [A]   1    1     0     1      14  -                 SU(14) → SU(5) → SM
+h27/P9192      87  [A]   1    1     0     2      17  E7/E8             E7 → SU(5)×U(1)^2 → SM
+h29/P8423      87  [A]   1    1     4     2      13  E7                E7 → SU(5)×U(1)^2 → SM
+h22/P682       85  [A]   1    1     1     1      14  -                 SU(14) → SU(5) → SM
+h24/P45873     85  [A]   1    1     1     4      11  E8                E8 → E6×SU(3) → SU(5)×... → SM
+h25/P46481     85  [A]   1    1     3     3       9  E7/E8             E8 → E6×SU(3) → SU(5)×... → SM
+h27/P9133      85  [A]   1    1     1     1      14  E7                E7 → SU(5)×U(1)^2 → SM
+h27/P45013     85  [A]   1    1     3     2      10  -                 SU(10) → SU(5) → SM
+h28/P6642      85  [A]   1    1     1     2      12  E8                E8 → E6×SU(3) → SU(5)×... → SM
+h29/P13253     83  [A]   1    1     1     1      14  E8                E8 → E6×SU(3) → SU(5)×... → SM
+h27/P2317      82  [A]   1    1     3     2      14  E7                E7 → SU(5)×U(1)^2 → SM
+h28/P5473      82  [A]   1    1     3     2      13  E7                E7 → SU(5)×U(1)^2 → SM
+h25/P860       81  [A]   1    1     3     1      16  -                 SU(16) → SU(5) → SM
+h25/P7867      81  [A]   1    1     3     3      14  -                 SU(14) → SU(5) → SM
+h27/P27537     81  [A]   1    1     1     2      14  E8                E8 → E6×SU(3) → SU(5)×... → SM
+h27/P39352     81  [A]   1    1     1     2      13  E7/E8             E7 → SU(5)×U(1)^2 → SM
+h24/P44004     80  [A]   1    1     1     2      12  E7                E7 → SU(5)×U(1)^2 → SM
+h25/P5449      80  [A]   1    1     0     2      10  E8                E8 → E6×SU(3) → SU(5)×... → SM
+h25/P8995      80  [A]   1    1     1     2      16  -                 SU(16) → SU(5) → SM
+h25/P18950     80  [A]   1    1     3     5      14  E7                E7 → SU(5)×U(1)^2 → SM
+h25/P38242     80  [A]   1    1     1     3      12  E7/E8             E8 → E6×SU(3) → SU(5)×... → SM
+h26/P315       80  [A]   1    1     1     2      15  E7                E7 → SU(5)×U(1)^2 → SM
+h26/P11871     80  [A]   1    1     6     2      15  E7                E7 → SU(5)×U(1)^2 → SM
+h26/P30513     80  [A]   1    1     4     1      13  -                 SU(13) → SU(5) → SM
+h27/P26021     80  [A]   1    1     1     3      11  E8                E8 → E6×SU(3) → SU(5)×... → SM
+h27/P28704     80  [A]   1    1     1     4      12  E7/E8             E7 → SU(5)×U(1)^2 → SM
+h28/P1937      80  [A]   1    1     4     1      11  E7                E7 → SU(5)×U(1)^2 → SM
+h28/P33562     80  [A]   1    1     0     2      12  -                 SU(12) → SU(5) → SM
+h29/P6575      80  [A]   1    1     0     2      18  E8                E8 → E6×SU(3) → SU(5)×... → SM
+h29/P6577      80  [A]   1    1     0     2      17  E8                E8 → E6×SU(3) → SU(5)×... → SM
+h28/P33        82  [B]   0    0     0     1      16  -                 SU(16) → SU(5) → SM
+h24/P272       80  [B]   0    0     1     1      10  -                 SU(10) → SU(5) → SM
+h28/P718       82  [C]   0    0     0     0       0  -                 -
+h23/P36        81  [C]   0    0     4     0       0  -                 -
+h21/P9085      80  [C]   0    0     4     0       0  -                 -
+
+
+CLASS B — SM-REACHABLE (has_SM=0 but gauge group supports SM breaking)
+==========================================================================================
+
+h28/P33  sm_score=82  tau=-8170232.1  d3_min=-5.0
+  [F12] su(16) × su(6) × U(1)^5
+       → max_su=16  exceptional=none
+       → breaking chain: SU(16) → SU(5) → SM
+
+h24/P272  sm_score=80  tau=200.0  d3_min=-8.0
+  [F7] su(6) × su(3) × su(3) × su(3) × su(10)
+       → max_su=10  exceptional=none
+       → breaking chain: SU(10) → SU(5) → SM
+
+CLASS C — DATA GAP (fibrations found in polytope scan but absent from DB)
+==========================================================================================
+  h28/P718  n_ell=0  n_k3=1  n_db=0  (fibration gauge data not stored)
+  h23/P36  n_ell=4  n_k3=4  n_db=0  (fibration gauge data not stored)
+  h21/P9085  n_ell=4  n_k3=4  n_db=0  (fibration gauge data not stored)
+
+INTERPRETATION
+------------------------------------------------------------------------------------------
+  The v6 filter (has_SM=1) required the FULL SM gauge group to appear directly
+  in a fibration. B-52 relaxes this: ANY gauge group that can break to
+  SU(3)×SU(2)×U(1) via standard chains is counted as SM-reachable.
+
+  After relaxation: 34/37 entries have confirmed SM path
+                   3 entries have a data gap (fibrations not stored)
+                   0 entries have no SM-reachable gauge factor
+
+  Class B highlight: h24/P272 has SU(10) fibration gauge factor.
+  SU(10) → SU(5) × U(1)^5 → SM (standard breaking chain).
+  This entry also has tau=200 (LVS-physical range), d3_min=-8 (manageable).
+
+  Exceptional sector (E7/E8 fibers): 33/72 fibrations across the T4 cluster
+  contain a Kodaira fiber that is ambiguously SU(N) or an exceptional algebra.
+  If the monodromy selects E7 or E8, standard breaking chains apply:
+    E7 → SU(5) × U(1)^2 → SU(3)×SU(2)×U(1)
+    E8 → E6×SU(3) → SO(10)×SU(3)×U(1) → SU(5)×SU(3)×U(1)^2 → SM

@@ -1,0 +1,1467 @@
+{
+  "statistics": {
+    "total_entries": 37,
+    "total_fibrations": 72,
+    "class_A_SM_direct": 32,
+    "class_B_SM_reachable": 2,
+    "class_C_data_gap": 3,
+    "class_D_unreachable": 0,
+    "fibrations_with_exceptional": 33,
+    "exceptional_type_counts": {
+      "e7": 19,
+      "e8": 16
+    },
+    "su_rank_histogram": {
+      "5": 2,
+      "6": 3,
+      "7": 5,
+      "8": 3,
+      "9": 6,
+      "10": 10,
+      "11": 7,
+      "12": 12,
+      "13": 4,
+      "14": 10,
+      "15": 4,
+      "16": 3,
+      "17": 2,
+      "18": 1
+    }
+  },
+  "entries": [
+    {
+      "h11": 26,
+      "poly_idx": 11670,
+      "sm_score": 89,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(4) \u00d7 su(8) or e7 \u00d7 su(6) \u00d7 su(12)",
+      "tau": -1996336.87972662,
+      "d3_min": -9.0,
+      "n_ell_fib": 4,
+      "n_k3_fib": 4,
+      "n_db_fibrations": 4,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 12,
+      "exceptional_types": [
+        "e7"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(6) \u00d7 su(4) \u00d7 su(6) \u00d7 su(4) \u00d7 su(6) \u00d7 U(1)^1",
+          "max_su": 6,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F8",
+          "gauge_algebra": "su(2) \u00d7 su(4) \u00d7 su(12) \u00d7 su(2) \u00d7 su(8) or e7",
+          "max_su": 12,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F11",
+          "gauge_algebra": "su(4) \u00d7 su(2) \u00d7 su(12) \u00d7 su(10)",
+          "max_su": 12,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(4) \u00d7 su(8) or e7 \u00d7 su(6) \u00d7 su(12)",
+          "max_su": 12,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 24,
+      "poly_idx": 868,
+      "sm_score": 87,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(6) \u00d7 su(11) \u00d7 U(1)^3",
+      "tau": -279013.571408583,
+      "d3_min": -16.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": false,
+      "max_su_any": 15,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(15) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(2) \u00d7 su(6) \u00d7 su(11) \u00d7 U(1)^3",
+          "max_su": 11,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F13",
+          "gauge_algebra": "su(2) \u00d7 su(15) \u00d7 su(3) \u00d7 U(1)^4",
+          "max_su": 15,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 27,
+      "poly_idx": 4102,
+      "sm_score": 87,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(7) \u00d7 su(2) \u00d7 su(14) \u00d7 U(1)^2",
+      "tau": -449249.27249875525,
+      "d3_min": -7.0,
+      "n_ell_fib": 0,
+      "n_k3_fib": 1,
+      "n_db_fibrations": 1,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": false,
+      "max_su_any": 14,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(14) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(7) \u00d7 su(2) \u00d7 su(14) \u00d7 U(1)^2",
+          "max_su": 14,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 27,
+      "poly_idx": 9192,
+      "sm_score": 87,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(8) or e7 \u00d7 su(9) or e8 \u00d7 su(7) \u00d7 U(1)^1",
+      "tau": 149.99999093217775,
+      "d3_min": -7.0,
+      "n_ell_fib": 0,
+      "n_k3_fib": 1,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 17,
+      "exceptional_types": [
+        "e7",
+        "e8"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F8",
+          "gauge_algebra": "su(8) or e7 \u00d7 su(9) or e8 \u00d7 su(7) \u00d7 U(1)^1",
+          "max_su": 9,
+          "exceptional": [
+            "e7",
+            "e8"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(2) \u00d7 su(8) or e7 \u00d7 su(2) \u00d7 su(17)",
+          "max_su": 17,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 29,
+      "poly_idx": 8423,
+      "sm_score": 87,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(8) or e7 \u00d7 su(10) \u00d7 su(13)",
+      "tau": -8266774.992165521,
+      "d3_min": -7.0,
+      "n_ell_fib": 4,
+      "n_k3_fib": 4,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 13,
+      "exceptional_types": [
+        "e7"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(8) or e7 \u00d7 su(10) \u00d7 su(13)",
+          "max_su": 13,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(2) \u00d7 su(8) or e7 \u00d7 su(12) \u00d7 su(10)",
+          "max_su": 12,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 22,
+      "poly_idx": 682,
+      "sm_score": 85,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(3) \u00d7 su(14) \u00d7 U(1)^5",
+      "tau": -1138813.7765865873,
+      "d3_min": -26.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 1,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": false,
+      "max_su_any": 14,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(14) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F15",
+          "gauge_algebra": "su(3) \u00d7 su(14) \u00d7 U(1)^5",
+          "max_su": 14,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 24,
+      "poly_idx": 45873,
+      "sm_score": 85,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(6) \u00d7 su(11) \u00d7 su(9) or e8",
+      "tau": -2284697.998278089,
+      "d3_min": -14.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 3,
+      "n_db_fibrations": 4,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": true,
+      "max_su_any": 11,
+      "exceptional_types": [
+        "e8"
+      ],
+      "best_breaking_chain": "E8 \u2192 E6\u00d7SU(3) \u2192 SU(5)\u00d7... \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F5",
+          "gauge_algebra": "su(3) \u00d7 su(2) \u00d7 su(4) \u00d7 su(3) \u00d7 su(6) \u00d7 U(1)^5",
+          "max_su": 6,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(5) \u00d7 su(7) \u00d7 su(5) \u00d7 su(4) \u00d7 U(1)^3",
+          "max_su": 7,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(3) \u00d7 su(4) \u00d7 su(2) \u00d7 su(7) \u00d7 U(1)^7",
+          "max_su": 7,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F12",
+          "gauge_algebra": "su(6) \u00d7 su(11) \u00d7 su(9) or e8",
+          "max_su": 11,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 25,
+      "poly_idx": 46481,
+      "sm_score": 85,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(4) \u00d7 su(4) \u00d7 su(8) or e7 \u00d7 su(9) or e8",
+      "tau": -439944.5000004566,
+      "d3_min": -7.0,
+      "n_ell_fib": 3,
+      "n_k3_fib": 3,
+      "n_db_fibrations": 3,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": true,
+      "max_su_any": 9,
+      "exceptional_types": [
+        "e7",
+        "e8"
+      ],
+      "best_breaking_chain": "E8 \u2192 E6\u00d7SU(3) \u2192 SU(5)\u00d7... \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F3",
+          "gauge_algebra": "su(5) \u00d7 su(4) \u00d7 su(3) \u00d7 su(2) \u00d7 su(2) \u00d7 su(4) \u00d7 su(4) \u00d7 U(1)^1",
+          "max_su": 5,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(2) \u00d7 su(4) \u00d7 su(4) \u00d7 su(8) or e7 \u00d7 su(9) or e8",
+          "max_su": 9,
+          "exceptional": [
+            "e7",
+            "e8"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F5",
+          "gauge_algebra": "su(9) or e8 \u00d7 su(9) or e8 \u00d7 su(3) \u00d7 su(3)",
+          "max_su": 9,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 27,
+      "poly_idx": 9133,
+      "sm_score": 85,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(6) \u00d7 su(2) \u00d7 su(8) or e7 \u00d7 su(14)",
+      "tau": -522449.9932747856,
+      "d3_min": -7.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 1,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 14,
+      "exceptional_types": [
+        "e7"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(6) \u00d7 su(2) \u00d7 su(8) or e7 \u00d7 su(14)",
+          "max_su": 14,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 27,
+      "poly_idx": 45013,
+      "sm_score": 85,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(3) \u00d7 su(6) \u00d7 su(2) \u00d7 su(10) \u00d7 su(10)",
+      "tau": 599.9999999979364,
+      "d3_min": -5.0,
+      "n_ell_fib": 3,
+      "n_k3_fib": 3,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": false,
+      "max_su_any": 10,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(10) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F3",
+          "gauge_algebra": "su(3) \u00d7 su(4) \u00d7 su(7) \u00d7 su(4) \u00d7 su(7)",
+          "max_su": 7,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(3) \u00d7 su(6) \u00d7 su(2) \u00d7 su(10) \u00d7 su(10)",
+          "max_su": 10,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 28,
+      "poly_idx": 6642,
+      "sm_score": 85,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(3) \u00d7 su(9) or e8 \u00d7 su(9) or e8 \u00d7 su(6)",
+      "tau": -694262.4997954164,
+      "d3_min": -9.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 12,
+      "exceptional_types": [
+        "e8"
+      ],
+      "best_breaking_chain": "E8 \u2192 E6\u00d7SU(3) \u2192 SU(5)\u00d7... \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(3) \u00d7 su(9) or e8 \u00d7 su(9) or e8 \u00d7 su(6)",
+          "max_su": 9,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F13",
+          "gauge_algebra": "su(12) \u00d7 su(12) \u00d7 U(1)^3",
+          "max_su": 12,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 29,
+      "poly_idx": 13253,
+      "sm_score": 83,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(6) \u00d7 su(2) \u00d7 su(9) or e8 \u00d7 su(14)",
+      "tau": -5556153.996741222,
+      "d3_min": -6.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 1,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 14,
+      "exceptional_types": [
+        "e8"
+      ],
+      "best_breaking_chain": "E8 \u2192 E6\u00d7SU(3) \u2192 SU(5)\u00d7... \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(2) \u00d7 su(6) \u00d7 su(2) \u00d7 su(9) or e8 \u00d7 su(14)",
+          "max_su": 14,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 27,
+      "poly_idx": 2317,
+      "sm_score": 82,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(10) \u00d7 su(3) \u00d7 su(14)",
+      "tau": -417865.1249957217,
+      "d3_min": -8.0,
+      "n_ell_fib": 3,
+      "n_k3_fib": 3,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": true,
+      "max_su_any": 14,
+      "exceptional_types": [
+        "e7"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F5",
+          "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(8) or e7 \u00d7 su(3) \u00d7 su(10)",
+          "max_su": 10,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(10) \u00d7 su(3) \u00d7 su(14)",
+          "max_su": 14,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 28,
+      "poly_idx": 33,
+      "sm_score": 82,
+      "has_SM": 0,
+      "has_GUT": 0,
+      "best_gauge_v6": "",
+      "tau": -8170232.121739777,
+      "d3_min": -5.0,
+      "n_ell_fib": 0,
+      "n_k3_fib": 0,
+      "n_db_fibrations": 1,
+      "gauge_class": "B_SM_reachable",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": false,
+      "max_su_any": 16,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(16) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F12",
+          "gauge_algebra": "su(16) \u00d7 su(6) \u00d7 U(1)^5",
+          "max_su": 16,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 28,
+      "poly_idx": 718,
+      "sm_score": 82,
+      "has_SM": 0,
+      "has_GUT": 0,
+      "best_gauge_v6": "",
+      "tau": 1749.9999909508042,
+      "d3_min": -7.0,
+      "n_ell_fib": 0,
+      "n_k3_fib": 1,
+      "n_db_fibrations": 0,
+      "gauge_class": "C_data_gap",
+      "any_sm_reach": false,
+      "any_direct_sm": false,
+      "any_exceptional": false,
+      "max_su_any": 0,
+      "exceptional_types": [],
+      "best_breaking_chain": "none",
+      "fibrations": []
+    },
+    {
+      "h11": 28,
+      "poly_idx": 5473,
+      "sm_score": 82,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(6) \u00d7 su(12) \u00d7 su(9) or e8 \u00d7 su(5)",
+      "tau": -1348849.957579095,
+      "d3_min": -18.0,
+      "n_ell_fib": 3,
+      "n_k3_fib": 3,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": true,
+      "max_su_any": 13,
+      "exceptional_types": [
+        "e7"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(8) or e7 \u00d7 su(2) \u00d7 su(6) \u00d7 su(13)",
+          "max_su": 13,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F5",
+          "gauge_algebra": "su(6) \u00d7 su(7) \u00d7 su(7) \u00d7 su(6) \u00d7 su(4)",
+          "max_su": 7,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 23,
+      "poly_idx": 36,
+      "sm_score": 81,
+      "has_SM": 0,
+      "has_GUT": 0,
+      "best_gauge_v6": "",
+      "tau": -42806979.80299744,
+      "d3_min": -33.0,
+      "n_ell_fib": 4,
+      "n_k3_fib": 4,
+      "n_db_fibrations": 0,
+      "gauge_class": "C_data_gap",
+      "any_sm_reach": false,
+      "any_direct_sm": false,
+      "any_exceptional": false,
+      "max_su_any": 0,
+      "exceptional_types": [],
+      "best_breaking_chain": "none",
+      "fibrations": []
+    },
+    {
+      "h11": 25,
+      "poly_idx": 860,
+      "sm_score": 81,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(16) \u00d7 su(5) \u00d7 U(1)^3",
+      "tau": -591220.1249986918,
+      "d3_min": -21.0,
+      "n_ell_fib": 3,
+      "n_k3_fib": 3,
+      "n_db_fibrations": 1,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": false,
+      "max_su_any": 16,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(16) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F12",
+          "gauge_algebra": "su(16) \u00d7 su(5) \u00d7 U(1)^3",
+          "max_su": 16,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 25,
+      "poly_idx": 7867,
+      "sm_score": 81,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(3) \u00d7 su(5) \u00d7 su(8) or e7 \u00d7 su(2) \u00d7 su(8) or e7",
+      "tau": -3685770.9980858034,
+      "d3_min": -15.0,
+      "n_ell_fib": 3,
+      "n_k3_fib": 3,
+      "n_db_fibrations": 3,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": false,
+      "max_su_any": 14,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(14) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F11",
+          "gauge_algebra": "su(5) \u00d7 su(14) \u00d7 su(4) \u00d7 U(1)^1",
+          "max_su": 14,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F3",
+          "gauge_algebra": "su(2) \u00d7 su(2) \u00d7 su(3) \u00d7 su(4) \u00d7 su(5) \u00d7 su(5) \u00d7 su(4)",
+          "max_su": 5,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(2) \u00d7 su(2) \u00d7 su(7) \u00d7 su(2) \u00d7 su(12)",
+          "max_su": 12,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 27,
+      "poly_idx": 27537,
+      "sm_score": 81,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(3) \u00d7 su(4) \u00d7 su(11) \u00d7 su(9) or e8",
+      "tau": -7057458.657485738,
+      "d3_min": -6.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": true,
+      "max_su_any": 14,
+      "exceptional_types": [
+        "e8"
+      ],
+      "best_breaking_chain": "E8 \u2192 E6\u00d7SU(3) \u2192 SU(5)\u00d7... \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(7) \u00d7 su(9) or e8 \u00d7 su(14)",
+          "max_su": 14,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F8",
+          "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(4) \u00d7 su(11) \u00d7 su(9) or e8",
+          "max_su": 11,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 27,
+      "poly_idx": 39352,
+      "sm_score": 81,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(8) or e7 \u00d7 su(7) \u00d7 su(13)",
+      "tau": -34203.292975391174,
+      "d3_min": -8.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 13,
+      "exceptional_types": [
+        "e7",
+        "e8"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(4) \u00d7 su(9) or e8 \u00d7 su(7) \u00d7 su(11)",
+          "max_su": 11,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(2) \u00d7 su(8) or e7 \u00d7 su(7) \u00d7 su(13)",
+          "max_su": 13,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 21,
+      "poly_idx": 9085,
+      "sm_score": 80,
+      "has_SM": 0,
+      "has_GUT": 0,
+      "best_gauge_v6": "",
+      "tau": -2080810.9999909536,
+      "d3_min": -21.0,
+      "n_ell_fib": 4,
+      "n_k3_fib": 4,
+      "n_db_fibrations": 0,
+      "gauge_class": "C_data_gap",
+      "any_sm_reach": false,
+      "any_direct_sm": false,
+      "any_exceptional": false,
+      "max_su_any": 0,
+      "exceptional_types": [],
+      "best_breaking_chain": "none",
+      "fibrations": []
+    },
+    {
+      "h11": 24,
+      "poly_idx": 272,
+      "sm_score": 80,
+      "has_SM": 0,
+      "has_GUT": 0,
+      "best_gauge_v6": "",
+      "tau": 199.99999999720603,
+      "d3_min": -8.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 1,
+      "gauge_class": "B_SM_reachable",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": false,
+      "max_su_any": 10,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(10) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(6) \u00d7 su(3) \u00d7 su(3) \u00d7 su(3) \u00d7 su(10)",
+          "max_su": 10,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 24,
+      "poly_idx": 44004,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(8) or e7 \u00d7 su(3) \u00d7 su(12)",
+      "tau": -18048.49869134337,
+      "d3_min": -15.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": true,
+      "max_su_any": 12,
+      "exceptional_types": [
+        "e7"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(2) \u00d7 su(6) \u00d7 su(10) \u00d7 U(1)^2",
+          "max_su": 10,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(2) \u00d7 su(8) or e7 \u00d7 su(3) \u00d7 su(12)",
+          "max_su": 12,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 25,
+      "poly_idx": 5449,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(3) \u00d7 su(4) \u00d7 su(7) \u00d7 su(6) \u00d7 su(10)",
+      "tau": -8167377.283774421,
+      "d3_min": -7.0,
+      "n_ell_fib": 0,
+      "n_k3_fib": 1,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 10,
+      "exceptional_types": [
+        "e8"
+      ],
+      "best_breaking_chain": "E8 \u2192 E6\u00d7SU(3) \u2192 SU(5)\u00d7... \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(2) \u00d7 su(9) or e8 \u00d7 su(10) \u00d7 su(5)",
+          "max_su": 10,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(3) \u00d7 su(4) \u00d7 su(7) \u00d7 su(6) \u00d7 su(10)",
+          "max_su": 10,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 25,
+      "poly_idx": 8995,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(6) \u00d7 su(2) \u00d7 su(16) \u00d7 su(3)",
+      "tau": -3659271.1813694006,
+      "d3_min": -6.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": false,
+      "max_su_any": 16,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(16) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(7) \u00d7 su(6) \u00d7 su(12)",
+          "max_su": 12,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(2) \u00d7 su(6) \u00d7 su(2) \u00d7 su(16) \u00d7 su(3)",
+          "max_su": 16,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 25,
+      "poly_idx": 18950,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(3) \u00d7 su(7) \u00d7 su(4) \u00d7 su(11)",
+      "tau": 799.9999999401334,
+      "d3_min": -9.0,
+      "n_ell_fib": 3,
+      "n_k3_fib": 3,
+      "n_db_fibrations": 5,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 14,
+      "exceptional_types": [
+        "e7"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F3",
+          "gauge_algebra": "su(8) or e7 \u00d7 su(5) \u00d7 su(5) \u00d7 su(2) \u00d7 su(2) \u00d7 U(1)^1",
+          "max_su": 8,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F5",
+          "gauge_algebra": "su(3) \u00d7 su(5) \u00d7 su(6) \u00d7 su(5) \u00d7 su(4) \u00d7 U(1)^1",
+          "max_su": 6,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(7) \u00d7 su(5) \u00d7 su(2) \u00d7 su(4) \u00d7 su(4) \u00d7 U(1)^3",
+          "max_su": 7,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F8",
+          "gauge_algebra": "su(3) \u00d7 su(7) \u00d7 su(4) \u00d7 su(11)",
+          "max_su": 11,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(6) \u00d7 su(14) \u00d7 U(1)^3",
+          "max_su": 14,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 25,
+      "poly_idx": 38242,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(3) \u00d7 su(6) \u00d7 su(4) \u00d7 su(7) \u00d7 su(8) or e7",
+      "tau": 2755.1797572193027,
+      "d3_min": -5.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 3,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 12,
+      "exceptional_types": [
+        "e7",
+        "e8"
+      ],
+      "best_breaking_chain": "E8 \u2192 E6\u00d7SU(3) \u2192 SU(5)\u00d7... \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F11",
+          "gauge_algebra": "su(3) \u00d7 su(12) \u00d7 su(3) \u00d7 U(1)^6",
+          "max_su": 12,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F3",
+          "gauge_algebra": "su(2) \u00d7 su(5) \u00d7 su(5) \u00d7 su(9) or e8 \u00d7 U(1)^2",
+          "max_su": 9,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(3) \u00d7 su(4) \u00d7 su(8) or e7 \u00d7 su(6) \u00d7 U(1)^3",
+          "max_su": 8,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 26,
+      "poly_idx": 315,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(6) \u00d7 su(8) or e7 \u00d7 su(15)",
+      "tau": -276130.9998533604,
+      "d3_min": -8.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": true,
+      "max_su_any": 15,
+      "exceptional_types": [
+        "e7"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F5",
+          "gauge_algebra": "su(10) \u00d7 su(5) \u00d7 su(3) \u00d7 su(2) \u00d7 U(1)^4",
+          "max_su": 10,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(6) \u00d7 su(8) or e7 \u00d7 su(15)",
+          "max_su": 15,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 26,
+      "poly_idx": 11871,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(8) or e7 \u00d7 su(15) \u00d7 su(3)",
+      "tau": -68499.99999992807,
+      "d3_min": -10.0,
+      "n_ell_fib": 6,
+      "n_k3_fib": 5,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": true,
+      "max_su_any": 15,
+      "exceptional_types": [
+        "e7"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F12",
+          "gauge_algebra": "su(7) \u00d7 su(14) \u00d7 U(1)^4",
+          "max_su": 14,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F11",
+          "gauge_algebra": "su(2) \u00d7 su(8) or e7 \u00d7 su(15) \u00d7 su(3)",
+          "max_su": 15,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 26,
+      "poly_idx": 30513,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(4) \u00d7 su(2) \u00d7 su(3) \u00d7 su(7) \u00d7 su(12)",
+      "tau": 1399.6504769271287,
+      "d3_min": -8.0,
+      "n_ell_fib": 4,
+      "n_k3_fib": 4,
+      "n_db_fibrations": 1,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": false,
+      "max_su_any": 13,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(13) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(6) \u00d7 su(7) \u00d7 su(13)",
+          "max_su": 13,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 27,
+      "poly_idx": 26021,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(3) \u00d7 su(13) \u00d7 su(3) \u00d7 su(10)",
+      "tau": -122697.99995056991,
+      "d3_min": -8.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 3,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 11,
+      "exceptional_types": [
+        "e8"
+      ],
+      "best_breaking_chain": "E8 \u2192 E6\u00d7SU(3) \u2192 SU(5)\u00d7... \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(6) \u00d7 su(2) \u00d7 su(10) \u00d7 su(9) or e8",
+          "max_su": 10,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F8",
+          "gauge_algebra": "su(3) \u00d7 su(10) \u00d7 su(11) \u00d7 U(1)^1",
+          "max_su": 11,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(2) \u00d7 su(6) \u00d7 su(6) \u00d7 su(9) or e8 \u00d7 U(1)^4",
+          "max_su": 9,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 27,
+      "poly_idx": 28704,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(5) \u00d7 su(8) or e7 \u00d7 su(5) \u00d7 su(12)",
+      "tau": -181537.56304813543,
+      "d3_min": -7.0,
+      "n_ell_fib": 1,
+      "n_k3_fib": 2,
+      "n_db_fibrations": 4,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": true,
+      "any_exceptional": true,
+      "max_su_any": 12,
+      "exceptional_types": [
+        "e7",
+        "e8"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F5",
+          "gauge_algebra": "su(2) \u00d7 su(3) \u00d7 su(7) \u00d7 su(4) \u00d7 su(10)",
+          "max_su": 10,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F3",
+          "gauge_algebra": "su(3) \u00d7 su(5) \u00d7 su(3) \u00d7 su(8) or e7 \u00d7 su(2) \u00d7 su(3) \u00d7 su(5)",
+          "max_su": 8,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(3) \u00d7 su(6) \u00d7 su(9) or e8 \u00d7 su(10)",
+          "max_su": 10,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(5) \u00d7 su(8) or e7 \u00d7 su(5) \u00d7 su(12)",
+          "max_su": 12,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 28,
+      "poly_idx": 1937,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(4) \u00d7 su(10) \u00d7 su(8) or e7 \u00d7 su(11)",
+      "tau": 19999.98025226593,
+      "d3_min": -13.0,
+      "n_ell_fib": 4,
+      "n_k3_fib": 4,
+      "n_db_fibrations": 1,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 11,
+      "exceptional_types": [
+        "e7"
+      ],
+      "best_breaking_chain": "E7 \u2192 SU(5)\u00d7U(1)^2 \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(4) \u00d7 su(10) \u00d7 su(8) or e7 \u00d7 su(11)",
+          "max_su": 11,
+          "exceptional": [
+            "e7"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 28,
+      "poly_idx": 33562,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(6) \u00d7 su(12) \u00d7 su(4) \u00d7 su(11)",
+      "tau": -48027.99999870285,
+      "d3_min": -5.0,
+      "n_ell_fib": 0,
+      "n_k3_fib": 1,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": false,
+      "max_su_any": 12,
+      "exceptional_types": [],
+      "best_breaking_chain": "SU(12) \u2192 SU(5) \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(5) \u00d7 su(12) \u00d7 su(10) \u00d7 su(5)",
+          "max_su": 12,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(6) \u00d7 su(12) \u00d7 su(4) \u00d7 su(11)",
+          "max_su": 12,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 29,
+      "poly_idx": 6575,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(3) \u00d7 su(9) or e8 \u00d7 su(6) \u00d7 su(18)",
+      "tau": -170250.4927574433,
+      "d3_min": -7.0,
+      "n_ell_fib": 0,
+      "n_k3_fib": 1,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 18,
+      "exceptional_types": [
+        "e8"
+      ],
+      "best_breaking_chain": "E8 \u2192 E6\u00d7SU(3) \u2192 SU(5)\u00d7... \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F13",
+          "gauge_algebra": "su(2) \u00d7 su(14) \u00d7 su(10) \u00d7 U(1)^3",
+          "max_su": 14,
+          "exceptional": [],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F7",
+          "gauge_algebra": "su(3) \u00d7 su(9) or e8 \u00d7 su(6) \u00d7 su(18)",
+          "max_su": 18,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        }
+      ]
+    },
+    {
+      "h11": 29,
+      "poly_idx": 6577,
+      "sm_score": 80,
+      "has_SM": 1,
+      "has_GUT": 1,
+      "best_gauge_v6": "su(2) \u00d7 su(7) \u00d7 su(17) \u00d7 U(1)^2",
+      "tau": -302025.9278621745,
+      "d3_min": -7.0,
+      "n_ell_fib": 0,
+      "n_k3_fib": 1,
+      "n_db_fibrations": 2,
+      "gauge_class": "A_SM_direct",
+      "any_sm_reach": true,
+      "any_direct_sm": false,
+      "any_exceptional": true,
+      "max_su_any": 17,
+      "exceptional_types": [
+        "e8"
+      ],
+      "best_breaking_chain": "E8 \u2192 E6\u00d7SU(3) \u2192 SU(5)\u00d7... \u2192 SM",
+      "fibrations": [
+        {
+          "fiber_type": "F13",
+          "gauge_algebra": "su(2) \u00d7 su(15) \u00d7 su(9) or e8 \u00d7 U(1)^3",
+          "max_su": 15,
+          "exceptional": [
+            "e8"
+          ],
+          "sm_reach": true
+        },
+        {
+          "fiber_type": "F10",
+          "gauge_algebra": "su(2) \u00d7 su(7) \u00d7 su(17) \u00d7 U(1)^2",
+          "max_su": 17,
+          "exceptional": [],
+          "sm_reach": true
+        }
+      ]
+    }
+  ]
+}

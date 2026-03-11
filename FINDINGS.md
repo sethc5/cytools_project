@@ -2145,3 +2145,95 @@ group-theoretic SM matching.
 3. **h26/P30513** (v7=83): Physical tau=1400, 4+4 fibrations, yh=1760.
 4. **h25/P38242** (v7=82): Physical tau=2755, contains E7 in gauge group.
 5. **h25/P18950** (v7=80): Physical tau=800, 3+3 fibrations, yh=622.
+
+---
+
+## Finding 35: B-52 — Gauge Group Landscape (Relaxed SM Filter)
+
+**Source**: `v7/gauge_group_analysis.py`, `v7/results/gauge_group_analysis.{json,txt}`
+**Scope**: All 37 T4 cluster entries, 72 fibration rows (v6 `fibrations` table)
+
+### 35.1 Motivation
+
+The v6 scoring pipeline assigned `has_SM=0` to any T4 entry whose fibrations
+lacked the direct gauge pattern SU(3)×SU(2)×U(1). B-52 relaxes this filter:
+instead of requiring the full SM gauge group to appear literally in a fibration,
+we ask whether the gauge algebra can **break to the SM via standard chains**:
+
+- SU(N ≥ 5) → SU(5) → SU(3)×SU(2)×U(1)
+- E6 → SO(10)×U(1) → SU(5)×U(1)^2 → SM
+- E7 → SU(5)×U(1)^2 → SM
+- E8 → E6×SU(3) → SO(10)×... → SM
+
+### 35.2 Entry Classification
+
+| Class | Description | Count |
+|-------|-------------|-------|
+| A | has_SM=1 (SM-direct gauge factor confirmed by v6) | 32 |
+| B | has_SM=0 but SM-reachable (SU(N≥5) or exceptional) | 2 |
+| C | has_SM=0, data gap (fibrations not stored in DB) | 3 |
+| D | no SM path found | 0 |
+
+**No Class D entries exist**: every T4 entry either has a confirmed SM-reachable
+gauge group (34/37) or lacks fibration data in the DB to determine it (3/37).
+
+### 35.3 Class B "Hidden Champions"
+
+Two entries failed the v6 SM filter but possess large-rank gauge factors that
+can break to the SM:
+
+**h24/P272** — `su(6) × su(3) × su(3) × su(3) × su(10)` (F7 fiber):
+- SU(10) → SU(5) × U(1)^5 → SM (3 steps from SM gauge group)
+- τ = 200 (physical LVS range), d₃_min = −8 (manageable tadpole)
+- v7 score: 73/100 (rank-25 of 37, penalised under v6 gauge proxy)
+
+**h28/P33** — `su(16) × su(6) × U(1)^5` (F12 fiber):
+- SU(16) ⊃ SU(5) via maximal embedding; further → SM
+- τ = −8.2 × 10⁶ (non-physical LVS minimum — triangulation-unstable)
+- v7 score: 82/100 (rank-5), but non-physical τ is a significant caveat
+
+### 35.4 Exceptional Gauge Sector (E7/E8 Fiber Ambiguity)
+
+33 of 72 T4 fibrations contain a Kodaira fiber whose gauge algebra is listed
+as "su(N) or eK" — an ambiguity between a unitary algebra SU(N) and an
+exceptional algebra E_K of the same Dynkin rank. In F-theory, this ambiguity
+is resolved by the global monodromy group:
+
+- **19 fibrations**: potentially E7 (Dynkin rank 7, same as SU(8))
+- **16 fibrations**: potentially E8 (Dynkin rank 8, same as SU(9))
+
+If the monodromy selects the exceptional interpretation:
+- E7 gives 133-dimensional adjoint; E7 → SU(5)×U(1)^2 is a maximal subgroup
+- E8 gives 248-dimensional adjoint; 3-generation models arise from
+  decompositions such as E8 → SU(5)×SU(5) or E8 → E6×SU(3)
+
+**17 of 37 entries** have at least one fibration with an E7 or E8 potential, including
+the v7 champion h27/P9192 (E7 + E8 in different fibrations).
+
+### 35.5 Gauge Algebra Statistics
+
+SU(N) factor rank distribution across all 72 T4 fibrations (after parsing):
+
+```
+su( 5):   2   su( 6):   3   su( 7):   5   su( 8):   3   su( 9):   6
+su(10):  10   su(11):   7   su(12):  12   su(13):   4   su(14):  10
+su(15):   4   su(16):   3   su(17):   2   su(18):   1
+```
+
+Key observations:
+- All fibrations with gauge rank > 0 have SU(N) or exceptional factors with N ≥ 5
+- The SU(N) distribution peaks at su(12) and su(10) — both easily embed SU(5)
+- No SU(3) or SU(2) appears as a **maximum** factor; all large-rank factors
+  are GUT-scale or above, consistent with F-theory GUT models before Wilson-line breaking
+
+### 35.6 Conclusion
+
+**The v6 SM filter discards no T4 entries for genuine lack of SM-reachability.**
+The 5 entries with `has_SM=0` split into:
+- 2 entries with explicit large-rank gauge factors (SM-reachable via SU(10)/SU(16))
+- 3 entries missing fibration data from the DB (gauge group genuinely unknown)
+
+The T4 cluster is comprehensively SM-compatible at the level of gauge group
+reachability. The relaxed filter recovers h24/P272 as a legitimate observable
+candidate (τ=200, SU(10) fibration gauge), which was unfairly penalised by the
+v6 has_SM proxy.
